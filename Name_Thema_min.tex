@@ -4,7 +4,7 @@
                 toc=listof
                 ]{scrbook}
 
-\usepackage[ngerman, english]{babel} % If the thesis is in English
+\usepackage[ngerman]{babel} % If the thesis is in English
 %\usepackage[english, ngerman]{babel} % If the thesis is in German
 
 
@@ -17,7 +17,7 @@
 % - Provide command for title page (\makeISWtitle) and declaration of originality ( \declarationOfOriginality)
 % - Loads packages "biblatex" and "graphics"
 \usepackage[
-    type=master, % bachelor, study, bachelorproject
+    type=study, % master, bachelor, bachelorproject
 ]{iswthesis}
 
 %Path to .bib-File(s) for BibLatex
@@ -49,15 +49,36 @@
     
 
     \mainmatter
+    
+    \chapter{Einleitung}
+    Warum startet das hier mit ner 0?
+    \section{Motivation}
+    \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=1.0\linewidth]{./images/Test}
+    	\caption{BPMN Prozess bei einem Taxiruf}
+    	\label{fig:bpmn prozess}
+    \end{figure}
+    Dieses Bild zeigt blabla bla von dem Buch \cite{Tantau2013} und auch \cite{Kohm2013}
+    
+    \begin{table}[h!]
+    	\centering
+    	\begin{tabular}{||c c c c||} 
+    		\hline
+    		Col1 & Col2 & Col2 & Col3 \\ [0.5ex] 
+    		\hline\hline
+    		1 & 6 & 87837 & 787 \\ 
+    		2 & 7 & 78 & 5415 \\
+    		3 & 545 & 778 & 7507 \\
+    		4 & 545 & 18744 & 7560 \\
+    		5 & 88 & 788 & 6344 \\ [1ex] 
+    		\hline
+    	\end{tabular}
+    	\caption{Table to test captions and labels.}
+    	\label{table:1}
+    \end{table}
 
-    % ********************************************************************
-    % Write your own contents here:
-    % ********************************************************************
-
-    % ********************************************************************
-    % End of contents
-    % ********************************************************************
-
+   
     \backmatter
     \cleardoublepage
     \printbibliography
