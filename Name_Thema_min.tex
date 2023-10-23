@@ -40,7 +40,7 @@
     
     \cleardoublepage
 	\setcounter{page}{1} % start at page (i) after title page
-    \declarationOfOriginality
+    %\declarationOfOriginality
 
     % Kurzfassung/Abstract
     
@@ -85,6 +85,51 @@
     	\label{table:1}
     \end{table}
 
+
+	\chapter{Stand der Technik}
+	
+	\section{Feldbusse}
+	Feldbusse: Elektrotechnik für Maschinenbauer ab S.485\\
+	\\
+	Feldbusse: Profibus, CAN, Sercos
+	\\
+	\\	
+	Ethernet basierte Feldbusse: Profinet, Ethernet/IP, EtherCAT, Sercos III
+	Ethernetbasierte Systeme sind bereit Feldbusse abzulösen
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{./images/Feldbus vs Ethernet Anschaltung.png}
+		\caption{Anschaltung Feldbus und Ethernet \cite{hering2012elektrotechnik}}
+		\label{fig:Anschaltung Bus}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{./images/Topologien.png}
+		\caption{Topologien}
+		\label{fig:Topologien}
+	\end{figure}
+	Ethernet: deutlich mehr Daten als klassisch
+	Multi-Master Bussen (z.B. CAN oder TCP/IP) vs. Mono-Master
+	
+	\section{TCP/IP}
+   
+   	MAC-Adresse eindeutig von Gerät. Für bessere Identifiuierung aber IP-Adresse
+   	\begin{figure}[h]
+   		\centering
+   		\includegraphics[width=0.70\linewidth]{./images/IP Adresse Aufbau.png}
+   		\caption{Topologien}
+   		\label{fig:Topologien}
+   	\end{figure}
+   \\
+  Verschiedene Klassen an IP-Adressen. Meist Klasse C verwendet
+  \\
+  Weil Multi-Master-Bus braucht man CSMA/CD-Verfahren -> nicht echtzeitfähig. Lösung: Echtzeitprotokolle
+  \\
+  
+  
+   
    
     \backmatter
     \cleardoublepage
