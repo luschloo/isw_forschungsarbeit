@@ -60,12 +60,7 @@
     Bibtex files follow a standard syntax that allow you to easily reference the citations included in that file through the use of a bibliography management package. There are multiple bibliography management packages that you can use to manage citations. \\
     This guide will demonstrate how to use biblatex which allows for the most customization.
     \section{Motivation}
-    \begin{figure}[h]
-    	\centering
-    	\includegraphics[width=1.0\linewidth]{./images/Test}
-    	\caption{BPMN Prozess bei einem Taxiruf}
-    	\label{fig:bpmn prozess}
-    \end{figure}
+    
     Dieses Bild zeigt blabla bla von dem Buch \cite{Tantau2013} und auch \cite{Kohm2013}
     
     \begin{table}[h!]
@@ -84,9 +79,12 @@
     	\caption{Table to test captions and labels.}
     	\label{table:1}
     \end{table}
+	
+	\section{Anforderungsdefinition}
+	
+	\section{Methodik}
 
-
-	\chapter{Stand der Technik}
+	\chapter{Grundlagen und Stand der Technik}
 	
 	\section{Feldbusse}
 	Feldbusse: Elektrotechnik für Maschinenbauer ab S.485\\
@@ -126,8 +124,17 @@
    	Weil Multi-Master-Bus braucht man CSMA/CD-Verfahren -> nicht echtzeitfähig. Lösung: Echtzeitprotokolle
    	\\
    	
+   	\section{Stäubli-Roboter}
+   	
+   	\section{Anlagensteuerung}
+   	
 	\newpage
-	\chapter{Konzeptionierung}
+	\chapter{Konzeptionierung und Systementwurf}
+	\section{Feldbus-Verbindung}
+	
+	\section{TCP/IP-Verbindung}
+	
+	\section{Datenverwertung}
 	
 	\newpage
 	\chapter{Implementierung}
@@ -148,10 +155,15 @@
 	num fromBinary(num nDataByte[], num nDataSize, string sDataFormat, num\& nValue[])\\
 	Umgekehrt ermöglicht diese Funktion, einen empfangen Byte-Array in numerische Werte zu konvertieren. Das Ergebnis im Datenformat nDataFormat wird in nValue gespeichert. Die Anzahl der zu decodierenden Bytes wird festgelegt durch nDataSize, wenn nicht alle Bytes des Eingangs-Array nDataByte decodiert werden sollen.
 	
+	\section{.NET in C#}
 	
+	\subsection{TCP/IP}
 	
-	
+   	\subsection{Datenverwertung und Visualisierung}
    	
+   	\chapter{Validierung}
+   	
+   	\chapter{Ausblick und Fazit}
    	
    	\backmatter
    	
