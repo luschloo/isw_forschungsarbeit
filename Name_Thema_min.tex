@@ -5,6 +5,7 @@
                 ]{scrbook}
 
 \usepackage[ngerman]{babel} % If the thesis is in English
+\usepackage {longtable}
 %\usepackage[english, ngerman]{babel} % If the thesis is in German
 
 
@@ -136,6 +137,97 @@
 	
 	\section{Datenverwertung}
 	
+	\begin{longtable}{|p{6cm}|p{4cm}|p{4cm}|}
+		\caption{Verfügbare Daten}
+		\label{table:Daten}\\
+		\hline
+		Daten & Zugriff & Verwendungszenario  \\ [0.5ex] 
+		\hline
+		\endhead
+		CPU battery test & E/A (CpuIO) & 87837  \\ 
+		CPU overcurrent & E/A (CpuIO) & 78  \\
+		Fast memory state & E/A (CpuIO) & 778 \\
+		CPU temperature & E/A (CpuIO) & Überlastungswarnung \\
+		CPU board temperature & E/A (CpuIO) & 778 \\
+		CPU fan speed & E/A (CpuIO) & Verntialtordefekt, Überlastung \\
+		Free RAM & E/A (CpuIO) & 778 \\
+		CFast memory remaining lifetime & E/A (CpuIO) & 778 \\
+		\hline
+		System management CPU usage & E/A (CpuUsage) & 778 \\
+		Robot control CPU usage & E/A (CpuUsage) & 778 \\			
+		Synchronous VAL 3 CPU usage & E/A (CpuUsage) & 778 \\
+		Available CPU usage for VAL 3 processing& E/A (CpuUsage) & 778 \\
+		User Fieldbuses CPU usage & E/A (CpuUsage) & 778 \\
+		HMI CPU usage & E/A (CpuUsage) & 778 \\
+		SRS connection CPU usage & E/A (CpuUsage) & 778 \\
+		OPC-UA CPU usage & E/A (CpuUsage) & 778 \\
+		CPU Load Score (higher is better)& E/A (CpuUsage) & 778 \\
+		CPU Load Score (min) & E/A (CpuUsage) & 778 \\
+		VAL 3 instructions per sequencing & E/A (CpuUsage) & 778 \\
+		VAL 3 synr inst. per cyle (high priority) & E/A (CpuUsage) & 778 \\
+		VAL 3 synr inst. per cyle (low priority) & E/A (CpuUsage) & 778 \\
+		\hline
+		Valve feedback (1.1, 1.2, 2.1, 2.2) & E/A (DsiIO) & 778 \\
+		Axis brake feedback (1-6) & E/A (DsiIO) & 778 \\
+		Error on valves outputs & E/A (DsiIO) & 778 \\
+		Error on brakes outputs & E/A (DsiIO) & 778 \\
+		Error on safe digital inputs & E/A (DsiIO) & 778 \\
+		DSI non-reduced brake supply voltage undershoot & E/A (DsiIO) & 778 \\
+		DSI reduced brake supply voltage undershoot & E/A (DsiIO) & 778 \\
+		DSI logic supply voltage undershoot & E/A (DsiIO) & 778 \\
+		DSI overtemperature & E/A (DsiIO) & 778 \\
+		\hline
+		DSI board tempereature & E/A (DsiIO) & 778 \\
+		Axis motor temperature (1-6) & E/A (DsiIO) & 778 \\
+		Axis encoder temperature (1-6) & E/A (DsiIO) & 778 \\
+		DSI state & E/A (DsiIO) & 778 \\
+		DSI error code & E/A (DsiIO) & 778 \\
+		Arm operation counter & E/A (DsiIO) & 778 \\
+		\hline
+		safe Input state (0-7) & E/A (DsiIoSafe) & 778 \\
+		\hline
+		Fast Input (1-2) & E/A (FastIO) & 778 \\
+		Fast Output (1-2) & E/A (FastIO) & 778 \\
+		\hline
+		Power unit identification (bit 1-3) & E/A (PowerSupplyIO) & 778 \\
+		Main power state & E/A (PowerSupplyIO) & 778 \\
+		Internal bus voltage state & E/A (PowerSupplyIO) & 778 \\
+		Power unit internal temperature state & E/A (PowerSupplyIO) & 778 \\
+		24V state & E/A (PowerSupplyIO) & 778 \\
+		Buckfull mode feedback & E/A (PowerSupplyIO) & 778 \\
+		Memorize a power dropout & E/A (PowerSupplyIO) & 778 \\
+		\hline
+		Brake test warning & E/A (Rsi9IO) & 778 \\
+		Brake test successful & E/A (Rsi9IO) & 778 \\
+		Temperature of RSI board & E/A (Rsi9IO) & 778 \\
+		Error Code of RSI board & E/A (Rsi9IO) & 778 \\
+		\hline
+		STARC board temperature & E/A (StarcIO) & 778 \\
+		Axis drive case temperature (1-6) & E/A (StarcIO) & 778 \\
+		Motor Winding Temperature (1-6) & E/A (StarcIO) & 778 \\
+		Axis drive junction temperature (1-6) & E/A (StarcIO) & 778 \\		
+		\hline
+		Geschwindigkeit Endmanipulator & num getSpeed(tool tTool) & 778 \\
+		Schleppfehler Achsen 1-6 & joint getPositionErr()  & 778 \\
+		Drehmoment Achsen 1-6 & void getJointForce(num\& nForce))  & 778 \\
+		Bewegungsauftrag und Fortschritt &num getMoveld()  & 778 \\
+		Konfiguration des Roboters &string getVersion(string sComponent)  & 778 \\
+		Stromversorgung bei Stillstand abschalten &num hibernateRobot()  & 778 \\
+		Systemereignisse &num getEvents(...)  & 778 \\
+			
+	\end{longtable}
+	Durch die Verfügbarkeit von Roboterdaten ergeben sich Nutzungspotentiale, wie z.B.:
+	\begin{itemize}
+		\item \textbf{Überwachung und Alarm:} Bei Überschreiten von Schwellwerten Alarm auslösen
+		\item \textbf{Predictive Maintenance:} Vorhersagen treffen, wann Wartung erfolgen soll, um Ausfälle vorbeugend zu verhindern.
+		\item \textbf{Datenarchivierung und Compliance:} Datenspeicherung für Schadensfall oder gesetzliche Gewährleistung
+		\item \textbf{Trendanalyse:} Muster und Tendenzen in den Daten erkennen
+	\end{itemize}
+	
+ 	Prinzipiell lassen sich alle verfügbaren Daten sammeln, visualisieren und auswerten. Bei einigen dieser Daten wie z.B. des freien RAM-Speichers ist der daraus entstehende Nutzen beschränkt.	Mittels Brainstorming wurden verschiedene Anwendungsszenarien ausgedacht, im nachfolgenden sollen jedoch nur die sinnvollsten hiervon vorgestellt werden.\\
+ 	\textbf{Temperaturen}\\
+ 	Neben der Temperatur von verschiedenen Computer-Chips und Platinen, wie z.B. CPU, CPU-Platine DSI-Platine, RSI-Platine und STARC-Platine sind verschiedene Temperaturwerte von den Antrieben abrufbar. Hier sind die Temperaturen der Motoren, Encoder, Antriebsgehäuse,  Antriebswicklungen und  Steuergeräte zu nennen. Diese Daten können sowohl zur Überwachung als auch zur Predictive Maintenance verwendet werden. Bei Überschreiten eines Grenzwertes kann ein Alarm bzw. eine Warnung ausgegeben werden. Da von Seiten des Herstellers keine zulässigen Grenzwerte vorgegeben sind, müssen die aufgezeichneten Messwerte unter Berücksichtigung von Schwankungen analysiert werden und Grenzwerte festgelegt werden, ab welchen Werten das Verhalten nicht mehr als "normal" angesehen werden kann.
+	
 	\newpage
 	\chapter{Implementierung}
 	
@@ -155,7 +247,8 @@
 	num fromBinary(num nDataByte[], num nDataSize, string sDataFormat, num\& nValue[])\\
 	Umgekehrt ermöglicht diese Funktion, einen empfangen Byte-Array in numerische Werte zu konvertieren. Das Ergebnis im Datenformat nDataFormat wird in nValue gespeichert. Die Anzahl der zu decodierenden Bytes wird festgelegt durch nDataSize, wenn nicht alle Bytes des Eingangs-Array nDataByte decodiert werden sollen.
 	
-	\section{.NET in C#}
+	\section{.NET in C\#}
+	
 	
 	\subsection{TCP/IP}
 	
