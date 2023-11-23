@@ -111,7 +111,18 @@
 	Multi-Master Bussen (z.B. CAN oder TCP/IP) vs. Mono-Master
 	
 	\section{TCP/IP}
-   
+	TCP/IP (Transmission Control Protocol/Internet Protocol) ist das meist verwendete Netzwerkprotokoll weltweit und zudem frei zugänglich. Durch dieses Protokoll wird definiert, wie Daten durch Netzwerkkommunikationshardware versendet und empfangen werden kann. \cite{CS9_TCP} \\
+	TCP/IP ist nicht echtzeitfähig, stellt jedoch eine gute Ergänzung zu den Echtzeitprotokollen dar, um nicht zeitkritische Daten, wie z.B. zur Diagnose oder  Visualisierung zu übertragen. Bei TCP/IP handelt es sich um eine sichere Datenübertragung die Nachrichten in einen Bytestrom verpackt und entpackt. Vom Sender zum Empfänger durchlaufen die Daten vier Schichten (vgl. Abbildung \ref{fig:Schichtenmodell}). Für eine sichere fehlerfreie Übertragung werden die eigentlichen Daten ergänzt um die MAC-/IP- und TCP-Header. Das CRC-Feld stellt eine Art Prüfsumme, mit welcher die Korrektheit der übertragenen Daten überprüft wird. \cite{hering2012elektrotechnik}
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=1.0\linewidth]{./images/Schichtenmodell_TCP_IP.png}
+		\caption{Schichtenmodell TCP/IP \cite{hering2012elektrotechnik}}
+		\label{fig:Schichtenmodell}
+	\end{figure} \\
+	TCP/IP setzt sich aus den Protokollen TCP und IP zusammen.\\
+	\textbf{TCP}
+	
+	
    	MAC-Adresse eindeutig von Gerät. Für bessere Identifiuierung aber IP-Adresse
    	\begin{figure}[!ht]
    		\centering
@@ -230,8 +241,11 @@
  	\textbf{Error-Meldungen}\\
  	Von dem Stäubli-Roboter werden einige Fehlermeldungen erfasst, wie von den Ventil und Brems-Ausgängen, den digitalen Sicherheits-Eingängen, des DSI-Chip, RSI-Chip und Bremsentests. Ebenso werden "DSI non-reduced brake supply voltage undershoot",  "DSI reduced brake supply voltage undershoot", "DSI logic supply voltage undershoot" und "DSI overtemperature" erfasst. Error-Meldungen wie diese sollen als Alarm bzw. Fehlermeldung ausgegeben werden. Ebenso ist ein Dokumentieren sinnvoll, um bei Ausfällen oder Defekten die Ursachensuche zu erleichtern. Jeder Fehler kann als Wert 1 oder 0 dargestellt werden, weshalb je Fehlermeldung ein Bit genügt. Alle Error-Meldungen lassen sich somit über 2 Bytes abbilden.\\
  	\textbf{Schleppfehler}\\
- 	Der Schleppfehler entspricht der Abweichung zwischen Soll-Position und Ist-Position jeder einzelnen Achse. Ein herausstechend großer Schleppfehler kann auf Probleme mit der Steuerung, den Motoren, den Encoder oder den Achsen selbst hinweisen. Eine genaue Eingrenzung ist auf Basis der gegebenen Daten nicht möglich, jedoch ist eine Warnung sinnvoll. Zur Ermittlung der Grenze, bei deren Überschreiten eine Warnung ausgegeben werden soll, können aufgezeichnete Daten unter Berücksichtigung von Schwankungen herangezogen werden. Der Schleppfehler muss sehr regelmäßig erfasst werden, um die kontinuerliche Bewegung bestmöglichst abzubilden. 
-	
+ 	Der Schleppfehler entspricht der Abweichung zwischen Soll-Position und Ist-Position jeder einzelnen Achse. Ein herausstechend großer Schleppfehler kann auf Probleme mit der Steuerung, den Motoren, den Encoder oder den Achsen selbst hinweisen. Eine genaue Eingrenzung ist auf Basis der gegebenen Daten nicht möglich, jedoch ist eine Warnung sinnvoll. Zur Ermittlung der Grenze, bei deren Überschreiten eine Warnung ausgegeben werden soll, können aufgezeichnete Daten unter Berücksichtigung von Schwankungen herangezogen werden. Der Schleppfehler muss sehr regelmäßig erfasst werden, um die kontinuierliche Bewegung best möglichst abzubilden.\\
+ 	\textbf{Drehmoment Achsen}\\
+ 	Das Drehmoment der einzelnen Achsen ändert sich kontinuerlich während der Bewegung. Durch das Vergleichen der Drehmomente mit einer Referenzfahrt können  Auffälligkeiten entdeckt werden. Schleichend zunehmende Momente deuten z.B. auf fehlende Schmierung oder Lagerdefekte hin. Abrupt zunehmende Momente können durch ein Festhängen oder einen Crash verursacht werden. Eine Dokumentation der Abweichungen ist sinnvoll, um aus Gewährleistungsgründen unsachgemäße Verwendung z.B. durch einen Crash nachzuweisen. Analog zum Schleppfehler müssen auch die Drehmomente sehr kontinuierlich erfasst werden.\\
+	\textbf{Sytemereignisse}\\
+	Ereignisse, die auf dem Bedienpanel des Roboters dargestellt werden, lassen sich in die Schweregrade "Info", "Warning", "Error" und "Critical" unterteilen. Diese sollen beim Auftreten sofort über TCP/IP übertragen werden.
 	\newpage
 	\chapter{Implementierung}
 	
