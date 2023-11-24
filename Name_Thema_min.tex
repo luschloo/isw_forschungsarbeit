@@ -120,7 +120,12 @@
 		\label{fig:Schichtenmodell}
 	\end{figure} \\
 	TCP/IP setzt sich aus den Protokollen TCP und IP zusammen.\\
-	\textbf{TCP}
+	\textbf{TCP}\\
+	Das Ziel von TCP ist eine fehlerfreie Datenübertragung. Hierzu muss der Empfänger die korrekt erhaltenen Daten, über eine Nachricht, die an den Sender zugesendet wird, bestätigen. Die Überprüfung der Korrektheit erfolgt mit dem CRC-Segment. Erhält dieser Sender diese Bestätigung nicht wird erneut versucht die Daten zu versenden. Hierdurch ist eine fehlerfreie und lückenlose Datenübertragung, selbst bei Netzwerkproblemen garantiert, was jedoch die Prozesse verlangsamt. Eine Alternative zu TCP ist UDP (User Datagram Protocol) . Hierbei erhält der Absender keine Bestätigung, dass die Daten korrekt empfangen wurde. Der Sender fährt direkt mit der Versendung der nächsten Pakete durch. Eine fehlerfreie Übertragung ist nicht garantiert, jedoch ist sie im Vergleich zu TCP schneller. Sowohl TCP, als auch UDP bauen auf dem Internetprotokoll IP auf. \cite{CS9_TCP}\\
+	\textbf{IP} \\
+	Das IP-Protokoll arbeitet auf der Internet bzw. IP-Schicht des TCP/IP-Protokolls, was der Netzwerkschicht des OSI-Modells entspricht. Es ermöglicht Datenpakete vom Sender zum Empfänger zu versenden. Hierzu werden die Daten in einzelne aufgeteilt und versendet. Eine Datenüberprüfung und Fehlerkorrektur erfolgt nicht. Dies geschieht durch das TCP-Protokoll. Das IP-Protokoll verwendet IP-Adressen, um Netzwerkknoten zu identifizieren. (https://www.vautron.de/blog/was-ist-das-internet-protokoll-ip) Es gibt zwei Versionen des IP-Protokolls IPv4 und IPv6. Bei IPv4 besteht die IP-Adresse aus 32 Bit, bei IPv6 aus 128 Bit, was die Anzahl der eindeutigen Adressen erhöht. Aufgrund der zunehmenden Geräteanzahl wird in der Zukunft IPv6 der Standard werden. Heute dominiert jedoch IPv4. Der Aufbau einer IP-Adresse nach IPv4 ist nachfolgend dargestellt. 
+	
+	
 	
 	
    	MAC-Adresse eindeutig von Gerät. Für bessere Identifiuierung aber IP-Adresse
@@ -131,6 +136,9 @@
    		\label{fig:Topologien}
    	\end{figure}
    	\\
+   	Netzwerktopologien
+   	
+   	Bei der insbesondere ab den 80er-Jahren und auch noch heute häufig vorkommendenClient-Server-Architektur erfolgt eine Verteilung der Zuständigkeiten im Netzwerkzwischen einem sog. Client und einem sog. Server. Der Client stellt dabei Anfragen anden Server, der diese Anfragen beantwortet. Server verfügen in der Regel über deutlichmehr Rechenkapazität und mehr Speicher als Clients. Server können ihre Ressourcendurch diese hohe Rechenleistung gleichzeitig vielen Clients zur Verfügung stellen, wasdiese Architektur relativ kostengünstig macht. Mehrere Clients können üblicherweisegleichzeitig auf einen Server zugreifen, d. h. ohne sich in eine Warteschlange einreihenzu müssen. Bei einem Webrowser wie Firefox handelt es sich beispielsweise um einenClient, der wiederum auf einen Webserver zugreift. Im Kern basiert Cloud Computing aufder Client-Server-Architektur – Lösungen wie beispielsweise netzwerkbasierten Datenspeicher gab es bereits in den 80er Jahren. Im Vergleich zur Client-Server-Architekturwurden allerdings die Dienstleistungen präzisiert und nutzerorientierter gestaltet.(IT-Sicherheit)
    	Verschiedene Klassen an IP-Adressen. Meist Klasse C verwendet
    	\\
    	Weil Multi-Master-Bus braucht man CSMA/CD-Verfahren -> nicht echtzeitfähig. Lösung: Echtzeitprotokolle
