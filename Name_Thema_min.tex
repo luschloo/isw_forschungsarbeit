@@ -88,11 +88,37 @@
 	\chapter{Grundlagen und Stand der Technik}
 	
 	\section{Feldbusse}
-	Feldbusse: Elektrotechnik für Maschinenbauer ab S.485\\
-	\\
-	Feldbusse: Profibus, CAN, Sercos
-	\\
-	\\	
+	Maschinen und Anlagen verfügen über eine Vielzahl an Sensoren und Aktoren. Diese werden klassisch über Parallelverdrahtung an die Ein-und Ausgänge der SPS angeschlossen. Ein Feldbus ermöglicht es dagegen die Sensoren und Aktoren an einzelne aktive Verteilerboxen anzuschließen. Die Verteilerboxen werden wiederum mit einem Feldbus untereinander und mit der SPS verbunden. Dies ermöglicht eine Dezentralisierung, was den Schaltschrank vereinfacht, die Energieeffizient steigert und die Flexibilität bezüglich Änderungen erhöht. Der Übergang von der Parallelverdrahtung zu der Fehlbusverdrahtung ist mit den Zwischenschritt von passiven Verteilerboxen nachfolgend dargestellt (vgl. Abbildung \ref{fig:Parallel_vs_Feldbus}). Bei der Feldbus Anschaltung wird meist wie in der Abbildung dargestellt eine Linien-Struktur verwendet. Alternativen sind die Stern-, Ring- oder Baum-Struktur. \cite{hering2012elektrotechnik}
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=1.0\linewidth]{./images/Parallelverdrahtung_Feldbus.png}
+		\caption{Übergang Parallelverdrahtung zu Feldbussen \cite{hering2012elektrotechnik}}
+		\label{fig:Parallel_vs_Feldbus}
+	\end{figure}\\
+	Es haben sich Feldbusse von vielen namhaften Herstellern etabliert. Mittlerweile werden diese Standard-Feldbusse immer weiter von Ethernet basierenden Feldbussen (auch Industrial Ethernet genannt) abgelöst, da diese vor allem Vorteile bezüglich der Übertragungsgeschwindigkeit aufweisen. Die Marktaufteilung aus dem Jahr 2021 ist nachfolgend abgebildet, wobei eine weitere Zunahme der Marktanteile von den Ethernet basierenden Feldbussen zu erwarten ist (vgl. Abbildung \ref{fig:Marktanteil_Feldbus}). \cite{hering2012elektrotechnik} \cite{Marktanteile_HMS}\\
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=1.0\linewidth]{./images/HMS__Marktanteile_industrielle_Netzwerke.png}
+		\caption{Marktanteile Feldbusse und Industrial Ethernet  \cite{Marktanteile_HMS}}
+		\label{fig:Marktanteil_Feldbus}
+	\end{figure}\\
+	
+	\subsection{Standard-Feldbusse}
+	In der Anlagentechnik und der Robotik ist die sofortige zuverlässige Datenübertragung unter anderem aus Gründen der Sicherheit essentiell. Feldbusse sind daher echtzeitfähig. Die Echtzeitfähigkeit besagt, dass die Daten innerhalb einer sehr kurzen festgelegten Zeitspanne unabhängig von äußeren Einflüssen übertragen werden müssen. Durch die harte Echtzeit, ist im Gegensatz zur weichen Echtzeit zusätzlich definiert, dass die Daten mit einem absoluten Determinismus übertragen werden müssen. Bei der weichen Echtzeit verlieren die Daten lediglich an Nutzen bei verspätetem Eintreffen, bei der harten Echtzeit werden sie komplett nutzlos. Aus diesem Grund müssen bei der harten Echtzeit 100 \% der Daten innerhalb der definierten Zeit übertragen werden, was insbesondere bei sicherheitsrelevanten Funktionen von Relevanz ist. \cite{dopatka2008framework} \cite{Echtzeit} \\
+	Im folgenden sollen ein paar gängige Feldbusse kurz erwähnt und erläutert werden.\\
+	\textbf{Profibus} wird von dem Dachverband "Profibus\&Profinet" International" verwaltet, um die Interessen der Nutzer einzubringen. Neben dem Profibus auf Feldbus-Ebene (auch Profibus-DP genannt) existiert eine weitere Variante auf Zellensteuerungs-Ebene und eine auf Prozess-Automatisierungs-Ebene. Als Übertragungstechnik dient der sogenannte RS485-Standard mit einer Zweidrahtleitung. Die Datentransferrate von Profibus beträgt bis zu 12 MBit/s. Speicherprogrammierbare Steuerungen von Siemens setzen häufig Profibus ein.  \cite{hering2012elektrotechnik}\\
+	\textbf{CAN-Bus} wurde ursprünglich für die Automobil-Industrie entwickelt und kommt dort heute noch zum Einsatz. Darüber hinaus, nahm die Verbreitung in der Anlagensteuerung zu. Möglich sind Datentransferraten von bis zu 1 MBit/s. Als Übertragungsmedium dient eine Zweidrahtleitung.  CAN-Bus zeichnet sich durch eine besonders hohe Datensicherheit, also eine hohe Zuverlässigkeit bei der Datenübertragung aus, weshalb er in der Medizintechnik und Robotik hohen Zuspruch findet. \cite{hering2012elektrotechnik}\\
+	\textbf{DeviceNet} basiert auf CAN und ist eine Entwicklung des nordamerikanischen Herstellers "Rockwell Automation". Die Datenübertragungsrate beträgt bis zu 500 kBit/s und die Spannungsversorgung, sowie die Datenkommunikation können über ein Kabel erfolgen. \cite{hering2012elektrotechnik}\\
+	\textbf{CC-Link} stellt eine Entwicklung des Unternehmen Mitsubishi dar. Verwaltet wird das Protokoll von einer Anwenderorganisation ähnlich zu Profibus. Die maximale Übertragungsrate beträgt 10 MBit/s und als Übertragungsmedium dient eine dreiadrige Leitung. \cite{hering2012elektrotechnik}\\
+	\subsection{Ethernet basierende Feldbusse}
+	Ethernet basierende Feldbusse, häufig auch als "Industrial Ethernet" bezeichnet, ermöglichen deutlich höhere Übertragungsraten als Standard-Feldbusse. Daher nimmt deren Verbreitung ständig zu und lösen in vielen Bereichen den Standard-Feldbus ab. Wie der Name bereits erwähnt basieren diese auf Ethernet und sind in der IEEE 802.3 standardisiert.
+	
+	Der Aufbau eines Ethernet-Diagramms ist nachfolgend abgebildet. Die Adressierung erfolgt mittels MAC-Adresse oder IP-Adresse (mehr hierzu in Kapitel).
+	
+	Hier wird schnell erkennbar, dass ein deterministisches Kommunikationssystem,
+	wie es in der Automatisierungstechnik benötigt wird, nur bedingt mit diesem Protokoll erfolgreich sein kann. Die Wartezeiten sind in Abhängigkeit der Busauslastungnicht vorhersehbar, weshalb man von einem nicht deterministischen Zugriffsverfahrenspricht.
+	Aus diesem Grund haben die Steuerungshersteller unterschiedliche Echtzeitprotokolleentwickelt, um diesen Nachteil zu eliminieren. Tabelle H-10 zeigt die bekanntesten echtzeitfähigen Ethernet-Protokolle in einer Übersicht, die federführenden Organisationen undderen Web-Adresse.
+	
 	Ethernet basierte Feldbusse: Profinet, Ethernet/IP, EtherCAT, Sercos III \\
 	Ethernetbasierte Systeme sind bereit Feldbusse abzulösen \\
 	\begin{figure}[!ht]
@@ -136,13 +162,18 @@
    	\\
    	\\
    	\textbf{Netzwerkarchitektur}\\
-   	Während Netwerke in unterschiedliche Topologien, wie z.B. Bus, oder Stern-Topologie aufgeteilt werden können, kann auch eine Aufteilung nach Architekturtyp erfolgen. Neben der monolithischen Architektur und der Client-Server-Architektur gibt es Cloud-, Edge- und Fog-Computing. In der monolithischen Architektur existiert nur ein zentraler Rechner. An diesen werden externe Geräte angebunden, die selbst keine Rechenleistung aufweisen. Bei Cloud-, Edge- und Fog-Computing wird ein Teil der Netzwerktechnik an externe Organisationen ausgelagert. Eine externe Organisation kann ein Provider sein, der ein Server bereitstellt. Im nachfolgenden soll die Client-Server-Architektur näher erläutert werden, da diese von Relevanz für diese Arbeit ist.
-   	Bei der insbesondere ab den 80er-Jahren und auch noch heute häufig vorkommendenClient-Server-Architektur erfolgt eine Verteilung der Zuständigkeiten im Netzwerkzwischen einem sog. Client und einem sog. Server. Der Client stellt dabei Anfragen anden Server, der diese Anfragen beantwortet. Server verfügen in der Regel über deutlichmehr Rechenkapazität und mehr Speicher als Clients. Server können ihre Ressourcendurch diese hohe Rechenleistung gleichzeitig vielen Clients zur Verfügung stellen, wasdiese Architektur relativ kostengünstig macht. Mehrere Clients können üblicherweisegleichzeitig auf einen Server zugreifen, d. h. ohne sich in eine Warteschlange einreihenzu müssen. Bei einem Webrowser wie Firefox handelt es sich beispielsweise um einenClient, der wiederum auf einen Webserver zugreift. Im Kern basiert Cloud Computing aufder Client-Server-Architektur – Lösungen wie beispielsweise netzwerkbasierten Datenspeicher gab es bereits in den 80er Jahren. Im Vergleich zur Client-Server-Architekturwurden allerdings die Dienstleistungen präzisiert und nutzerorientierter gestaltet.(IT-Sicherheit)
-   	Verschiedene Klassen an IP-Adressen. Meist Klasse C verwendet
+   	Während Netzwerke in ihrer Topologie, wie z.B. Bus, oder Stern-Topologie unterschieden werden können, kann auch eine Aufteilung nach Architekturtyp erfolgen. Neben der monolithischen Architektur und der Client-Server-Architektur gibt es Cloud-, Edge- und Fog-Computing. In der monolithischen Architektur existiert nur ein zentraler Rechner. An diesen werden externe Geräte angebunden, die selbst keine Rechenleistung aufweisen. Bei Cloud-, Edge- und Fog-Computing wird ein Teil der Netzwerktechnik an externe Organisationen ausgelagert. Eine externe Organisation kann ein Provider sein, der ein Server bereitstellt. \\
+   	Im nachfolgenden soll die Client-Server-Architektur näher erläutert werden, da diese von Relevanz für diese Arbeit ist.
+   	Bei der Client-Server-Architektur stellt der Client Anfragen an den Server, welche dieser beantwortet. Dieser Ablauf ist als Sequenzdiagramm in Abbildung \ref{fig:Sequenz Server-Client} dargestellt.\\
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=0.50\linewidth]{./images/Sequenzdiagramm_Server_Client.png}
+   		\caption{Sequenzdiagramm Server-Client-Architektur \cite{CS9_TCP}} 
+   		\label{fig:Sequenz Server-Client}
+   	\end{figure} \\   	
+   	Charakteristisch für den Server ist dessen vergleichsweise hohe Rechenleistung, was es ermöglicht, dass mehrere Clients zeitgleich auf den Server zugreifen können. Veranschaulichen lässt sich dieses Prinzip mit dem Webbrowser, wie beispielsweise Google Chrome auf dem privaten Rechner. Dieser stellt den Client dar, welcher Anfragen an einen Webserver stellt, um aktuelle Daten passend zu seiner Anfrage zu erhalten. Auf dem Webserver wird beispielsweise ein Online-Shop verwaltet und mehrere Clients können zeitgleich auf diesen zugreifen. Das oben erwähnte Cloud-Computing basiert auf der Client-Server-Architektur, wurde jedoch nutzerfreundlicher gestaltet. \cite{IT-Sicherheit}
    	\\
-   	Weil Multi-Master-Bus braucht man CSMA/CD-Verfahren -> nicht echtzeitfähig. Lösung: Echtzeitprotokolle
-   	\\
-   	
+   
    	\section{Stäubli-Roboter}
    	
    	\section{Anlagensteuerung}
