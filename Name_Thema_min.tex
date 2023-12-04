@@ -110,17 +110,28 @@
 	\textbf{CAN-Bus} wurde ursprünglich für die Automobil-Industrie entwickelt und kommt dort heute noch zum Einsatz. Darüber hinaus, nahm die Verbreitung in der Anlagensteuerung zu. Möglich sind Datentransferraten von bis zu 1 MBit/s. Als Übertragungsmedium dient eine Zweidrahtleitung.  CAN-Bus zeichnet sich durch eine besonders hohe Datensicherheit, also eine hohe Zuverlässigkeit bei der Datenübertragung aus, weshalb er in der Medizintechnik und Robotik hohen Zuspruch findet. \cite{hering2012elektrotechnik}\\
 	\textbf{DeviceNet} basiert auf CAN und ist eine Entwicklung des nordamerikanischen Herstellers "Rockwell Automation". Die Datenübertragungsrate beträgt bis zu 500 kBit/s und die Spannungsversorgung, sowie die Datenkommunikation können über ein Kabel erfolgen. \cite{hering2012elektrotechnik}\\
 	\textbf{CC-Link} stellt eine Entwicklung des Unternehmen Mitsubishi dar. Verwaltet wird das Protokoll von einer Anwenderorganisation ähnlich zu Profibus. Die maximale Übertragungsrate beträgt 10 MBit/s und als Übertragungsmedium dient eine dreiadrige Leitung. \cite{hering2012elektrotechnik}\\
+	\label{subsec:StandardFeldbus}
 	\subsection{Ethernet basierende Feldbusse}
-	Ethernet basierende Feldbusse, häufig auch als "Industrial Ethernet" bezeichnet, ermöglichen deutlich höhere Übertragungsraten als Standard-Feldbusse. Daher nimmt deren Verbreitung ständig zu und lösen in vielen Bereichen den Standard-Feldbus ab. Wie der Name bereits erwähnt basieren diese auf Ethernet und sind in der IEEE 802.3 standardisiert.
-	
-	Der Aufbau eines Ethernet-Diagramms ist nachfolgend abgebildet. Die Adressierung erfolgt mittels MAC-Adresse oder IP-Adresse (mehr hierzu in Kapitel).
-	
-	Hier wird schnell erkennbar, dass ein deterministisches Kommunikationssystem,
-	wie es in der Automatisierungstechnik benötigt wird, nur bedingt mit diesem Protokoll erfolgreich sein kann. Die Wartezeiten sind in Abhängigkeit der Busauslastungnicht vorhersehbar, weshalb man von einem nicht deterministischen Zugriffsverfahrenspricht.
-	Aus diesem Grund haben die Steuerungshersteller unterschiedliche Echtzeitprotokolleentwickelt, um diesen Nachteil zu eliminieren. Tabelle H-10 zeigt die bekanntesten echtzeitfähigen Ethernet-Protokolle in einer Übersicht, die federführenden Organisationen undderen Web-Adresse.
-	
-	Ethernet basierte Feldbusse: Profinet, Ethernet/IP, EtherCAT, Sercos III \\
-	Ethernetbasierte Systeme sind bereit Feldbusse abzulösen \\
+	Ethernet basierende Feldbusse, häufig auch als "Industrial Ethernet" bezeichnet, ermöglichen deutlich höhere Übertragungsraten als Standard-Feldbusse. Daher nimmt deren Verbreitung ständig zu und lösen in vielen Bereichen den Standard-Feldbus ab. \cite{hering2012elektrotechnik}\\
+	\textbf{Ethernet-Technologie}\\
+	Ethernet ist einer von mehreren Standards für die lokale Netzwerkverbindung mittels LAN-Technologie. Sie ist im IEE 802-3- Standard (Institute of Electrical and Electronis Engineers) genormt. Der Aufbau eines Ethernet-Telegramms ist nachfolgend abgebildet (vgl. Abbildung \ref{fig:EthernetTelegramm}). Die Adressierung erfolgt mittels MAC-Adresse oder IP-Adresse (mehr hierzu in Kapitel \ref{sec:TCP/IP}). \cite{riggert2002rechnernetze}\\
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=1.0\linewidth]{./images/Ethernet-Telegram.png}
+		\caption{Telegramm-Aufbau Ethernet \cite{hering2012elektrotechnik}}
+		\label{fig:EthernetTelegramm}
+	\end{figure}
+	Verschiedene Geräte sind an das Übertragungsmedium angeschlossen und teilen sich dieses. Man spricht von einem Multi-Master-Bus, da jedes Gerät selbständig die Initative ergreifen kann, um Nachrichten zu senden. Damit jedes Gerät kommunizieren kann und dabei Sendekonflikte vermieden werden kommt bei Ethernet der CSMA/CD-Mechanismus zum Einsatz. CSMA/CD steht für "Carrier Sense Multiple Access with Collision Detection" und ermöglicht einen mehrfachen Zugriff (Muliple Access) auf das Übertragungsmedium. \cite{hering2012elektrotechnik} \cite{riggert2002rechnernetze}
+	\begin{itemize}
+		\item \textbf{Carrier Sense:} Es überwacht, dass das Übertragungsmedium nicht durch ein anderes Gerät belegt ist. Erst nachdem das Medium als frei erkannt wird, erfolgt nach einer kurzen Wartezeit die Übertragung. Während des Sendens, wird das Medium weiterhin auf Kollisionen abgehört.
+		\item \textbf{Multiple Access:} Es besagt, dass alle Geräte gleichberechtigt auf das Übertragungsmedium zugreifen können.
+		\item \textbf{Collision Detection:} Wenn mehrere Geräte zur gleichen Zeit das Übertragungsmedium als frei erkennen kommt es zur Überlagerung, da mehrere Geräte gleichzeitig beginnen zu senden. Dies wird als Kollision bezeichnet und es kommt zur Signalverfälschung durch Überlagerung. Da jeder Sender das Übertragungsmedium während des Sendevorgangs überwacht wird die Kollision direkt erkannt. Dasjenige Gerät, welches die Kollision erkennt, informiert alle anderen Geräte mittels eines Signales über die aufgetretene Kollision und fordert diese zur Unterbrechung jeglicher Übertragung auf. \\
+		Danach warten die Geräte eine zufällige Zeitspanne ab und versuchen das Senden erneut. \cite{riggert2002rechnernetze}
+	\end{itemize}
+	Durch die Kollisionen kommt es zu nicht vorhersehbaren Wartezeiten im Sendeprozess. Daher handelt es sich um ein nicht deterministisches Zugriffsverfahren. Ethernet mit CSMA/CD ist nicht echtzeitfähig, was wie bereits in Kapitel \ref{subsec:StandardFeldbus} erwähnt, zu Problem bei Automatisierungsanlagen führen kann.\\
+	Um die Ethernet-Technologie dennoch in der Automatisierung zu nutzen, haben die Hersteller verschiedene Echtzeitprotokolle entwickelt, um Ethernet echtzeitfähig zu machen.
+	Bekannte Ethernet basierende Feldbusse sind Profinet, Ethernet/IP, EtherCAT und Sercos III.
+	EtherCAT ist eine Technologie des Herstellers "Beckhoff", dessen SPS im Rahmen dieses Projektes zum Einsatz kommt. Aus diesem Grund ist EtherCAT die bevorzugte Technologie und wird im Rahmen dieser Arbeit näher erläutert.
 	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=1.0\linewidth]{./images/Feldbus vs Ethernet Anschaltung.png}
@@ -172,7 +183,7 @@
    		\label{fig:Sequenz Server-Client}
    	\end{figure} \\   	
    	Charakteristisch für den Server ist dessen vergleichsweise hohe Rechenleistung, was es ermöglicht, dass mehrere Clients zeitgleich auf den Server zugreifen können. Veranschaulichen lässt sich dieses Prinzip mit dem Webbrowser, wie beispielsweise Google Chrome auf dem privaten Rechner. Dieser stellt den Client dar, welcher Anfragen an einen Webserver stellt, um aktuelle Daten passend zu seiner Anfrage zu erhalten. Auf dem Webserver wird beispielsweise ein Online-Shop verwaltet und mehrere Clients können zeitgleich auf diesen zugreifen. Das oben erwähnte Cloud-Computing basiert auf der Client-Server-Architektur, wurde jedoch nutzerfreundlicher gestaltet. \cite{IT-Sicherheit}
-   	\\
+   	\label{sec:TCP/IP}
    
    	\section{Stäubli-Roboter}
    	
