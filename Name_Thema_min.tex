@@ -129,22 +129,27 @@
 		Danach warten die Geräte eine zufällige Zeitspanne ab und versuchen das Senden erneut. \cite{riggert2002rechnernetze}
 	\end{itemize}
 	Durch die Kollisionen kommt es zu nicht vorhersehbaren Wartezeiten im Sendeprozess. Daher handelt es sich um ein nicht deterministisches Zugriffsverfahren. Ethernet mit CSMA/CD ist nicht echtzeitfähig, was wie bereits in Kapitel \ref{subsec:StandardFeldbus} erwähnt, zu Problem bei Automatisierungsanlagen führen kann.\\
-	Um die Ethernet-Technologie dennoch in der Automatisierung zu nutzen, haben die Hersteller verschiedene Echtzeitprotokolle entwickelt, um Ethernet echtzeitfähig zu machen.
-	Bekannte Ethernet basierende Feldbusse sind Profinet, Ethernet/IP, EtherCAT und Sercos III.
-	EtherCAT ist eine Technologie des Herstellers "Beckhoff", dessen SPS im Rahmen dieses Projektes zum Einsatz kommt. Aus diesem Grund ist EtherCAT die bevorzugte Technologie und wird im Rahmen dieser Arbeit näher erläutert.
+	Um die Ethernet-Technologie dennoch in der Automatisierung zu nutzen, haben die Hersteller verschiedene Echtzeitprotokolle entwickelt, um Ethernet echtzeitfähig zu machen. Beispielsweise wird die Methodik CSMA/CD außer Kraft gesetzt und stattdessen durch sogenanntes Pooling oder ein Zeitscheibenverfahren ersetzt. Jeder Hersteller geht hier jedoch seinen eigenen Weg.	Bekannte Ethernet basierende Feldbusse sind Profinet, Ethernet/IP, EtherCAT und Sercos III.
+	EtherCAT ist eine Technologie des Herstellers "Beckhoff", dessen SPS im Rahmen dieses Projektes zum Einsatz kommt. Aus diesem Grund ist EtherCAT die bevorzugte Technologie und wird im Rahmen dieser Arbeit näher erläutert. \cite{ethercat} \cite{riggert2002rechnernetze}\
+	\\
+	Weiterhin ist zu beachten, dass die Netzwerktopologie sich bei den Ethernet basierenden Feldbussen häufig von den Standard-Feldbussen unterscheidet. Während bei den Standard-Feldbussen die Ansteuerung vorwiegend in der Linienstruktur erfolgt, wird bei der Ethernet Anschaltung oft eine Sternstruktur mit einem Switch eingesetzt (vgl. Abbildung \ref{fig:TopologieEthernet}).
 	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=1.0\linewidth]{./images/Feldbus vs Ethernet Anschaltung.png}
-		\caption{Anschaltung Feldbus und Ethernet \cite{hering2012elektrotechnik}}
-		\label{fig:Anschaltung Bus}
-	\end{figure}
+		\caption{Topologie: oben Standard-Feldbus, unten Ethernet basierender Feldbus \cite{hering2012elektrotechnik}}
+		\label{fig:TopologieEthernet}
+	\end{figure}\\
+	Der Ethernet Switching Hub, abgekürzt als Switch erlernt beim Einschalten an welchen Ports  Teilnehmer angeschlossen sind. Der Switch leitet ein Datentelegramm eindeutig vom Sender zum Empfänger. Dadurch werden von dem Telegramm nicht betroffene Teilnehmer und Ethernet-Segmente nicht unnötig belastet und Kollisionen vermieden. Das Weiterschalten erfolgt auf Basis der Sende- und Ziel-Adresse, welche im Ethernet-Telegramm hinterlegt ist. \cite{hering2012elektrotechnik} \\
+	\textbf{EtherCAT} \\
+	Wie bereits erwähnt setzen viele Hersteller auf das Zeitscheibenverfahren oder Pooling, um EtherNet echtzeitfähig zu machen. Der Zeitverzug ist hierbei jedoch implementierungsabhängig und kann durch erforderliche technische Komponenten am Bus weiter steigen. Um dies zu verhindern setzt EtherCAT auf einen anderen Lösungsansatz. Im Gegensatz zu anderen Verfahren sollen Daten nicht mehr empfangen, interpretiert und dann wieder weiterversendet werden. Stattdessen setzt EtherCAT auf sogenannte FMMU (Fieldbus Memory Management Unit) in allen E/A-Klemmen. Diese FMMU entnimmt nur die relevanten Daten vom Bus, sodass die Telegramme mit einer Verzögerung von nur wenigen Nanosekunden weiterlaufen können. Zum Versenden werden Daten in die durchlaufenden Telegramme eingefügt, sodass es auch hier zu kaum einer Verzögerung kommt. Dieses Prinzip ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:EtherCAT}).
 	\begin{figure}[!ht]
 		\centering
-		\includegraphics[width=1.0\linewidth]{./images/Topologien.png}
-		\caption{Topologien}
-		\label{fig:Topologien}
-	\end{figure}
-	Ethernet: deutlich mehr Daten als klassisch \\
+		\includegraphics[width=0.7\linewidth]{./images/EtherCAT.png}
+		\caption{Telegrammbearbeitung \cite{ethercat}}
+		\label{fig:EtherCAT}
+	\end{figure}\\
+	Dabei wird auf dem gesamten Bus vom Ethernet-Protokoll nach IEEE 802.3 nicht abgewichen. Bit-Fehler werden so durch die CRC-Prüfsumme erkannt. Neben der Stern-Topologie unterstützt EtherCAT auch eine Linien- oder Baum-Struktur und viele weitere.
+	EtherCAT zeichnet sich durch geringe Laufzeitverzögerungen und eine hohe Datenrate aus. Beispielsweise können 1000 E/as in nur 30 \(\mu s\) aktualisiert werden und auch eine Übertragungsrate GBit-Bereich ist mit Erweiterung möglich. \cite{ethercat}\\
 	Multi-Master Bussen (z.B. CAN oder TCP/IP) vs. Mono-Master
 	
 	\section{TCP/IP}
