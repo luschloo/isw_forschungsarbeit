@@ -101,7 +101,7 @@
 	\subsection{Standard-Feldbusse}
 	In der Anlagentechnik und der Robotik ist die sofortige zuverlässige Datenübertragung unter anderem aus Gründen der Sicherheit essentiell. Feldbusse sind daher echtzeitfähig. Die Echtzeitfähigkeit besagt, dass die Daten innerhalb einer sehr kurzen festgelegten Zeitspanne unabhängig von äußeren Einflüssen übertragen werden müssen. Durch die harte Echtzeit, ist im Gegensatz zur weichen Echtzeit zusätzlich definiert, dass die Daten mit einem absoluten Determinismus übertragen werden müssen. Bei der weichen Echtzeit verlieren die Daten lediglich an Nutzen bei verspätetem Eintreffen, bei der harten Echtzeit werden sie komplett nutzlos. Aus diesem Grund müssen bei der harten Echtzeit 100 \% der Daten innerhalb der definierten Zeit übertragen werden, was insbesondere bei sicherheitsrelevanten Funktionen von Relevanz ist. \cite{dopatka2008framework} \cite{Echtzeit} \\
 	Im folgenden sollen ein paar gängige Feldbusse kurz erwähnt und erläutert werden.\\
-	\textbf{Profibus} wird von dem Dachverband "Profibus\&Profinet" International" verwaltet, um die Interessen der Nutzer einzubringen. Neben dem Profibus auf Feldbus-Ebene (auch Profibus-DP genannt) existiert eine weitere Variante auf Zellensteuerungs-Ebene und eine auf Prozess-Automatisierungs-Ebene. Als Übertragungstechnik dient der sogenannte RS485-Standard mit einer Zweidrahtleitung. Die Datentransferrate von Profibus beträgt bis zu 12 MBit/s. Speicherprogrammierbare Steuerungen von Siemens setzen häufig Profibus ein.  \cite{hering2012elektrotechnik}\\
+	\textbf{Profibus} wird von dem Dachverband "Profibus \&Profinet" International" verwaltet, um die Interessen der Nutzer einzubringen. Neben dem Profibus auf Feldbus-Ebene (auch Profibus-DP genannt) existiert eine weitere Variante auf Zellensteuerungs-Ebene und eine auf Prozess-Automatisierungs-Ebene. Als Übertragungstechnik dient der sogenannte RS485-Standard mit einer Zweidrahtleitung. Die Datentransferrate von Profibus beträgt bis zu 12 MBit/s. Speicherprogrammierbare Steuerungen von Siemens setzen häufig Profibus ein.  \cite{hering2012elektrotechnik}\\
 	\textbf{CAN-Bus} wurde ursprünglich für die Automobil-Industrie entwickelt und kommt dort heute noch zum Einsatz. Darüber hinaus, nahm die Verbreitung in der Anlagensteuerung zu. Möglich sind Datentransferraten von bis zu 1 MBit/s. Als Übertragungsmedium dient eine Zweidrahtleitung.  CAN-Bus zeichnet sich durch eine besonders hohe Datensicherheit, also eine hohe Zuverlässigkeit bei der Datenübertragung aus, weshalb er in der Medizintechnik und Robotik hohen Zuspruch findet. \cite{hering2012elektrotechnik}\\
 	\textbf{DeviceNet} basiert auf CAN und ist eine Entwicklung des nordamerikanischen Herstellers "Rockwell Automation". Die Datenübertragungsrate beträgt bis zu 500 kBit/s und die Spannungsversorgung, sowie die Datenkommunikation können über ein Kabel erfolgen. \cite{hering2012elektrotechnik}\\
 	\textbf{CC-Link} stellt eine Entwicklung des Unternehmen Mitsubishi dar. Verwaltet wird das Protokoll von einer Anwenderorganisation ähnlich zu Profibus. Die maximale Übertragungsrate beträgt 10 MBit/s und als Übertragungsmedium dient eine dreiadrige Leitung. \cite{hering2012elektrotechnik}\\
@@ -197,6 +197,26 @@
 	\newpage
 	
 	\chapter{Anforderungsdefinition}
+	Die Aufgabenstellung und die grobe Anforderungsformulierung soll in diesem Kapitel mit Hilfe eines Lastenheftes in eine strukturierte Form gebracht werden. Das Lastenheft beschreibt, welche Funktionalitäten das zu entwerfende System aufweisen soll. Darüber hinaus kann das Lastenheft Rahmenbedingungen enthalten, wie z.B. zulässige Reaktionszeiten oder weitere Einschränkungen. Das Lastenheft wird in aller Regel vom Auftraggeber erstellt. Der Auftragnehmer beschreibt im Pflichtenheft durch welche Systemfunktionalitäten die Aufgaben erfüllt werden sollen und wie die Umsetzung technisch erfolgt. Das Lasten- und Pflichtenheft dient auch zur rechtlichen Absicherung der Vertragsparteien. Obwohl ein Lasten- und Pflichtenheft oft als Vertragsgrundlage entworfen wird und dies im Rahmen des Projektes nicht notwendig ist, soll ein Lastenheft eingesetzt werden. Dies ermöglicht es alle Anforderungen und Rahmenbedingungen zu berücksichtigen und diese im gesamten Projektverlauf im Blick zu behalten. Auf ein Pflichtenheft wird hingegen verzichtet. \cite{SoftwaretechnikBroy}
+	Das Lastenheft wird in Muss- und Kann-Kriterien unterteilt. Während bei den Muss-Kriterien eine Erfüllung essentiell ist, stellen die Kann-Kriterien eine optionale Erweiterung dar, die dem System jedoch einen Mehrwert verschaffen.\\
+		\begin{longtable}{|p{1cm}|p{10cm}|p{2cm}|}
+		\caption{Lastenheft}
+		\label{table:Lastenheft}\\
+		\hline
+		Nr. & Anforderung & Kann (K) / Muss (M) \\ [0.5ex] 
+		\hline
+		\endhead
+		1 & Übertragung von Fehlermeldungen des Stäubli-Roboters an die Anlage & M  \\ 
+		2 & Übertragung von beliebigen Daten des Stäubli-Roboters an die Anlage & M  \\
+		1 & Feldbus Kommunikation zwischen Stäubli-Roboter und SPS & M  \\  
+		1 & Einsatz von mehreren Stäubli-Robotern zeitgleich soll möglich sein & M  \\
+		1 & Darstellung der Fehlermeldungen des Stäubli-Roboters für den Nutzer & M  \\ 
+		1 & Fehlerfreie und prozesssichere Kommunikation & M  \\ 
+		\hline
+		2 & A (CpuUsage) & - \\
+		3 & A (CpuUsage) & - \\	
+		\hline
+	\end{longtable}
 	
 	\chapter{Konzeptionierung und Systementwurf}
 	UML-Diagramm
@@ -312,7 +332,7 @@
 	
 	\section{WPF und GUI}
 	
-	\chapter{Deisgn und Implementierung}
+	\chapter{Design und Implementierung}
 	Design: Vergleich von Lösungsbausteinen (z.B. Vergleich Softwarebibliotheken) und Auswahl) auf Basis von Anforderungen und Recherche. Wissenschaftliche Bewertungskriterien nötig. Harvey-Diagramm.
 	
 	Neben grundlegenden Entwurfsentscheidungen wird die Beschreibung einzelner Komponenten detailiert. Für komplexe Komponenten UML-Klassendiagramm
@@ -363,8 +383,8 @@
    	
    	\cleardoublepage
    	\printbibliography
-   	% Acronyms
    	
+   	% Acronyms   	
    	% Appendix, if needed:
    
 
