@@ -28,12 +28,12 @@
 \author{Lukas Schlotter}
 \placeOfBirth{Stuttgart}
 \major{Mechatronik}
-\title{jbjhkbkj}
-\titleTranslated{Wie man einen Hamster trainiert}
+\title{Konzeption und Implementierung einer Diagnoseschnittstelle zwischen Industrieroboter und Anlagensteuerung}
+\titleTranslated{Design and Implementation of a Diagnostic Interface between Industrial Robot and Control System}
 \matrnr{3668915}
 \date{\today}
-\supervisor{My supervisor, M.Sc.}
-\professor{Prof. Dr.-Ing. Oliver Riedel}
+\supervisor{Dr.-Ing. Andreas Wolf, Dipl.-Ing. Daniel Knauss}
+\professor{Prof. Dr.-Ing. Alexander Verl}
 
 \begin{document} 
     \frontmatter
@@ -52,17 +52,10 @@
     \mainmatter
     
     \chapter{Einleitung}
-    Warum startet das hier mit ner 0?
-    aTex allows you to manage citations within your document through the use of a separate bibtex file (filename.bib).
-    
-    
-    \newpage
-    
-    Bibtex files follow a standard syntax that allow you to easily reference the citations included in that file through the use of a bibliography management package. There are multiple bibliography management packages that you can use to manage citations. \\
-    This guide will demonstrate how to use biblatex which allows for the most customization.
+
     \section{Motivation}
     
-    Dieses Bild zeigt blabla bla von dem Buch \cite{Tantau2013} und auch \cite{Kohm2013}
+
     
     \begin{table}[h!]
     	\centering
@@ -81,9 +74,11 @@
     	\label{table:1}
     \end{table}
 	
-	\section{Anforderungsdefinition}
+	\section{Anforderungsdefinition / Aufgabenstellung}
 	
-	\section{Methodik}
+	\section{Methodik und Vorgehensweise}
+	Die Verwendung geeigneter Methoden und eines strukturierten Vorgehens sind entscheidend für eine erfolgreiche Umsetzung des Projektes. Durch ein Vorgehensmodell wird eine effiziente Arbeitsweise und eine zeitgerechte Fertigstellung gefördert. Da die Komplexität des Projektes und der Software im Projektverlauf zunehmend wächst, ist eine wissenschaftliche Methodik essentiell. Methoden und Werkzeuge erleichtern es neue Lösungsansätze zu finden und faktenbasierte Entscheidungen zu treffen. \cite{SoftwaretechnikBroy} \cite{ISWLeitfaden}
+	Gant-Diagramm wie Seite 39 ISW-Leitfaden
 
 	\chapter{Grundlagen und Stand der Technik}
 	
@@ -153,7 +148,7 @@
 	Multi-Master Bussen (z.B. CAN oder TCP/IP) vs. Mono-Master
 	
 	\section{TCP/IP}
-	TCP/IP (Transmission Control Protocol/Internet Protocol) ist das meist verwendete Netzwerkprotokoll weltweit und zudem frei zugänglich. Durch dieses Protokoll wird definiert, wie Daten durch Netzwerkkommunikationshardware versendet und empfangen werden kann. \cite{CS9_TCP} \\
+	TCP/IP (Transmission Control Protocol/Internet Protocol) ist das meist verwendete Netzwerkprotokoll weltweit und zudem frei zugänglich. Durch dieses Protokoll wird definiert, wie Daten durch Netzwerkkommunikationshardware versendet und empfangen werden kann. Welches Übertragungsmedium verwendet wird ist  nicht definiert, sodass sich neben LAN z.B. auch WLAN einsetzen lässt.\cite{CS9_TCP} \cite{kim2016service} \\
 	TCP/IP ist nicht echtzeitfähig, stellt jedoch eine gute Ergänzung zu den Echtzeitprotokollen dar, um nicht zeitkritische Daten, wie z.B. zur Diagnose oder  Visualisierung zu übertragen. Bei TCP/IP handelt es sich um eine sichere Datenübertragung die Nachrichten in einen Bytestrom verpackt und entpackt. Vom Sender zum Empfänger durchlaufen die Daten vier Schichten (vgl. Abbildung \ref{fig:Schichtenmodell}). Für eine sichere fehlerfreie Übertragung werden die eigentlichen Daten ergänzt um die MAC-/IP- und TCP-Header. Das CRC-Feld stellt eine Art Prüfsumme, mit welcher die Korrektheit der übertragenen Daten überprüft wird. \cite{hering2012elektrotechnik}
 	\begin{figure}[!ht]
 		\centering
@@ -189,13 +184,26 @@
    	\end{figure} \\   	
    	Charakteristisch für den Server ist dessen vergleichsweise hohe Rechenleistung, was es ermöglicht, dass mehrere Clients zeitgleich auf den Server zugreifen können. Veranschaulichen lässt sich dieses Prinzip mit dem Webbrowser, wie beispielsweise Google Chrome auf dem privaten Rechner. Dieser stellt den Client dar, welcher Anfragen an einen Webserver stellt, um aktuelle Daten passend zu seiner Anfrage zu erhalten. Auf dem Webserver wird beispielsweise ein Online-Shop verwaltet und mehrere Clients können zeitgleich auf diesen zugreifen. Das oben erwähnte Cloud-Computing basiert auf der Client-Server-Architektur, wurde jedoch nutzerfreundlicher gestaltet. \cite{IT-Sicherheit}
    	\label{sec:TCP/IP}
+   	
+   	\section{OPC/UA}
    
    	\section{Stäubli-Roboter}
    	
    	\section{Anlagensteuerung}
    	
+   	\section{Bewertung}
+   	In der Literatur wird meist das Protokoll zur Datenübertragung eingesetzt, um die Korrektheit der Daten sicherzustellen. In \cite{groza2008using} kommt das Protokoll UDP zur Übertragung von Live-Kamera-Bildern zum Einsatz, da hier die Schnelligkeit über die Korrektheit zu stellen ist. Während in der Literatur z.B. in \cite{groza2008using} VPN zur IT-Sicherheit eingesetzt wird, kann dies im Rahmen des Projektes entfallen.
+   	
 	\newpage
+	
+	\chapter{Anforderungsdefinition}
+	
 	\chapter{Konzeptionierung und Systementwurf}
+	UML-Diagramm
+	Anwendungsfälle definieren, Rahmenbedingungen identifizieren, Anforderungen aus Lastenheft
+	 verfeinern
+	 
+	 Softwarekomponenten definieren und im Komponentendiagramm darstellen gemäß UML
 	\section{Feldbus-Verbindung}
 	
 	\section{TCP/IP-Verbindung}
@@ -299,10 +307,23 @@
  	\textbf{Drehmoment Achsen}\\
  	Das Drehmoment der einzelnen Achsen ändert sich kontinuerlich während der Bewegung. Durch das Vergleichen der Drehmomente mit einer Referenzfahrt können  Auffälligkeiten entdeckt werden. Schleichend zunehmende Momente deuten z.B. auf fehlende Schmierung oder Lagerdefekte hin. Abrupt zunehmende Momente können durch ein Festhängen oder einen Crash verursacht werden. Eine Dokumentation der Abweichungen ist sinnvoll, um aus Gewährleistungsgründen unsachgemäße Verwendung z.B. durch einen Crash nachzuweisen. Analog zum Schleppfehler müssen auch die Drehmomente sehr kontinuierlich erfasst werden.\\
 	\textbf{Sytemereignisse}\\
-	Ereignisse, die auf dem Bedienpanel des Roboters dargestellt werden, lassen sich in die Schweregrade "Info", "Warning", "Error" und "Critical" unterteilen. Diese sollen beim Auftreten sofort über TCP/IP übertragen werden.
+	Ereignisse, die von der Steuerung festgestellt werden, wie z.B. Fehlermeldungen oder das Einschalten der Energieversorgung für die Achsen werden in einer system-log-Datei aufgezeichnet. Sie lassen sich in die Schweregrade "Info", "Warning", "Error" und "Critical" unterteilen. Das Auslesen der Systemereignisse kann mit dem Befehl "getEvents" erfolgen. Diese sollen beim Auftreten sofort über TCP/IP übertragen werden.
 	\newpage
-	\chapter{Implementierung}
 	
+	\section{WPF und GUI}
+	
+	\chapter{Deisgn und Implementierung}
+	Design: Vergleich von Lösungsbausteinen (z.B. Vergleich Softwarebibliotheken) und Auswahl) auf Basis von Anforderungen und Recherche. Wissenschaftliche Bewertungskriterien nötig. Harvey-Diagramm.
+	
+	Neben grundlegenden Entwurfsentscheidungen wird die Beschreibung einzelner Komponenten detailiert. Für komplexe Komponenten UML-Klassendiagramm
+	Definition Schnittstelle zwischen den Komponenten und Kommunikation in Form von Sequenzdiagramm
+	
+	
+	Implementierung
+	- Programmierung erfolgt gemäß den in Softwarespezifikation und entwurf festgelegten Randbedingungen, Kommentierung von Source Code ist essentiell. Gemäß bestehenden Standards (z.B. xdoc)
+	- Generierung einer HTML-Hilfe aus den Kommentaren des Source-Codes z.b. durch Doxygen
+	- Entwicklung erfolgt unter Git
+	- Einheitliche Konventionen für das Schreiben des Quellcodes: Coding Conventions!
 	\section{Stäubli-Roboter in VAL3}
 	
 	\subsection{EtherCAT}
@@ -325,6 +346,7 @@
 	\subsection{TCP/IP}
 	
    	\subsection{Datenverwertung und Visualisierung}
+   	
    	
    	\chapter{Validierung}
    	
