@@ -186,7 +186,16 @@
    	\label{sec:TCP/IP}
    	
    	\section{OPC/UA}
-   
+   	OPC UA (Open Platform Communication Unified Architecture) ist ein Protokoll zur Maschine-zu-Maschine-Kommunikation, aber auch zur Kommunikation zwischen SPS oder HMI (Human Interface) und Maschine. Es handelt sich hierbei um einen offenen und plattformunabhängigen Standard, welcher von der Open Platform Foundation (OPC) verwaltet wird. OPC UA basiert analog zu TCP/IP auf Ethernet und Internet. Es ist ebenso nicht echtzeitfähig. Das Kommunikationsprotokolls OPC UA ermöglicht eine vertikale und horizontale Kommunikation, da es die einzelnen Automatisierungsebenen verbindet. Somit kann von einem Roboter bis hin zur gesamten Fabriksteuerung alles verbunden werden, was OPC UA beliebt, um die Fabrik "Industrie 4.0" fähig zu machen. \cite{industrie40} \\
+   	OPC UA basiert auf der Server-Client Architektur. Der OPC UA Server kann dann beispielsweise auf der SPS oder dem HMI (Human Interface) laufen und ein Roboter kann als OPC UA Client angebunden werden. Die Daten werden standardisiert und maschinenlesbar semantisch beschrieben, sodass herstellerübergreifende Kommunikation problemlos möglich ist. Sensordaten einer Maschine können dadurch an die Anlagensteuerung übertragen und visualisiert werden. OPC UA liefert dabei viele Vorteile: \cite{OPCUA}
+   	\begin{itemize}
+   		\item \textbf{Sicher:} IT-Sicherheit wurde bei der Entwicklung von OPC UA direkt mit eingeplant. Die Kommunikation und der Transport ist sicher und kann über Zugriffsrechte gesteuert werden.
+   		\item \textbf{Plattformunabhängig:} Neben der Herstellerunabhängigkeit ist OPC UA unbhängig von der Programmiersprache, was es ermöglicht verschiedene Anlagen einfach zu verknüpfen.
+   		\item \textbf{Einfach:} OPC UA ist auf Nutzerfreundlichkeit ausgelegt und das Festlegen von Kommunikationsprotokollen und der Aufbau von Nachrichten entfällt, sodass auch ohne Programmierkenntnisse eine Umsetzung möglich ist. 
+   		\item \textbf{Big Data:} OPC UA ermöglicht einfaches Sammeln von Daten aus diversen Maschinen und von unterschiedlichsten Automatisierungsebenen. Hierdurch können sich umfangreiche Potentiale durch die Analyse der Daten ergeben und neue Geschäftsmodelle erschlossen werden. \\
+   	\end{itemize}
+   	Aufgrund dieser unterschiedlichsten Vorteile, wird OPC UA immer mehr im Bereich IoT und Industrie 4.0 eingesetzt. \cite{OPCUA}  \cite{industrie40}
+   	
    	\section{Stäubli-Roboter}
    	
    	\section{Anlagensteuerung}
@@ -208,13 +217,17 @@
 		\endhead
 		1 & Übertragung von Fehlermeldungen des Stäubli-Roboters an die Anlage & M  \\ 
 		2 & Übertragung von beliebigen Daten des Stäubli-Roboters an die Anlage & M  \\
-		1 & Feldbus Kommunikation zwischen Stäubli-Roboter und SPS & M  \\  
-		1 & Einsatz von mehreren Stäubli-Robotern zeitgleich soll möglich sein & M  \\
-		1 & Darstellung der Fehlermeldungen des Stäubli-Roboters für den Nutzer & M  \\ 
-		1 & Fehlerfreie und prozesssichere Kommunikation & M  \\ 
+		3 & Übertragung von Daten z.B. Kameradaten von der Anlage an den Stäubli-Roboter & M  \\
+		4 & Ausgabe der Roboterfehler auf der Anlagensteuerung in verständlicher Form (ausformuliert, Fehlercode genügt nicht) & M  \\
+		5 & Funktionierende Feldbusverbindung zwischen Stäubli-Roboter und SPS & M  \\
+		6 & Feldbus Kommunikation zwischen Stäubli-Roboter und SPS & M  \\  
+		7 & Abspeichern der Fehler und der Daten in log-File & M  \\ 
+		8 & Fehlerfreie und prozesssichere Kommunikation & M  \\ 
 		\hline
-		2 & A (CpuUsage) & - \\
-		3 & A (CpuUsage) & - \\	
+		9 & Einsatz von mehreren Stäubli-Robotern zeitgleich soll möglich sein & K  \\
+		10 & Vorgabe von der Anlagensteuerung, wie häufig Daten versendet werden sollen & K  \\ 
+		11 & Visualierung der Daten & K  \\
+		12 & Verwertung der Daten, um Warnungen oder ähnliches auszugeben & K  \\  
 		\hline
 	\end{longtable}
 	
