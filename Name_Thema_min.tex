@@ -196,19 +196,82 @@
    	\end{itemize}
    	Aufgrund dieser unterschiedlichsten Vorteile, wird OPC UA immer mehr im Bereich IoT und Industrie 4.0 eingesetzt. \cite{OPCUA}  \cite{industrie40}
    	
+   	
    	\section{Stäubli-Roboter}
+   	Stäubli ist ein in der Schweiz ansässiges Industrieunternehmen, welches in den Bereichen "Elektrische Verbindungen", "Fluidische Verbindungen","Textil" und "Robotik" tätig ist. Das Produktportfolio im Bereich Robotik umfasst Vier- und Sechsachs-Roboter, sowie kollaborative und mobile Roboter. \cite{StaubliUberUns}\\ Stäubli-Roboter sind nach IP 65 und IP 67 Staub- und Wasser- geschützt, wenn ein Arm mit Überdruckeinheit zum Einsatz kommt. Dies ermöglicht eine gründliche Reinigung aus Hygienezwecken und verhindert das Ansammeln von Staub im Roboter. Beispielsweise ist auch eine Reinigung mit Desinfektionsmittel oder Isopropylalkohol möglich. Zudem können die Roboter mit einem Lebensmittelverträglichem Öl eingesetzt werden. Stäubli-Roboter eignen sich daher insbesondere für Anwendungen in der Lebensmittel-, Pharma- und Medizin-Technik, in der viele andere Roboter die Hygieneanforderungen nicht erfüllen können. \cite{StaubliProduktubersicht}\\
+   	\textbf{Roboter TX2 - 90}\\
+   	Im Rahmen dieser Arbeit kommt der 6 Achs-Roboter TX2-90 zum Einsatz (vgl. Abbildung \ref{fig:TX90}). Dieser weist eine Tragkraft von 12 kg und eine Reichweite von 1000 mm auf. Die Wiederholgenauigkeit beträgt 0,03 mm und die maximale kartesische Geschwindigkeit 10,9 m/s. Der Roboter wiegt 114 kg und wird von der Robotersteuerung CS9 mit 2kVA gesteuert. Der Roboter ist für verschiedene, teils auch aggressive Reinigungsmittel geeignet, was für die Lebensmittelindustrie wichtig ist. Die Achsen können maximale Drehmomente zwischen 11 Nm (Achse 6) und 318 Nm (Achse 1) aufbringen.\\
+   	Der Vorderarm des Roboters ist mit vier Magnetventilausgängen, von zwei 5/2-Wege-Magnetventilen versehen. Dies ermöglicht beispielsweise das Öffnen und Schließen eines Greifers.\\
+   	Für den Roboter liegt ein Wartungsplan vor, welcher Wartungsarbeiten in unterschiedlichen Intervallen von monatlich bis 5-jährig vorsieht. Diese reichen von einfachen Sichtprüfungen und Bremsentests über Ölwechsel und Dichtungstausch bis hin zum Auswechseln von Achsen. \cite{X90}
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=0.50\linewidth]{./images/X90.png}
+   		\caption{Stäubli TX2 - 90 \cite{X90}} 
+   		\label{fig:TX90}
+   	\end{figure}
+   	\\
+   	\subsection{Controller CS9}
+   	Der CS9 Controller übernimmt die Steuerung und Versorgung des TX2 - 90 (vgl. Abbildung \ref{fig:CS9}).
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=0.70\linewidth]{./images/CS9.png}
+   		\caption{Stäubli CS9 Controller \cite{CS9}} 
+   		\label{fig:CS9}
+   	\end{figure}
+   	Der Computer-Einschub (1) beeinhaltet Karten, für die Sicherheitssteuerung, Bewegungssteuerung und die externe Kommunikation. Der Verstärker-Einschub (2) wandelt mit Hilfe von digitalen Achsverstärkern Bewegungsvorgaben in Motorströme um. Er beinhaltet zudem die Schnittstelle, an dem der Roboter angeschlossen wird. Der Stromversorgungs-Einschub (3) wandelt die Netzversorgungsspannung für die zuvor genannten Einschübe um und versorgt diese. Zudem existiert ein Anschluss für eine Antistatikmanschette (4), sowie Befestigungsmöglichkeiten (5).
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=0.70\linewidth]{./images/ComputerEinschub.png}
+   		\caption{CS9 Controller Computer-Einschub \cite{CS9}} 
+   		\label{fig:ComputerEinschub}
+   	\end{figure}
+   	Der Computer-Einschub (vgl. Abbildung \ref{fig:ComputerEinschub}) besitzt eine Vielzahl an Kommunikationsschnittstellen, die in der Tabelle nachfolgend dargestellt sind (vgl. Tabelle \ref{table:ComputerEinschub}).
+   	\begin{longtable}{|p{1cm}|p{12cm}|}
+   		\caption{CS9 Controller Computer-Einschub}
+   		\label{table:ComputerEinschub}\\
+   		\hline
+   		Nr. & Bezeichnung  \\ [0.5ex] 
+   		\hline
+   		\endhead
+   		1 & Feldbus, Option für PCIe-Karte  \\ 
+   		2 & Anschluss für optionale externe 24 V Stromvesorgung  \\
+   		3 & Schnelle Ein-/Ausgänge  \\
+   		4 & EtherCAT Port (Reserviert) \\
+   		5 & Anschluss Handbediengerät  \\
+   		6 & USB-Ports \\  
+   		7 & Echtzeit-Ethernet-Slave (EtherCAT, Sercos III, EtherNet/IP, PROFINET  \\ 
+   		8 & EtherCAT-Master  \\ 
+   		9 & Ethernet-Ports (1000 MBits/s und 100 MBits/s)  \\
+   		10 & Status LEDs  \\ 
+   		11 & serielle Verbindung RS232  \\
+   		12 & Benutzerschnittstelle  \\  
+   		\hline
+   	\end{longtable}
+   	 An den CS9 Controller kann kann ein Handbediengerät angeschlossen werden (5), was z.B.  manuelles Verfahren oder einfachere Programmier- und Konfigurationsarbeiten ermöglicht. Hervorzuheben ist zudem der Echtzeit-Ethernet-Slave-Anschluss (7), durch welchen die Steuerung z.B. über EtherCAT mit einer SPS verbunden werden kann. Zusätzlich steht ein EtherCAT-Master-Anschluss (8) zur Verfügung. Die CS9 ermöglicht es somit den Roboter als EtherCAT-Slave oder als EtherCAT-Master zu betreiben.\\
+   	 Zudem stehen zwei Ethernet-Ports (9) zur Verfügung, was eine externe Kommunikation z.B. über TCP/IP ermöglicht. Die IP-Adresse der Ethernet-Ports kann frei konfiguriert oder automatisch vergeben werden. Als Dateiübertragungs-Serverprotokoll dient "FTPS+FTP". FTP wird als Standardeinstellung verwendet, während FTPS eine sichere Authentifizierung ermöglicht. \\
+   	 Auf der CS9-Steuerung lassen sich sogenannte Sockets konfigurieren, welche eine TCP/IP oder eine UDP/IP - Kommunikation ermöglichen. Die Konfiguration kann dabei im Client oder Server-Modus erfolgen. \cite{CS9}
+   	 
+   	\subsection{Programmiersprache VAL3}
+   	Die Programmierung des Roboters kann auf dem Handbediengerät erfolgen oder bevorzugt in der Stäubli Robotic Suite (SRS). In der SRS kann neben der Programmierung eine Simulation des Roboters inklusive 3D-Darstellung erfolgen, sodass die Programme direkt getestet werden können.\\
+   	"VAL 3" ist eine höhere Programmiersprache und besitzt spezielle Steuerungsfunktionen für den Roboter zur Bewegungsteuerung und zur Ansteuerung von Ein-/Ausgängen.\\
+   	\textbf{Programm} \\
+   	In einer Applikation können mehrere Programme angelegt werden. Diese verhalten sich wie Funktionen und lassen sich aufrufen. Zur Ausführung der VAL3-Applikation wird standardmäßig das Prgoramm "start()" gestartet, welches vergleichbar mit einer "main-Funktion" ist. Von hier lassen sich wiederum andere Programme aufrufen. Bei Beendigung der Applikation wird das Programm "stop()" einmalig aufgerufen, um z.B. von dort Tasks zu beenden.
+   	
    	
    	\section{Anlagensteuerung}
    	
+   	
+   
+   	
    	\section{Bewertung}
-   	In der Literatur wird meist das Protokoll zur Datenübertragung eingesetzt, um die Korrektheit der Daten sicherzustellen. In \cite{groza2008using} kommt das Protokoll UDP zur Übertragung von Live-Kamera-Bildern zum Einsatz, da hier die Schnelligkeit über die Korrektheit zu stellen ist. Während in der Literatur z.B. in \cite{groza2008using} VPN zur IT-Sicherheit eingesetzt wird, kann dies im Rahmen des Projektes entfallen.
+   	In der Literatur wird meist das TCP Protokoll zur Datenübertragung eingesetzt, um die Korrektheit der Daten sicherzustellen. In \cite{groza2008using} kommt das Protokoll UDP zur Übertragung von Live-Kamera-Bildern zum Einsatz, da hier die Schnelligkeit über die Korrektheit zu stellen ist. Während in der Literatur z.B. in \cite{groza2008using} VPN zur IT-Sicherheit eingesetzt wird, kann dies im Rahmen des Projektes entfallen.
    	
 	\newpage
 	
 	\chapter{Anforderungsdefinition}
 	Die Aufgabenstellung und die grobe Anforderungsformulierung soll in diesem Kapitel mit Hilfe eines Lastenheftes in eine strukturierte Form gebracht werden. Das Lastenheft beschreibt, welche Funktionalitäten das zu entwerfende System aufweisen soll. Darüber hinaus kann das Lastenheft Rahmenbedingungen enthalten, wie z.B. zulässige Reaktionszeiten oder weitere Einschränkungen. Das Lastenheft wird in aller Regel vom Auftraggeber erstellt. Der Auftragnehmer beschreibt im Pflichtenheft durch welche Systemfunktionalitäten die Aufgaben erfüllt werden sollen und wie die Umsetzung technisch erfolgt. Das Lasten- und Pflichtenheft dient auch zur rechtlichen Absicherung der Vertragsparteien. Obwohl ein Lasten- und Pflichtenheft oft als Vertragsgrundlage entworfen wird und dies im Rahmen des Projektes nicht notwendig ist, soll ein Lastenheft eingesetzt werden. Dies ermöglicht es alle Anforderungen und Rahmenbedingungen zu berücksichtigen und diese im gesamten Projektverlauf im Blick zu behalten. Auf ein Pflichtenheft wird hingegen verzichtet. \cite{SoftwaretechnikBroy}
 	Das Lastenheft wird in Muss- und Kann-Kriterien unterteilt. Während bei den Muss-Kriterien eine Erfüllung essentiell ist, stellen die Kann-Kriterien eine optionale Erweiterung dar, die dem System jedoch einen Mehrwert verschaffen.\\
-		\begin{longtable}{|p{1cm}|p{10cm}|p{2cm}|}
+	\begin{longtable}{|p{1cm}|p{10cm}|p{2cm}|}
 		\caption{Lastenheft}
 		\label{table:Lastenheft}\\
 		\hline
