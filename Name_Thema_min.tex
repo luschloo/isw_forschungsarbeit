@@ -6,6 +6,7 @@
 
 \usepackage[ngerman]{babel} % If the thesis is in English
 \usepackage {longtable}
+\usepackage{tikz}
 %\usepackage[english, ngerman]{babel} % If the thesis is in German
 
 
@@ -234,7 +235,7 @@
    		\hline
    		\endhead
    		1 & Feldbus, Option für PCIe-Karte  \\ 
-   		2 & Anschluss für optionale externe 24 V Stromvesorgung  \\
+   		2 & Anschluss für optionale externe 24 V Stromversorgung  \\
    		3 & Schnelle Ein-/Ausgänge  \\
    		4 & EtherCAT Port (Reserviert) \\
    		5 & Anschluss Handbediengerät  \\
@@ -253,14 +254,82 @@
    	 
    	\subsection{Programmiersprache VAL3}
    	Die Programmierung des Roboters kann auf dem Handbediengerät erfolgen oder bevorzugt in der Stäubli Robotic Suite (SRS). In der SRS kann neben der Programmierung eine Simulation des Roboters inklusive 3D-Darstellung erfolgen, sodass die Programme direkt getestet werden können.\\
-   	"VAL 3" ist eine höhere Programmiersprache und besitzt spezielle Steuerungsfunktionen für den Roboter zur Bewegungsteuerung und zur Ansteuerung von Ein-/Ausgängen.\\
+   	"VAL 3" ist eine höhere Programmiersprache und besitzt spezielle Steuerungsfunktionen für den Roboter zur Bewegungsteuerung und zur Ansteuerung von Ein-/Ausgängen. \cite{VAL3}\\
    	\textbf{Programm} \\
-   	In einer Applikation können mehrere Programme angelegt werden. Diese verhalten sich wie Funktionen und lassen sich aufrufen. Zur Ausführung der VAL3-Applikation wird standardmäßig das Prgoramm "start()" gestartet, welches vergleichbar mit einer "main-Funktion" ist. Von hier lassen sich wiederum andere Programme aufrufen. Bei Beendigung der Applikation wird das Programm "stop()" einmalig aufgerufen, um z.B. von dort Tasks zu beenden.
-   	
-   	
+   	In einer Applikation können mehrere Programme angelegt werden. Diese verhalten sich wie Funktionen und lassen sich aufrufen. Zur Ausführung der VAL3-Applikation wird standardmäßig das Prgoramm "start()" gestartet, welches vergleichbar mit einer "main-Funktion" ist. Von hier lassen sich wiederum andere Programme aufrufen. Bei Beendigung der Applikation wird das Programm "stop()" einmalig aufgerufen, um z.B. von dort Tasks zu beenden.\\
+   	Programme lassen sich auch als Task ausführen. Bei einer Task handelt es sich um ein Programm welches zu einem gewissen Zeitpunkt ausgeführt wird. Üblicherweise wird beispielsweise die Bewegungssteuerung und die Kommunikation in eigene Tasks ausgelagert. Es wird ein möglichst gleichzeitiges Ausführen der Tasks angestrebt. Da die Steuerung jedoch nur einen Prozess besitzt, ist es jedoch nur möglich eine Task auszuführen. Die augenscheinliche Parallität, wird dadurch erreicht, dass die Tasks sequentiell sehr schnell hintereinander ausgeführt werden. Dabei wird nicht die gesamte Task abgearbeitet, sondern einige wenige Anweisungen. Eine Task erhält zudem eine Priorität, die angibt, wie viele Programmzeilen ausgeführt werden bis die nächste Task abgearbeitet wird. Eine hohe Priorität sorgt daher für ein schnellstmögliches Abarbeiten dieser Task. Wird in einer Task eine Wartezeit ("delay") ausgeführt, pausiert diese Task und der Prozessor arbeitet nur die anderen Tasks ab. Neben den erwähnten asynchronen Tasks bietet VAL 3 ebenso synchrone Tasks.
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=0.80\linewidth]{./images/tasks.png}
+   		\caption{Sequentielle Anordnung von Tasks \cite{VAL3}} 
+   		\label{fig:TX90}
+   	\end{figure} \\
+   	\textbf{Datentypen}\\
+   	In VAL 3 gibt es verschiedene einfache Datentypen, die nachfolgend kurz erläutertet werden. Neben den einfachen Datentypen gibt es weitere Datentypen, die z.B. Punkte für die Bewegungsteuerung darstellen. Auf eine Erläuterung dieser wird verzichtet, da diese Kommunikation nicht benötigt werden.
+   	\begin{itemize}
+   		\item \textbf{BOOL:} Variablen und Konstanten von diesem Typ können true und false annehmen.
+   		\item \textbf{NUM:} Datentyp zur Darstellung von numerischen Werten mit 14 signifikanten Stellen. Im Gegensatz zu vielen gängien Programmiersprachen wird in VAL 3 nicht zwischen verschiedenen Zahlenformaten unterschieden. Dieser Datentyp kann von ganzzahligen Werten bis hin zu Kommazahlen alles abbilden.
+   		\item \textbf{BITFELD:} Dieser Datentyp ermöglicht es eine Bitfolge z.B. von booleschen Werten oder digitalen Ein- und Ausgängen kompakt abzuspeichern.
+   		\item \textbf{STRING:} In Variablen und Konstanten diesen Typs können Zeichenketten mit einer Länge von bis zu 256 Byte gespeichert werden. Die interne Zeichencodierung erfolgt mit Unicode UTF 8. Bei ASCII-Zeichen entspricht die Läge von 256 Bytes somit 234 Zeichen. Initialisiert werden Variablen diesen Datentyps standardmäßig mit einem leeren String ("").
+   		\item \textbf{DIO:} Dieser Datentyp ermöglicht es aus dem Programm auf die digitalen Ein-/Ausgänge der Steuerung zuzugreifen. Hierzu speichert die dio-Variable einen Link zu der entsprechenden Hardware in Form einer physischen Adresse.
+   		\item \textbf{AIO:} Mit Hilfe diesen Datentyps können die analogen Ein- und Ausgänge der Steuerung verknüpft werden.
+   		\item \textbf{SIO:} Dieser Datentyp ermöglicht es einen seriellen Port oder einen Ethernet Socket Anschluss zu verknüpfen. Dadurch kann beispielsweise eine TCP/IP - Nachricht geschrieben oder gelesen werden, in dem der Variable des Datentyps ein Wert zugewiesen wird oder ein Wert abgelesen wird. \\
+   	\end{itemize}
+   	\textbf{Robotersteuerung}\\
+   	Neben Funktionalitäten die klassische Programmiersprachen aufweisen, benötigt VAL 3 insbesondere Möglichkeiten, um den Roboterarm zu steuern. Exemplarisch werden einige Befehle kurz vorgestellt. Zum Einsatz
+   	\begin{itemize}
+   		\item \textbf{disable / enable Power:} Hiermit lässt sich die Armleistung ab bzw. einschalten. Für den lokalen, manuellen oder Testbetrieb hat diese Funktion keinen Einfluss.
+   		\item \textbf{getVersion:} Mit dieser Anweisung lassen sich die Version der Hardware- und Software - Komponenten des Robotercontrollers abfragen.
+   		\item \textbf{movej:} Dieser Befehl führt eine Bewegung zu einem Punkt aus. Angegeben werden muss die Winkelposition der Achsen für den Zielpunkt (vom Datentyp "joint"), die Geometrie des Werkzeuges (Datentyp "tool") und Bewegungsdaten, wie Geschwindigkeit und Beschleunigung (Datentyp "msdec").
+   		\item \textbf{movel:} Dieser Befehl ermöglicht im Gegensatz zum Vorangegangen eine lineare Bewegung. Anstelle der Winkelpositionen als Ziel wird eine kartesische Zielkoordinate (Datentyp "point") vorgegeben.  \\
+   	\end{itemize}
    	\section{Anlagensteuerung}
+   	Ein Roboter ist meist nur ein Teil einer Automatisierungslösung. Dieser kann um Förderbänder, Sensoren und andere Aktoren ergänzt werden. Wie die Steuerung dieser Gesamtanlage umgesetzt wird unterscheidet sich von Anlagenautomatisierer zu Anlagenautomatisierer. Hier soll die bei robomotion gängige Umsetzung aufgezeigt werden, da diese relevant für das Gesamtverständnis und die Konzeptionierung der Komponenten ist. \\
+   	\textbf{SPS}\\
+   	Zentrales Element jeder Anlagenautomatisierung ist eine Beckhoff-SPS, welche auf einem IPC läuft. Diese ist für die Ablauflogik und "Intelligenz" der Anlage zuständig. Auf anderen Bestandteilen, wie z.B. in einer Robotersteuerung ist hingegen nur eine geringe Komplexität abgebildet. In der Robotersteuerung werden meistens Kommondos mit Jobnummern angelegt, wie beispielsweise die Bewegung von Punkt A zu Punkt B. Durch den Aufruf der Jobnummer durch die SPS erhält der Roboter den Befehl zur Bewegungsausführung und meldet eine erfolgreich durchgeführte Bewegung der SPS zurück. Welche Bewegungen in welcher Reihenfolge und wann durchgeführt werden, ist dementsprechend nicht in der Robotersteuerung, sondern in der SPS-Steuerung programmiert.\\
+   	\textbf{roboTools} \\
+   	Weiterer Bestandteil der Automatisierung ist ein Programm namens "roboTools". Dieses läuft auf einem Windows-Betriebssystem in Form einer WPF (Windows Presentation Foundation), des ".NET"-Frameworks. Das Programm roboTools mit seiner grafischen Oberfläche enthält verschiedene Diagnosewerkzeuge und kann dem Anlagenbediener Informationen über bspw. Störungen oder der Anlagenauslastung ausgeben und visualisieren. Die Daten hierfür bezieht roboTools überwiegend von der SPS. \\
+   	\textbf{roboVision}\\
+   	Häufig werden in Anlagen Industriekameras eingesetzt, um die Position von Objekten zu ermitteln oder eine automatisierte Qualitätskontrolle vorzunehmen. Zur Weiterverarbeitung der Kameradaten, um die Position oder die Qualitätsgüte zu bestimmen kommt das Programm "roboVision" zum Einsatz. Wie roboTools handelt es sich um ein WPF-Anwendung, welche auf einem Windows-Betriebssystem läuft. \\
+   	\textbf{Hardware und Zusammenspiel}\\
+   	Sowohl roboTools, als auch roboVision laufen auf einem IPC. Dies kann der selbe IPC sein, auf dem bereits die SPS läuft. Insbesondere für roboVision wird jedoch meist ein eigenständiger leistungsfähiger IPC eingesetzt, da für die Bildverarbeitung eine hohe Rechenleistung zur Verfügung stehen muss. Für die Umsetzung der Kommunikationsschnittstelle, spielt dies jedoch keine große Rolle, da sich alle IPCs in einem Netzwerk befinden. Da es sich um getrennte Programme handelt können diese alle als eigenständige Einheiten behandelt werden, auch wenn sie auf dem selben IPC laufen. Das Zusammenspiel dieser Komponenten ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:Anlagensteuerung}).\\
+   	
+   	\begin{figure}
+   		\centering
+   		\begin{tikzpicture}[node distance=2cm]
+   			
+   			% Erste Reihe von Boxen
+   			\node[draw, rectangle] (box1) at (-2cm,0) {Beckhoff-SPS};
+   			\node[draw, rectangle] (box2) at (2cm,0) {roboTools};
+   			\node[draw, rectangle] (box3) at (6cm,0) {roboVision};
+   			
+   			% Zweite Reihe von Boxen
+   			\node[draw, rectangle] (box4) at (-2,-2cm) {Roboter-Steuerung};
+   			\node[draw, rectangle] (box5) at (6cm,-2cm) {Kamera};
+   			
+   			% Linien verbinden die Boxen
+   			\draw (box1) -- (box2);
+   			\draw (box2) -- (box3);
+   			\draw (box1) -- (box4);
+   			% \draw (box2) -- (box4);
+   			\draw (box3) -- (box5);
+   			
+   		\end{tikzpicture}
+   		\caption{Anlagensteuerung Aufbau}
+   		\label{fig:Anlagensteuerung}
+   	\end{figure}
    	
    	
+   	
+   	\section{WPF}
+   	Da bereits roboTools und roboVision auf WPF beruhen, ist WPF von großer Relevanz für diese Arbeit. WPF basiert auf dem .NET - Framework.
+   	Das .NET Framework ist eine Plattform für unterschiedliche Programmiersprachen, wie C\# oder Visual Basic  mit denen verschiedene Applikationstypen, wie Desktop, Web oder Mobile entwickelt werden können.\\
+   	Das .NET-Framework ist eine Entwicklung von Microsoft. Die meisten Anwendungen können jedoch plattformübergreifend eingesetzt werden. Lediglich Desktopanwendungen, wie z.B. WPF sind an Windows gebunden.\\
+   	\textbf{C\#}
+   	Das .NET-Framework ist offen für verschiedenste Programmiersprachen, jedoch ist die Verwendung von C\# am geläufigsten und kommt in den vorhandenen Anwendungen von robomotion zum Einsatz. C\# ist eine Entwicklung speziell für .NET und kombinierte Konzepte und Bestandteile von Java, JavaSrcipt, C++ und Visual Basic. Dabei handelt es sich um eine vollwertige objektorientierte Sprache mit Eigenschaften, wie Vererbung und Kapselung.\\
+   	\textbf{Programmierumgebung}\\
+   	Visual Studio und DevOps\\
+   	\textbf{WPF}
    
    	
    	\section{Bewertung}
