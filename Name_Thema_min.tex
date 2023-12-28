@@ -98,7 +98,7 @@
 		\caption{Marktanteile Feldbusse und Industrial Ethernet  \cite{Marktanteile_HMS}}
 		\label{fig:Marktanteil_Feldbus}
 	\end{figure}\\
-	
+	\label{sec:Feldbus}
 	\subsection{Standard-Feldbusse}
 	In der Anlagentechnik und der Robotik ist die sofortige zuverlässige Datenübertragung unter anderem aus Gründen der Sicherheit essentiell. Feldbusse sind daher echtzeitfähig. Die Echtzeitfähigkeit besagt, dass die Daten innerhalb einer sehr kurzen festgelegten Zeitspanne unabhängig von äußeren Einflüssen übertragen werden müssen. Durch die harte Echtzeit, ist im Gegensatz zur weichen Echtzeit zusätzlich definiert, dass die Daten mit einem absoluten Determinismus übertragen werden müssen. Bei der weichen Echtzeit verlieren die Daten lediglich an Nutzen bei verspätetem Eintreffen, bei der harten Echtzeit werden sie komplett nutzlos. Aus diesem Grund müssen bei der harten Echtzeit 100 \% der Daten innerhalb der definierten Zeit übertragen werden, was insbesondere bei sicherheitsrelevanten Funktionen von Relevanz ist. \cite{dopatka2008framework} \cite{Echtzeit} \\
 	Im folgenden sollen ein paar gängige Feldbusse kurz erwähnt und erläutert werden.\\
@@ -146,6 +146,7 @@
 	\end{figure}\\
 	Dabei wird auf dem gesamten Bus vom Ethernet-Protokoll nach IEEE 802.3 nicht abgewichen. Bit-Fehler werden so durch die CRC-Prüfsumme erkannt. Neben der Stern-Topologie unterstützt EtherCAT auch eine Linien- oder Baum-Struktur und viele weitere.
 	EtherCAT zeichnet sich durch geringe Laufzeitverzögerungen und eine hohe Datenrate aus. Beispielsweise können 1000 E/as in nur 30 \(\mu s\) aktualisiert werden und auch eine Übertragungsrate GBit-Bereich ist mit Erweiterung möglich. \cite{ethercat}\\
+	\label{subsec:EthernetFeldbus}
 	Multi-Master Bussen (z.B. CAN oder TCP/IP) vs. Mono-Master
 	
 	\section{TCP/IP}
@@ -203,7 +204,7 @@
    	\textbf{Roboter TX2 - 90}\\
    	Im Rahmen dieser Arbeit kommt der 6 Achs-Roboter TX2-90 zum Einsatz (vgl. Abbildung \ref{fig:TX90}). Dieser weist eine Tragkraft von 12 kg und eine Reichweite von 1000 mm auf. Die Wiederholgenauigkeit beträgt 0,03 mm und die maximale kartesische Geschwindigkeit 10,9 m/s. Der Roboter wiegt 114 kg und wird von der Robotersteuerung CS9 mit 2kVA gesteuert. Der Roboter ist für verschiedene, teils auch aggressive Reinigungsmittel geeignet, was für die Lebensmittelindustrie wichtig ist. Die Achsen können maximale Drehmomente zwischen 11 Nm (Achse 6) und 318 Nm (Achse 1) aufbringen.\\
    	Der Vorderarm des Roboters ist mit vier Magnetventilausgängen, von zwei 5/2-Wege-Magnetventilen versehen. Dies ermöglicht beispielsweise das Öffnen und Schließen eines Greifers.\\
-   	Für den Roboter liegt ein Wartungsplan vor, welcher Wartungsarbeiten in unterschiedlichen Intervallen von monatlich bis 5-jährig vorsieht. Diese reichen von einfachen Sichtprüfungen und Bremsentests über Ölwechsel und Dichtungstausch bis hin zum Auswechseln von Achsen. \cite{X90}
+   	Für den Roboter liegt ein Wartungsplan vor, welcher Wartungsarbeiten in unterschiedlichen Intervallen von monatlich bis 5-jährig vorsieht. Diese reichen von einfachen Sichtprüfungen und Bremstests über Ölwechsel und Dichtungstausch bis hin zum Auswechseln von Achsen. \cite{X90}
    	\begin{figure}[!ht]
    		\centering
    		\includegraphics[width=0.50\linewidth]{./images/X90.png}
@@ -370,6 +371,25 @@
 	 
 	 Softwarekomponenten definieren und im Komponentendiagramm darstellen gemäß UML
 	\section{Feldbus-Verbindung}
+	Aufgabe der Feldbusverbindung ist die Kommunikation zwischen dem Stäubli-Roboter und der Beckhoff-SPS sicherzustellen. Hierzu werden einerseits Befehle, wie zur Bewegungsdurchführung zum Roboter übertragen, andererseits Informationen, wie z.B. eine Bestätigung der vollendeten Bewegung zurück an die SPS gesandt.\\
+	\textbf{Wahl des Feldbusses}\\
+	In Kapitel \ref{sec:Feldbus} wurden die Feldbusse in Standard-Feldbusse und Ethernet basierende Feldbusse unterteilt. Die Wahl fällt hierbei auf einen Ethernet-basierenden Feldbus, weil dies der aktuelle Stand der Technik darstellt und zudem firmenintern ausnahmslos eingesetzt wird. Nach Kapitel \ref{subsec:EthernetFeldbus} sind Profinet, Ethernet/IP, EtherCAT und Sercos III häufig eingesetzte Ethernet basierende Feldbusse. Eine Gegenüberstellung der Vor- und Nachteile der einzelnen Feldbusse und eine Auswahl anhand dieser Kriterien kann jedoch entfallen, da zwei Argumente für den Einsatz von EtherCAT, alle anderen Kriterien überwiegen.\\
+	Zum Einsatz kommt eine Beckhoff-SPS. EtherCAT ist eine Entwicklung von Beckhoff und daher bestmöglichst auf die SPS von Beckhoff abgestimmt.\\
+	Darüber hinaus, kommt unternehmensintern bereits in anderen Projekten EtherCAT zum Einsatz. Die Wahl von EtherCAT bringt daher folgende Vorteile mit sich
+	\begin{itemize}
+		\item \textbf{Know How: } Firmenintern hat sich durch den wiederholten Einsatz von EtherCAT bereits eine große Wissenbasis und Erfahrung aufgebaut. Bei schwerwiegenderen Problemen ermöglicht dies eine einfachere Fehlersuche.
+		\item \textbf{Schulungszwecke: } Durch andere Projekte sind beispielsweise die Service-Techniker bereits in EtherCAT geschult. Die Buchung einer zeit- und kostenintensiven Schulung für einen anderen Feldbus kann entfallen
+		\item \textbf{Standardisierung:} Der Einsatz von vielen unterschiedlichen Systemen erhöht den Aufwand in Dokumentation und Einkauf. Daher wird versucht die Varianz möglichst gering zu halten und auf einen Standard, welcher bereits eingesetzt und verbreitet ist zu setzen.\\
+	\end{itemize}
+	\textbf{Master-Master vs. Master-Slave}\\
+	Standardmäßig wird jedoch sowohl die Beckhoff-SPS, als auch der Stäubli Roboter als Master eingesetzt.
+	EtherCAT ist rein für Master-Slave-Kommunikation ausgelegt. https://www.sps-forum.de/threads/ethercat-master-to-master-kommunikation.37904/ 
+	
+	Beckhoff bietet jedoch eine spezielle Bridge-Klemmen an, um zwei Master-Systeme zu koppeln. Hierdurch entstehen jedoch zusätzliche Kosten und auch die Komplexität des Systems steigt. Da sowohl die Stäubli-Steuerung, als auch die SPS ebenso als Slave konfiguriert werden kann, entfällt die Entscheidung auf die Master-Slave-Kommunikation, um die zusätzliche Master-Master-Klemme einzusparen.
+	
+	https://www.beckhoff.com/de-de/produkte/i-o/ethercat-klemmen/el6xxx-kommunikation/el6695.html?
+	
+	\textbf{Wahl des Masters} \\
 	
 	\section{TCP/IP-Verbindung}
 	
