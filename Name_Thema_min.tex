@@ -7,6 +7,13 @@
 \usepackage[ngerman]{babel} % If the thesis is in English
 \usepackage {longtable}
 \usepackage{tikz}
+\usepackage{geometry}
+\usetikzlibrary{matrix}
+\usetikzlibrary{fit,matrix,shapes.geometric}
+\usepackage[table]{xcolor}
+\usepackage{nicematrix,booktabs,tikz}
+
+
 %\usepackage[english, ngerman]{babel} % If the thesis is in German
 
 
@@ -382,17 +389,144 @@
 		\item \textbf{Standardisierung:} Der Einsatz von vielen unterschiedlichen Systemen erhöht den Aufwand in Dokumentation und Einkauf. Daher wird versucht die Varianz möglichst gering zu halten und auf einen Standard, welcher bereits eingesetzt und verbreitet ist zu setzen.\\
 	\end{itemize}
 	\textbf{Master-Master vs. Master-Slave}\\
-	Standardmäßig wird jedoch sowohl die Beckhoff-SPS, als auch der Stäubli Roboter als Master eingesetzt.
-	EtherCAT ist rein für Master-Slave-Kommunikation ausgelegt. https://www.sps-forum.de/threads/ethercat-master-to-master-kommunikation.37904/ 
-	
-	Beckhoff bietet jedoch eine spezielle Bridge-Klemmen an, um zwei Master-Systeme zu koppeln. Hierdurch entstehen jedoch zusätzliche Kosten und auch die Komplexität des Systems steigt. Da sowohl die Stäubli-Steuerung, als auch die SPS ebenso als Slave konfiguriert werden kann, entfällt die Entscheidung auf die Master-Slave-Kommunikation, um die zusätzliche Master-Master-Klemme einzusparen.
-	
-	https://www.beckhoff.com/de-de/produkte/i-o/ethercat-klemmen/el6xxx-kommunikation/el6695.html?
-	
+	Standardmäßig wird jedoch sowohl die Beckhoff-SPS, als auch der Stäubli Roboter als Master eingesetzt. Jedoch ist EtherCAT rein für Master-Slave-Kommunikation ausgelegt, d.h. es kann nur ein Master existieren. \cite{ethercat}	Beckhoff bietet jedoch eine spezielle Bridge-Klemme (EL6692) an, die es erlaubt EtherCAT-Stränge zu synchronisieren und ein Datenaustausch zwischen den einzenen Strängen zu ermöglichen. Da jeder EtherCAT-Strang einen eigenen Master besitzt ermöglicht die Bridge den Einsatz von mehreren Mastern. \cite{Bridge} Hierdurch entstehen jedoch zusätzliche Kosten und auch die Komplexität des Systems steigt. Da sowohl die Stäubli-Steuerung, als auch die SPS ebenso als Slave konfiguriert werden kann, entfällt die Entscheidung auf die Master-Slave-Kommunikation, um die zusätzliche Master-Master-Klemme einzusparen.\\
 	\textbf{Wahl des Masters} \\
+	Nachdem die Entscheidung für eine Master-Slave-Architektur gefallen ist, muss festgelegt werden, ob die Beckhoff-SPS oder der Stäubli-Roboter als Master konfiguriert wird. Da der Einsatz von mehreren Stäubli-Robotern in Automatisierungslösungen denkbar ist, könnte nicht jeder Stäubli-Roboter als Master eingesetzt werden. Folglich wäre ein Stäubli-Roboter ein Master, die anderen Stäubli-Roboter, wie auch die SPS Slaves. Um diese Unterschiede in den einzelnen Stäubli-Robotern zu verhindern, ist es sinnvoll die Beckhoff-SPS als Master zu konfigurieren, sodass alle Stäubli-Roboter einheitlich als Slaves eingesetzt werden. Darüber hinaus ist die SPS der zentrale Teil der Anlagenautomatisierung, von welcher weitere Komponenten, wie Roboter anderer Hersteller gesteuert werden können, weshalb die Wahl der SPS als Master sinnvoll ist.\\
+	Die Gesamtentscheidung zur Konfiguration ist nachfolgend mit Hilfe eines morphologischen Kastens dargestellt.\\
+	
+	\begin{NiceTabular}{@{}>{\bfseries}lcccc@{}}
+		\CodeBefore [create-cell-nodes]
+		\tikz \draw [red!50, line width=2pt, line join = round] 
+		plot [samples at={3-2, 4-3, 5-2}] (\x) ;
+		\Body
+		\toprule
+		\RowStyle[nb-rows=2]{\bfseries}  
+		& \Block{1-4}{Konfiguration} \\ 
+		\cmidrule{2-5}
+		Parameters  & Option 1 & Option 2 & Option 3 & Option 4 \\ 
+		\midrule
+		Bussystem     & etherCAT      & Profinet  & Sercos III & Soft       \\
+		Architektur & Master-Master       & Master-Slave  &   &      \\
+		Master & SPS      & Stäubli           &       & \\ 
+		\bottomrule
+	\end{NiceTabular}
+	
+	
+	\begin{tikzpicture}[
+		font=\sffamily,
+		circle mark/.style={
+			draw=#1,
+			shape=ellipse,
+			thick,
+			inner xsep=-3pt
+		},
+		circle mark finish/.style={
+			circle mark=red
+		},
+		circle mark unfinish/.style={
+			circle mark=green
+		},
+		line/.style={red, thick},
+		line thick/.style={ultra thick}
+		]
+		\matrix [
+		matrix of nodes,
+		nodes={
+			draw, 
+			minimum width=2.6cm, 
+			minimum height=.8cm, 
+			anchor=center
+		},
+		row sep=-\pgflinewidth,
+		column sep=-\pgflinewidth,
+		nodes in empty cells,
+		row 1/.style={nodes={draw=none}}
+		] (m) {
+			|[draw]| Merkmal &&&&\\
+			Faktor 1 & etherCAT & profinet & Ethernet/IP & Sercos III \\
+			Faktor 2 & Master-Master & Master-Slave & & \\
+			Faktor 3 & SPS als Master & Stäubli als Master &  & \\
+		};
+		\node [draw, fit=(m-1-2)(m-1-5), inner sep=-.5\pgflinewidth, label=center:Ausprägung]{};
+		
+		\draw [line thick] 
+		(m-1-1.north east) -- (m-4-1.south east)
+		(m-1-1.south west) -- (m-1-5.south west)
+		;
+		
+		\path [nodes=circle mark finish]
+		(m-2-2) node (cm1) {\phantom{Ausprägung 1}}
+		(m-4-4) node (cm3) {\phantom{Ausprägung 3}}
+		;
+		\path [nodes=circle mark unfinish]
+		(m-3-3) node (cm2) {\phantom{Ausprägung 2}}
+		;
+		\draw [line] 
+		(cm1.east) -- (cm2.west)
+		(cm2.east) -- (cm3.west)
+		;
+	\end{tikzpicture}
 	
 	\section{TCP/IP-Verbindung}
+	Nachdem die Feldbus-Verbindung konzeptioniert wurde, erfolgt die Auslegung der TCP/IP-Verbindung. Hierbei müssen viele Einzelentscheidungen getroffen werden, welche am Ende mit einem morphologischen Kasten zusammengefasst dargestellt werden.\\
+	\textbf{Wahl der Architektur} \\
+	Wie in Kapitel \ref{sec:TCP/IP} erläutert kommt für eine TCP/IP-Verbindung die Client-Server-Architektur zum Einsatz. Dabei kann entweder der Stäubli-Roboter oder die Anlagensteuerung als Server dienen. In der Literatur wird meist empfohlen, die Seite mit der höheren Rechenleistung als Server einzusetzen (vgl. Kapitel \ref{sec:TCP/IP}). Dies stellt in diesem Fall die Anlagensteuerung dar. Wenn hingegen der Roboter als Server dienen würde und es zum Einsatz von mehreren Roboter kommen würde, wäre der Einsatz von mehreren Client-Instanzen auf der Anlagensteuerung notwendig oder die anderen Roboter müssten als Client konfiguriert werden. Daher eignet sich die Anlagensteuerung besser als Server und die einzelnen Roboter werden als Client konfiguriert. \\
+	\textbf{Nachrichtentypen}\\
+	Für folgende Daten, die übertragen werden müssen, muss festgelegt werden, ob und wie diese auf einzelne Nachrichten aufgeteilt werden.
+	\begin{itemize}
+		\item \textbf{Systemereignisse: } Erfasste Meldungen, wie z.B. Fehler müssen von dem Roboter zu der Anlagensteuerung übertragen werden.
+		\item \textbf{Prozessdaten: } Vom Roboter erfasste Daten, wie Temperaturen oder digitale Werte, wie Fehler an den Ventilen müssen vom Roboter zur Anlagensteuerung übertragen werden.
+		\item \textbf{Kameradaten:} Positionsdaten von zugreifenden Objekten, welche durch Kameradaten generiert werden, müssen von der Anlagensteuerung zum Roboter übertragen werden.\\
+	\end{itemize}
+	Da die Kameradaten in die entgegengesetzte Richtung, wie die anderen Daten übertragen werden, werden diese in eine eigene Nachricht verpackt. Die Systemereignisse und die Prozessdaten können in einer Nachricht oder in getrennten Nachrichten versandt werden. Da die Prozessdaten durchgängig anfallen, die Systemereignisse jedoch azyklisch lohnt sich eine Trennung. Die Prozessdaten wiederum können gebündelt gesendet werden oder getrennt werden in einzelne Nachrichten z.B. für die Temperaturen und die digitalen Werte. Da beispielsweise Temperaturen nicht besonders dynamisch sind könnte die Übertragungsfrequenz für diese Daten geringer sein, was die Auslastung der Verbindung reduzieren würde. Dies erhöht jedoch die Komplexität, da viele verschiedene Nachrichtentypen anfallen, was bei Wartungen oder Änderungen in späteren Jahren zum Problem werden kann. Da das zyklische Versenden aller Prozessdaten, die Übertragungsrate der TCP/IP-Verbindung nicht übersteigen wird, fällt die Entscheidung auf das Zusammenfassen aller Prozessdaten in einer Nachricht. Folglich gibt es drei Nachrichtentypen: Kameradaten, Systemereignisse und Prozessdaten.\\
+	\textbf{Auslöser für Versand der Systemereignisse}
+	Die Systemereignisse können entweder zyklisch z.B. einmal pro Sekunde zusammengefasst versendet werden oder direkt bei Auftreten. Die Entscheidung fällt auf ein direktes Versenden bei Auftreten, damit wichtige Fehlermeldungen schnellstmöglich ankommen. Zudem handelt es sich um ein azyklisches Ereignis, d.h. die Systemereignisse werden nur sporadisch versendet.\\
+	\textbf{Auslöser für Versand der Prozessdaten}
+	Die Prozessdaten werden zyklisch benötigt und sind nicht abhängig von besonderen Ereignissen. Ein zyklischer Versand bietet sich hier an. Die Sendefrequenz muss dann in jedem Stäubli-Roboter einprogrammiert werden und ist dann fest eingestellt. Vorteilhaft wäre es wenn die Sendefrequenz von dem Server Anlagensteuerung vorgegeben werden kann. Dadurch kann die Sendefrequenz angepasst und z.B. zur Fehlerfindung erhöht werden. Darüber hinaus kann die Änderung an dieser zentralen Instanz erfolgen und muss nicht manuell bei jedem einzelnen Stäubli-Roboter durchgeführt werden. Dies ist insbesondere praktisch, wenn ein Zugriff über das Fernwartungssystem auf die Anlagensteuerung erfolgt. Daher soll ein Datenanforderungstelegramm zyklisch z.B. einmal pro Sekunde von der Anlagensteuerung an alle Clients (Stäubli-Roboter) gesandt werden. Diese sollen nach Erhalt der Anforderung ein Prozessdatentelegramm versenden. Der Einsatz von Datenanforderungstelegrammen bringt ein weiteren Vorteil mit sich. Durch die Zeitdifferenz zwischen Datenanforderungstelegramm und Erhalt des Datentelegramms kann überprüft werden, ob die Datenübertragung ausreichend stabil ist und ob der Client noch verbunden ist. Wenn innerhalb einer vorgegeben Zeitspanne von x Milisekunden keine Antwort in Form des Datentelegramms erfolgt kann eine Warnung ausgegeben werden, dass dieser Stäubli-Roboter nicht erreichbar ist.\\
+	\textbf{Auslöser für Versand von Kameradaten} \\
+	Beim Anfallen von Positionsdaten, welche anhand von Kameradaten berechnet werden, solllen diese schnellstmöglichst an den Roboter übertragen werden. Aus diesem Grund erfolgt der Versandt dieser Daten Ereignissgetriggert, d.h. direkt nach Erhalt der Positionsdaten wird ein Telegramm an den entsprechenden Roboter gesandt.
+	Die Entscheidungsfindung bei den eben genannten Auswahlmöglichkeiten ist nachfolgend in einem morphologischen Kasten dargestellt.
+	\begin{longtable}{|p{3cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+		\caption{Morphologischer Kasten TCP/IP-Verbindung}
+		\label{table:MorphoTCPIP}\\
+		\hline
+		Merkmal & Option 1 & Option 2 & Option 3 \\ [0.5ex] 
+		\hline
+		\endhead
+		Architekturwahl & Roboter = Server & \cellcolor{green!10}Anlage = Server &\\ 
+		Nachrichtentypen & Prozessdaten unterteilt & Eine Nachricht & \cellcolor{green!10}Prozessdaten und Systemereignisse getrennt\\
+		Auslöser Systemereignisse & Zyklisch & \cellcolor{green!10}Ereignisbasiert&  \\
+		Auslöser Prozessdaten & \cellcolor{green!10}Anforderungs-telegramm & Zyklisch &  \\
+		Auslöser Kameradaten & Zyklisch & \cellcolor{green!10}Ereignisbasiert&  \\
+		\hline
+	\end{longtable}
 	
+	\begin{table}
+		\centering
+		\begin{tabular}{>{\columncolor{gray!20}}lccc}
+			\toprule
+			\textbf{Merkmal} & \textbf{Option 1} & \textbf{Option 2} &  \textbf{Option 3}\\
+			\midrule
+			Wahl der Architektur 1 & \cellcolor{green!10}Anlagensteuerung als Server & Roboter als Server &\\
+			Nachrichtentypen 4 & Eine Nachricht 5 & Prozessdaten und Systemereignisse getrennt & \\
+			Auslöser Versand Systemereignisse & Zyklisch & \cellcolor{green!10}Ereignisbasiert & \\
+			\bottomrule
+		\end{tabular}
+		\caption{Beispiel für eine gefärbte Tabelle mit erster Spalte losgelöst.}
+		\label{tab:gefaerbte_tabelle_ohne_erste_spalte}
+	\end{table}
+	\textbf{Nachrichtenaufbau Datentelegramm}//
+	Nachfolgend soll der Nachrichtenaufbau des Datentelegramms festgelegt werden. Durch Brainstorming und durch Inspiration von anderen Telegram-Aufbauten wie Ethernet (vgl. Kapitel \ref{subsec:EthernetFeldbus}) werden verschiedene Möglichkeiten des Telegrammaufbaus entworfen:\\
+	\begin{itemize}
+		\item \textbf{Konzept 1:} <Nachrichten-ID>,<Sender-ID>,<Uhrzeit>,<Daten>
+		\item \textbf{Konzept 2:} <Nachrichten-ID>,<Sender-Name>,<Daten>
+		\item \textbf{Konzept 3:} <Einzigartiger-Code>,<Sender-ID>
+		<Daten>
+		\item \textbf{Konzept 4:} <Nachrichten-ID>,<Sender-ID>,<Daten>,<CRC>
+		\item \textbf{Konzept 5:} <Nachrichten-ID>,<Sender-ID>,<Daten Gleitkomma, dynamisch>
+	\end{itemize}
+	In Konzept 1,2,4,5 kommt eine Nachrichten-ID am Anfang, damit der Empfänger weiß, dass z.B. ein Datentelegramm und keine Systemereignisse versendet werden. Anschließend folgt die Sender-ID, damit der Server weiß von welchem Roboter die Daten stammen. Bei Konzept 2 wird die Sender-ID, welche durch eine Zahl dargestellt wird, durch einen konfigurierbaren Namen ersetzt, was die Nutzerfreundlichkeit erhöht, da bei späterer Wartung ggf. unbekannt ist, welcher Roboter welche Nummer besitzt. Bei Konzept 1 wird darüber hinaus die Uhrzeit mit versendet, dies ist für Dokumentationszwecke sinnvoll und ebenso kann eine Zeitdifferenz oder unterschiedliche Einstellungen in der Uhrzeit zwischen Roboter und Anlagensteuerung detektiert werden. Das Datum kann durch die Anlagensteuerung bei Erhalt der Nachricht bestimmt werden und muss daher nicht mitversendet werden. Bei Konzept 4 wird zusätzlich ein CRC-Segment (Cyclic Redundancy Check)  versendet. Im CRC-Segment wird eine Prüfsumme übermittelt, welche vom Sender aus der zu übermitteltenden Nachricht berechnet. Der Empfänger berechnet die Prüfsumme aus der erhaltenen Nachricht und vergleicht sie mit dem CRC-Segment, um zu überprüfen, ob die Nachricht korrekt übermittelt wird. TCP/IP stellt jedoch bereits selbständig eine fehlerfreie Übertragung durch ein CRC-Segment sicher. Durch eine zusätzliche Prüfsumme kann zwar die Sicherheit bezüglich des korrekten Einlesens der Daten erhöht werden, für die Übertragung selbst ist ein CRC-Segment jedoch nicht mehr notwendig.
+	 
 	\section{Datenverwertung}
 	
 	\begin{longtable}{|p{7cm}|p{3cm}|p{3cm}|}
