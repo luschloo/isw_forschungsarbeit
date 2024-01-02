@@ -12,6 +12,8 @@
 \usetikzlibrary{fit,matrix,shapes.geometric}
 \usepackage[table]{xcolor}
 \usepackage{nicematrix,booktabs,tikz}
+\usepackage{harveyballs}
+\usepackage{tabularx}
 
 
 %\usepackage[english, ngerman]{babel} % If the thesis is in German
@@ -500,7 +502,7 @@
 		Auslöser Kameradaten & Zyklisch & \cellcolor{green!10}Ereignisbasiert&  \\
 		\hline
 	\end{longtable}
-	
+	Eine der beiden Tabellen verwenden.
 	\begin{table}
 		\centering
 		\begin{tabular}{>{\columncolor{gray!20}}lccc}
@@ -513,9 +515,9 @@
 			\bottomrule
 		\end{tabular}
 		\caption{Beispiel für eine gefärbte Tabelle mit erster Spalte losgelöst.}
-		\label{tab:gefaerbte_tabelle_ohne_erste_spalte}
-	\end{table}
-	\textbf{Nachrichtenaufbau Datentelegramm}//
+		\label{tab:gefaerbte_tabelle_ohne_erste_spalte} 
+	\end{table}\newline
+	\textbf{Nachrichtenaufbau Datentelegramm}\\
 	Nachfolgend soll der Nachrichtenaufbau des Datentelegramms festgelegt werden. Durch Brainstorming und durch Inspiration von anderen Telegram-Aufbauten wie Ethernet (vgl. Kapitel \ref{subsec:EthernetFeldbus}) werden verschiedene Möglichkeiten des Telegrammaufbaus entworfen:\\
 	\begin{itemize}
 		\item \textbf{Konzept 1:} <Nachrichten-ID>,<Sender-ID>,<Uhrzeit>,<Daten>
@@ -525,8 +527,38 @@
 		\item \textbf{Konzept 4:} <Nachrichten-ID>,<Sender-ID>,<Daten>,<CRC>
 		\item \textbf{Konzept 5:} <Nachrichten-ID>,<Sender-ID>,<Daten Gleitkomma, dynamisch>
 	\end{itemize}
-	In Konzept 1,2,4,5 kommt eine Nachrichten-ID am Anfang, damit der Empfänger weiß, dass z.B. ein Datentelegramm und keine Systemereignisse versendet werden. Anschließend folgt die Sender-ID, damit der Server weiß von welchem Roboter die Daten stammen. Bei Konzept 2 wird die Sender-ID, welche durch eine Zahl dargestellt wird, durch einen konfigurierbaren Namen ersetzt, was die Nutzerfreundlichkeit erhöht, da bei späterer Wartung ggf. unbekannt ist, welcher Roboter welche Nummer besitzt. Bei Konzept 1 wird darüber hinaus die Uhrzeit mit versendet, dies ist für Dokumentationszwecke sinnvoll und ebenso kann eine Zeitdifferenz oder unterschiedliche Einstellungen in der Uhrzeit zwischen Roboter und Anlagensteuerung detektiert werden. Das Datum kann durch die Anlagensteuerung bei Erhalt der Nachricht bestimmt werden und muss daher nicht mitversendet werden. Bei Konzept 4 wird zusätzlich ein CRC-Segment (Cyclic Redundancy Check)  versendet. Im CRC-Segment wird eine Prüfsumme übermittelt, welche vom Sender aus der zu übermitteltenden Nachricht berechnet. Der Empfänger berechnet die Prüfsumme aus der erhaltenen Nachricht und vergleicht sie mit dem CRC-Segment, um zu überprüfen, ob die Nachricht korrekt übermittelt wird. TCP/IP stellt jedoch bereits selbständig eine fehlerfreie Übertragung durch ein CRC-Segment sicher. Durch eine zusätzliche Prüfsumme kann zwar die Sicherheit bezüglich des korrekten Einlesens der Daten erhöht werden, für die Übertragung selbst ist ein CRC-Segment jedoch nicht mehr notwendig.
-	 
+	In Konzept 1,2,4,5 kommt eine Nachrichten-ID am Anfang, damit der Empfänger weiß, dass z.B. ein Datentelegramm und keine Systemereignisse versendet werden. Anschließend folgt die Sender-ID, damit der Server weiß von welchem Roboter die Daten stammen.\\
+	Bei Konzept 2 wird die Sender-ID, welche durch eine Zahl dargestellt wird, durch einen konfigurierbaren Namen ersetzt, was die Nutzerfreundlichkeit erhöht, da bei späterer Wartung ggf. unbekannt ist, welcher Roboter welche Nummer besitzt. \\
+	Bei Konzept 1 wird darüber hinaus die Uhrzeit mit versendet, dies ist für Dokumentationszwecke sinnvoll und ebenso kann eine Zeitdifferenz oder unterschiedliche Einstellungen in der Uhrzeit zwischen Roboter und Anlagensteuerung detektiert werden. Das Datum kann durch die Anlagensteuerung bei Erhalt der Nachricht bestimmt werden und muss daher nicht mitversendet werden. \\
+	Bei Konzept 4 wird zusätzlich ein CRC-Segment (Cyclic Redundancy Check)  versendet. Im CRC-Segment wird eine Prüfsumme übermittelt, welche vom Sender aus der zu übermitteltenden Nachricht berechnet. Der Empfänger berechnet die Prüfsumme aus der erhaltenen Nachricht und vergleicht sie mit dem CRC-Segment, um zu überprüfen, ob die Nachricht korrekt übermittelt wird. TCP/IP stellt jedoch bereits selbständig eine fehlerfreie Übertragung durch ein CRC-Segment sicher. Durch eine zusätzliche Prüfsumme kann zwar die Sicherheit bezüglich des korrekten Einlesens der Daten erhöht werden, für die Übertragung selbst ist ein CRC-Segment jedoch nicht mehr notwendig. \\
+	Konzept 3 sieht den Einsatz eines einzigartigen Codes vor. Mit jedem Datenanforderungstelegram wird ein einzartiger Code generiert. Der Roboter antwortet mit der Rücksendung des selben Code und den angehängten Daten. Dadurch kann eine bessere Zuordnung der Datentelegramme zu den Aufforderungen erfolgen, um sicherzustellen, dass die Datentelegramme nicht hinterherhinken.\\
+	Die fünf entworfenen Konzepte zum Nachrichtenaufbau werden nachfolgend verglichen (vgl. Tabelle \ref{tab:nachrichtenaufbau-vergleich}). Zum Einsatz kommen Harvey-Balls, die den Erfüllunsgrad des jeweiligen Kriteriums wiedergeben. Alle Kriterien haben eine ähnliche Wichtigkeit, mit der sich abschließend eine Gesamtwertung ermitteln lässt. 4 entspricht dabei der höchsten Wertung mit einem durchschnittlich komplett ausgefüllten Harvey-Ball.
+	\begin{table}[h]
+		\centering
+		\begin{tabularx}{\linewidth}{p{0.2\linewidth} >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+			\hline
+			\textbf{ } & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}\\
+			\hline
+			Informationsgehalt & \harveyBallThreeQuarter & \harveyBallHalf & \harveyBallHalf & \harveyBallHalf & \harveyBallThreeQuarter\\
+			Übertragungssicherheit & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallFull & \harveyBallFull & \harveyBallThreeQuarter\\
+			Verständlichkeit/ \newline Einfachheit & \harveyBallThreeQuarter & \harveyBallFull & \harveyBallQuarter & \harveyBallQuarter & \harveyBallQuarter\\
+			Datensparend & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallQuarter\\
+			\hline
+			Wertung (0-4) & 3 & 3 & 2,5 & 2,5 & 2\\
+			\hline
+		\end{tabularx}
+		\caption{Vergleich Nachrichtenaufbau}
+		\label{tab:nachrichtenaufbau-vergleich}
+	\end{table}\newline
+	Konzept 1 und 2 erhalten insgesamt die höchste Wertung. Aus diesem Grund entfällt die Entscheidung auf Mischung von Konzept 1 und 2. Hierdurch kann der Vorteil des Datums mit dem Vorteil, dass der Sendername deutlich einfacher einem Roboter zugeordnet werden kann als eine Sender-ID, kombiniert werden. Der Nachrichtenaufbau stellt sich wie folgt dar. \\
+	Finales Konzept: <Nachrichten-ID>,<Sender-Name>,<Uhrzeit>,<Daten> \\
+	\textbf{Nachrichtenaufbau Systemereignisse}\\
+	Der Aufbau dieser Nachricht orientiert sich am Datentelegramm. Statt den Daten wird hier der Text des Systemereignisses übertragen. Ergänzt wird dies von der Schwere des Systemereignisses. Dies ist eine Ganzzahl zwischen 0 (Info) bis 4 (kritischer Fehler). \\
+	<Nachrichten-ID>,<Sender-Name>,<Uhrzeit>,<Schwere>,<Meldung>\\
+	\textbf{Nachrichtenaufbau Datenanforderungstelegramm}\\
+	Das Datenanforderungsdiagramm wird an alle Roboter versandt und ist wie folgt aufgebaut:\\
+	<Nachrichten-ID>,<Sender-Name>,<Uhrzeit>\\
+	Durch die Nachrichten-ID wissen alle Roboter, dass es sich um eine Aufforderung für den Versand des Datentelegramms handelt.
 	\section{Datenverwertung}
 	
 	\begin{longtable}{|p{7cm}|p{3cm}|p{3cm}|}
