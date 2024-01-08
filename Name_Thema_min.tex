@@ -7,6 +7,7 @@
 \usepackage[ngerman]{babel} % If the thesis is in English
 \usepackage {longtable}
 \usepackage{tikz}
+\usepackage{tikz-uml}
 \usepackage{geometry}
 \usetikzlibrary{matrix}
 \usetikzlibrary{fit,matrix,shapes.geometric}
@@ -14,7 +15,11 @@
 \usepackage{nicematrix,booktabs,tikz}
 \usepackage{harveyballs}
 \usepackage{tabularx}
-
+\usepackage{pgfgantt}
+\usepackage{pgf-umlsd}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
 
 %\usepackage[english, ngerman]{babel} % If the thesis is in German
 
@@ -64,31 +69,58 @@
     \chapter{Einleitung}
 
     \section{Motivation}
-    
-
-    
-    \begin{table}[h!]
-    	\centering
-    	\begin{tabular}{||c c c c||} 
-    		\hline
-    		Col1 & Col2 & Col2 & Col3 \\ [0.5ex] 
-    		\hline\hline
-    		1 & 6 & 87837 & 787 \\ 
-    		2 & 7 & 78 & 5415 \\
-    		3 & 545 & 778 & 7507 \\
-    		4 & 545 & 18744 & 7560 \\
-    		5 & 88 & 788 & 6344 \\ [1ex] 
-    		\hline
-    	\end{tabular}
-    	\caption{Table to test captions and labels.}
-    	\label{table:1}
-    \end{table}
-	
-	\section{Anforderungsdefinition / Aufgabenstellung}
+    Roboter sind in unserer Welt nicht mehr wegzudenken. In unterschiedlichsten Industrien verrichten sie zuverlässig ihre Arbeit und machen eine Produktion auch in Hochlohnländern wirtschaftlich. Ihre Arbeitsleistung ist konstant, fehlerfrei und präzise. In der Lebensmittel Industrie gelten besondere Hygiene-Anforderungen, denen Roboter der Stäubli-AG gerecht werden. Mit ihnen können beispielsweise Wiener-Würste verpackt werden. Um eine solche anspruchsvolle Aufgabe zu bewältigen, entwickelt die "robomotion GmbH" komplexe Automatisierungslösungen ganz individuell nach den Kundenbedürfnissen. Eine solche Anlage setzt nicht neben einem oder mehreren Robotern aus vielen weiteren Komponenten, wie z.b. einem Förderband, der zentralen Steuerung durch die SPS, sowie einem PC für die Datenverwertung, sowie als Schnittstelle zum Bediener zusammen. Um ein gutes Zusammenspiel aller Komponenten zu gewährleisten, ist eine Kommunikation zwischen ihnen von großer Bedeutung. Dies ist besonders wichtig, da die Datenmenge in der heutigen Zeit kontinuierlich wächst und Kunden ein großes Interesse an Informationen über ihre Anlagen und Roboter haben. 
+	\section{Zielsetzung / Aufgabenstellung}
+	In der robomotion GmbH sollen Stäubli-Roboter neu eingeführt und in das bestehende Anlagensteuerungskonzept integriert werden. Hierzu soll eine bidirektionale Kommunikationsschnittstelle zwischen der Anlage und dem Roboter entworfen und implementiert werden. Diese setzt sich aus zwei getrennten Einheiten zusammen. Eine Feldbus-Verbindung muss Befehle von der Anlagen-SPS zum Roboter übertragen. Darüber hinaus müssen Fehlermeldungen und Prozessdaten des Roboters zur Anlagensteuerung und Kameradaten von der Anlagensteuerung zum Roboter übertragen werden. Die Visualisierung und Verwertung dieser Daten erfolgt jedoch nicht in der SPS, sondern in einem auf Windows laufenden .NET basierten Programm. Aus diesem Grund muss eine zweite Kommunikationsverbindung zwischen Roboter und Anlage mit Hilfe von TCP/IP konzeptioniert, entworfen und implementiert werden. Der Schwerpunkt dieser Arbeit liegt auf der TCP/IP-Verbindung.\\
+	Im Rahmen dieser Arbeit, soll sowohl der Feldbus, als auch die TCP/IP-Verbindung konzeptioniert werden. Das Programm für den Roboter, sowie eine sogenannte WPF-Anwendung für das Windows-Betriebssystem sollen konzeptioniert, entworfen und implementiert werden. Eine Oberfläche soll dem Bediener die Fehlermeldungen des Roboters anzeigen. Ein Praxistest soll abschließend das entwickelte Gesamtsystem validieren. Darüber hinaus sollen die Potentiale, welche durch die zur Verfügung stehenden Daten entstehen, sowie mögliche Verwendungsszenarien aufgezeigt werden.
 	
 	\section{Methodik und Vorgehensweise}
-	Die Verwendung geeigneter Methoden und eines strukturierten Vorgehens sind entscheidend für eine erfolgreiche Umsetzung des Projektes. Durch ein Vorgehensmodell wird eine effiziente Arbeitsweise und eine zeitgerechte Fertigstellung gefördert. Da die Komplexität des Projektes und der Software im Projektverlauf zunehmend wächst, ist eine wissenschaftliche Methodik essentiell. Methoden und Werkzeuge erleichtern es neue Lösungsansätze zu finden und faktenbasierte Entscheidungen zu treffen. \cite{SoftwaretechnikBroy} \cite{ISWLeitfaden}
-	Gant-Diagramm wie Seite 39 ISW-Leitfaden
+	Die Verwendung geeigneter Methoden und eines strukturierten Vorgehens sind entscheidend für eine erfolgreiche Umsetzung des Projektes. Durch ein Vorgehensmodell wird eine effiziente Arbeitsweise gefördert und durch eine Terminplanung eine zeitgerechte Fertigstellung sichergestellt. Methoden und Werkzeuge, wie bspw. ein morphologischer Kasten oder ein Harvey-Diagramm erleichtern es neue Lösungsansätze zu finden und faktenbasierte Entscheidungen zu treffen. \cite{SoftwaretechnikBroy} \cite{ISWLeitfaden} \\
+	\textbf{Vorgehensweise}\\
+	Die Vorgehensweise lehnt sich an Sommerville \cite{Sommerville} und an den ISW-Leitfaden \cite{ISWLeitfaden}. Da es sich in dieser Arbeit um kein reines Softwareprojekt handelt, sondern ebenso mechatronische Komponenten, wie der Roboter und die Kommunikationsschnittstelle enthalten sind erfolgt eine Anpassung der Vorgehensweise an die gegebenen Randbedingungen. Hieraus ergibt sich folgende Abfolge:\\
+	\begin{itemize}
+		\item \textbf{Recherche zu Grundlagen und Stand der Technik:} Zu Beginn soll zur Einarbeitung eine Recherche zu den Grundlagen von Feldbussen und TCP/IP erfolgend. Ebenso muss eine Recherche zum Stand der Technik des Roboters und der Anlagensteuerungskonzept von robomotion erfolgen. In der Literatur soll  nach gängigen Umsetzungen von TCP/IP-Verbindungen im Kontext von Robotern gesucht werden.
+		\item \textbf{Detaillierung der Anforderungen:} Die grobe Aufgabenstellung soll detailliert und in ein Lastenheft überführt werden.
+		\item \textbf{Konzeptionierung:} Hier soll die Feldbus-Verbindung zwischen Roboter und SPS konzeptioniert werden. Vorallem ist die TCP/IP-Kommunikation zu konzeptionieren und Entscheiden bezüglich Nachrichtenaufbau und Kommunikationsablauf festzulegen. Ebenso sollen die zu übertragenden Daten gewählt werden.
+		\item \textbf{Softwaredesign:} In diesem Rahmen soll ein Systementwurf der Software für den Stäubli-Roboter und vorallem der WPF-Anwendung erfolgen. Die Architektur, sowie Lösungsbausteine, wie Softwarebibliotheken müssen festgelegt werden. Softwarekomponenten entweder hier oder in der Konzeptionierung festlegen. Wenn man es hier macht, hat man ein Teil der Spezifikation/Konzeption mit hierdrin.
+		\item \textbf{Softwareimplementierung:} Die zuvor konzeptionierte und entworfene Software muss in einen Source-Code überführt werden. Bei der Programmierung ist auf verständliche Kommentierung zu achten und eine Verwaltung soll mit Hilfe eines Source-Code-Verwaltungs-Programm erfolgen.
+		\item \textbf{Validierung:} Durch eine abschließende Validierung ist das System unter Realbedingungen zu testen. Dies soll ein Funktionstest beinhalten, um zu überprüfen, dass alle Funktionen ihre Aufgaben erfüllen. Fehlertests prüfen die Robustheit des Systems. Hierzu werden bewusst besondere Situationen oder Störungen herbeigeführt um die Fehlertoleranz des Systems zu überprüfen und sicherzustellen, dass das System nicht abstürzt. \cite{ISWLeitfaden} \cite{Sommerville}
+	\end{itemize}
+	Die schriftliche Ausarbeitung folgt ebenso diese Vorgehensweise. Eine vollständige Aufführung der Implementierung, welche sich durch den gesamten Quell-Code darstellt ist nicht sinnvoll. Aus diesem Grund wird die Implementierung mit in das Kapitel Softwaredesign integriert und lediglich besonders erwähnenswerte und für das Verständnis wichtige kurze Code-Abschnitte aufgezeigt. Abgerundet wird die Arbeit durch ein Fazit und einem Ausblick.\\
+	\textbf{Terminplanung}\\
+	Für eine fristgerechte Fertigstellung und ein strukturiertes Vorgehen ist es wichtig zu Beginn eine Terminplanung durchzuführen. Hierzu kommt ein Gantt-Diagramm zum Einsatz (vgl. Tabelle \ref{tab:Gantt}). Die horizontalen Balken stellen die einzelnen Arbeitspakete und deren Zeitumfang dar. Meilensteine, sind wichtige Projekt-(Zwischen)-Ziele mit einer Zeitdauer Null und werden mit einer Raute dargestellt. \cite{ISWLeitfaden}\\
+	Um frühzeitig Umsetzungsschwierigkeiten zu erkennen und Lösungskonzepte zu testen soll parallel zu der Konzeptionierung ein Softwareprototyp mitgeführt werden. Ebenso soll die Datenübertragung an der Hardware möglichst früh im Projektverlauf getestet werden. Dadurch kann die entworfene Verbindung, sowie die Softwarekonzepte zwischenzeitlich abgesichert werden. Dies verhindert, dass erst in der Implementierung sich herausstellt, dass grundlegende Funktionalitäten nicht funktionieren. 
+	
+	\begin{table}
+		\centering
+		\caption{Terminplanung mit Gantt-Diagramm}
+		\label{tab:Gantt}
+		\begin{ganttchart}[
+			vgrid={*{12}{gray, dotted}, *1{black, dashed}},
+			bar label node/.append style={
+				align=left,
+				text width=width("Einarbeitung und Literatur ")},
+				bar/.append style={fill=blue!50},
+				milestone/.append style={fill=orange},
+				milestone label node/.append style={align=left, text width=width("Einarbeitung und Literatur ")},
+			]{1}{19}
+			\gantttitle{2023}{13} \gantttitle{2024}{6} \\
+			\gantttitlelist{40,41,42,43,44,45,46,47,48,49,50,51,52,1,2,3,4,5,6}{1} \\
+			\ganttbar{Einarbeitung und Literatur}{1}{4} \\
+			\ganttbar{Anforderungsanalyse}{4}{4} \\
+			\ganttbar{Konzeptionierung Feldbus}{5}{5} \\
+			\ganttbar{Konzeptionierung TCP/IP}{6}{9} \\
+			\ganttbar{Konzeptionierung WPF}{8}{9} \\
+			\ganttmilestone{M: Fertiges Konzept}{9}\\
+			\ganttbar{Softwaredesign}{10}{12} \\
+			\ganttbar{Softwareimplementierung}{13}{15} \\
+			\ganttmilestone{M: Fertigstellung Code}{15} \\
+			\ganttbar{Validierung und Testing}{16}{17} \\
+			\ganttmilestone{M: Validiertes System}{17}\\
+			\ganttbar{Dokumentation}{12}{19}\\
+			\ganttmilestone{M: Präsentation und Abgabe}{19}
+		\end{ganttchart}
+	\end{table}
 
 	\chapter{Grundlagen und Stand der Technik}
 	
@@ -374,11 +406,55 @@
 	\end{longtable}
 	
 	\chapter{Konzeptionierung und Systementwurf}
-	UML-Diagramm
-	Anwendungsfälle definieren, Rahmenbedingungen identifizieren, Anforderungen aus Lastenheft
-	 verfeinern
+	In diesem Kapitel soll das Gesamtsystem und seine Bestandteile konzeptioniert werden. Hierfür werden die Komponenten der Anlage benannt und ihre Funktionen grob skizziert. Dies erfolgt mit Hilfe eines UML-Klassendiagramms (vgl. Abbildung \ref{fig:UMLKlassenAnlage}) \cite{Sommerville}.
+	!UML-Diagramm.	Anwendungsfälle definieren, Rahmenbedingungen identifizieren, Anforderungen aus Lastenheft verfeinern. Softwarekomponenten definieren und im Komponentendiagramm darstellen gemäß UML.!
+	
+	\begin{figure}
+		 \begin{tikzpicture}
+		 	\umlclass[x=0]{SPS}{
+		 		- Eingänge : int \\
+		 		- Ausgänge : bool \\
+		 	}{
+		 		+ sendeBefehle() : void \\
+		 		+ empfangeBestätigungen() : void
+		 	}
+		 	
+		 	\umlclass[x=8]{Anlagensteuerung}{
+		 		- Betriebsmodus : string \\
+		 		- Logger : string\\
+		 		- Graphik: \\
+		 		
+		 	}{
+		 		+ erfrageRoboterDaten() : void \\
+		 		+ empfangeRoboterDaten() : void \\
+		 		+ sendePositionen(): void\\
+		 		+ visualisiereFehlermeldungen(): void\\
+		 		+ visualisiereRoboterdaten(): void \\
+		 		+ schreibtLogFile(): void
+		 	}
+		 	\umlclass[x=4, y=-8]{Roboter}{
+		 		- Geschwindigkeit : float \\
+		 		- Temperatur: int \\
+		 		- Drehmoment: int \\
+		 		- Fehlermeldung: string
+		 	}{
+		 		+ bewegen() : void \\
+		 		+ empfangeBefehle() : void \\
+		 		+ sendeBestätigungBewegungsausführung(): void\\
+		 		+ sendeDaten(): void \\
+		 		+ sendeFehlermeldungen(): void
+		 	}
+		 	% Verbindungslienie zwischen SPS und Roboter mit Multiplicitäten
+		 	\umlassoc[arg=steuert,pos=0.5]{Roboter}{SPS}
+		 	\umlassoc[arg=kommuniziert mit,pos=0.5]{SPS}{Anlagensteuerung}
+		 	\umlassoc[arg=kommuniziert mit,pos=0.5]{Anlagensteuerung}{Roboter}
+		 	\umlassoc{Roboter}{SPS}
+		 \end{tikzpicture}
+		 \caption{UML-Klassendiagramm Gesamte Anlage}
+		 \label{fig:UMLKlassenAnlage}
+	\end{figure}
+	Das UML-Diagramm zeigt die Komponenten SPS, Roboter und Anlagensteuerung auf. Die Kommunikation zwischen SPS und Roboter erfolgt mittels Feldbus, zwischen Anlagensteuerung und Roboter mittels TCP/IP. Daher soll im ersten Schritt der Feldbus und die TCP/IP-Verbindung konzeptioniert werden. Erst anschließend kann das Programm des Roboters und der Anlagensteuerung konzeptioniert werden, da dieses maßgeblich abhängig von der Wahl und dem Aufbau der Kommunikationsverbindung ist. Eine Konzeptionierung und Implementierung in der SPS kann entfallen, da die Kommunikation mit einer Feldbus-Verbindung in der Beckhoff-SPS bei robomotion Stand der Technik ist und dadurch aus anderen Projekten übernommen werden kann. Nachdem die Feldbus-Verbindung und die TCP/IP-Verbindung konzeptioniert wurden sollen die zu übertragenden Daten für die TCP/IP-Verbindung konzeptioniert werden. Anschließend erfolgt die Konzeptionierung der Software für den Stäubli-Roboter und die Anlagensteuerung.
 	 
-	 Softwarekomponenten definieren und im Komponentendiagramm darstellen gemäß UML
 	\section{Feldbus-Verbindung}
 	Aufgabe der Feldbusverbindung ist die Kommunikation zwischen dem Stäubli-Roboter und der Beckhoff-SPS sicherzustellen. Hierzu werden einerseits Befehle, wie zur Bewegungsdurchführung zum Roboter übertragen, andererseits Informationen, wie z.B. eine Bestätigung der vollendeten Bewegung zurück an die SPS gesandt.\\
 	\textbf{Wahl des Feldbusses}\\
@@ -558,7 +634,49 @@
 	\textbf{Nachrichtenaufbau Datenanforderungstelegramm}\\
 	Das Datenanforderungsdiagramm wird an alle Roboter versandt und ist wie folgt aufgebaut:\\
 	<Nachrichten-ID>,<Sender-Name>,<Uhrzeit>\\
-	Durch die Nachrichten-ID wissen alle Roboter, dass es sich um eine Aufforderung für den Versand des Datentelegramms handelt.
+	Durch die Nachrichten-ID wissen alle Roboter, dass es sich um eine Aufforderung für den Versand des Datentelegramms handelt. \\
+	Der Kommunikationsablauf lässt sich zusammenfassend in einem Sequenzdiagramm darstellen.
+	
+	\begin{figure}
+		\centering
+		\begin{sequencediagram}
+			\newthread{A}{:Server}{}
+			\newinst[2]{B}{:Client}{}
+			\begin{call}{A}{fordere()}{B}{erhalte(Daten)}
+				\postlevel
+				\begin{call}{A}{4()}{A}{}
+				\end{call}
+				\postlevel
+			\end{call}
+		\end{sequencediagram}
+	\end{figure}
+	
+	Das Zusammenspiel von Roboter, SPS und Windows-PC ist nachfolgend in einem UML-Diagramm dargestellt. (am besten vor Konzeptionierung)
+	\begin{tikzpicture}[>=stealth']
+		
+		% Locations
+		\def\ClientToServer{++(6,0)}
+		\def\ServerToClient{++(-6,0)}
+		\def\Lifeline{++(0,-3)}
+		
+		% Lifelines
+		\path (0,0)           node[draw] (Client) {Client}
+		\ClientToServer node[draw] (Server) {Server};
+		\draw (Client) -- \Lifeline (Server) -- \Lifeline;
+		
+		% Blocks
+		\path (Server)
+		++(0,-1) node (BeginProcess) {} node[below right] {Process}
+		++(0,-1) node (EndProcess)   {};
+		\filldraw[fill=blue!30] (BeginProcess.west) rectangle (EndProcess.east);
+		
+		% Calls
+		\draw[->] (BeginProcess)\ServerToClient -- node[above] {Hey} (BeginProcess);
+		\draw[->] (EndProcess) -- node[above] {You} \ServerToClient;
+		
+	\end{tikzpicture}
+	
+	
 	\section{Datenverwertung}
 	
 	\begin{longtable}{|p{7cm}|p{3cm}|p{3cm}|}
@@ -658,8 +776,33 @@
  	\textbf{Drehmoment Achsen}\\
  	Das Drehmoment der einzelnen Achsen ändert sich kontinuerlich während der Bewegung. Durch das Vergleichen der Drehmomente mit einer Referenzfahrt können  Auffälligkeiten entdeckt werden. Schleichend zunehmende Momente deuten z.B. auf fehlende Schmierung oder Lagerdefekte hin. Abrupt zunehmende Momente können durch ein Festhängen oder einen Crash verursacht werden. Eine Dokumentation der Abweichungen ist sinnvoll, um aus Gewährleistungsgründen unsachgemäße Verwendung z.B. durch einen Crash nachzuweisen. Analog zum Schleppfehler müssen auch die Drehmomente sehr kontinuierlich erfasst werden.\\
 	\textbf{Sytemereignisse}\\
-	Ereignisse, die von der Steuerung festgestellt werden, wie z.B. Fehlermeldungen oder das Einschalten der Energieversorgung für die Achsen werden in einer system-log-Datei aufgezeichnet. Sie lassen sich in die Schweregrade "Info", "Warning", "Error" und "Critical" unterteilen. Das Auslesen der Systemereignisse kann mit dem Befehl "getEvents" erfolgen. Diese sollen beim Auftreten sofort über TCP/IP übertragen werden.
+	Ereignisse, die von der Steuerung festgestellt werden, wie z.B. Fehlermeldungen oder das Einschalten der Energieversorgung für die Achsen werden in einer system-log-Datei aufgezeichnet. Sie lassen sich in die Schweregrade "Info", "Warning", "Error" und "Critical" unterteilen. Das Auslesen der Systemereignisse kann mit dem Befehl "getEvents" erfolgen. Diese sollen wie bereits bei der Konzeptionierung der TCP/IP-Verbindung festgelegt, beim Auftreten sofort über TCP/IP übertragen werden, .
 	\newpage
+	\section{Stäubli Roboterprogramm}
+	Nachfolgend soll das die Software und deren Komponenten für den Stäubli-Roboter konzeptioniert werden. Ein UML-Anwendungsdiagramm hilft die Anwendungsfälle zu definieren und die Software zu spezifiziren.
+	\begin{figure}[h!]
+		\begin{tikzpicture}
+			\begin{umlsystem}{Schedule}
+				\umlusecase[x=-3]{Check Request}
+				\umlusecase[x=3]{Ask Constraints}
+				\umlusecase[x=-2,y=-2]{Deny Request}
+				\umlusecase[x=3, y=-2]{Collect Constraints}
+				\umlusecase[x=3,y=-4]{Merge Constraints} 
+				\umlusecase[y=-6]{Resolve Conflicts}
+			\end{umlsystem}
+			
+			\umlactor[x=-6]{Roboter}
+			\umlactor[x=6]{Anlagensteuerung}
+			
+			\draw (Roboter) -- (usecase-1);
+			
+			\umlassoc{Roboter}{usecase-3}
+			
+			\umlextend{usecase-2}{usecase-3}
+			\umlinclude{usecase-5}{usecase-6}
+			
+		\end{tikzpicture}
+	\end{figure}
 	
 	\section{WPF und GUI}
 	
@@ -691,12 +834,16 @@
 	num fromBinary(num nDataByte[], num nDataSize, string sDataFormat, num\& nValue[])\\
 	Umgekehrt ermöglicht diese Funktion, einen empfangen Byte-Array in numerische Werte zu konvertieren. Das Ergebnis im Datenformat nDataFormat wird in nValue gespeichert. Die Anzahl der zu decodierenden Bytes wird festgelegt durch nDataSize, wenn nicht alle Bytes des Eingangs-Array nDataByte decodiert werden sollen.
 	
-	\section{.NET in C\#}
+	\section{WPF-Anwendung}
 	
 	
-	\subsection{TCP/IP}
+	\subsection{Architektur}
 	
-   	\subsection{Datenverwertung und Visualisierung}
+   	\subsection{TCP/IP-Server}
+   	
+   	\subsection{Daten-Logger}
+   	
+   	\subsection{Graphen}
    	
    	
    	\chapter{Validierung}
