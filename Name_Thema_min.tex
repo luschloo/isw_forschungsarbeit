@@ -71,7 +71,7 @@
     \section{Motivation}
     Roboter sind in unserer Welt nicht mehr wegzudenken. In unterschiedlichsten Industrien verrichten sie zuverlässig ihre Arbeit und machen eine Produktion auch in Hochlohnländern wirtschaftlich. Ihre Arbeitsleistung ist konstant, fehlerfrei und präzise. In der Lebensmittel Industrie gelten besondere Hygiene-Anforderungen, denen Roboter der Stäubli-AG gerecht werden. Mit ihnen können beispielsweise Wiener-Würste verpackt werden. Um eine solche anspruchsvolle Aufgabe zu bewältigen, entwickelt die "robomotion GmbH" komplexe Automatisierungslösungen ganz individuell nach den Kundenbedürfnissen. Eine solche Anlage setzt nicht neben einem oder mehreren Robotern aus vielen weiteren Komponenten, wie z.b. einem Förderband, der zentralen Steuerung durch die SPS, sowie einem PC für die Datenverwertung, sowie als Schnittstelle zum Bediener zusammen. Um ein gutes Zusammenspiel aller Komponenten zu gewährleisten, ist eine Kommunikation zwischen ihnen von großer Bedeutung. Dies ist besonders wichtig, da die Datenmenge in der heutigen Zeit kontinuierlich wächst und Kunden ein großes Interesse an Informationen über ihre Anlagen und Roboter haben. 
 	\section{Zielsetzung / Aufgabenstellung}
-	In der robomotion GmbH sollen Stäubli-Roboter neu eingeführt und in das bestehende Anlagensteuerungskonzept integriert werden. Hierzu soll eine bidirektionale Kommunikationsschnittstelle zwischen der Anlage und dem Roboter entworfen und implementiert werden. Diese setzt sich aus zwei getrennten Einheiten zusammen. Eine Feldbus-Verbindung muss Befehle von der Anlagen-SPS zum Roboter übertragen. Darüber hinaus müssen Fehlermeldungen und Prozessdaten des Roboters zur Anlagensteuerung und Kameradaten von der Anlagensteuerung zum Roboter übertragen werden. Die Visualisierung und Verwertung dieser Daten erfolgt jedoch nicht in der SPS, sondern in einem auf Windows laufenden .NET basierten Programm. Aus diesem Grund muss eine zweite Kommunikationsverbindung zwischen Roboter und Anlage mit Hilfe von TCP/IP konzeptioniert, entworfen und implementiert werden. Der Schwerpunkt dieser Arbeit liegt auf der TCP/IP-Verbindung.\\
+	In der robomotion GmbH sollen Stäubli-Roboter neu eingeführt und in das bestehende Anlagensteuerungskonzept integriert werden. Hierzu soll eine bidirektionale Kommunikationsschnittstelle zwischen der Anlage und dem Roboter entworfen und implementiert werden. Diese setzt sich aus zwei getrennten Einheiten zusammen. Eine Feldbus-Verbindung muss Befehle von der Anlagen-SPS zum Roboter übertragen. Darüber hinaus müssen Fehlermeldungen und Prozessdaten des Roboters zur Anlagenvisualisierung und Kameradaten von der Anlagenvisualisierung zum Roboter übertragen werden. Die Visualisierung und Verwertung dieser Daten erfolgt jedoch nicht in der SPS, sondern in einem auf Windows laufenden .NET basierten Programm. Aus diesem Grund muss eine zweite Kommunikationsverbindung zwischen Roboter und Anlage mit Hilfe von TCP/IP konzeptioniert, entworfen und implementiert werden. Der Schwerpunkt dieser Arbeit liegt auf der TCP/IP-Verbindung.\\
 	Im Rahmen dieser Arbeit, soll sowohl der Feldbus, als auch die TCP/IP-Verbindung konzeptioniert werden. Das Programm für den Roboter, sowie eine sogenannte WPF-Anwendung für das Windows-Betriebssystem sollen konzeptioniert, entworfen und implementiert werden. Eine Oberfläche soll dem Bediener die Fehlermeldungen des Roboters anzeigen. Ein Praxistest soll abschließend das entwickelte Gesamtsystem validieren. Darüber hinaus sollen die Potentiale, welche durch die zur Verfügung stehenden Daten entstehen, sowie mögliche Verwendungsszenarien aufgezeigt werden.
 	
 	\section{Methodik und Vorgehensweise}
@@ -328,9 +328,9 @@
    	\section{Anlagensteuerung}
    	Ein Roboter ist meist nur ein Teil einer Automatisierungslösung. Dieser kann um Förderbänder, Sensoren und andere Aktoren ergänzt werden. Wie die Steuerung dieser Gesamtanlage umgesetzt wird unterscheidet sich von Anlagenautomatisierer zu Anlagenautomatisierer. Hier soll die bei robomotion gängige Umsetzung aufgezeigt werden, da diese relevant für das Gesamtverständnis und die Konzeptionierung der Komponenten ist. \\
    	\textbf{SPS}\\
-   	Zentrales Element jeder Anlagenautomatisierung ist eine Beckhoff-SPS, welche auf einem IPC läuft. Diese ist für die Ablauflogik und "Intelligenz" der Anlage zuständig. Auf anderen Bestandteilen, wie z.B. in einer Robotersteuerung ist hingegen nur eine geringe Komplexität abgebildet. In der Robotersteuerung werden meistens Kommondos mit Jobnummern angelegt, wie beispielsweise die Bewegung von Punkt A zu Punkt B. Durch den Aufruf der Jobnummer durch die SPS erhält der Roboter den Befehl zur Bewegungsausführung und meldet eine erfolgreich durchgeführte Bewegung der SPS zurück. Welche Bewegungen in welcher Reihenfolge und wann durchgeführt werden, ist dementsprechend nicht in der Robotersteuerung, sondern in der SPS-Steuerung programmiert.\\
+   	Zentrales Element jeder Anlagenautomatisierung ist eine Beckhoff-SPS, welche auf einem IPC läuft. Diese ist für die Ablauflogik und "Intelligenz" der Anlage zuständig. Auf anderen Bestandteilen, wie z.B. in einer Robotersteuerung ist hingegen nur eine geringe Komplexität abgebildet. In der Robotersteuerung werden meistens Kommandos mit Jobnummern angelegt, wie beispielsweise die Bewegung von Punkt A zu Punkt B. Durch den Aufruf der Jobnummer durch die SPS erhält der Roboter den Befehl zur Bewegungsausführung und meldet eine erfolgreich durchgeführte Bewegung der SPS zurück. Welche Bewegungen in welcher Reihenfolge und wann durchgeführt werden, ist dementsprechend nicht in der Robotersteuerung, sondern in der SPS-Steuerung programmiert.\\
    	\textbf{roboTools} \\
-   	Weiterer Bestandteil der Automatisierung ist ein Programm namens "roboTools". Dieses läuft auf einem Windows-Betriebssystem in Form einer WPF (Windows Presentation Foundation), des ".NET"-Frameworks. Das Programm roboTools mit seiner grafischen Oberfläche enthält verschiedene Diagnosewerkzeuge und kann dem Anlagenbediener Informationen über bspw. Störungen oder der Anlagenauslastung ausgeben und visualisieren. Die Daten hierfür bezieht roboTools überwiegend von der SPS. \\
+   	Weiterer Bestandteil der Automatisierung ist ein Programm namens "roboTools", welches zur Anlagenvisualisierung dient. Dieses läuft auf einem Windows-Betriebssystem in Form einer WPF (Windows Presentation Foundation), des ".NET"-Frameworks. Das Programm roboTools mit seiner grafischen Oberfläche enthält verschiedene Diagnosewerkzeuge und kann dem Anlagenbediener Informationen über bspw. Störungen oder der Anlagenauslastung ausgeben und visualisieren. Die Daten hierfür bezieht roboTools überwiegend von der SPS. \\
    	\textbf{roboVision}\\
    	Häufig werden in Anlagen Industriekameras eingesetzt, um die Position von Objekten zu ermitteln oder eine automatisierte Qualitätskontrolle vorzunehmen. Zur Weiterverarbeitung der Kameradaten, um die Position oder die Qualitätsgüte zu bestimmen kommt das Programm "roboVision" zum Einsatz. Wie roboTools handelt es sich um ein WPF-Anwendung, welche auf einem Windows-Betriebssystem läuft. \\
    	\textbf{Hardware und Zusammenspiel}\\
@@ -392,20 +392,22 @@
 		1 & Übertragung von Fehlermeldungen des Stäubli-Roboters an die Anlage & M  \\ 
 		2 & Übertragung von beliebigen Daten des Stäubli-Roboters an die Anlage & M  \\
 		3 & Übertragung von Daten z.B. Kameradaten von der Anlage an den Stäubli-Roboter & M  \\
-		4 & Ausgabe der Roboterfehler auf der Anlagensteuerung in verständlicher Form (ausformuliert, Fehlercode genügt nicht) & M  \\
+		4 & Ausgabe der Roboterfehler auf der Anlagenvisualisierung in verständlicher Form (ausformuliert, Fehlercode genügt nicht) & M  \\
 		5 & Funktionierende Feldbusverbindung zwischen Stäubli-Roboter und SPS & M  \\
 		6 & Feldbus Kommunikation zwischen Stäubli-Roboter und SPS & M  \\  
 		7 & Abspeichern der Fehler und der Daten in log-File & M  \\ 
 		8 & Fehlerfreie und prozesssichere Kommunikation & M  \\ 
 		\hline
 		9 & Einsatz von mehreren Stäubli-Robotern zeitgleich soll möglich sein & K  \\
-		10 & Vorgabe von der Anlagensteuerung, wie häufig Daten versendet werden sollen & K  \\ 
+		10 & Vorgabe von der Anlagenvisualisierung, wie häufig Daten versendet werden sollen & K  \\ 
 		11 & Visualierung der Daten & K  \\
 		12 & Verwertung der Daten, um Warnungen oder ähnliches auszugeben & K  \\  
 		\hline
 	\end{longtable}
 	
-	\chapter{Konzeptionierung und Systementwurf}
+	Grafik zur entwerfenden Anlagensteuerung. Kameradaten werden über TCP/IP oder ADS an roboTools übermittelt. Die zu entwerfenden WPF-Anwendung kann später in roboTools integriert werden- nicht Teil der Aufgabe.
+	\label{chap:Anforderungsdefinition}
+	\chapter{Konzeptionierung}
 	In diesem Kapitel soll das Gesamtsystem und seine Bestandteile konzeptioniert werden. Hierfür werden die Komponenten der Anlage benannt und ihre Funktionen grob skizziert. Dies erfolgt mit Hilfe eines UML-Klassendiagramms (vgl. Abbildung \ref{fig:UMLKlassenAnlage}) \cite{Sommerville}.
 	!UML-Diagramm.	Anwendungsfälle definieren, Rahmenbedingungen identifizieren, Anforderungen aus Lastenheft verfeinern. Softwarekomponenten definieren und im Komponentendiagramm darstellen gemäß UML.!
 	
@@ -419,7 +421,7 @@
 		 		+ empfangeBestätigungen() : void
 		 	}
 		 	
-		 	\umlclass[x=8]{Anlagensteuerung}{
+		 	\umlclass[x=8]{Anlagenvisualisierung}{
 		 		- Betriebsmodus : string \\
 		 		- Logger : string\\
 		 		- Graphik: \\
@@ -446,14 +448,14 @@
 		 	}
 		 	% Verbindungslienie zwischen SPS und Roboter mit Multiplicitäten
 		 	\umlassoc[arg=steuert,pos=0.5]{Roboter}{SPS}
-		 	\umlassoc[arg=kommuniziert mit,pos=0.5]{SPS}{Anlagensteuerung}
-		 	\umlassoc[arg=kommuniziert mit,pos=0.5]{Anlagensteuerung}{Roboter}
+		 	\umlassoc[arg=kommuniziert mit,pos=0.5]{SPS}{Anlagenvisualisierung}
+		 	\umlassoc[arg=kommuniziert mit,pos=0.5]{Anlagenvisualisierung}{Roboter}
 		 	\umlassoc{Roboter}{SPS}
 		 \end{tikzpicture}
 		 \caption{UML-Klassendiagramm Gesamte Anlage}
 		 \label{fig:UMLKlassenAnlage}
 	\end{figure}
-	Das UML-Diagramm zeigt die Komponenten SPS, Roboter und Anlagensteuerung auf. Die Kommunikation zwischen SPS und Roboter erfolgt mittels Feldbus, zwischen Anlagensteuerung und Roboter mittels TCP/IP. Daher soll im ersten Schritt der Feldbus und die TCP/IP-Verbindung konzeptioniert werden. Erst anschließend kann das Programm des Roboters und der Anlagensteuerung konzeptioniert werden, da dieses maßgeblich abhängig von der Wahl und dem Aufbau der Kommunikationsverbindung ist. Eine Konzeptionierung und Implementierung in der SPS kann entfallen, da die Kommunikation mit einer Feldbus-Verbindung in der Beckhoff-SPS bei robomotion Stand der Technik ist und dadurch aus anderen Projekten übernommen werden kann. Nachdem die Feldbus-Verbindung und die TCP/IP-Verbindung konzeptioniert wurden sollen die zu übertragenden Daten für die TCP/IP-Verbindung konzeptioniert werden. Anschließend erfolgt die Konzeptionierung der Software für den Stäubli-Roboter und die Anlagensteuerung.
+	Das UML-Diagramm zeigt die Komponenten SPS, Roboter und Anlagenvisualisierung auf. Die Kommunikation zwischen SPS und Roboter erfolgt mittels Feldbus, zwischen Anlagenvisualisierung und Roboter mittels TCP/IP. Daher soll im ersten Schritt der Feldbus und die TCP/IP-Verbindung konzeptioniert werden. Erst anschließend kann das Programm des Roboters und der Anlagenvisualisierung konzeptioniert werden, da dieses maßgeblich abhängig von der Wahl und dem Aufbau der Kommunikationsverbindung ist. Eine Konzeptionierung und Implementierung in der SPS kann entfallen, da die Kommunikation mit einer Feldbus-Verbindung in der Beckhoff-SPS bei robomotion Stand der Technik ist und dadurch aus anderen Projekten übernommen werden kann. Nachdem die Feldbus-Verbindung und die TCP/IP-Verbindung konzeptioniert wurden sollen die zu übertragenden Daten für die TCP/IP-Verbindung konzeptioniert werden. Anschließend erfolgt die Konzeptionierung der Software für den Stäubli-Roboter und die Anlagenvisualisierung.
 	 
 	\section{Feldbus-Verbindung}
 	Aufgabe der Feldbusverbindung ist die Kommunikation zwischen dem Stäubli-Roboter und der Beckhoff-SPS sicherzustellen. Hierzu werden einerseits Befehle, wie zur Bewegungsdurchführung zum Roboter übertragen, andererseits Informationen, wie z.B. eine Bestätigung der vollendeten Bewegung zurück an die SPS gesandt.\\
@@ -548,19 +550,19 @@
 	\section{TCP/IP-Verbindung}
 	Nachdem die Feldbus-Verbindung konzeptioniert wurde, erfolgt die Auslegung der TCP/IP-Verbindung. Hierbei müssen viele Einzelentscheidungen getroffen werden, welche am Ende mit einem morphologischen Kasten zusammengefasst dargestellt werden.\\
 	\textbf{Wahl der Architektur} \\
-	Wie in Kapitel \ref{sec:TCP/IP} erläutert kommt für eine TCP/IP-Verbindung die Client-Server-Architektur zum Einsatz. Dabei kann entweder der Stäubli-Roboter oder die Anlagensteuerung als Server dienen. In der Literatur wird meist empfohlen, die Seite mit der höheren Rechenleistung als Server einzusetzen (vgl. Kapitel \ref{sec:TCP/IP}). Dies stellt in diesem Fall die Anlagensteuerung dar. Wenn hingegen der Roboter als Server dienen würde und es zum Einsatz von mehreren Roboter kommen würde, wäre der Einsatz von mehreren Client-Instanzen auf der Anlagensteuerung notwendig oder die anderen Roboter müssten als Client konfiguriert werden. Daher eignet sich die Anlagensteuerung besser als Server und die einzelnen Roboter werden als Client konfiguriert. \\
+	Wie in Kapitel \ref{sec:TCP/IP} erläutert kommt für eine TCP/IP-Verbindung die Client-Server-Architektur zum Einsatz. Dabei kann entweder der Stäubli-Roboter oder die Anlagenvisualisierung als Server dienen. In der Literatur wird meist empfohlen, die Seite mit der höheren Rechenleistung als Server einzusetzen (vgl. Kapitel \ref{sec:TCP/IP}). Dies stellt in diesem Fall die Anlagenvisualisierung dar. Wenn hingegen der Roboter als Server dienen würde und es zum Einsatz von mehreren Roboter kommen würde, wäre der Einsatz von mehreren Client-Instanzen auf der Anlagenvisualisierung notwendig oder die anderen Roboter müssten als Client konfiguriert werden. Daher eignet sich die Anlagenvisualisierung besser als Server und die einzelnen Roboter werden als Client konfiguriert. \\
 	\textbf{Nachrichtentypen}\\
 	Für folgende Daten, die übertragen werden müssen, muss festgelegt werden, ob und wie diese auf einzelne Nachrichten aufgeteilt werden.
 	\begin{itemize}
-		\item \textbf{Systemereignisse: } Erfasste Meldungen, wie z.B. Fehler müssen von dem Roboter zu der Anlagensteuerung übertragen werden.
-		\item \textbf{Prozessdaten: } Vom Roboter erfasste Daten, wie Temperaturen oder digitale Werte, wie Fehler an den Ventilen müssen vom Roboter zur Anlagensteuerung übertragen werden.
-		\item \textbf{Kameradaten:} Positionsdaten von zugreifenden Objekten, welche durch Kameradaten generiert werden, müssen von der Anlagensteuerung zum Roboter übertragen werden.\\
+		\item \textbf{Systemereignisse: } Erfasste Meldungen, wie z.B. Fehler müssen von dem Roboter zu der Anlagenvisualisierung übertragen werden.
+		\item \textbf{Prozessdaten: } Vom Roboter erfasste Daten, wie Temperaturen oder digitale Werte, wie Fehler an den Ventilen müssen vom Roboter zur Anlagenvisualisierung übertragen werden.
+		\item \textbf{Kameradaten:} Positionsdaten von zugreifenden Objekten, welche durch Kameradaten generiert werden, müssen von der Anlagenvisualisierung zum Roboter übertragen werden.\\
 	\end{itemize}
 	Da die Kameradaten in die entgegengesetzte Richtung, wie die anderen Daten übertragen werden, werden diese in eine eigene Nachricht verpackt. Die Systemereignisse und die Prozessdaten können in einer Nachricht oder in getrennten Nachrichten versandt werden. Da die Prozessdaten durchgängig anfallen, die Systemereignisse jedoch azyklisch lohnt sich eine Trennung. Die Prozessdaten wiederum können gebündelt gesendet werden oder getrennt werden in einzelne Nachrichten z.B. für die Temperaturen und die digitalen Werte. Da beispielsweise Temperaturen nicht besonders dynamisch sind könnte die Übertragungsfrequenz für diese Daten geringer sein, was die Auslastung der Verbindung reduzieren würde. Dies erhöht jedoch die Komplexität, da viele verschiedene Nachrichtentypen anfallen, was bei Wartungen oder Änderungen in späteren Jahren zum Problem werden kann. Da das zyklische Versenden aller Prozessdaten, die Übertragungsrate der TCP/IP-Verbindung nicht übersteigen wird, fällt die Entscheidung auf das Zusammenfassen aller Prozessdaten in einer Nachricht. Folglich gibt es drei Nachrichtentypen: Kameradaten, Systemereignisse und Prozessdaten.\\
 	\textbf{Auslöser für Versand der Systemereignisse}
 	Die Systemereignisse können entweder zyklisch z.B. einmal pro Sekunde zusammengefasst versendet werden oder direkt bei Auftreten. Die Entscheidung fällt auf ein direktes Versenden bei Auftreten, damit wichtige Fehlermeldungen schnellstmöglich ankommen. Zudem handelt es sich um ein azyklisches Ereignis, d.h. die Systemereignisse werden nur sporadisch versendet.\\
 	\textbf{Auslöser für Versand der Prozessdaten}
-	Die Prozessdaten werden zyklisch benötigt und sind nicht abhängig von besonderen Ereignissen. Ein zyklischer Versand bietet sich hier an. Die Sendefrequenz muss dann in jedem Stäubli-Roboter einprogrammiert werden und ist dann fest eingestellt. Vorteilhaft wäre es wenn die Sendefrequenz von dem Server Anlagensteuerung vorgegeben werden kann. Dadurch kann die Sendefrequenz angepasst und z.B. zur Fehlerfindung erhöht werden. Darüber hinaus kann die Änderung an dieser zentralen Instanz erfolgen und muss nicht manuell bei jedem einzelnen Stäubli-Roboter durchgeführt werden. Dies ist insbesondere praktisch, wenn ein Zugriff über das Fernwartungssystem auf die Anlagensteuerung erfolgt. Daher soll ein Datenanforderungstelegramm zyklisch z.B. einmal pro Sekunde von der Anlagensteuerung an alle Clients (Stäubli-Roboter) gesandt werden. Diese sollen nach Erhalt der Anforderung ein Prozessdatentelegramm versenden. Der Einsatz von Datenanforderungstelegrammen bringt ein weiteren Vorteil mit sich. Durch die Zeitdifferenz zwischen Datenanforderungstelegramm und Erhalt des Datentelegramms kann überprüft werden, ob die Datenübertragung ausreichend stabil ist und ob der Client noch verbunden ist. Wenn innerhalb einer vorgegeben Zeitspanne von x Milisekunden keine Antwort in Form des Datentelegramms erfolgt kann eine Warnung ausgegeben werden, dass dieser Stäubli-Roboter nicht erreichbar ist.\\
+	Die Prozessdaten werden zyklisch benötigt und sind nicht abhängig von besonderen Ereignissen. Ein zyklischer Versand bietet sich hier an. Die Sendefrequenz muss dann in jedem Stäubli-Roboter einprogrammiert werden und ist dann fest eingestellt. Vorteilhaft wäre es wenn die Sendefrequenz von dem Server Anlagenvisualisierung vorgegeben werden kann. Dadurch kann die Sendefrequenz angepasst und z.B. zur Fehlerfindung erhöht werden. Darüber hinaus kann die Änderung an dieser zentralen Instanz erfolgen und muss nicht manuell bei jedem einzelnen Stäubli-Roboter durchgeführt werden. Dies ist insbesondere praktisch, wenn ein Zugriff über das Fernwartungssystem auf die Anlagenvisualisierung erfolgt. Daher soll ein Datenanforderungstelegramm zyklisch z.B. einmal pro Sekunde von der Anlagenvisualisierung an alle Clients (Stäubli-Roboter) gesandt werden. Diese sollen nach Erhalt der Anforderung ein Prozessdatentelegramm versenden. Der Einsatz von Datenanforderungstelegrammen bringt ein weiteren Vorteil mit sich. Durch die Zeitdifferenz zwischen Datenanforderungstelegramm und Erhalt des Datentelegramms kann überprüft werden, ob die Datenübertragung ausreichend stabil ist und ob der Client noch verbunden ist. Wenn innerhalb einer vorgegeben Zeitspanne von x Milisekunden keine Antwort in Form des Datentelegramms erfolgt kann eine Warnung ausgegeben werden, dass dieser Stäubli-Roboter nicht erreichbar ist.\\
 	\textbf{Auslöser für Versand von Kameradaten} \\
 	Beim Anfallen von Positionsdaten, welche anhand von Kameradaten berechnet werden, solllen diese schnellstmöglichst an den Roboter übertragen werden. Aus diesem Grund erfolgt der Versandt dieser Daten Ereignissgetriggert, d.h. direkt nach Erhalt der Positionsdaten wird ein Telegramm an den entsprechenden Roboter gesandt.
 	Die Entscheidungsfindung bei den eben genannten Auswahlmöglichkeiten ist nachfolgend in einem morphologischen Kasten dargestellt.
@@ -585,7 +587,7 @@
 			\toprule
 			\textbf{Merkmal} & \textbf{Option 1} & \textbf{Option 2} &  \textbf{Option 3}\\
 			\midrule
-			Wahl der Architektur 1 & \cellcolor{green!10}Anlagensteuerung als Server & Roboter als Server &\\
+			Wahl der Architektur 1 & \cellcolor{green!10}Anlagenvisualisierung als Server & Roboter als Server &\\
 			Nachrichtentypen 4 & Eine Nachricht 5 & Prozessdaten und Systemereignisse getrennt & \\
 			Auslöser Versand Systemereignisse & Zyklisch & \cellcolor{green!10}Ereignisbasiert & \\
 			\bottomrule
@@ -605,7 +607,7 @@
 	\end{itemize}
 	In Konzept 1,2,4,5 kommt eine Nachrichten-ID am Anfang, damit der Empfänger weiß, dass z.B. ein Datentelegramm und keine Systemereignisse versendet werden. Anschließend folgt die Sender-ID, damit der Server weiß von welchem Roboter die Daten stammen.\\
 	Bei Konzept 2 wird die Sender-ID, welche durch eine Zahl dargestellt wird, durch einen konfigurierbaren Namen ersetzt, was die Nutzerfreundlichkeit erhöht, da bei späterer Wartung ggf. unbekannt ist, welcher Roboter welche Nummer besitzt. \\
-	Bei Konzept 1 wird darüber hinaus die Uhrzeit mit versendet, dies ist für Dokumentationszwecke sinnvoll und ebenso kann eine Zeitdifferenz oder unterschiedliche Einstellungen in der Uhrzeit zwischen Roboter und Anlagensteuerung detektiert werden. Das Datum kann durch die Anlagensteuerung bei Erhalt der Nachricht bestimmt werden und muss daher nicht mitversendet werden. \\
+	Bei Konzept 1 wird darüber hinaus die Uhrzeit mit versendet, dies ist für Dokumentationszwecke sinnvoll und ebenso kann eine Zeitdifferenz oder unterschiedliche Einstellungen in der Uhrzeit zwischen Roboter und Anlagenvisualisierung detektiert werden. Das Datum kann durch die Anlagenvisualisierung bei Erhalt der Nachricht bestimmt werden und muss daher nicht mitversendet werden. \\
 	Bei Konzept 4 wird zusätzlich ein CRC-Segment (Cyclic Redundancy Check)  versendet. Im CRC-Segment wird eine Prüfsumme übermittelt, welche vom Sender aus der zu übermitteltenden Nachricht berechnet. Der Empfänger berechnet die Prüfsumme aus der erhaltenen Nachricht und vergleicht sie mit dem CRC-Segment, um zu überprüfen, ob die Nachricht korrekt übermittelt wird. TCP/IP stellt jedoch bereits selbständig eine fehlerfreie Übertragung durch ein CRC-Segment sicher. Durch eine zusätzliche Prüfsumme kann zwar die Sicherheit bezüglich des korrekten Einlesens der Daten erhöht werden, für die Übertragung selbst ist ein CRC-Segment jedoch nicht mehr notwendig. \\
 	Konzept 3 sieht den Einsatz eines einzigartigen Codes vor. Mit jedem Datenanforderungstelegram wird ein einzartiger Code generiert. Der Roboter antwortet mit der Rücksendung des selben Code und den angehängten Daten. Dadurch kann eine bessere Zuordnung der Datentelegramme zu den Aufforderungen erfolgen, um sicherzustellen, dass die Datentelegramme nicht hinterherhinken.\\
 	Die fünf entworfenen Konzepte zum Nachrichtenaufbau werden nachfolgend verglichen (vgl. Tabelle \ref{tab:nachrichtenaufbau-vergleich}). Zum Einsatz kommen Harvey-Balls, die den Erfüllunsgrad des jeweiligen Kriteriums wiedergeben. Alle Kriterien haben eine ähnliche Wichtigkeit, mit der sich abschließend eine Gesamtwertung ermitteln lässt. 4 entspricht dabei der höchsten Wertung mit einem durchschnittlich komplett ausgefüllten Harvey-Ball.
@@ -675,7 +677,7 @@
 		\draw[->] (EndProcess) -- node[above] {You} \ServerToClient;
 		
 	\end{tikzpicture}
-	
+	\label{sec:KonzeptTCPIP}
 	
 	\section{Datenverwertung}
 	
@@ -779,32 +781,88 @@
 	Ereignisse, die von der Steuerung festgestellt werden, wie z.B. Fehlermeldungen oder das Einschalten der Energieversorgung für die Achsen werden in einer system-log-Datei aufgezeichnet. Sie lassen sich in die Schweregrade "Info", "Warning", "Error" und "Critical" unterteilen. Das Auslesen der Systemereignisse kann mit dem Befehl "getEvents" erfolgen. Diese sollen wie bereits bei der Konzeptionierung der TCP/IP-Verbindung festgelegt, beim Auftreten sofort über TCP/IP übertragen werden, .
 	\newpage
 	\section{Stäubli Roboterprogramm}
-	Nachfolgend soll das die Software und deren Komponenten für den Stäubli-Roboter konzeptioniert werden. Ein UML-Anwendungsdiagramm hilft die Anwendungsfälle zu definieren und die Software zu spezifiziren.
+	Nachfolgend soll das die Software und deren Komponenten für den Stäubli-Roboter konzeptioniert werden. Ein UML-Anwendungsdiagramm hilft die Anwendungsfälle zu definieren und die Software zu spezifizieren. Notwendige Bestandteile und Anwendungen ergeben sich aus der Anforderungsdefinition (vgl. Kapitel \ref{chap:Anforderungsdefinition}) und der Konzeptionierung der TCP/IP-Verbindung (vgl. Kapitel \ref{sec:KonzeptTCPIP}).
 	\begin{figure}[h!]
+		\centering
 		\begin{tikzpicture}
-			\begin{umlsystem}{Schedule}
-				\umlusecase[x=-3]{Check Request}
-				\umlusecase[x=3]{Ask Constraints}
-				\umlusecase[x=-2,y=-2]{Deny Request}
-				\umlusecase[x=3, y=-2]{Collect Constraints}
-				\umlusecase[x=3,y=-4]{Merge Constraints} 
-				\umlusecase[y=-6]{Resolve Conflicts}
+			\begin{umlsystem}{Roboterprogramm}
+				\umlusecase[x=-2, y= -0.5, width =2.5cm ]{Abfrage Roboterdaten}
+				\umlusecase[x=3, y= 1, width =2.5cm]{Übermittlung Prozessdaten}
+				\umlusecase[x=2.5,y=-1.5, width =2.5cm]{Empfang Telegramm} 
+				\umlusecase[x=-2,y=-5.5, width =2.5cm]{Abfrage Systemereignisse}
+				\umlusecase[x=3, y=-7, width =2.5cm]{Übermittlung Systemereignisse}
+				\umlusecase[x=-1, y=-9]{Roboterbewegung}
+				\umlusecase[x=3,y=-5, width =2.5cm]{Verwertung Positionsdaten}
+				\umlusecase[x=-2,y=-3.5, width =2.5cm]{Aktualisiere Schwere Systemereignisse}  
 			\end{umlsystem}
 			
-			\umlactor[x=-6]{Roboter}
-			\umlactor[x=6]{Anlagensteuerung}
+			\umlactor[x=-5.5, y=-4]{Roboter}
+			\umlactor[x=7,y=-5]{Visualisierung}
+			\umlactor[x=7,y=-9]{SPS}
 			
-			\draw (Roboter) -- (usecase-1);
+			\umlassoc{Roboter}{usecase-1}
+			\umlassoc{Roboter}{usecase-4}
+			\umlassoc{Roboter}{usecase-6}
 			
-			\umlassoc{Roboter}{usecase-3}
+			\umlassoc{SPS}{usecase-6}
+			
+			\umlassoc{Visualisierung}{usecase-3}
+			\umlassoc{Visualisierung}{usecase-2}
+			\umlassoc{Visualisierung}{usecase-5}
 			
 			\umlextend{usecase-2}{usecase-3}
-			\umlinclude{usecase-5}{usecase-6}
+			\umlextend{usecase-7}{usecase-3}
+			\umlextend{usecase-8}{usecase-3}
+			\umlinclude{usecase-2}{usecase-1}
+			\umlinclude{usecase-5}{usecase-4}
 			
 		\end{tikzpicture}
+		\caption{UML-Anwendungsdiagramm Roboterprogramm}
+		\label{fig:UML_Use_Case_Robo}
 	\end{figure}
+	Das Roboterprogramm erhält eine Nachricht von der Anlagenvisualisierung. Je nach Nachrichten-ID handelt es sich um eine Datenanforderungstelegramm (ID: 1) zur Anforderung von Prozessdaten oder es handelt sich um die Übermittlung von Positionsdaten von der Kamera (ID: 2). Alternativ kann über diese Nachricht auch die Schwere aktualisiert werden, ab welcher ein Systemereignis versandt werden soll (ID: 50). Handelt es sich um ein Datenanforderungstelegramm müssen die Prozessdaten abgefragt und anschließend eine Datentelegramm versendet werden. Systemereignisse, wie z.B. Fehlermeldungen sollen an die Visualisierung übermittelt werden. Hierzu müssen diese abgefragt werden. Über die SPS kann ein Befehl zur Bewegungsausführung erfolgen. Dieser muss ausgeführt und die erfolgreiche Durchführung an die SPS zurückgemeldet werden.\\
+	Für diese Anwendungen bietet es sich an, insgesamt 3 Programme anzulegen, die sich in der Stäubli-spezifischen Programmiersprache wie Tasks verhalten.
+	\begin{itemize}
+		\item \textbf{Empfangen: } In diesem Programm wird die Nachricht von der Anlagenvisualisierung empfangen und interpretiert. Hier erfolgt ebenso das Auslesen und der Versand der Prozessdaten oder Alternativ die Verarbeitung der Positionsdaten oder das Aktualisieren der Schwere der Systemereignisse.
+		\item \textbf{Systemereignisse: } Hier erfolgt die Überprüfung ob neue Systemereignisse aufgetreten sind. In diesem Falle wird das Telegramm aufgebaut und das Systemereignis an die Anlagenvisualisierung versandt. 
+		\item \textbf{Bewegung:} In diesem Programm erfolgt die Bewegungssteuerung des Roboters. Befehle, die von der SPS über die EtherCAT-Verbindung kommen werden ausgelesen. Bewegungsabläufe werden durchgeführt, sowie durchgeführte Bewegungen auf den EtherCAT geschrieben, um der SPS eine erfolgreiche Durchführung mitzuteilen.
+	\end{itemize}
+	Neben diesen 3 Programmen werden in dem standardmäßigen "Start"-Programm, welches zum Programmstart ausgeführt wird, die oben genannten Tasks gestartet. Das "Stop"-Programm beendet wiederum die Tasks.
+	\newpage
+	\section{WPF-Anwendung}
+	Die Anlagenvisualisierung soll wie im Kapitel Stand der Technik erläutert durch eine WPF-Anwendung umgesetzt werden. Um diese zu entwerfen muss zuerst eine Softwarespezifikation erfolgen. Mit Hilfe des UML-Anwendungsdiagramms sollen die Anwendungen identifiziert werden. Basis hierfür bildet die Anforderungsdefinition (vgl. Kapitel \ref{chap:Anforderungsdefinition})) und die Konzeptionierung der TCP/IP-Verbindung (vgl. Kapitel \ref{sec:KonzeptTCPIP}).
+
 	
-	\section{WPF und GUI}
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\begin{umlsystem}{WPF-Anwendung}
+			\umlusecase[name=1,x=-2, y=0, width=2.5cm]{Appablauf protokolieren}
+			\umlusecase[name=2,x=3, y=0, width=2.5cm]{Prozessdaten abspeichern}
+			\umlusecase[name=3,x=-2,y=-2.5, width=2.5cm]{Graphische Auswertung Prozessdaten} 
+			\umlusecase[name=4,x=3,y=-2.5, width=2.5cm]{Prozessdaten empfangen}
+			\umlusecase[name=5,x=-2,y=-5, width=2.5cm]{Speichere Systemereignisse}
+			\umlusecase[name=6,x=3,y=-5, width=2.5cm]{Datenanforderungs-telegramm} 
+			\umlusecase[name=7,x=-2,y=-8, width=2.5cm]{Zeige Systemereignisse}
+			\umlusecase[name=8,x=3, y=-7, width=2.5cm]{Empfange Systemereignisse}
+			\umlusecase[name=9,x=-2, y=-11, width=2.5cm]{Aktualisiere Schwere}
+			\umlusecase[name=10,x=3, y=-9, width=2.5cm]{Sende Positionsdaten}
+			\umlusecase[name=11,x=3, y=-11, width=2.5cm]{Sende Aktualisierung Schwere}
+		\end{umlsystem}
+		
+		\umlactor[x=-5.5, y=-4]{Nutzer}
+		\umlactor[x=7, y=-6]{Roboter}
+		
+		\umlassoc{Nutzer}{1}
+		\umlassoc{Roboter}{11}
+		
+		\umlinclude{3}{2}
+		\umlinclude{2}{4}
+		\umlinclude{4}{6}
+		\umlinclude{7}{8}
+		
+	\end{tikzpicture}
+\end{figure}
 	
 	\chapter{Design und Implementierung}
 	Design: Vergleich von Lösungsbausteinen (z.B. Vergleich Softwarebibliotheken) und Auswahl) auf Basis von Anforderungen und Recherche. Wissenschaftliche Bewertungskriterien nötig. Harvey-Diagramm.
@@ -833,7 +891,26 @@
 	Diese Funktion wandelt einen numerischen Wert, welcher das Datenformat sDataFormat besitzt in einen Byte-Strom und speichert diesen im Array nDataByte. Über das Datenformat wird beispielsweise angegeben ob es sich um einen Gleitkommawert handelt, ob ein Vorzeichen vorliegt und ob das Little-Endian oder das Big-Endian-Format angewandt wird. Mit nDataSize kann die Anzahl der zu kodierenden Zeichen beschränkt werden.\\
 	num fromBinary(num nDataByte[], num nDataSize, string sDataFormat, num\& nValue[])\\
 	Umgekehrt ermöglicht diese Funktion, einen empfangen Byte-Array in numerische Werte zu konvertieren. Das Ergebnis im Datenformat nDataFormat wird in nValue gespeichert. Die Anzahl der zu decodierenden Bytes wird festgelegt durch nDataSize, wenn nicht alle Bytes des Eingangs-Array nDataByte decodiert werden sollen.
-	
+	\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}
+			\begin{umlsystem}{Roboterprogramm}
+				\umlusecase[name=1, x=3, y= 0, width =2.5cm]{Prozessdaten abspeichern}
+				\umlusecase[name=2,x=2.5,y=-1.5, width =2.5cm]{Prozessdaten empfangen} 
+				\umlusecase[name=3,x=-2,y=-5.5, width =2.5cm]{Abfrage Systemereignisse}
+				
+			\end{umlsystem}
+			
+			\umlactor[x=-5.5, y=-4]{Nutzer}
+			\umlactor[x=7,y=-5]{Visualisierung}
+			
+			\umlassoc{Nutzer}{1}
+
+			
+		\end{tikzpicture}
+		\caption{UML-Anwendungsdiagramm Roboterprogramm}
+		\label{fig:UML_Use_Case_Robo}
+	\end{figure}
 	\section{WPF-Anwendung}
 	
 	
