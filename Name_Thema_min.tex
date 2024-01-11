@@ -7,10 +7,13 @@
 \usepackage[ngerman]{babel} % If the thesis is in English
 \usepackage {longtable}
 \usepackage{tikz}
+\usetikzlibrary{positioning,calc}
 \usepackage{tikz-uml}
+\usetikzlibrary{positioning, arrows.meta}
 \usepackage{geometry}
 \usetikzlibrary{matrix}
 \usetikzlibrary{fit,matrix,shapes.geometric}
+\usetikzlibrary{positioning, shapes, arrows, decorations.pathreplacing}
 \usepackage[table]{xcolor}
 \usepackage{nicematrix,booktabs,tikz}
 \usepackage{harveyballs}
@@ -20,6 +23,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+
 
 %\usepackage[english, ngerman]{babel} % If the thesis is in German
 
@@ -389,12 +393,12 @@
 		Nr. & Anforderung & Kann (K) / Muss (M) \\ [0.5ex] 
 		\hline
 		\endhead
-		1 & Übertragung von Fehlermeldungen des Stäubli-Roboters an die Anlage & M  \\ 
-		2 & Übertragung von beliebigen Daten des Stäubli-Roboters an die Anlage & M  \\
+		1 & Übertragung von Fehlermeldungen des Stäubli-Roboters an die Anlagenvisualisierung & M  \\ 
+		2 & Übertragung von beliebigen Daten des Stäubli-Roboters an die Anlagenvisualisierung & M  \\
 		3 & Übertragung von Daten z.B. Kameradaten von der Anlage an den Stäubli-Roboter & M  \\
 		4 & Ausgabe der Roboterfehler auf der Anlagenvisualisierung in verständlicher Form (ausformuliert, Fehlercode genügt nicht) & M  \\
 		5 & Funktionierende Feldbusverbindung zwischen Stäubli-Roboter und SPS & M  \\
-		6 & Feldbus Kommunikation zwischen Stäubli-Roboter und SPS & M  \\  
+		6 & Funktionierende TCP/Ip Kommunikation zwischen Stäubli-Roboter und Anlagenvisualisierung & M  \\  
 		7 & Abspeichern der Fehler und der Daten in log-File & M  \\ 
 		8 & Fehlerfreie und prozesssichere Kommunikation & M  \\ 
 		\hline
@@ -404,8 +408,30 @@
 		12 & Verwertung der Daten, um Warnungen oder ähnliches auszugeben & K  \\  
 		\hline
 	\end{longtable}
-	
-	Grafik zur entwerfenden Anlagensteuerung. Kameradaten werden über TCP/IP oder ADS an roboTools übermittelt. Die zu entwerfenden WPF-Anwendung kann später in roboTools integriert werden- nicht Teil der Aufgabe.
+	Im Rahmen dieser Arbeit ist die Feldbus-Verbindung zwischen SPS und Roboter zu entwerfen. Der Fokus liegt jedoch auf der TCP/IP-Verbindung zwischen Roboter und Anlagenvisualisierung. Darüber hinaus ist das Programm für den Roboter zu konzeptionieren und zu implementieren. Das andere Ende der TCP/IP-Verbindung stellt die Anlagenvisualisierung dar. Dort sollen auch die Fehlermeldungen ausgegeben und die Daten visualisiert werden. Als Anlagenvisualisierung dient bei robomotion robotools. Die zu entwerfende WPF-Anwendung zur TCP/IP-Kommunikation und zur Datenvisualisierung kann nach Projektende in roboTools integriert werden. Dies soll jedoch nicht mehr Teil der Arbeit sein. Die zu entwerfende WPF-Anwendung wird im Rahmen dieser Arbeit vereinfacht als Anlagenvisualisierung bezeichnet. Die bestehende Anwendung roboVision erstellt auf Basis von Kamerabildern Positionsdaten von zugreifenden Objekten. Diese Positionsdaten können über die Beckhoff-spezifische Verbindung namens "ADS" zu roboTools und somit auch zur entwerfenden WPF-Anwendung übertragen werden. Die SPS ist mit roboTools ebenso über ADS verbunden, was für diese Arbeit jedoch keine Relevanz hat.  Eine Konzeptionierung und Implementierung des SPS-Programms kann entfallen, da die Kommunikation mit einer Feldbus-Verbindung in der Beckhoff-SPS bei robomotion Stand der Technik ist und dadurch aus anderen Projekten übernommen werden kann. Das Zusammenspiel all dieser Komponenten ist nachfolgend dargestellt, wobei die im Rahmen dieser Arbeit zu entwerfenden Komponenten farbig markiert sind (vgl. Abbildung \ref{fig:Anlagensteuerung_Aufgabe}).
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[node distance=2cm]
+			% Erste Reihe von Boxen
+			\node[draw, rectangle, align=center] (box1) at (-3cm,0) {Beckhoff-SPS\\ };
+			\node[draw, rectangle, align=center, fill=green!20] (box2) at (3cm,0) {Anlagenvisualisierung\\(roboTools)};
+			\node[draw, rectangle, align=center] (box3) at (9cm,0) {Bildverarbeitung\\(roboVision)};
+			
+			% Zweite Reihe von Boxen
+			\node[draw, rectangle, fill=green!20] (box4) at (0,-3cm) {Roboter-Steuerung};
+			\node[draw, rectangle] (box5) at (9cm,-3cm) {Kamera};
+			
+			% Linien verbinden die Boxen und Beschriftungen hinzufügen
+			\draw (box1) -- node[above] {ADS} (box2);
+			\draw (box2) -- node[above] {ADS} (box3);
+			\draw (box1) -- node[left, fill=green!20] {Feldbus} (box4);
+			\draw (box2) -- node[right, fill=green!20] {TCP/IP} (box4);
+			\draw (box3) -- node[right] {} (box5);
+		\end{tikzpicture}
+		\caption{Gesamtanlage zu entwerfende Komponenten}
+		\label{fig:Anlagensteuerung_Aufgabe}
+	\end{figure}
+
 	\label{chap:Anforderungsdefinition}
 	\chapter{Konzeptionierung}
 	In diesem Kapitel soll das Gesamtsystem und seine Bestandteile konzeptioniert werden. Hierfür werden die Komponenten der Anlage benannt und ihre Funktionen grob skizziert. Dies erfolgt mit Hilfe eines UML-Klassendiagramms (vgl. Abbildung \ref{fig:UMLKlassenAnlage}) \cite{Sommerville}.
@@ -455,7 +481,7 @@
 		 \caption{UML-Klassendiagramm Gesamte Anlage}
 		 \label{fig:UMLKlassenAnlage}
 	\end{figure}
-	Das UML-Diagramm zeigt die Komponenten SPS, Roboter und Anlagenvisualisierung auf. Die Kommunikation zwischen SPS und Roboter erfolgt mittels Feldbus, zwischen Anlagenvisualisierung und Roboter mittels TCP/IP. Daher soll im ersten Schritt der Feldbus und die TCP/IP-Verbindung konzeptioniert werden. Erst anschließend kann das Programm des Roboters und der Anlagenvisualisierung konzeptioniert werden, da dieses maßgeblich abhängig von der Wahl und dem Aufbau der Kommunikationsverbindung ist. Eine Konzeptionierung und Implementierung in der SPS kann entfallen, da die Kommunikation mit einer Feldbus-Verbindung in der Beckhoff-SPS bei robomotion Stand der Technik ist und dadurch aus anderen Projekten übernommen werden kann. Nachdem die Feldbus-Verbindung und die TCP/IP-Verbindung konzeptioniert wurden sollen die zu übertragenden Daten für die TCP/IP-Verbindung konzeptioniert werden. Anschließend erfolgt die Konzeptionierung der Software für den Stäubli-Roboter und die Anlagenvisualisierung.
+	Das UML-Diagramm zeigt die Komponenten SPS, Roboter und Anlagenvisualisierung auf. Die Kommunikation zwischen SPS und Roboter erfolgt mittels Feldbus, zwischen Anlagenvisualisierung und Roboter mittels TCP/IP. Daher soll im ersten Schritt der Feldbus und die TCP/IP-Verbindung konzeptioniert werden. Erst anschließend kann das Programm des Roboters und der Anlagenvisualisierung konzeptioniert werden, da dieses maßgeblich abhängig von der Wahl und dem Aufbau der Kommunikationsverbindung ist. Nachdem die Feldbus-Verbindung und die TCP/IP-Verbindung konzeptioniert wurden sollen die zu übertragenden Daten für die TCP/IP-Verbindung konzeptioniert werden. Anschließend erfolgt die Konzeptionierung der Software für den Stäubli-Roboter und die Anlagenvisualisierung.
 	 
 	\section{Feldbus-Verbindung}
 	Aufgabe der Feldbusverbindung ist die Kommunikation zwischen dem Stäubli-Roboter und der Beckhoff-SPS sicherzustellen. Hierzu werden einerseits Befehle, wie zur Bewegungsdurchführung zum Roboter übertragen, andererseits Informationen, wie z.B. eine Bestätigung der vollendeten Bewegung zurück an die SPS gesandt.\\
@@ -830,39 +856,154 @@
 	Neben diesen 3 Programmen werden in dem standardmäßigen "Start"-Programm, welches zum Programmstart ausgeführt wird, die oben genannten Tasks gestartet. Das "Stop"-Programm beendet wiederum die Tasks.
 	\newpage
 	\section{WPF-Anwendung}
-	Die Anlagenvisualisierung soll wie im Kapitel Stand der Technik erläutert durch eine WPF-Anwendung umgesetzt werden. Um diese zu entwerfen muss zuerst eine Softwarespezifikation erfolgen. Mit Hilfe des UML-Anwendungsdiagramms sollen die Anwendungen identifiziert werden. Basis hierfür bildet die Anforderungsdefinition (vgl. Kapitel \ref{chap:Anforderungsdefinition})) und die Konzeptionierung der TCP/IP-Verbindung (vgl. Kapitel \ref{sec:KonzeptTCPIP}).
+	Die Anlagenvisualisierung soll wie im Kapitel Stand der Technik erläutert durch eine WPF-Anwendung umgesetzt werden. Um diese zu entwerfen muss zuerst eine Softwarespezifikation erfolgen. Mit Hilfe des UML-Anwendungsdiagramms (vgl. Abbildung \ref{fig:UML_Use_Case_WPF}) sollen die Anwendungen identifiziert werden. Basis hierfür bildet die Anforderungsdefinition (vgl. Kapitel \ref{chap:Anforderungsdefinition}) und die Konzeptionierung der TCP/IP-Verbindung (vgl. Kapitel \ref{sec:KonzeptTCPIP}).
 
 	
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-		\begin{umlsystem}{WPF-Anwendung}
-			\umlusecase[name=1,x=-2, y=0, width=2.5cm]{Appablauf protokolieren}
-			\umlusecase[name=2,x=3, y=0, width=2.5cm]{Prozessdaten abspeichern}
-			\umlusecase[name=3,x=-2,y=-2.5, width=2.5cm]{Graphische Auswertung Prozessdaten} 
-			\umlusecase[name=4,x=3,y=-2.5, width=2.5cm]{Prozessdaten empfangen}
-			\umlusecase[name=5,x=-2,y=-5, width=2.5cm]{Speichere Systemereignisse}
-			\umlusecase[name=6,x=3,y=-5, width=2.5cm]{Datenanforderungs-telegramm} 
-			\umlusecase[name=7,x=-2,y=-8, width=2.5cm]{Zeige Systemereignisse}
-			\umlusecase[name=8,x=3, y=-7, width=2.5cm]{Empfange Systemereignisse}
-			\umlusecase[name=9,x=-2, y=-11, width=2.5cm]{Aktualisiere Schwere}
-			\umlusecase[name=10,x=3, y=-9, width=2.5cm]{Sende Positionsdaten}
-			\umlusecase[name=11,x=3, y=-11, width=2.5cm]{Sende Aktualisierung Schwere}
-		\end{umlsystem}
-		
-		\umlactor[x=-5.5, y=-4]{Nutzer}
-		\umlactor[x=7, y=-6]{Roboter}
-		
-		\umlassoc{Nutzer}{1}
-		\umlassoc{Roboter}{11}
-		
-		\umlinclude{3}{2}
-		\umlinclude{2}{4}
-		\umlinclude{4}{6}
-		\umlinclude{7}{8}
-		
-	\end{tikzpicture}
-\end{figure}
+	\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}
+			\begin{umlsystem}{WPF-Anwendung}
+				\umlusecase[name=1,x=-2, y=0, width=2.5cm]{Appablauf protokolieren}
+				\umlusecase[name=2,x=3, y=0, width=2.5cm]{Prozessdaten abspeichern}
+				\umlusecase[name=3,x=-2,y=-2.5, width=2.5cm]{Graphische Auswertung Prozessdaten} 
+				\umlusecase[name=4,x=3,y=-2.5, width=2.5cm]{Prozessdaten empfangen}
+				\umlusecase[name=5,x=-2,y=-5, width=2.5cm]{Speichere Systemereignisse}
+				\umlusecase[name=6,x=3,y=-5, width=2.5cm]{Datenanforderungs-telegramm} 
+				\umlusecase[name=7,x=-2,y=-8.5, width=2.5cm]{Zeige Systemereignisse}
+				\umlusecase[name=8,x=3, y=-7, width=2.5cm]{Empfange Systemereignisse}
+				\umlusecase[name=9,x=-2, y=-10.5, width=2.5cm]{Aktualisiere Schwere}
+				\umlusecase[name=10,x=3, y=-9, width=2.5cm]{Sende Positionsdaten}
+				\umlusecase[name=11,x=3, y=-12, width=2.5cm]{Sende Aktualisierung Schwere}
+			\end{umlsystem}
+			
+			\umlactor[x=-5.5, y=-3.8]{Nutzer}
+			\umlactor[x=7.5, y=-7]{Roboter}
+			
+			\umlassoc{Nutzer}{1}
+			\umlassoc{Nutzer}{3}
+			\umlassoc{Nutzer}{7}
+			\umlassoc{Roboter}{4}
+			\umlassoc{Roboter}{6}
+			\umlassoc{Roboter}{8}
+			\umlassoc{Roboter}{10}
+			\umlassoc{Roboter}{11}
+			
+			\umlinclude{3}{2}
+			\umlinclude{2}{4}
+			\umlinclude{4}{6}
+			\umlinclude{7}{8}
+			\umlinclude{9}{11}
+			
+			\umlextend{5}{7}
+			
+		\end{tikzpicture}
+		\caption{UML-Anwendungsdiagramm WPF-Anwendung}
+		\label{fig:UML_Use_Case_WPF}
+	\end{figure}
+	Die WPF-Anwendung muss daher wie im UML-Anwendungsdiagramm verschiedene Funktionalitäten umsetzen. Um Prozessdaten, wie z.B. Motortemperaturen graphisch darzustellen müssen diese durch ein Datenanforderungstelegramm von den Robotern angefordert werden. Erhält die WPF-Anwendung eine eingehende Nachricht muss diese anhand der Nachrichten ID interpretiert werden. Handelt es sich um ein Datentelegramm (Nachrichten-ID=0) müssen die Daten strukturiert abgespeichert werden, damit eine graphische Darstellung der Daten zu einem späteren Zeitpunkt und über einen längeren Zeitraum möglich ist. Dies kann beispielsweise mit einer csv.-Datei erfolgen. Eine andere Anwendung der WPF-Anwendung ist der Empfang von Systemereignissen. Diese Nachrichten können anhand ihrer Nachrichten-ID (ID=8) erkannt werden. Die Systemereignisse, wie z.B. Fehler oder Informationsmeldungen sollen dem Nutzer dargestellt werden. Darüber hinaus sollen diese zu Archivierungs- und Dokumentationszwecken lokal in einer Datei (z.B. .txt) abgespeichert werden. Systemereignisse haben dabei unterschiedliche Ereignis-Schweren von Information bis hin zu fatalem Fehler. Die WPF-Anwendung soll steuern ab welcher Schwere ein Roboter ein Systemereignis versenden soll. Dadurch können je nach Anwendung beispielsweise die Informationsmeldungen entfallen, da diese vergleichsweise von geringer Bedeutung sind. Um die Schwere der zu sendeten Systemereignisse zu aktualisieren soll die WPF-Anwendung ein Telegramm mit der Nachrichten-ID 50 unter Angabe der Soll-Schwere zu dem Roboter versenden. Darüber hinaus sollen Positionsdaten von zu greifenden Objekten an den Roboter versendet werden. Die Positionsdaten werden extern von der Anwendung "roboVision" ermittelt und an die zu konfigurierende WPF-Anwendung weitergeleitet, die diese dann mit der Nachrichten-ID 3 versenden werden. Die zu entwerfende WPF-Anwendung soll den Programmablauf durch lokales Abspeichern (z.B. mit einer .txt-Datei) dokumentieren, wie z.B. das Versenden von Telegrammen, sowie interne Fehler oder besondere Ereignisse.\\
+	Im nächsten Schritt sollen die Softwarekomponenten, wie die Klassen der WPF-Anwendung definiert werden. Um eine effiziente und gute Struktur für die zu entwerfende Software zu erhalten wird in der Literatur auf sogenannte Muster zugegriffen. Ein Muster stellt eine bekannte und erprobte Lösungen dar \cite{agileSoftware}. Die Wiederverwendung dieser Lösungen durch Muster vermeidet Fehler und vereinfacht die Kommunikation zwischen Fachleuten. Ebenso reduzieren sich Entwicklungskosten und die Flexibilität des Entwurfes steigt \cite{ArchitekturmusterGoll}.\\
+	Nach \cite{ArchitekturmusterGoll} lassen sich Muster im Entwurfsprozess in drei Gruppen einteilen:
+	\begin{itemize}
+		\item \textbf{Architekturmuster:} Behandelt auf hoher Ebene die Struktur und Architektur des gesamten Systems.
+		\item \textbf{Entwurfsmuster:} Betrachtet eine Ebene unter der Architektur ein bestimmtes Problem eines Subsystems.cd docu
+		\item \textbf{Idiome:} Ein Idiom ist die Umsetzung eines abstrakten Musters in Form eines aus programmierten Entwurfsmusters. Hierbei handelt es sich um eine  Lösung eines spezifischen Problems, weshalb Idiome hier in der Konzeptionierung der WPF-Anwendung keine Rolle spielen.
+	\end{itemize}
+	\textbf{Architekturmuster}\\
+	Es existieren eine Vielzahl von Architekturmustern, wie z.B. die Schichtenarchitektur, die Pepository-Architektu, die Pipes-und-Filter-Architektur, sowie die MVC-Architektur. \cite{Sommerville}
+	Bei Benutzungsschnittstellen, was die zu konzeptionierende WPF-Anwendung darstellt, kommt gemäß Literatur (\cite{Sommerville}, \cite{gamma2004entwurfsmuster}, \cite{ArchitekturmusterGoll}, \cite{agileSoftware}) übereinstimmend ein MVC-Muster zum Einsatz. MVC steht für Model-View-Controller und setzt sich aus den drei Klassen Model, View und Controller zusammen (vgl. Abbildung \ref{fig:MVC}).\\
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[node distance=2cm]
+			\node[draw, rectangle] (view) at (-2cm,0) {View};
+			\node[draw, rectangle] (controller) at (2cm,0) {Controller};
+			\node[draw, rectangle] (model) at (0,-2cm) {Modell};
+			
+			\draw[<->] (view) -- (controller);
+			\draw[->] (view) -- (model);
+			\draw[->] (controller) -- (model);
+			
+		\end{tikzpicture}
+		\caption{MVC-Muster nach \cite{ArchitekturmusterGoll}}
+		\label{fig:MVC}
+	\end{figure}
+	MVC ermöglicht es die Datenhaltung, die graphische Darstellung und die Interpretation der Benutzereingaben voneinander zu trennen. Durch die Entkoppelung wird die Flexibilität und die Wiederverwendbarkeit erhöht. Dadurch kann beispielsweise eine neue graphische Darstellung entwickelt werden ohne dass der restliche Code angepasst werden muss. \cite{gamma2004entwurfsmuster} \cite{ArchitekturmusterGoll} Die drei Komponenten des MVC-Musters erfüllen dabei folgende Funktionen:
+	\begin{itemize}
+		\item \textbf{Model: }Hier werden Daten gehalten und verarbeitet.
+		\item \textbf{View: } In der View erfolgt die graphische Darstellung für den Nutzer.
+		\item \textbf{Controller: } Der Controller interpretiert die Eingabe des Nutzers, wie z.B. eine Nutzerfeld-Eingabe, was definierte Aktionen auslösen kann.
+	\end{itemize}
+	Das Architekturmuster MVVM ist eine Entwicklung von Microsoft und eignet sich besonders für WPF-Anwendungen. MWWM (Model-View-ViewModel) ist dabei eine Variation von MVC, kommt dessen Prinzip jedoch sehr nahe. \cite{MVVMKraus} \cite{kotz2022c} \cite{troelsen2022pro}
+	Dass MVVM bereits in der Anwendung roboTools zum Einsatz kommt unterstreicht, dass MVVM das geeigneteste Architekturmuster für die zu entwerfende Applikation ist. MVVM setzt sich dabei aus den Komponenten View, ViewModel und Model zusammen (vgl. Abbildung \ref{fig:MVVM})
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=1.0\linewidth]{./images/MVVM.png}
+		\caption{MVVM \cite{MVVMKraus}}
+		\label{fig:MVVM}
+	\end{figure}
+	\begin{itemize}
+		\item \textbf{Model: } Hier werden Daten aus einer Datenquelle angefordert und bearbeitet.
+		\item \textbf{View: } In der View wird die Graphische Oberfläche definiert. Zur Darstellung von Daten nutzt Sie ViewModel, welches Informationen für die View zur Vergügung stellt.
+		\item \textbf{ViewModel: } Das ViewModel ähnelt dem Controller von MVC und stellt die Verbindung zwischen Model und View her. Hier wird die Logik, was bei Änderungen an der Benutzeroberfläche passieren soll, geschehen soll implementiert. ViewModel holt sich von Model Daten, welche die View für Darstellungszwecke benötigt. \cite{MVVMKraus} \cite{troelsen2022pro}
+	\end{itemize}
+	Auf die Verbindung wischen den einzelnen Komponenten mit Data Binding wird im folgenden unter Entwurfsmuster eingegangen.\\
+	\textbf{Entwurfsmuster}\\
+	Nach \cite{ArchitekturmusterGoll} bieten sich für die MVC-Architektur und somit auch für die MVVM-Architektur mehrere Entwurfsmuster an. Am geläufigsten ist das Beobachter-Muster (engl. Observer-Pattern). Weitere Entwurfsmuster sind das Strategie-Muster und das Kompositum-Muster. \cite{ArchitekturmusterGoll}. Das Beobachter-Muster wird häufig in der Literatur empfohlen und kommt auch in der WPF-Anwendung roboTools umgesetzt durch sogenannte Datenbindung (engl. Data Binding) zum Einsatz. Daher fällt die Entscheidung bei der zu entwerfenden WPF-Anwendung ebenso auf MVVM mit Beobachter-Muster. Die beobachtende Komponente überwacht hierbei eine andere Komponenten. Ändert sich etwas an dem beobachtenden Objekt (wie z.B. ein Tastendruck) erkennt dies der Beobachter und kann in Folge dessen eine definierte Aktion ausführen. \cite{ArchitekturmusterGoll} Die Verbindung zwischen View und ViewModel, sowie zwischen ViewModel und Model wird mit Hilfe von Datenbindung umgesetzt. Die Datenbindung gibt sozusagen Daten zwischen einzelnen Komponenten weiter.\\
+	\textbf{Adaption der Anwendung auf Architektur- und Entwurfsmuster}\\
+	Um die Komponenten der zu entwerfenden Software zu definieren, müssen die Anwendungen, die im UML-Diagramm (vgl. Abbildung \ref{fig:UML_Use_Case_WPF}) definiert wurden auf das Entwurfsmuster aufgeteilt werden. Ebenso müssen die Klassen für die zu entwerfende WPF-Anwendung in C\# definiert werden. Gemäß WVVM werden in der View (gemäß unternehmensinternem Standard als "MainWindow" bezeichnet)
+	die Grafik des Programms festgelegt. Hier müssen sowohl der Prokollschreiber der Systemereignisse, sowie Diagramme zur Darstellung der Prozessdaten definiert werden. In der View soll jedoch keine Logik umgesetzt und der Code auf ein Minimum begrenz werden. Im Model hingegen erfolgt gemäß MVVM die Datenhaltung und Datenverarbeitung. Hier werden Daten über die TCP/IP-Verbindung empfangen und gesendet, sowie die Daten abgespeichert. Das ViewModel (unternehmensintern als MainViewModel bezeichnet) verkünpft die View und das Model. So soll auf Knopfdruck in der View, Prozessdaten aus dem Model ausgelesen und in der View dargestellt werden. Die Logik hierfür erfolgt in dem ViewModel (hier: MainViewModel). Für den Entwurf der WPF-Anwendung bietet sich daher folgende Klassenaufteilung an, welche nachfolgend in einem UML-Klassendiagramm dargestellt ist (vgl. Abbildung \ref{fig:UMLKlassenWPF}). Diese Klassen sind in der Umsetzung mit C\# zu implementieren.
+	\begin{figure}
+		\begin{tikzpicture}
+			\begin{umlpackage}{ViewModel}
+				\umlclass[name=viewModel, x=0]{MainViewModel}{
+				}{
+					+ ploteDaten() : void
+				}
+			\end{umlpackage}
+			
+			\begin{umlpackage}{View}
+				\umlclass[name=view, x=8]{MainWindow}{
+					- Graphik: \\
+					- Zustand Button: \\
+					- Protokollschreiber:
+				}{
+					
+				}
+			\end{umlpackage}
+			
+			\begin{umlpackage}{Model}
+				\umlclass[name=com, x=0, y=-6]{Communicator}{
+					- IP-Adresse : float \\
+					- Verbundene Clients: List Client
+				}{
+					+ sende Nachricht() : void \\
+					+ empfange Nachricht() : void \\
+					+ Interpretiere Datentelegramm(): void \\
+					+ Speichere Daten(): void \\
+					+ Interpretiere Systemereignis\\-Telegramm(): void \\
+					+ Speichere Systemereignisse(): void \\
+					+ Sende Aktualisierungs-Telegram \\Schwere Systemereignis(): void\\
+					+ Sende Positionsdaten(): void
+				}
+				
+				\umlclass[name=robot, x=8, y=-6]{Robot}{
+					- Temperatur: int \\
+					- Fehler: bool \\
+					- Schwere Systemerigniss: int
+				}{
+					
+				}
+			\end{umlpackage}
+			
+			
+			% Verbindungslienie zwischen SPS und Roboter mit Multiplicitäten
+			\umlassoc[pos=0.5]{MainViewModel}{MainWindow}
+			\umlassoc[pos=0.5]{MainViewModel}{Communicator}
+			\umlassoc[pos=0.5]{Communicator}{Robot}
+			
+		\end{tikzpicture}
+		\caption{UML-Klassendiagramm WPF-Anwendung}
+		\label{fig:UMLKlassenWPF}
+	\end{figure}
 	
 	\chapter{Design und Implementierung}
 	Design: Vergleich von Lösungsbausteinen (z.B. Vergleich Softwarebibliotheken) und Auswahl) auf Basis von Anforderungen und Recherche. Wissenschaftliche Bewertungskriterien nötig. Harvey-Diagramm.
@@ -891,28 +1032,9 @@
 	Diese Funktion wandelt einen numerischen Wert, welcher das Datenformat sDataFormat besitzt in einen Byte-Strom und speichert diesen im Array nDataByte. Über das Datenformat wird beispielsweise angegeben ob es sich um einen Gleitkommawert handelt, ob ein Vorzeichen vorliegt und ob das Little-Endian oder das Big-Endian-Format angewandt wird. Mit nDataSize kann die Anzahl der zu kodierenden Zeichen beschränkt werden.\\
 	num fromBinary(num nDataByte[], num nDataSize, string sDataFormat, num\& nValue[])\\
 	Umgekehrt ermöglicht diese Funktion, einen empfangen Byte-Array in numerische Werte zu konvertieren. Das Ergebnis im Datenformat nDataFormat wird in nValue gespeichert. Die Anzahl der zu decodierenden Bytes wird festgelegt durch nDataSize, wenn nicht alle Bytes des Eingangs-Array nDataByte decodiert werden sollen.
-	\begin{figure}[h!]
-		\centering
-		\begin{tikzpicture}
-			\begin{umlsystem}{Roboterprogramm}
-				\umlusecase[name=1, x=3, y= 0, width =2.5cm]{Prozessdaten abspeichern}
-				\umlusecase[name=2,x=2.5,y=-1.5, width =2.5cm]{Prozessdaten empfangen} 
-				\umlusecase[name=3,x=-2,y=-5.5, width =2.5cm]{Abfrage Systemereignisse}
-				
-			\end{umlsystem}
-			
-			\umlactor[x=-5.5, y=-4]{Nutzer}
-			\umlactor[x=7,y=-5]{Visualisierung}
-			
-			\umlassoc{Nutzer}{1}
-
-			
-		\end{tikzpicture}
-		\caption{UML-Anwendungsdiagramm Roboterprogramm}
-		\label{fig:UML_Use_Case_Robo}
-	\end{figure}
-	\section{WPF-Anwendung}
 	
+	\section{WPF-Anwendung}
+	Wie in Stand der Technik. WPF, C, VisualStudio and DevOps.
 	
 	\subsection{Architektur}
 	
