@@ -550,78 +550,27 @@
 	Nachdem die Entscheidung für eine Master-Slave-Architektur gefallen ist, muss festgelegt werden, ob die Beckhoff-SPS oder der Stäubli-Roboter als Master konfiguriert wird. Da der Einsatz von mehreren Stäubli-Robotern in Automatisierungslösungen denkbar ist, könnte nicht jeder Stäubli-Roboter als Master eingesetzt werden. Folglich wäre ein Stäubli-Roboter ein Master, die anderen Stäubli-Roboter, wie auch die SPS Slaves. Um diese Unterschiede in den einzelnen Stäubli-Robotern zu verhindern, ist es sinnvoll die Beckhoff-SPS als Master zu konfigurieren, sodass alle Stäubli-Roboter einheitlich als Slaves eingesetzt werden. Darüber hinaus ist die SPS der zentrale Teil der Anlagenautomatisierung, von welcher weitere Komponenten, wie Roboter anderer Hersteller gesteuert werden können, weshalb die Wahl der SPS als Master sinnvoll ist.\\
 	Die Gesamtentscheidung zur Konfiguration ist nachfolgend mit Hilfe eines morphologischen Kastens dargestellt.\\
 	
-	\begin{NiceTabular}{@{}>{\bfseries}lcccc@{}}
-		\CodeBefore [create-cell-nodes]
-		\tikz \draw [red!50, line width=2pt, line join = round] 
-		plot [samples at={3-2, 4-3, 5-2}] (\x) ;
-		\Body
-		\toprule
-		\RowStyle[nb-rows=2]{\bfseries}  
-		& \Block{1-4}{Konfiguration} \\ 
-		\cmidrule{2-5}
-		Parameters  & Option 1 & Option 2 & Option 3 & Option 4 \\ 
-		\midrule
-		Bussystem     & etherCAT      & Profinet  & Sercos III & Soft       \\
-		Architektur & Master-Master       & Master-Slave  &   &      \\
-		Master & SPS      & Stäubli           &       & \\ 
-		\bottomrule
-	\end{NiceTabular}
+	\begin{table}
+		\caption{Morphologischer Kasten Feldbus}
+		\label{table:MorphoFeldbus}
+		\begin{NiceTabular}{@{}>{\bfseries}lcccc@{}}
+			\CodeBefore [create-cell-nodes]
+			\tikz \draw [red!50, line width=2pt, line join = round] 
+			plot [samples at={3-2, 4-3, 5-2}] (\x) ;
+			\Body
+			\toprule
+			\RowStyle[nb-rows=2]{\bfseries}  
+			& \Block{1-4}{Konfiguration} \\ 
+			\cmidrule{2-5}
+			Parameters  & Option 1 & Option 2 & Option 3 & Option 4 \\ 
+			\midrule
+			Bussystem     & etherCAT      & Profinet  & Sercos III & Ethernet/IP       \\
+			Architektur & Master-Master       & Master-Slave  &   &      \\
+			Master & SPS      & Stäubli           &       & \\ 
+			\bottomrule
+		\end{NiceTabular}
+	\end{table}
 	
-	
-	\begin{tikzpicture}[
-		font=\sffamily,
-		circle mark/.style={
-			draw=#1,
-			shape=ellipse,
-			thick,
-			inner xsep=-3pt
-		},
-		circle mark finish/.style={
-			circle mark=red
-		},
-		circle mark unfinish/.style={
-			circle mark=green
-		},
-		line/.style={red, thick},
-		line thick/.style={ultra thick}
-		]
-		\matrix [
-		matrix of nodes,
-		nodes={
-			draw, 
-			minimum width=2.6cm, 
-			minimum height=.8cm, 
-			anchor=center
-		},
-		row sep=-\pgflinewidth,
-		column sep=-\pgflinewidth,
-		nodes in empty cells,
-		row 1/.style={nodes={draw=none}}
-		] (m) {
-			|[draw]| Merkmal &&&&\\
-			Faktor 1 & etherCAT & profinet & Ethernet/IP & Sercos III \\
-			Faktor 2 & Master-Master & Master-Slave & & \\
-			Faktor 3 & SPS als Master & Stäubli als Master &  & \\
-		};
-		\node [draw, fit=(m-1-2)(m-1-5), inner sep=-.5\pgflinewidth, label=center:Ausprägung]{};
-		
-		\draw [line thick] 
-		(m-1-1.north east) -- (m-4-1.south east)
-		(m-1-1.south west) -- (m-1-5.south west)
-		;
-		
-		\path [nodes=circle mark finish]
-		(m-2-2) node (cm1) {\phantom{Ausprägung 1}}
-		(m-4-4) node (cm3) {\phantom{Ausprägung 3}}
-		;
-		\path [nodes=circle mark unfinish]
-		(m-3-3) node (cm2) {\phantom{Ausprägung 2}}
-		;
-		\draw [line] 
-		(cm1.east) -- (cm2.west)
-		(cm2.east) -- (cm3.west)
-		;
-	\end{tikzpicture}
 	
 	\section{TCP/IP-Verbindung}
 	Nachdem die Feldbus-Verbindung konzeptioniert wurde, erfolgt die Auslegung der TCP/IP-Verbindung. Hierbei müssen viele Einzelentscheidungen getroffen werden, welche am Ende mit einem morphologischen Kasten zusammengefasst dargestellt werden.\\
@@ -642,35 +591,30 @@
 	\textbf{Auslöser für Versand von Kameradaten} \\
 	Beim Anfallen von Positionsdaten, welche anhand von Kameradaten berechnet werden, solllen diese schnellstmöglichst an den Roboter übertragen werden. Aus diesem Grund erfolgt der Versandt dieser Daten Ereignissgetriggert, d.h. direkt nach Erhalt der Positionsdaten wird ein Telegramm an den entsprechenden Roboter gesandt.
 	Die Entscheidungsfindung bei den eben genannten Auswahlmöglichkeiten ist nachfolgend in einem morphologischen Kasten dargestellt.
-	\begin{longtable}{|p{3cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
-		\caption{Morphologischer Kasten TCP/IP-Verbindung}
-		\label{table:MorphoTCPIP}\\
-		\hline
-		Merkmal & Option 1 & Option 2 & Option 3 \\ [0.5ex] 
-		\hline
-		\endhead
-		Architekturwahl & Roboter = Server & \cellcolor{green!10}Anlage = Server &\\ 
-		Nachrichtentypen & Prozessdaten unterteilt & Eine Nachricht & \cellcolor{green!10}Prozessdaten und Systemereignisse getrennt\\
-		Auslöser Systemereignisse & Zyklisch & \cellcolor{green!10}Ereignisbasiert&  \\
-		Auslöser Prozessdaten & \cellcolor{green!10}Anforderungs-telegramm & Zyklisch &  \\
-		Auslöser Kameradaten & Zyklisch & \cellcolor{green!10}Ereignisbasiert&  \\
-		\hline
-	\end{longtable}
-	Eine der beiden Tabellen verwenden.
+	
 	\begin{table}
+		\caption{Morphologischer Kasten TCP/IP-Verbindung}
+		\label{table:MorphoTCPIP}
 		\centering
-		\begin{tabular}{>{\columncolor{gray!20}}lccc}
+		\begin{tabular}{
+				>{\columncolor{gray!20}}p{3cm}
+				>{\centering\arraybackslash}p{3.5cm}
+				>{\centering\arraybackslash}p{3.5cm}
+				>{\centering\arraybackslash}p{3.5cm}
+			}
 			\toprule
 			\textbf{Merkmal} & \textbf{Option 1} & \textbf{Option 2} &  \textbf{Option 3}\\
 			\midrule
-			Wahl der Architektur 1 & \cellcolor{green!10}Anlagenvisualisierung als Server & Roboter als Server &\\
-			Nachrichtentypen 4 & Eine Nachricht 5 & Prozessdaten und Systemereignisse getrennt & \\
-			Auslöser Versand Systemereignisse & Zyklisch & \cellcolor{green!10}Ereignisbasiert & \\
+			Architekturwahl & \cellcolor{green!10}Anlage = Server & Roboter = Server &\\
+			\hline
+			Nachrichtentypen & Eine Nachricht  & Prozessdaten unterteilt & \cellcolor{green!10}Prozessdaten und Systemereignisse getrennt\\ \hline
+			Auslöser Versand Systemereignisse & Zyklisch & \cellcolor{green!10}Ereignisbasiert & \\ \hline
+			Auslöser \newline Prozessdaten & \cellcolor{green!10}Anforderungs-telegramm & Zyklisch &  \\ \hline
+			Auslöser \newline Kameradaten & Zyklisch & \cellcolor{green!10}Ereignisbasiert&  \\
 			\bottomrule
 		\end{tabular}
-		\caption{Beispiel für eine gefärbte Tabelle mit erster Spalte losgelöst.}
-		\label{tab:gefaerbte_tabelle_ohne_erste_spalte} 
-	\end{table}\newline
+	\end{table}
+	
 	\textbf{Nachrichtenaufbau Datentelegramm}\\
 	Nachfolgend soll der Nachrichtenaufbau des Datentelegramms festgelegt werden. Durch Brainstorming und durch Inspiration von anderen Telegram-Aufbauten wie Ethernet (vgl. Kapitel \ref{subsec:EthernetFeldbus}) werden verschiedene Möglichkeiten des Telegrammaufbaus entworfen:\\
 	\begin{itemize}
