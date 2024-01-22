@@ -94,7 +94,7 @@
     
   
     \section*{Abkürzungsverzeichnis}
-    \begin{acronym}[TCP/IP]
+    \begin{acronym}[CSMA/CD]
     	\acro{sps}[SPS]{Speicherprogrammierbare Steuerung}
     	\acro{tcpip}[TCP/IP]{Transmission Control Protocol/Internet Protocol}
     	\acro{tcp}[TCP]{Transmission Control Protocol}
@@ -104,6 +104,17 @@
     	\acro{iee}[IEE]{Institute of Electrical and Electronis Engineers}
     	\acro{csmacd}[CSMA/CD]{Carrier Sense Multiple Access with Collision Detection}
     	\acro{fmmu}[FMMU]{Fieldbus Memory Management Unit}
+    	\acro{udp}[UDP]{User Datagram Protocol}
+    	\acro{crc}[CRC]{Cyclic Redundancy Check}
+    	\acro{mac}[MAC]{Medium Access Control}
+    	\acro{opc}[OPC UA]{Open Platform Communication Unified Architecture}
+    	\acro{srs}[SRS]{Stäubli Robotic Suite}
+    	\acro{ipc}[IPC]{Indutrie-PC}
+    	\acro{ads}[ADS]{Automation Device Specification}
+    	\acro{xaml}[XAML]{eXtensible Application Markup Language}
+    	\acro{mvvm}[MVVM]{Model-View-ViewModel}
+    	\acro{mvc}[MVC]{Model-View-Controller}
+    	\acro{uml}[UML]{Unified Modeling Language}
     	
     \end{acronym}
 
@@ -249,11 +260,11 @@
 	\ac{tcpip} setzt sich aus den Protokollen \acs{tcp} und \acs{ip} zusammen.\\
 	\\
 	\textbf{TCP}\\
-	Das Ziel von \acs{tcp} (\acl{tcp}) ist eine fehlerfreie Datenübertragung. Hierzu muss der Empfänger die korrekt erhaltenen Daten, über eine Nachricht, die an den Sender zugesendet wird, bestätigen. Die Überprüfung der Korrektheit erfolgt mit dem CRC-Segment. Erhält dieser Sender diese Bestätigung nicht wird erneut versucht die Daten zu versenden. Hierdurch ist eine fehlerfreie und lückenlose Datenübertragung, selbst bei Netzwerkproblemen garantiert, was jedoch die Prozesse verlangsamt. Eine Alternative zu TCP ist UDP (User Datagram Protocol) . Hierbei erhält der Absender keine Bestätigung, dass die Daten korrekt empfangen wurde. Der Sender fährt direkt mit der Versendung der nächsten Pakete durch. Eine fehlerfreie Übertragung ist nicht garantiert, jedoch ist sie im Vergleich zu TCP schneller. Sowohl TCP, als auch UDP bauen auf dem Internetprotokoll IP auf. \cite{CS9_TCP}\\
+	Das Ziel von \acs{tcp} (\acl{tcp}) ist eine fehlerfreie Datenübertragung. Hierzu muss der Empfänger die korrekt erhaltenen Daten, über eine Nachricht, die an den Sender zugesendet wird, bestätigen. Die Überprüfung der Korrektheit erfolgt mit dem \acs{crc}-Segment. Erhält dieser Sender diese Bestätigung nicht wird erneut versucht die Daten zu versenden. Hierdurch ist eine fehlerfreie und lückenlose Datenübertragung, selbst bei Netzwerkproblemen garantiert, was jedoch die Prozesse verlangsamt. Eine Alternative zu \acs{tcp} ist \acs{udp} (\acl{udp}) . Hierbei erhält der Absender keine Bestätigung, dass die Daten korrekt empfangen wurde. Der Sender fährt direkt mit der Versendung der nächsten Pakete durch. Eine fehlerfreie Übertragung ist nicht garantiert, jedoch ist sie im Vergleich zu \acs{tcp} schneller. Sowohl \acs{tcp}, als auch \acs{udp} bauen auf dem \ac{ip} auf. \cite{CS9_TCP}\\
 	\\
 	\textbf{IP} \\
-	Das IP-Protokoll arbeitet auf der Internet bzw. IP-Schicht des TCP/IP-Protokolls, was der Netzwerkschicht des OSI-Modells entspricht. Die Ausgabe des IP-Protokolls ist es Datenpakete vom Sender zum Empfänger zu übertragen. Eine Datenüberprüfung und Fehlerkorrektur erfolgt nicht, sodass Daten verloren gehen können oder fehlerbehaftet sind. Die Garantie für die korrekte Datenlieferung geschieht durch das TCP-Protokoll. Das IP-Protokoll verwendet IP-Adressen, um Netzwerkknoten zu identifizieren. Mit Hilfe derer Adressen wird die Nachricht durch das Netz geroutet. Es wird ein idealer Weg zwischen Sender und Empfänger gesucht. \cite{harnisch2009netzwerktechnik} \cite{riggert2002rechnernetze} Es gibt zwei Versionen des IP-Protokolls IPv4 und IPv6. Bei IPv4 besteht die IP-Adresse aus 32 Bit, bei IPv6 aus 128 Bit, was die Anzahl der eindeutigen Adressen erhöht. Aufgrund der zunehmenden Geräteanzahl wird in der Zukunft IPv6 der Standard werden. Heute dominiert jedoch IPv4. \cite{riggert2002rechnernetze} \\
-	Eine MAC-Adresse (Medium Access Control) ermöglicht eine eindeutige Identifikation eines Gerätes im Netzwerk. Da allerdings meist herstellerübergreifende Netzwerke eingesetzt werden, ist die IP-Adresse für eine eindeutige Identifikation besser geeignet. Diese kann entweder manuell oder automatisch zugewiesen werden. Der Aufbau einer IP-Adresse nach IPv4 ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:IP-Adresse}).  \cite{hering2012elektrotechnik}
+	Das \ac{ip}-Protokoll arbeitet auf der Internet bzw. \ac{ip}-Schicht des \ac{tcpip}-Protokolls, was der Netzwerkschicht des OSI-Modells entspricht. Die Aufgabe des \acs{ip}-Protokolls ist, es Datenpakete vom Sender zum Empfänger zu übertragen. Eine Datenüberprüfung und Fehlerkorrektur erfolgt nicht, sodass Daten verloren gehen können oder fehlerbehaftet sind. Die Garantie für die korrekte Datenlieferung geschieht durch das \acs{tcp}-Protokoll. Das IP-Protokoll verwendet IP-Adressen, um Netzwerkknoten zu identifizieren. Mit Hilfe derer Adressen wird die Nachricht durch das Netz \glqq geroutet\grqq. Es wird ein idealer Weg zwischen Sender und Empfänger gesucht. \cite{harnisch2009netzwerktechnik} \cite{riggert2002rechnernetze} Es gibt zwei Versionen des IP-Protokolls IPv4 und IPv6. Bei IPv4 besteht die IP-Adresse aus 32 Bit, bei IPv6 aus 128 Bit, was die Anzahl der eindeutigen Adressen erhöht. Aufgrund der zunehmenden Geräteanzahl wird in der Zukunft IPv6 der Standard werden. Heute dominiert jedoch IPv4. \cite{riggert2002rechnernetze} \\
+	Eine \acs{mac}-Adresse (\acl{mac}) ermöglicht eine eindeutige Identifikation eines Gerätes im Netzwerk. Da allerdings meist herstellerübergreifende Netzwerke eingesetzt werden, ist die IP-Adresse für eine eindeutige Identifikation besser geeignet. Diese kann entweder manuell oder automatisch zugewiesen werden. Der Aufbau einer IP-Adresse nach IPv4 ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:IP-Adresse}).  \cite{hering2012elektrotechnik}
    	\begin{figure}[!ht]
    		\centering
    		\includegraphics[width=0.70\linewidth]{./images/IP Adresse Aufbau.png}
@@ -276,21 +287,21 @@
    	\label{sec:TCP/IP}
    	
    	\section{OPC/UA}
-   	OPC UA (Open Platform Communication Unified Architecture) ist ein Protokoll zur Maschine-zu-Maschine-Kommunikation, aber auch zur Kommunikation zwischen SPS oder HMI (Human Interface) und Maschine. Es handelt sich hierbei um einen offenen und plattformunabhängigen Standard, welcher von der Open Platform Foundation (OPC) verwaltet wird. OPC UA basiert analog zu TCP/IP auf Ethernet und Internet. Es ist ebenso nicht echtzeitfähig. Das Kommunikationsprotokolls OPC UA ermöglicht eine vertikale und horizontale Kommunikation, da es die einzelnen Automatisierungsebenen verbindet. Somit kann von einem Roboter bis hin zur gesamten Fabriksteuerung alles verbunden werden, was OPC UA beliebt, um die Fabrik "Industrie 4.0" fähig zu machen. \cite{industrie40} \\
-   	OPC UA basiert auf der Server-Client Architektur. Der OPC UA Server kann dann beispielsweise auf der SPS oder dem HMI (Human Interface) laufen und ein Roboter kann als OPC UA Client angebunden werden. Die Daten werden standardisiert und maschinenlesbar semantisch beschrieben, sodass herstellerübergreifende Kommunikation problemlos möglich ist. Sensordaten einer Maschine können dadurch an die Anlagensteuerung übertragen und visualisiert werden. OPC UA liefert dabei viele Vorteile: \cite{OPCUA}
+   	\acs{opc} (\acl{opc}) ist ein Protokoll zur Maschine-zu-Maschine-Kommunikation, aber auch zur Kommunikation zwischen SPS oder Benutzerschnittstelle und Maschine. Es handelt sich hierbei um einen offenen und plattformunabhängigen Standard, welcher von der \glqq Open Platform Foundation\grqq{} verwaltet wird. OPC UA basiert analog zu TCP/IP auf Ethernet und Internet. Es ist ebenso nicht echtzeitfähig. Das Kommunikationsprotokolls OPC UA ermöglicht eine vertikale und horizontale Kommunikation, da es die einzelnen Automatisierungsebenen verbindet. Somit kann von einem Roboter bis hin zur gesamten Fabriksteuerung alles verbunden werden, was OPC UA beliebt macht, um die Fabrik \glqq Industrie 4.0\grqq{} fähig zu machen. \cite{industrie40} \\
+   	OPC UA basiert auf der Server-Client Architektur. Der OPC UA Server kann dann beispielsweise auf der SPS oder der Benutzerschnittstelle laufen und ein Roboter kann als OPC UA Client angebunden werden. Die Daten werden standardisiert und maschinenlesbar semantisch beschrieben, sodass eine herstellerübergreifende Kommunikation problemlos möglich ist. Sensordaten einer Maschine können dadurch an die Anlagensteuerung übertragen und visualisiert werden. OPC UA liefert dabei viele Vorteile: \cite{OPCUA}
    	\begin{itemize}
    		\item \textbf{Sicher:} IT-Sicherheit wurde bei der Entwicklung von OPC UA direkt mit eingeplant. Die Kommunikation und der Transport ist sicher und kann über Zugriffsrechte gesteuert werden.
    		\item \textbf{Plattformunabhängig:} Neben der Herstellerunabhängigkeit ist OPC UA unbhängig von der Programmiersprache, was es ermöglicht verschiedene Anlagen einfach zu verknüpfen.
    		\item \textbf{Einfach:} OPC UA ist auf Nutzerfreundlichkeit ausgelegt und das Festlegen von Kommunikationsprotokollen und der Aufbau von Nachrichten entfällt, sodass auch ohne Programmierkenntnisse eine Umsetzung möglich ist. 
    		\item \textbf{Big Data:} OPC UA ermöglicht einfaches Sammeln von Daten aus diversen Maschinen und von unterschiedlichsten Automatisierungsebenen. Hierdurch können sich umfangreiche Potentiale durch die Analyse der Daten ergeben und neue Geschäftsmodelle erschlossen werden. \\
    	\end{itemize}
-   	Aufgrund dieser unterschiedlichsten Vorteile, wird OPC UA immer mehr im Bereich IoT und Industrie 4.0 eingesetzt. \cite{OPCUA}  \cite{industrie40}
+   	Aufgrund dieser unterschiedlichsten Vorteile, wird OPC UA immer mehr im Bereich Industrie 4.0 eingesetzt. \cite{OPCUA}  \cite{industrie40}
    	
    	
    	\section{Stäubli-Roboter}
-   	Stäubli ist ein in der Schweiz ansässiges Industrieunternehmen, welches in den Bereichen "Elektrische Verbindungen", "Fluidische Verbindungen","Textil" und "Robotik" tätig ist. Das Produktportfolio im Bereich Robotik umfasst Vier- und Sechsachs-Roboter, sowie kollaborative und mobile Roboter. \cite{StaubliUberUns}\\ Stäubli-Roboter sind nach IP 65 und IP 67 Staub- und Wasser- geschützt, wenn ein Arm mit Überdruckeinheit zum Einsatz kommt. Dies ermöglicht eine gründliche Reinigung aus Hygienezwecken und verhindert das Ansammeln von Staub im Roboter. Beispielsweise ist auch eine Reinigung mit Desinfektionsmittel oder Isopropylalkohol möglich. Zudem können die Roboter mit einem Lebensmittelverträglichem Öl eingesetzt werden. Stäubli-Roboter eignen sich daher insbesondere für Anwendungen in der Lebensmittel-, Pharma- und Medizin-Technik, in der viele andere Roboter die Hygieneanforderungen nicht erfüllen können. \cite{StaubliProduktubersicht}\\
+   	Stäubli ist ein in der Schweiz ansässiges Industrieunternehmen, welches in den Bereichen \glqq Elektrische Verbindungen\grqq, \glqq Fluidische Verbindungen\grqq, \glqq Textil\grqq{} und \glqq Robotik\grqq{} tätig ist. Das Produktportfolio im Bereich Robotik umfasst Vier- und Sechsachs-Roboter, sowie kollaborative und mobile Roboter. \cite{StaubliUberUns}\\ Stäubli-Roboter sind nach IP 65 und IP 67 Staub- und Wasser- geschützt, wenn ein Arm mit Überdruckeinheit zum Einsatz kommt. Dies ermöglicht eine gründliche Reinigung aus Hygienezwecken und verhindert das Ansammeln von Staub im Roboter. Beispielsweise ist auch eine Reinigung mit Desinfektionsmittel oder Isopropylalkohol möglich. Zudem können die Roboter mit einem Lebensmittelverträglichem Öl eingesetzt werden. Stäubli-Roboter eignen sich daher insbesondere für Anwendungen in der Lebensmittel-, Pharma- und Medizin-Technik, in der viele andere Roboter die Hygieneanforderungen nicht erfüllen können. \cite{StaubliProduktubersicht}\\
    	\textbf{Roboter TX2 - 90}\\
-   	Im Rahmen dieser Arbeit kommt der 6 Achs-Roboter TX2-90 zum Einsatz (vgl. Abbildung \ref{fig:TX90}). Dieser weist eine Tragkraft von 12 kg und eine Reichweite von 1000 mm auf. Die Wiederholgenauigkeit beträgt 0,03 mm und die maximale kartesische Geschwindigkeit 10,9 m/s. Der Roboter wiegt 114 kg und wird von der Robotersteuerung CS9 mit 2kVA gesteuert. Der Roboter ist für verschiedene, teils auch aggressive Reinigungsmittel geeignet, was für die Lebensmittelindustrie wichtig ist. Die Achsen können maximale Drehmomente zwischen 11 Nm (Achse 6) und 318 Nm (Achse 1) aufbringen.\\
+   	Im Rahmen dieser Arbeit kommt der Sechsachs-Roboter TX2-90 zum Einsatz (vgl. Abbildung \ref{fig:TX90}). Dieser weist eine Tragkraft von 12 kg und eine Reichweite von 1000 mm auf. Die Wiederholgenauigkeit beträgt 0,03 mm und die maximale kartesische Geschwindigkeit 10,9 m/s. Der Roboter wiegt 114 kg und wird von der Robotersteuerung CS9 mit 2kVA gesteuert. Der Roboter ist für verschiedene, teils auch aggressive Reinigungsmittel geeignet, was für die Lebensmittelindustrie wichtig ist. Die Achsen können maximale Drehmomente zwischen 11 Nm (Achse 6) und 318 Nm (Achse 1) aufbringen.\\
    	Der Vorderarm des Roboters ist mit vier Magnetventilausgängen, von zwei 5/2-Wege-Magnetventilen versehen. Dies ermöglicht beispielsweise das Öffnen und Schließen eines Greifers.\\
    	Für den Roboter liegt ein Wartungsplan vor, welcher Wartungsarbeiten in unterschiedlichen Intervallen von monatlich bis 5-jährig vorsieht. Diese reichen von einfachen Sichtprüfungen und Bremstests über Ölwechsel und Dichtungstausch bis hin zum Auswechseln von Achsen. \cite{X90}
    	\begin{figure}[!ht]
@@ -316,7 +327,7 @@
    		\label{fig:ComputerEinschub}
    	\end{figure}
    	Der Computer-Einschub (vgl. Abbildung \ref{fig:ComputerEinschub}) besitzt eine Vielzahl an Kommunikationsschnittstellen, die in der Tabelle nachfolgend dargestellt sind (vgl. Tabelle \ref{table:ComputerEinschub}).
-   	\begin{longtable}{|p{1cm}|p{12cm}|}
+   	\begin{longtable}{p{1cm}p{12cm}}
    		\caption{CS9 Controller Computer-Einschub}
    		\label{table:ComputerEinschub}\\
    		\hline
@@ -329,7 +340,7 @@
    		4 & EtherCAT Port (Reserviert) \\
    		5 & Anschluss Handbediengerät  \\
    		6 & USB-Ports \\  
-   		7 & Echtzeit-Ethernet-Slave (EtherCAT, Sercos III, EtherNet/IP, PROFINET  \\ 
+   		7 & Echtzeit-Ethernet-Slave (EtherCAT, Sercos III, EtherNet/IP, PROFINET)  \\ 
    		8 & EtherCAT-Master  \\ 
    		9 & Ethernet-Ports (1000 MBits/s und 100 MBits/s)  \\
    		10 & Status LEDs  \\ 
@@ -337,51 +348,51 @@
    		12 & Benutzerschnittstelle  \\  
    		\hline
    	\end{longtable}
-   	 An den CS9 Controller kann kann ein Handbediengerät angeschlossen werden (5), was z.B.  manuelles Verfahren oder einfachere Programmier- und Konfigurationsarbeiten ermöglicht. Hervorzuheben ist zudem der Echtzeit-Ethernet-Slave-Anschluss (7), durch welchen die Steuerung z.B. über EtherCAT mit einer SPS verbunden werden kann. Zusätzlich steht ein EtherCAT-Master-Anschluss (8) zur Verfügung. Die CS9 ermöglicht es somit den Roboter als EtherCAT-Slave oder als EtherCAT-Master zu betreiben.\\
-   	 Zudem stehen zwei Ethernet-Ports (9) zur Verfügung, was eine externe Kommunikation z.B. über TCP/IP ermöglicht. Die IP-Adresse der Ethernet-Ports kann frei konfiguriert oder automatisch vergeben werden. Als Dateiübertragungs-Serverprotokoll dient "FTPS+FTP". FTP wird als Standardeinstellung verwendet, während FTPS eine sichere Authentifizierung ermöglicht. \\
-   	 Auf der CS9-Steuerung lassen sich sogenannte Sockets konfigurieren, welche eine TCP/IP oder eine UDP/IP - Kommunikation ermöglichen. Die Konfiguration kann dabei im Client oder Server-Modus erfolgen. \cite{CS9}
+   	An den CS9 Controller kann ein Handbediengerät angeschlossen werden (5), was z.B.  manuelles Verfahren oder einfachere Programmier- und Konfigurationsarbeiten ermöglicht. Hervorzuheben ist zudem der Echtzeit-Ethernet-Slave-Anschluss (7), durch welchen die Steuerung z.B. über EtherCAT mit einer SPS verbunden werden kann. Zusätzlich steht ein EtherCAT-Master-Anschluss (8) zur Verfügung. Die CS9 ermöglicht es somit den Roboter als EtherCAT-Slave oder als EtherCAT-Master zu betreiben.\\
+   	Zudem stehen zwei Ethernet-Ports (9) zur Verfügung, was eine externe Kommunikation z.B. über TCP/IP ermöglicht. Die IP-Adresse der Ethernet-Ports kann frei konfiguriert oder automatisch vergeben werden. Als Dateiübertragungs-Serverprotokoll dient "FTPS+FTP". FTP wird als Standardeinstellung verwendet, während FTPS eine sichere Authentifizierung ermöglicht. \\
+   	Auf der CS9-Steuerung lassen sich sogenannte Sockets konfigurieren, welche eine TCP/IP oder eine UDP/IP - Kommunikation ermöglichen. Die Konfiguration kann dabei im Client oder Server-Modus erfolgen. \cite{CS9} Ebenso kann die Steuerung für den Einsatz von OPC UA konfiguriert werden, hierbei kommen jedoch einmalige Lizenzkosten von ca. 500 € pro Roboter hinzu.
    	 
    	\subsection{Programmiersprache VAL3}
-   	Die Programmierung des Roboters kann auf dem Handbediengerät erfolgen oder bevorzugt in der Stäubli Robotic Suite (SRS). In der SRS kann neben der Programmierung eine Simulation des Roboters inklusive 3D-Darstellung erfolgen, sodass die Programme direkt getestet werden können.\\
-   	"VAL 3" ist eine höhere Programmiersprache und besitzt spezielle Steuerungsfunktionen für den Roboter zur Bewegungsteuerung und zur Ansteuerung von Ein-/Ausgängen. \cite{VAL3}\\
+   	Die Programmierung des Roboters kann auf dem Handbediengerät erfolgen oder bevorzugt in der \ac{srs}. In der SRS kann neben der Programmierung eine Simulation des Roboters inklusive 3D-Darstellung erfolgen, sodass die Programme direkt getestet werden können.\\
+   	\glqq VAL 3\grqq{} ist eine höhere Programmiersprache und besitzt spezielle Steuerungsfunktionen für den Roboter zur Bewegungsteuerung und zur Ansteuerung von Ein-/Ausgängen. \cite{VAL3}\\
    	\textbf{Programm} \\
-   	In einer Applikation können mehrere Programme angelegt werden. Diese verhalten sich wie Funktionen und lassen sich aufrufen. Zur Ausführung der VAL3-Applikation wird standardmäßig das Prgoramm "start()" gestartet, welches vergleichbar mit einer "main-Funktion" ist. Von hier lassen sich wiederum andere Programme aufrufen. Bei Beendigung der Applikation wird das Programm "stop()" einmalig aufgerufen, um z.B. von dort Tasks zu beenden.\\
-   	Programme lassen sich auch als Task ausführen. Bei einer Task handelt es sich um ein Programm welches zu einem gewissen Zeitpunkt ausgeführt wird. Üblicherweise wird beispielsweise die Bewegungssteuerung und die Kommunikation in eigene Tasks ausgelagert. Es wird ein möglichst gleichzeitiges Ausführen der Tasks angestrebt. Da die Steuerung jedoch nur einen Prozess besitzt, ist es jedoch nur möglich eine Task auszuführen. Die augenscheinliche Parallität, wird dadurch erreicht, dass die Tasks sequentiell sehr schnell hintereinander ausgeführt werden. Dabei wird nicht die gesamte Task abgearbeitet, sondern einige wenige Anweisungen. Eine Task erhält zudem eine Priorität, die angibt, wie viele Programmzeilen ausgeführt werden bis die nächste Task abgearbeitet wird. Eine hohe Priorität sorgt daher für ein schnellstmögliches Abarbeiten dieser Task. Wird in einer Task eine Wartezeit ("delay") ausgeführt, pausiert diese Task und der Prozessor arbeitet nur die anderen Tasks ab. Neben den erwähnten asynchronen Tasks bietet VAL 3 ebenso synchrone Tasks.
+   	In einer Applikation können mehrere Programme angelegt werden. Diese verhalten sich wie Funktionen und lassen sich aufrufen. Zur Ausführung der VAL3-Applikation wird standardmäßig das Programm \glqq start()\grqq{} gestartet, welches vergleichbar mit einer \glqq main-Funktion\grqq{} ist. Von hier lassen sich wiederum andere Programme aufrufen. Bei Beendigung der Applikation wird das Programm \glqq stop()\grqq{} einmalig aufgerufen, um z.B. von dort andere Programme zu beenden.\\
+   	Programme lassen sich auch als Task ausführen. Bei einer Task handelt es sich um ein Programm welches zu einem gewissen Zeitpunkt ausgeführt wird. Üblicherweise wird beispielsweise die Bewegungssteuerung und die Kommunikation in eigene Tasks ausgelagert. Es wird ein möglichst gleichzeitiges Ausführen der Tasks angestrebt. Da die Steuerung  nur einen Prozess besitzt, ist es jedoch nur möglich eine Task auszuführen. Die augenscheinliche Parallelität, wird dadurch erreicht, dass die Tasks sequentiell sehr schnell hintereinander ausgeführt werden (vgl. Abbildung \ref{fig:tasks}). Dabei wird nicht die gesamte Task abgearbeitet, sondern einige wenige Anweisungen. Eine Task erhält zudem eine Priorität, die angibt, wie viele Programmzeilen ausgeführt werden bis die nächste Task abgearbeitet wird. Eine hohe Priorität sorgt daher für ein schnellstmögliches Abarbeiten dieser Task. Wird in einer Task eine Wartezeit (\glqq delay\grqq) ausgeführt, pausiert diese Task und der Prozessor arbeitet nur die anderen Tasks ab. Neben den erwähnten asynchronen Tasks bietet VAL 3 ebenso synchrone Tasks.
    	\begin{figure}[!ht]
    		\centering
    		\includegraphics[width=0.80\linewidth]{./images/tasks.png}
    		\caption{Sequentielle Anordnung von Tasks \cite{VAL3}} 
-   		\label{fig:TX90}
+   		\label{fig:tasks}
    	\end{figure} \\
    	\textbf{Datentypen}\\
-   	In VAL 3 gibt es verschiedene einfache Datentypen, die nachfolgend kurz erläutertet werden. Neben den einfachen Datentypen gibt es weitere Datentypen, die z.B. Punkte für die Bewegungsteuerung darstellen. Auf eine Erläuterung dieser wird verzichtet, da diese Kommunikation nicht benötigt werden.
+   	In VAL 3 gibt es verschiedene einfache Datentypen, die nachfolgend kurz erläutertet werden. Neben den einfachen Datentypen gibt es weitere Datentypen, die z.B. Punkte für die Bewegungsteuerung darstellen. Auf eine Erläuterung dieser wird verzichtet, da diese in der Kommunikation nicht benötigt werden.
    	\begin{itemize}
-   		\item \textbf{BOOL:} Variablen und Konstanten von diesem Typ können true und false annehmen.
-   		\item \textbf{NUM:} Datentyp zur Darstellung von numerischen Werten mit 14 signifikanten Stellen. Im Gegensatz zu vielen gängien Programmiersprachen wird in VAL 3 nicht zwischen verschiedenen Zahlenformaten unterschieden. Dieser Datentyp kann von ganzzahligen Werten bis hin zu Kommazahlen alles abbilden.
+   		\item \textbf{BOOL:} Variablen und Konstanten von diesem Typ können \glqq true\grqq{} und \glqq false\grqq{} annehmen.
+   		\item \textbf{NUM:} Datentyp zur Darstellung von numerischen Werten mit 14 signifikanten Stellen. Im Gegensatz zu vielen gängigen Programmiersprachen wird in VAL 3 nicht zwischen verschiedenen Zahlenformaten unterschieden. Dieser Datentyp kann von ganzzahligen Werten bis hin zu Kommazahlen alles abbilden.
    		\item \textbf{BITFELD:} Dieser Datentyp ermöglicht es eine Bitfolge z.B. von booleschen Werten oder digitalen Ein- und Ausgängen kompakt abzuspeichern.
-   		\item \textbf{STRING:} In Variablen und Konstanten diesen Typs können Zeichenketten mit einer Länge von bis zu 256 Byte gespeichert werden. Die interne Zeichencodierung erfolgt mit Unicode UTF 8. Bei ASCII-Zeichen entspricht die Läge von 256 Bytes somit 234 Zeichen. Initialisiert werden Variablen diesen Datentyps standardmäßig mit einem leeren String ("").
-   		\item \textbf{DIO:} Dieser Datentyp ermöglicht es aus dem Programm auf die digitalen Ein-/Ausgänge der Steuerung zuzugreifen. Hierzu speichert die dio-Variable einen Link zu der entsprechenden Hardware in Form einer physischen Adresse.
+   		\item \textbf{STRING:} In Variablen und Konstanten diesen Typs können Zeichenketten mit einer Länge von bis zu 256 Byte gespeichert werden. Die interne Zeichencodierung erfolgt mit Unicode UTF 8. Bei ASCII-Zeichen entspricht die Länge von 256 Bytes somit 234 Zeichen. Initialisiert werden Variablen diesen Datentyps standardmäßig mit einem leeren String (\grqq{} \grqq).
+   		\item \textbf{DIO:} Dieser Datentyp ermöglicht es aus dem Programm auf die digitalen Ein-/Ausgänge der Steuerung zuzugreifen. Hierzu speichert die DIO-Variable einen Link zu der entsprechenden Hardware in Form einer physischen Adresse.
    		\item \textbf{AIO:} Mit Hilfe diesen Datentyps können die analogen Ein- und Ausgänge der Steuerung verknüpft werden.
    		\item \textbf{SIO:} Dieser Datentyp ermöglicht es einen seriellen Port oder einen Ethernet Socket Anschluss zu verknüpfen. Dadurch kann beispielsweise eine TCP/IP - Nachricht geschrieben oder gelesen werden, in dem der Variable des Datentyps ein Wert zugewiesen wird oder ein Wert abgelesen wird. \\
    	\end{itemize}
    	\textbf{Robotersteuerung}\\
-   	Neben Funktionalitäten die klassische Programmiersprachen aufweisen, benötigt VAL 3 insbesondere Möglichkeiten, um den Roboterarm zu steuern. Exemplarisch werden einige Befehle kurz vorgestellt. Zum Einsatz
+   	Neben Funktionalitäten die klassische Programmiersprachen aufweisen, benötigt VAL~3 insbesondere Möglichkeiten, um den Roboterarm zu steuern. Exemplarisch werden einige Befehle kurz vorgestellt.
    	\begin{itemize}
    		\item \textbf{disable / enable Power:} Hiermit lässt sich die Armleistung ab bzw. einschalten. Für den lokalen, manuellen oder Testbetrieb hat diese Funktion keinen Einfluss.
-   		\item \textbf{getVersion:} Mit dieser Anweisung lassen sich die Version der Hardware- und Software - Komponenten des Robotercontrollers abfragen.
-   		\item \textbf{movej:} Dieser Befehl führt eine Bewegung zu einem Punkt aus. Angegeben werden muss die Winkelposition der Achsen für den Zielpunkt (vom Datentyp "joint"), die Geometrie des Werkzeuges (Datentyp "tool") und Bewegungsdaten, wie Geschwindigkeit und Beschleunigung (Datentyp "msdec").
-   		\item \textbf{movel:} Dieser Befehl ermöglicht im Gegensatz zum Vorangegangen eine lineare Bewegung. Anstelle der Winkelpositionen als Ziel wird eine kartesische Zielkoordinate (Datentyp "point") vorgegeben.  \\
+   		\item \textbf{getVersion:} Mit dieser Anweisung lässt sich die Version der Hardware- und Software - Komponenten des Robotercontrollers abfragen.
+   		\item \textbf{movej:} Dieser Befehl führt eine Bewegung zu einem Punkt aus. Angegeben werden muss die Winkelposition der Achsen für den Zielpunkt (vom Datentyp \glqq joint\grqq), die Geometrie des Werkzeuges (Datentyp \glqq tool\grqq) und Bewegungsdaten, wie Geschwindigkeit und Beschleunigung (Datentyp \glqq msdec\grqq).
+   		\item \textbf{movel:} Dieser Befehl ermöglicht im Gegensatz zum Vorangegangen eine lineare Bewegung. Anstelle der Winkelpositionen als Ziel wird eine kartesische Zielkoordinate (Datentyp \glqq point\grqq) vorgegeben.  \\
    	\end{itemize}
    	\section{Anlagensteuerung}
-   	Ein Roboter ist meist nur ein Teil einer Automatisierungslösung. Dieser kann um Förderbänder, Sensoren und andere Aktoren ergänzt werden. Wie die Steuerung dieser Gesamtanlage umgesetzt wird unterscheidet sich von Anlagenautomatisierer zu Anlagenautomatisierer. Hier soll die bei robomotion gängige Umsetzung aufgezeigt werden, da diese relevant für das Gesamtverständnis und die Konzeptionierung der Komponenten ist. \\
+   	Ein Roboter ist meist nur ein Teil einer Automatisierungslösung. Dieser kann um Förderbänder, Sensoren und andere Aktoren ergänzt werden. Wie die Steuerung dieser Gesamtanlage umgesetzt wird unterscheidet sich von Anlagenautomatisierer zu Anlagenautomatisierer. Hier soll die bei \glqq robomotion\grqq{} gängige Umsetzung aufgezeigt werden, da diese relevant für das Gesamtverständnis und die Konzeptionierung der Komponenten ist. \\
    	\textbf{SPS}\\
-   	Zentrales Element jeder Anlagenautomatisierung ist eine Beckhoff-SPS, welche auf einem IPC läuft. Diese ist für die Ablauflogik und "Intelligenz" der Anlage zuständig. Auf anderen Bestandteilen, wie z.B. in einer Robotersteuerung ist hingegen nur eine geringe Komplexität abgebildet. In der Robotersteuerung werden meistens Kommandos mit Jobnummern angelegt, wie beispielsweise die Bewegung von Punkt A zu Punkt B. Durch den Aufruf der Jobnummer durch die SPS erhält der Roboter den Befehl zur Bewegungsausführung und meldet eine erfolgreich durchgeführte Bewegung der SPS zurück. Welche Bewegungen in welcher Reihenfolge und wann durchgeführt werden, ist dementsprechend nicht in der Robotersteuerung, sondern in der SPS-Steuerung programmiert.\\
+   	Zentrales Element jeder Anlagenautomatisierung ist eine Beckhoff-SPS, welche auf einem \ac{ipc} läuft. Diese ist für die Ablauflogik und \glqq Intelligenz\grqq{} der Anlage zuständig. Auf anderen Bestandteilen, wie z.B. der Robotersteuerung ist hingegen nur eine geringe Komplexität abgebildet. In der Robotersteuerung werden meistens Kommandos mit Jobnummern angelegt, wie beispielsweise die Bewegung von Punkt~A zu Punkt~B. Durch den Aufruf der Jobnummer durch die SPS erhält der Roboter den Befehl zur Bewegungsausführung und meldet eine erfolgreich durchgeführte Bewegung der SPS zurück. Welche Bewegungen in welcher Reihenfolge und wann durchgeführt werden, ist dementsprechend nicht in der Robotersteuerung, sondern in der SPS programmiert.\\
    	\textbf{roboTools} \\
-   	Weiterer Bestandteil der Automatisierung ist ein Programm namens "roboTools", welches zur Anlagenvisualisierung dient. Dieses läuft auf einem Windows-Betriebssystem in Form einer WPF (Windows Presentation Foundation), des ".NET"-Frameworks. Das Programm roboTools mit seiner grafischen Oberfläche enthält verschiedene Diagnosewerkzeuge und kann dem Anlagenbediener Informationen über bspw. Störungen oder der Anlagenauslastung ausgeben und visualisieren. Die Daten hierfür bezieht roboTools überwiegend von der SPS. \\
+   	Weiterer Bestandteil der Automatisierung ist ein Programm namens \glqq roboTools\grqq, welches zur Anlagenvisualisierung dient. Dieses läuft auf einem Windows-Betriebssystem in Form einer \ac{wpf}-Anwendung (\acl{wpf}), des \glqq .NET-Frameworks\grqq. Das Programm roboTools mit seiner grafischen Oberfläche enthält verschiedene Diagnosewerkzeuge und kann dem Anlagenbediener Informationen über bspw. Störungen oder der Anlagenauslastung ausgeben und visualisieren. Die Daten hierfür bezieht roboTools überwiegend von der SPS. \\
    	\textbf{roboVision}\\
-   	Häufig werden in Anlagen Industriekameras eingesetzt, um die Position von Objekten zu ermitteln oder eine automatisierte Qualitätskontrolle vorzunehmen. Zur Weiterverarbeitung der Kameradaten, um die Position oder die Qualitätsgüte zu bestimmen kommt das Programm "roboVision" zum Einsatz. Wie roboTools handelt es sich um ein WPF-Anwendung, welche auf einem Windows-Betriebssystem läuft. \\
+   	Häufig werden in Anlagen Industriekameras eingesetzt, um die Position von Objekten zu ermitteln oder eine automatisierte Qualitätskontrolle vorzunehmen. Zur Weiterverarbeitung der Kameradaten, um die Position oder die Qualitätsgüte zu bestimmen kommt das Programm \glqq roboVision\grqq{} zum Einsatz. Wie roboTools handelt es sich um ein WPF-Anwendung, welche auf einem Windows-Betriebssystem läuft. \\
    	\textbf{Hardware und Zusammenspiel}\\
-   	Sowohl roboTools, als auch roboVision laufen auf einem IPC. Dies kann der selbe IPC sein, auf dem bereits die SPS läuft. Insbesondere für roboVision wird jedoch meist ein eigenständiger leistungsfähiger IPC eingesetzt, da für die Bildverarbeitung eine hohe Rechenleistung zur Verfügung stehen muss. Für die Umsetzung der Kommunikationsschnittstelle, spielt dies jedoch keine große Rolle, da sich alle IPCs in einem Netzwerk befinden. Da es sich um getrennte Programme handelt können diese alle als eigenständige Einheiten behandelt werden, auch wenn sie auf dem selben IPC laufen. Das Zusammenspiel dieser Komponenten ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:Anlagensteuerung}). Die Kommunikation zwischen Beckhoff-SPS und einer Robotersteuerung erfolgt bei robomotion über EtherCAT. Die Kommunikation zwischen der SPS, roboTools und roboVision über ein spezielles Kommunikationsprotokoll namens ADS (Automation Device Specification) von Beckhoff. ADS ermöglicht den Datenaustausch von verschiedneen Systemen über die Netzwerkverbindung, die breits zwischen der SPS, roboTools und roboVision besteht. \cite{ADS}\\
+   	Sowohl roboTools, als auch roboVision laufen auf einem IPC. Dies kann der selbe IPC sein, auf dem bereits die SPS läuft. Insbesondere für roboVision wird jedoch meist ein eigenständiger leistungsfähiger IPC eingesetzt, da für die Bildverarbeitung eine hohe Rechenleistung zur Verfügung stehen muss. Für die Umsetzung der Kommunikationsschnittstelle, spielt dies jedoch keine große Rolle, da sich alle IPCs in einem Netzwerk befinden. Das Zusammenspiel dieser Komponenten ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:Anlagensteuerung}). Die Kommunikation zwischen Beckhoff-SPS und einer Robotersteuerung erfolgt bei robomotion über EtherCAT. Die Kommunikation zwischen der SPS, roboTools und roboVision über ein spezielles Kommunikationsprotokoll namens \acs{ads} (\acl{ads}) von Beckhoff. ADS ermöglicht den Datenaustausch von verschiedenen Systemen über die Netzwerkverbindung, die bereits zwischen der SPS, roboTools und roboVision besteht. \cite{ADS}\\
    	
    	\begin{figure}
    		\centering
@@ -412,7 +423,7 @@
    	
    	\section{WPF-Anwendung}
    	Da bereits roboTools und roboVision auf WPF beruhen, ist WPF von großer Relevanz für diese Arbeit.
-   	Windows Presentation Foundation (WPF) stellt de Nachfolger von Windows Forms dar. Es handelt sich um eine Art Franmework und ermöglicht optisch anspruchsvolle Windows-Desktop-Anwendungen zu entwerfen. Die Oberflächenbeschreibung für eine WPF-Anwendung erfolgt mit der Beschreibungssprache XAML (eXtensible Application Markup Language) (vgl. nachfolgender Codeabschnitt). \cite{kotz2022c}
+   	\ac{wpf} (\acl{wpf}) stellt den Nachfolger von Windows Forms dar. Es handelt sich um eine Art Framework und ermöglicht optisch anspruchsvolle Windows-Desktop-Anwendungen zu entwerfen. Die Oberflächenbeschreibung für eine WPF-Anwendung erfolgt mit der Beschreibungssprache \acs{xaml} (\acl{xaml}) (vgl. nachfolgender Codeabschnitt). \cite{kotz2022c}
    	\begin{lstlisting}
    		// XAML-Definition für einen Button
    		<Button Content="Test-Button" Height="74" Width="154"/>
@@ -422,50 +433,54 @@
    	Das .NET Framework ist eine Plattform für unterschiedliche Programmiersprachen, wie C\# oder Visual Basic  mit denen verschiedene Applikationstypen, wie Desktop, Web oder Mobile entwickelt werden können.\\
    	Das .NET-Framework ist eine Entwicklung von Microsoft. Die meisten Anwendungen können jedoch plattformübergreifend eingesetzt werden. Lediglich Desktopanwendungen, wie z.B. WPF sind an Windows gebunden.  \cite{kotz2022c} \cite{troelsen2022pro}\\
    	\textbf{C\#}\\
-   	Das .NET-Framework ist offen für verschiedenste Programmiersprachen, jedoch ist die Verwendung von C\# am geläufigsten und kommt in den vorhandenen Anwendungen von robomotion zum Einsatz. C\# ist eine Entwicklung speziell für .NET und kombinierte Konzepte und Bestandteile von Java, JavaSrcipt, C++ und Visual Basic. Dabei handelt es sich um eine vollwertige objektorientierte Sprache mit Eigenschaften, wie Vererbung und Kapselung. \cite{kotz2022c} \cite{troelsen2022pro}\\
+   	Das .NET-Framework ist offen für verschiedenste Programmiersprachen, jedoch ist die Verwendung von C\# am geläufigsten und kommt in den vorhandenen Anwendungen von robomotion zum Einsatz. C\# ist eine Entwicklung speziell für .NET und kombiniert Konzepte und Bestandteile von Java, JavaScript, C++ und Visual Basic. Dabei handelt es sich um eine vollwertige objektorientierte Sprache mit Eigenschaften, wie Vererbung und Kapselung. \cite{kotz2022c} \cite{troelsen2022pro}\\
    	\textbf{Programmierumgebung}\\
-   	Als Entwicklungsumgebung wird für WPF-Anwendungen vornehmlich Visual Studio eingesetzt. Die integrierte Entwicklungsumgebung Visual Studio wird von Microsoft angeboten und ist daher optimal auf die Entwicklung einer WPF-Anwendung zugeschnitten. Zum Projektzeitpunkt stellt Visual Studio 2022 die aktuellste Version dar. Die "Community Edition" ist eine kostenfreie Version für private Projekte, sowie kommerzielle Projekte in Unternehmen mit bis zu 250 Mitarbeitern. \cite{kotz2022c} Als Source-Code-Verwaltungs-Prorgamm wird unternehmensintern "Azure DevOps" eingesetzt. Daher wird auch im Rahmen dieser Arbeit auf Visual Studio 2022 in Kombination mit Azure DevOps zurückgegriffen.\\
+   	Als Entwicklungsumgebung wird für WPF-Anwendungen vornehmlich Visual Studio eingesetzt. Die integrierte Entwicklungsumgebung Visual Studio wird von Microsoft angeboten und ist daher optimal auf die Entwicklung einer WPF-Anwendung zugeschnitten. Zum Projektzeitpunkt stellt Visual Studio 2022 die aktuellste Version dar. Die \glqq Community Edition\grqq{} ist eine kostenfreie Version für private Projekte, sowie kommerzielle Projekte in Unternehmen mit bis zu 250 Mitarbeitern. \cite{kotz2022c} Als Source-Code-Verwaltungs-Programm wird unternehmensintern \glqq Azure DevOps\grqq{} eingesetzt. Daher wird auch im Rahmen dieser Arbeit auf Visual Studio 2022 in Kombination mit Azure DevOps zurückgegriffen.\\
    	
    	
    	\section{Fazit}
-   	Feldbusse ermöglichen eine echtzeitfähige Kommunikation, was für sicherheitsrelevante Funktionen von großer Bedeutung ist. Die klassischen Feldbusse werden immer mehr von Ethernet basierenden Feldbussen abgelöst. Unternehmensintern kommt neben der SPS der Firma Beckhoff der Ethernet basierende Feldbus EtherCAT zum Einsatz, welcher ebenso eine Entwicklung von Beckhoff darstellt. Das TCP/IP- Protokoll stellt eine weitere Möglichkeit zur Datenübertragung dar, ist jedoch nicht echtzeitfähig. Das TCP-Protokoll stellt die korrekte Datenübertragung sicher, weshalb es in der Literatur häufig für Industrienanwendungen, die nicht echtzeitfähig sein müssen zum Einsatz kommt.
-   	In \cite{groza2008using} kommt anstelle des TCP-Protokoll das Protokoll UDP zur Übertragung von Live-Kamera-Bildern zum Einsatz, da hier die Schnelligkeit über die Korrektheit zu stellen ist. Teilweise wird in der Literatur z.B. in \cite{groza2008using} VPN zur IT-Sicherheit bei TCP/IP eingesetzt. OPC/UA stellt eine weitere Möglichkeit zur Datenübertragung dar. Sie überzeugt mit Einfachheit und Flexibilität, bringt aber Mehrkosten mit ohne in diesem konkreten Anwendungsfall mehr als TCP/IP leisten zu können. Zusammengefasst lässt sich sagen, dass TCP/IP für den Anwendungsfall des Übertragens von Fehlermeldungen und Prozessdaten eine gute Lösung darstellt, da hier keine Echtzeitfähigkeit gefordert ist. UDP hingegen soll im Rahmen dieser Arbeit nicht zum Einsatz kommen, da die Korrektheit der Daten über die Schnelligkeit zu stellen ist. Auf den Einsatz von VPN kann verzichtet werden, da die TCP/IP-Kommunikation ausschließlich zwischen Roboter und Anlagenvisualisierung erfolgt und keine Verbindung zum Internet aufweist. Weiterer Teil des Projektes ist der Stäubli-Roboter TX2-90 mit dem Controller CS9. Dieser soll in der Programmiersprache VAL3 in der Entwicklungsumgebung "Stäubli Robotic Suite" programmiert werden. Die Gesamtanlage von SPS und Roboter wird ergänzt um ein Visualisierungsprogramm namens roboTools, welches eine Benutzeroverfläche für den Bediener darstellt. roboTools ist eine WPF-Anwendung, die in C\# programmiert ist. Daher soll die zu entwerfende Anwendung, welche die Diagnose und Prozessdaten des Stäubli-Roboters darstellt, ebenso als WPF-Anwendung entwickelt werden. Dies macht eine spätere Integration in roboTools einfach möglich.
+   	Feldbusse ermöglichen eine echtzeitfähige Kommunikation, was für sicherheitsrelevante Funktionen von großer Bedeutung ist. Die klassischen Feldbusse werden immer mehr von Ethernet basierenden Feldbussen abgelöst. Unternehmensintern kommt neben der SPS der Firma Beckhoff der Ethernet basierende Feldbus EtherCAT zum Einsatz, welcher ebenso eine Entwicklung von Beckhoff darstellt.\\
+   	Das TCP/IP- Protokoll stellt eine weitere Möglichkeit zur Datenübertragung dar, ist jedoch nicht echtzeitfähig. Das TCP-Protokoll stellt die korrekte Datenübertragung sicher, weshalb es in der Literatur häufig für Industrieanwendungen, die nicht echtzeitfähig sein müssen zum Einsatz kommt.
+   	In \cite{groza2008using} kommt anstelle des TCP-Protokoll das Protokoll UDP zur Übertragung von Live-Kamera-Bildern zum Einsatz, da hier die Schnelligkeit über die Korrektheit zu stellen ist. Teilweise wird in der Literatur z.B. in \cite{groza2008using} VPN zur IT-Sicherheit bei TCP/IP eingesetzt. OPC/UA stellt eine weitere Möglichkeit zur Datenübertragung dar. Sie überzeugt mit Einfachheit und Flexibilität, bringt aber Mehrkosten mit ohne in diesem konkreten Anwendungsfall mehr als TCP/IP leisten zu können. Zusammengefasst lässt sich sagen, dass TCP/IP für den Anwendungsfall des Übertragens von Fehlermeldungen und Prozessdaten eine gute Lösung darstellt, da hier keine Echtzeitfähigkeit gefordert ist. UDP hingegen soll im Rahmen dieser Arbeit nicht zum Einsatz kommen, da die Korrektheit der Daten über die Schnelligkeit zu stellen ist. Auf den Einsatz von VPN kann verzichtet werden, da die TCP/IP-Kommunikation ausschließlich zwischen Roboter und Anlagenvisualisierung erfolgt und keine Verbindung zum Internet aufweist.\\
+   	Weiterer Teil des Projektes ist der Stäubli-Roboter TX2-90 mit dem Controller CS9. Dieser soll in der Programmiersprache VAL~3 in der Entwicklungsumgebung \acl{srs} programmiert werden. Die Gesamtanlage von SPS und Roboter wird ergänzt um ein Visualisierungsprogramm namens roboTools, welches eine Benutzeroberfläche für den Bediener darstellt. roboTools ist eine WPF-Anwendung, die in C\# programmiert ist. Daher soll die zu entwerfende Anwendung, welche die Diagnose und Prozessdaten des Stäubli-Roboters darstellt, ebenso als WPF-Anwendung entwickelt werden. Dies macht eine spätere Integration in roboTools einfach möglich.
    	
 	\newpage
 	
 	\chapter{Anforderungsdefinition}
 	\label{chap:Anforderungsdefinition}
-	Die Aufgabenstellung und die grobe Anforderungsformulierung soll in diesem Kapitel mit Hilfe eines Lastenheftes in eine strukturierte Form gebracht werden. Das Lastenheft beschreibt, welche Funktionalitäten das zu entwerfende System aufweisen soll. Darüber hinaus kann das Lastenheft Rahmenbedingungen enthalten, wie z.B. zulässige Reaktionszeiten oder weitere Einschränkungen. Das Lastenheft wird in aller Regel vom Auftraggeber erstellt. Der Auftragnehmer beschreibt im Pflichtenheft durch welche Systemfunktionalitäten die Aufgaben erfüllt werden sollen und wie die Umsetzung technisch erfolgt. Das Lasten- und Pflichtenheft dient auch zur rechtlichen Absicherung der Vertragsparteien. Obwohl ein Lasten- und Pflichtenheft oft als Vertragsgrundlage entworfen wird und dies im Rahmen des Projektes nicht notwendig ist, soll ein Lastenheft eingesetzt werden. Dies ermöglicht es alle Anforderungen und Rahmenbedingungen zu berücksichtigen und diese im gesamten Projektverlauf im Blick zu behalten. Auf ein Pflichtenheft wird hingegen verzichtet. \cite{SoftwaretechnikBroy}
+	Die Aufgabenstellung und die grobe Anforderungsformulierung soll in diesem Kapitel mit Hilfe eines Lastenheftes in eine strukturierte Form gebracht werden. Das Lastenheft beschreibt, welche Funktionalitäten das zu entwerfende System aufweisen soll. Der Auftragnehmer beschreibt im Pflichtenheft durch welche Systemfunktionalitäten die Aufgaben erfüllt werden sollen und wie die Umsetzung technisch erfolgt. Das Lasten- und Pflichtenheft dient auch zur rechtlichen Absicherung der Vertragsparteien. Obwohl ein Lasten- und Pflichtenheft oft als Vertragsgrundlage entworfen wird und dies im Rahmen des Projektes nicht notwendig ist, soll ein Lastenheft eingesetzt werden. Dies ermöglicht es alle Anforderungen und Rahmenbedingungen zu berücksichtigen und diese im gesamten Projektverlauf im Blick zu behalten. Auf ein Pflichtenheft wird hingegen verzichtet. \cite{SoftwaretechnikBroy}
 	Das Lastenheft wird in Muss- und Kann-Kriterien unterteilt. Während bei den Muss-Kriterien eine Erfüllung essentiell ist, stellen die Kann-Kriterien eine optionale Erweiterung dar, die dem System jedoch einen Mehrwert verschaffen.\\
-	\begin{longtable}{|p{1cm}|p{10cm}|p{2cm}|}
+	\begin{longtable}{p{0.5cm}p{10.5cm}p{2cm}}
 		\caption{Lastenheft}
 		\label{table:Lastenheft}\\
 		\hline
-		Nr. & Anforderung & Kann (K) / Muss (M) \\ [0.5ex] 
+		Nr. & Anforderung & Kann/Muss \\ [0.5ex] 
 		\hline
 		\endhead
-		1 & Übertragung von Fehlermeldungen des Stäubli-Roboters an die Anlagenvisualisierung & M  \\ 
-		2 & Übertragung von beliebigen Daten des Stäubli-Roboters an die Anlagenvisualisierung & M  \\
-		3 & Übertragung von Daten z.B. Kameradaten von der Anlage an den Stäubli-Roboter & M  \\
-		4 & Ausgabe der Roboterfehler auf der Anlagenvisualisierung in verständlicher Form (ausformuliert, Fehlercode genügt nicht) & M  \\
-		5 & Funktionierende Feldbusverbindung zwischen Stäubli-Roboter und SPS & M  \\
-		6 & Funktionierende TCP/Ip Kommunikation zwischen Stäubli-Roboter und Anlagenvisualisierung & M  \\  
-		7 & Abspeichern der Fehler und der Daten in log-File & M  \\ 
-		8 & Fehlerfreie und prozesssichere Kommunikation & M  \\ 
-		\hline
-		9 & Einsatz von mehreren Stäubli-Robotern zeitgleich soll möglich sein & K  \\
-		10 & Vorgabe von der Anlagenvisualisierung, wie häufig Daten versendet werden sollen & K  \\ 
-		11 & Visualierung der Daten & K  \\
-		12 & Verwertung der Daten, um Warnungen oder ähnliches auszugeben & K  \\  
+		1 & Übertragung von Fehlermeldungen des Stäubli-Roboters an die Anlagenvisualisierung & Muss  \\ 
+		2 & Übertragung von Prozessdaten des Stäubli-Roboters an die Anlagenvisualisierung & Muss  \\
+		3 & Übertragung von Daten z.B. Kameradaten von der Anlage an den Stäubli-Roboter & Muss  \\
+		4 & Ausgabe der Roboterfehler auf der Anlagenvisualisierung in verständlicher Form (ausformuliert, Fehlercode genügt nicht) & Muss  \\
+		5 & Funktionierende Feldbusverbindung zwischen Stäubli-Roboter und SPS & Muss  \\
+		6 & Funktionierende TCP/IP Kommunikation zwischen Stäubli-Roboter und Anlagenvisualisierung & Muss  \\  
+		7 & Abspeichern der Fehler und der Daten in log-File & Muss  \\ 
+		8 & Fehlerfreie und prozesssichere Kommunikation & Muss  \\ 
+		9 & Einsatz von mehreren Stäubli-Robotern zeitgleich  & Kann  \\
+		10 & Vorgabe von der Anlagenvisualisierung, wie häufig Daten versendet werden sollen & Kann  \\ 
+		11 & Visualierung der Daten & Kann  \\
+		12 & Verwertung der Daten z.B. für Warnungen & Kann  \\  
 		\hline
 	\end{longtable}
-	Im Rahmen dieser Arbeit ist die Feldbus-Verbindung zwischen SPS und Roboter zu entwerfen. Der Fokus liegt jedoch auf der TCP/IP-Verbindung zwischen Roboter und Anlagenvisualisierung. Darüber hinaus ist das Programm für den Roboter zu konzeptionieren und zu implementieren. Das andere Ende der TCP/IP-Verbindung stellt die Anlagenvisualisierung dar. Dort sollen auch die Fehlermeldungen ausgegeben und die Daten visualisiert werden. Als Anlagenvisualisierung dient bei robomotion robotools. Die zu entwerfende WPF-Anwendung zur TCP/IP-Kommunikation und zur Datenvisualisierung kann nach Projektende in roboTools integriert werden. Dies soll jedoch nicht mehr Teil der Arbeit sein. Die zu entwerfende WPF-Anwendung wird im Rahmen dieser Arbeit vereinfacht als Anlagenvisualisierung bezeichnet. Die bestehende Anwendung roboVision erstellt auf Basis von Kamerabildern Positionsdaten von zugreifenden Objekten. Diese Positionsdaten können über die Beckhoff-spezifische Verbindung namens "ADS" zu roboTools und somit auch zur entwerfenden WPF-Anwendung übertragen werden. Die SPS ist mit roboTools ebenso über ADS verbunden, was für diese Arbeit jedoch keine Relevanz hat.  Eine Konzeptionierung und Implementierung des SPS-Programms kann entfallen, da die Kommunikation mit einer Feldbus-Verbindung in der Beckhoff-SPS bei robomotion Stand der Technik ist und dadurch aus anderen Projekten übernommen werden kann. Das Zusammenspiel all dieser Komponenten ist nachfolgend dargestellt, wobei die im Rahmen dieser Arbeit zu entwerfenden Komponenten farbig markiert sind (vgl. Abbildung \ref{fig:Anlagensteuerung_Aufgabe}).
+	\noindent Im Rahmen dieser Arbeit ist die Feldbus-Verbindung zwischen SPS und Roboter zu entwerfen. Der Fokus liegt jedoch auf der TCP/IP-Verbindung zwischen Roboter und Anlagenvisualisierung. Darüber hinaus ist das Programm für den Roboter zu konzeptionieren und zu implementieren.\\
+	Das andere Ende der TCP/IP-Verbindung stellt die Anlagenvisualisierung dar. Dort sollen die Fehlermeldungen ausgegeben und die Daten visualisiert werden. Als Anlagenvisualisierung dient bei robomotion roboTools. Die zu entwerfende WPF-Anwendung zur TCP/IP-Kommunikation und zur Datenvisualisierung kann nach Projektende in roboTools integriert werden. Dies soll jedoch nicht mehr Teil der Arbeit sein. Die zu entwerfende WPF-Anwendung wird im Rahmen dieser Arbeit vereinfacht als Anlagenvisualisierung bezeichnet.\\
+	Die bestehende Anwendung roboVision erstellt auf Basis von Kamerabildern Positionsdaten von zugreifenden Objekten. Diese Positionsdaten können über die Beckhoff-spezifische Verbindung \acs{ads} zu roboTools und somit auch zur entwerfenden WPF-Anwendung übertragen werden. Daher kann in dieser Arbeit angenommen werden, dass die Positionsdaten in der Anlagenvisualisierung vorhanden sind und von dort direkt versendet werden können. \\
+	Eine Konzeptionierung und Implementierung des SPS-Programms kann entfallen, da die Kommunikation mit einer Feldbus-Verbindung in der Beckhoff-SPS bei robomotion Stand der Technik ist und dadurch aus anderen Projekten übernommen werden kann. Das Zusammenspiel all dieser Komponenten ist nachfolgend dargestellt, wobei die im Rahmen dieser Arbeit zu entwerfenden Komponenten farbig markiert sind (vgl. Abbildung \ref{fig:Anlagensteuerung_Aufgabe}).
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}[node distance=2cm]
 			% Erste Reihe von Boxen
 			\node[draw, rectangle, align=center] (box1) at (-3cm,0) {Beckhoff-SPS\\ };
-			\node[draw, rectangle, align=center, fill=green!20] (box2) at (3cm,0) {Anlagenvisualisierung\\(roboTools)};
+			\node[draw, rectangle, align=center, fill=green!20] (box2) at (3cm,0) {Anlagenvisualisierung\\(spätere Integration in roboTools)};
 			\node[draw, rectangle, align=center] (box3) at (9cm,0) {Bildverarbeitung\\(roboVision)};
 			
 			% Zweite Reihe von Boxen
@@ -485,8 +500,7 @@
 
 	
 	\chapter{Konzeptionierung}
-	In diesem Kapitel soll das Gesamtsystem und seine Bestandteile konzeptioniert werden. Hierfür werden die Komponenten der Anlage benannt und ihre Funktionen grob skizziert. Dies erfolgt mit Hilfe eines UML-Klassendiagramms (vgl. Abbildung \ref{fig:UMLKlassenAnlage}) \cite{Sommerville}.
-	!UML-Diagramm.	Anwendungsfälle definieren, Rahmenbedingungen identifizieren, Anforderungen aus Lastenheft verfeinern. Softwarekomponenten definieren und im Komponentendiagramm darstellen gemäß UML.\\	
+	In diesem Kapitel sollen die Kommunikationsverbindungen, sowie das Roboterprogramm und die Anlagenvisualisierung konzeptioniert werden. Hierfür werden die Komponenten der Anlage benannt und ihre Funktionen grob skizziert. Dies erfolgt mit Hilfe eines UML-Klassendiagramms (vgl. Abbildung \ref{fig:UMLKlassenAnlage}). \acs{uml} (\acl{uml}) ermöglicht eine Systemmodellierung mit Hilfe von grafischer Notation \cite{Sommerville}.
 	\begin{figure}
 		 \begin{tikzpicture}
 		 	\umlclass[x=0]{SPS}{
@@ -508,9 +522,9 @@
 		 		+ sendePositionen(): void\\
 		 		+ visualisiereFehlermeldungen(): void\\
 		 		+ visualisiereRoboterdaten(): void \\
-		 		+ schreibtLogFile(): void
+		 		+ schreibeLogFile(): void
 		 	}
-		 	\umlclass[x=4, y=-8]{Roboter}{
+		 	\umlclass[x=4, y=-7]{Roboter}{
 		 		- Geschwindigkeit : float \\
 		 		- Temperatur: int \\
 		 		- Drehmoment: int \\
@@ -534,20 +548,20 @@
 	Das UML-Diagramm zeigt die Komponenten SPS, Roboter und Anlagenvisualisierung auf. Die Kommunikation zwischen SPS und Roboter erfolgt mittels Feldbus, zwischen Anlagenvisualisierung und Roboter mittels TCP/IP. Daher soll im ersten Schritt der Feldbus und die TCP/IP-Verbindung konzeptioniert werden. Erst anschließend kann das Programm des Roboters und der Anlagenvisualisierung konzeptioniert werden, da dieses maßgeblich abhängig von der Wahl und dem Aufbau der Kommunikationsverbindung ist. Nachdem die Feldbus-Verbindung und die TCP/IP-Verbindung konzeptioniert wurden sollen die zu übertragenden Daten für die TCP/IP-Verbindung konzeptioniert werden. Anschließend erfolgt die Konzeptionierung der Software für den Stäubli-Roboter und die Anlagenvisualisierung.
 	 
 	\section{Feldbus-Verbindung}
-	Aufgabe der Feldbusverbindung ist die Kommunikation zwischen dem Stäubli-Roboter und der Beckhoff-SPS sicherzustellen. Hierzu werden einerseits Befehle, wie zur Bewegungsdurchführung zum Roboter übertragen, andererseits Informationen, wie z.B. eine Bestätigung der vollendeten Bewegung zurück an die SPS gesandt.\\
+	Aufgabe der Feldbusverbindung ist es, die Kommunikation zwischen dem Stäubli-Roboter und der Beckhoff-SPS sicherzustellen. Hierzu werden einerseits Befehle, wie zur Bewegungsdurchführung zum Roboter übertragen, andererseits Informationen, wie z.B. eine Bestätigung der vollendeten Bewegung zurück an die SPS gesandt.\\
 	\textbf{Wahl des Feldbusses}\\
 	In Kapitel \ref{sec:Feldbus} wurden die Feldbusse in Standard-Feldbusse und Ethernet basierende Feldbusse unterteilt. Die Wahl fällt hierbei auf einen Ethernet-basierenden Feldbus, weil dies der aktuelle Stand der Technik darstellt und zudem firmenintern ausnahmslos eingesetzt wird. Nach Kapitel \ref{subsec:EthernetFeldbus} sind Profinet, Ethernet/IP, EtherCAT und Sercos III häufig eingesetzte Ethernet basierende Feldbusse. Eine Gegenüberstellung der Vor- und Nachteile der einzelnen Feldbusse und eine Auswahl anhand dieser Kriterien kann jedoch entfallen, da zwei Argumente für den Einsatz von EtherCAT, alle anderen Kriterien überwiegen.\\
-	Zum Einsatz kommt eine Beckhoff-SPS. EtherCAT ist eine Entwicklung von Beckhoff und daher bestmöglichst auf die SPS von Beckhoff abgestimmt.\\
+	Im Projekt kommt eine Beckhoff-SPS zum Einsatz. EtherCAT ist eine Entwicklung von Beckhoff und daher bestmöglichst auf die SPS von Beckhoff abgestimmt.\\
 	Darüber hinaus, kommt unternehmensintern bereits in anderen Projekten EtherCAT zum Einsatz. Die Wahl von EtherCAT bringt daher folgende Vorteile mit sich
 	\begin{itemize}
 		\item \textbf{Know How: } Firmenintern hat sich durch den wiederholten Einsatz von EtherCAT bereits eine große Wissenbasis und Erfahrung aufgebaut. Bei schwerwiegenderen Problemen ermöglicht dies eine einfachere Fehlersuche.
-		\item \textbf{Schulungszwecke: } Durch andere Projekte sind beispielsweise die Service-Techniker bereits in EtherCAT geschult. Die Buchung einer zeit- und kostenintensiven Schulung für einen anderen Feldbus kann entfallen
-		\item \textbf{Standardisierung:} Der Einsatz von vielen unterschiedlichen Systemen erhöht den Aufwand in Dokumentation und Einkauf. Daher wird versucht die Varianz möglichst gering zu halten und auf einen Standard, welcher bereits eingesetzt und verbreitet ist zu setzen.\\
+		\item \textbf{Schulungszwecke: } Durch andere Projekte sind beispielsweise die Service-Techniker bereits in EtherCAT geschult. Die Buchung einer zeit- und kostenintensiven Schulung für einen anderen Feldbus kann entfallen.
+		\item \textbf{Standardisierung:} Der Einsatz von vielen unterschiedlichen Systemen innerhalb des Unternehmens erhöht den Aufwand in Dokumentation und Einkauf. Daher wird versucht die Varianz möglichst gering zu halten und auf einen unternehmensinternen Standard, welcher bereits häufig verwendet wird zu setzen.\\
 	\end{itemize}
 	\textbf{Master-Master vs. Master-Slave}\\
-	Standardmäßig wird jedoch sowohl die Beckhoff-SPS, als auch der Stäubli Roboter als Master eingesetzt. Jedoch ist EtherCAT rein für Master-Slave-Kommunikation ausgelegt, d.h. es kann nur ein Master existieren. \cite{ethercat}	Beckhoff bietet jedoch eine spezielle Bridge-Klemme (EL6692) an, die es erlaubt EtherCAT-Stränge zu synchronisieren und ein Datenaustausch zwischen den einzenen Strängen zu ermöglichen. Da jeder EtherCAT-Strang einen eigenen Master besitzt ermöglicht die Bridge den Einsatz von mehreren Mastern. \cite{Bridge} Hierdurch entstehen jedoch zusätzliche Kosten und auch die Komplexität des Systems steigt. Da sowohl die Stäubli-Steuerung, als auch die SPS ebenso als Slave konfiguriert werden kann, entfällt die Entscheidung auf die Master-Slave-Kommunikation, um die zusätzliche Master-Master-Klemme einzusparen.\\
+	Standardmäßig wird im Auslieferungszustand sowohl die Beckhoff-SPS, als auch der Stäubli Roboter als Master eingesetzt. Jedoch ist EtherCAT rein für Master-Slave-Kommunikation ausgelegt, d.h. es kann nur ein Master existieren. \cite{ethercat}	Beckhoff bietet jedoch eine spezielle Bridge-Klemme (EL6692) an, die es erlaubt EtherCAT-Stränge zu synchronisieren und ein Datenaustausch zwischen den einzenen Strängen zu ermöglichen. Da jeder EtherCAT-Strang einen eigenen Master besitzt ermöglicht die Bridge den Einsatz von mehreren Mastern. \cite{Bridge} Hierdurch entstehen jedoch zusätzliche Kosten und auch die Komplexität des Systems steigt. Da sowohl die Stäubli-Steuerung, als auch die SPS ebenso als Slave konfiguriert werden kann, fällt die Entscheidung auf die Master-Slave-Kommunikation, um die zusätzliche Master-Master-Klemme einzusparen.\\
 	\textbf{Wahl des Masters} \\
-	Nachdem die Entscheidung für eine Master-Slave-Architektur gefallen ist, muss festgelegt werden, ob die Beckhoff-SPS oder der Stäubli-Roboter als Master konfiguriert wird. Da der Einsatz von mehreren Stäubli-Robotern in Automatisierungslösungen denkbar ist, könnte nicht jeder Stäubli-Roboter als Master eingesetzt werden. Folglich wäre ein Stäubli-Roboter ein Master, die anderen Stäubli-Roboter, wie auch die SPS Slaves. Um diese Unterschiede in den einzelnen Stäubli-Robotern zu verhindern, ist es sinnvoll die Beckhoff-SPS als Master zu konfigurieren, sodass alle Stäubli-Roboter einheitlich als Slaves eingesetzt werden. Darüber hinaus ist die SPS der zentrale Teil der Anlagenautomatisierung, von welcher weitere Komponenten, wie Roboter anderer Hersteller gesteuert werden können, weshalb die Wahl der SPS als Master sinnvoll ist.\\
+	Nachdem die Entscheidung für eine Master-Slave-Architektur gefallen ist, muss festgelegt werden, ob die Beckhoff-SPS oder der Stäubli-Roboter als Master konfiguriert wird. Da der Einsatz von mehreren Stäubli-Robotern in Automatisierungslösungen denkbar ist, könnte nicht jeder Stäubli-Roboter als Master eingesetzt werden. Folglich wäre ein Stäubli-Roboter der Master, die anderen Stäubli-Roboter, sowie die SPS Slaves. Um diese Unterschiede in den einzelnen Stäubli-Robotern zu verhindern, ist es sinnvoll die Beckhoff-SPS als Master zu konfigurieren, sodass alle Stäubli-Roboter einheitlich als Slaves eingesetzt werden. Darüber hinaus ist die SPS der zentrale Teil der Anlagenautomatisierung. Von ihr können weitere Komponenten, wie Roboter anderer Hersteller gesteuert werden, weshalb die Wahl der SPS als Master sinnvoll ist.\\
 	Die Gesamtentscheidung zur Konfiguration ist nachfolgend mit Hilfe eines morphologischen Kastens dargestellt.\\
 	
 	\begin{table}
@@ -573,6 +587,7 @@
 	
 	
 	\section{TCP/IP-Verbindung}
+	\label{sec:KonzeptTCPIP}
 	Nachdem die Feldbus-Verbindung konzeptioniert wurde, erfolgt die Auslegung der TCP/IP-Verbindung. Hierbei müssen viele Einzelentscheidungen getroffen werden, welche am Ende mit einem morphologischen Kasten zusammengefasst dargestellt werden.\\
 	\textbf{Wahl der Architektur} \\
 	Wie in Kapitel \ref{sec:TCP/IP} erläutert kommt für eine TCP/IP-Verbindung die Client-Server-Architektur zum Einsatz. Dabei kann entweder der Stäubli-Roboter oder die Anlagenvisualisierung als Server dienen. In der Literatur wird meist empfohlen, die Seite mit der höheren Rechenleistung als Server einzusetzen (vgl. Kapitel \ref{sec:TCP/IP}). Dies stellt in diesem Fall die Anlagenvisualisierung dar. Wenn hingegen der Roboter als Server dienen würde und es zum Einsatz von mehreren Roboter kommen würde, wäre der Einsatz von mehreren Client-Instanzen auf der Anlagenvisualisierung notwendig oder die anderen Roboter müssten als Client konfiguriert werden. Daher eignet sich die Anlagenvisualisierung besser als Server und die einzelnen Roboter werden als Client konfiguriert. \\
@@ -583,14 +598,16 @@
 		\item \textbf{Prozessdaten: } Vom Roboter erfasste Daten, wie Temperaturen oder digitale Werte, wie Fehler an den Ventilen müssen vom Roboter zur Anlagenvisualisierung übertragen werden.
 		\item \textbf{Kameradaten:} Positionsdaten von zugreifenden Objekten, welche durch Kameradaten generiert werden, müssen von der Anlagenvisualisierung zum Roboter übertragen werden.\\
 	\end{itemize}
-	Da die Kameradaten in die entgegengesetzte Richtung, wie die anderen Daten übertragen werden, werden diese in eine eigene Nachricht verpackt. Die Systemereignisse und die Prozessdaten können in einer Nachricht oder in getrennten Nachrichten versandt werden. Da die Prozessdaten durchgängig anfallen, die Systemereignisse jedoch azyklisch lohnt sich eine Trennung. Die Prozessdaten wiederum können gebündelt gesendet werden oder getrennt werden in einzelne Nachrichten z.B. für die Temperaturen und die digitalen Werte. Da beispielsweise Temperaturen nicht besonders dynamisch sind könnte die Übertragungsfrequenz für diese Daten geringer sein, was die Auslastung der Verbindung reduzieren würde. Dies erhöht jedoch die Komplexität, da viele verschiedene Nachrichtentypen anfallen, was bei Wartungen oder Änderungen in späteren Jahren zum Problem werden kann. Da das zyklische Versenden aller Prozessdaten, die Übertragungsrate der TCP/IP-Verbindung nicht übersteigen wird, fällt die Entscheidung auf das Zusammenfassen aller Prozessdaten in einer Nachricht. Folglich gibt es drei Nachrichtentypen: Kameradaten, Systemereignisse und Prozessdaten.\\
-	\textbf{Auslöser für Versand der Systemereignisse}
-	Die Systemereignisse können entweder zyklisch z.B. einmal pro Sekunde zusammengefasst versendet werden oder direkt bei Auftreten. Die Entscheidung fällt auf ein direktes Versenden bei Auftreten, damit wichtige Fehlermeldungen schnellstmöglich ankommen. Zudem handelt es sich um ein azyklisches Ereignis, d.h. die Systemereignisse werden nur sporadisch versendet.\\
+	Da die Kameradaten in die entgegengesetzte Richtung, wie die anderen Daten übertragen werden, werden diese in eine eigene Nachricht verpackt. Die Systemereignisse und die Prozessdaten können in einer Nachricht oder in getrennten Nachrichten versandt werden. Da die Prozessdaten durchgängig anfallen, die Systemereignisse jedoch azyklisch lohnt sich eine Trennung.\\
+	Die Prozessdaten wiederum können gebündelt oder getrennt in einzelne Nachrichten z.B. für die Temperaturen und die digitalen Werte, versendet werden. Da beispielsweise Temperaturen nicht besonders dynamisch sind könnte die Übertragungsfrequenz für diese Daten geringer sein, was die Auslastung der Verbindung reduzieren würde. Dies erhöht jedoch die Komplexität, da viele verschiedene Nachrichtentypen anfallen, was bei Wartungen oder Änderungen in späteren Jahren zum Problem werden kann. Da das zyklische Versenden aller Prozessdaten, die Übertragungsrate der TCP/IP-Verbindung nicht übersteigen wird, fällt die Entscheidung auf das Zusammenfassen aller Prozessdaten in einer Nachricht. Folglich gibt es drei Nachrichtentypen: Kameradaten, Systemereignisse und Prozessdaten.\\
+	\textbf{Auslöser für Versand der Systemereignisse}\\
+	Die Systemereignisse können entweder zyklisch z.B. einmal pro Sekunde zusammengefasst, oder direkt bei Auftreten versendet werden. Die Entscheidung fällt auf ein direktes Versenden bei Auftreten, damit wichtige Fehlermeldungen schnellstmöglich ankommen. Zudem handelt es sich um ein azyklisches Ereignis, d.h. die Systemereignisse werden nur sporadisch versendet.\\
 	\textbf{Auslöser für Versand der Prozessdaten}
-	Die Prozessdaten werden zyklisch benötigt und sind nicht abhängig von besonderen Ereignissen. Ein zyklischer Versand bietet sich hier an. Die Sendefrequenz muss dann in jedem Stäubli-Roboter einprogrammiert werden und ist dann fest eingestellt. Vorteilhaft wäre es wenn die Sendefrequenz von dem Server Anlagenvisualisierung vorgegeben werden kann. Dadurch kann die Sendefrequenz angepasst und z.B. zur Fehlerfindung erhöht werden. Darüber hinaus kann die Änderung an dieser zentralen Instanz erfolgen und muss nicht manuell bei jedem einzelnen Stäubli-Roboter durchgeführt werden. Dies ist insbesondere praktisch, wenn ein Zugriff über das Fernwartungssystem auf die Anlagenvisualisierung erfolgt. Daher soll ein Datenanforderungstelegramm zyklisch z.B. einmal pro Sekunde von der Anlagenvisualisierung an alle Clients (Stäubli-Roboter) gesandt werden. Diese sollen nach Erhalt der Anforderung ein Prozessdatentelegramm versenden. Der Einsatz von Datenanforderungstelegrammen bringt ein weiteren Vorteil mit sich. Durch die Zeitdifferenz zwischen Datenanforderungstelegramm und Erhalt des Datentelegramms kann überprüft werden, ob die Datenübertragung ausreichend stabil ist und ob der Client noch verbunden ist. Wenn innerhalb einer vorgegeben Zeitspanne von x Milisekunden keine Antwort in Form des Datentelegramms erfolgt kann eine Warnung ausgegeben werden, dass dieser Stäubli-Roboter nicht erreichbar ist.\\
+	Die Prozessdaten werden zyklisch benötigt und sind nicht abhängig von besonderen Ereignissen. Ein zyklischer Versand bietet sich hier an. Die Sendefrequenz muss dann in jedem Stäubli-Roboter einprogrammiert werden und ist dann fest eingestellt. Vorteilhaft wäre es wenn die Sendefrequenz von dem Server Anlagenvisualisierung vorgegeben werden kann. Dadurch kann die Sendefrequenz angepasst und z.B. zur Fehlerfindung erhöht werden. Darüber hinaus kann die Änderung an dieser zentralen Instanz erfolgen und muss nicht manuell bei jedem einzelnen Stäubli-Roboter durchgeführt werden. Dies ist insbesondere praktisch, wenn ein Zugriff über das Fernwartungssystem auf die Anlagenvisualisierung erfolgt. Daher soll ein Datenanforderungstelegramm zyklisch von der Anlagenvisualisierung an alle Clients (Stäubli-Roboter) gesandt werden. Diese sollen nach Erhalt der Anforderung ein Prozessdatentelegramm versenden. Der Einsatz von Datenanforderungstelegrammen bringt ein weiteren Vorteil mit sich. Durch die Zeitdifferenz zwischen Datenanforderungstelegramm und Erhalt des Datentelegramms kann überprüft werden, ob die Datenübertragung ausreichend stabil ist und ob der Client noch verbunden ist. Wenn innerhalb einer vorgegeben Zeitspanne von keine Antwort in Form des Datentelegramms erfolgt kann eine Warnung ausgegeben werden, dass dieser Stäubli-Roboter nicht erreichbar ist.\\
 	\textbf{Auslöser für Versand von Kameradaten} \\
-	Beim Anfallen von Positionsdaten, welche anhand von Kameradaten berechnet werden, solllen diese schnellstmöglichst an den Roboter übertragen werden. Aus diesem Grund erfolgt der Versandt dieser Daten Ereignissgetriggert, d.h. direkt nach Erhalt der Positionsdaten wird ein Telegramm an den entsprechenden Roboter gesandt.
-	Die Entscheidungsfindung bei den eben genannten Auswahlmöglichkeiten ist nachfolgend in einem morphologischen Kasten dargestellt.
+	Beim Anfallen von Positionsdaten, welche anhand von Kameradaten berechnet werden, solllen diese schnellstmöglichst an den Roboter übertragen werden. Aus diesem Grund erfolgt der Versandt dieser Daten Ereignissgetriggert, d.h. direkt nach Erhalt der Positionsdaten wird ein Telegramm an den entsprechenden Roboter gesandt.\\
+	\newline
+	Die Entscheidungsfindung bei den eben genannten Auswahlmöglichkeiten ist in einem morphologischen Kasten (vgl. Tabelle \ref{table:MorphoTCPIP}) dargestellt.
 	
 	\begin{table}
 		\caption{Morphologischer Kasten TCP/IP-Verbindung}
@@ -607,16 +624,16 @@
 			\midrule
 			Architekturwahl & \cellcolor{green!10}Anlage = Server & Roboter = Server &\\
 			\hline
-			Nachrichtentypen & Eine Nachricht  & Prozessdaten unterteilt & \cellcolor{green!10}Prozessdaten und Systemereignisse getrennt\\ \hline
+			Nachrichtentypen & Eine Nachricht für Alles & Prozessdaten unterteilt & \cellcolor{green!10}Prozessdaten und Systemereignisse getrennt\\ \hline
 			Auslöser Versand Systemereignisse & Zyklisch & \cellcolor{green!10}Ereignisbasiert & \\ \hline
-			Auslöser \newline Prozessdaten & \cellcolor{green!10}Anforderungs-telegramm & Zyklisch &  \\ \hline
-			Auslöser \newline Kameradaten & Zyklisch & \cellcolor{green!10}Ereignisbasiert&  \\
+			Auslöser Versand \newline Prozessdaten & \cellcolor{green!10}Anforderungs-telegramm & Zyklisch &  \\ \hline
+			Auslöser Versand\newline Kameradaten & Zyklisch & \cellcolor{green!10}Ereignisbasiert&  \\
 			\bottomrule
 		\end{tabular}
 	\end{table}
-	
+	\noindent
 	\textbf{Nachrichtenaufbau Datentelegramm}\\
-	Nachfolgend soll der Nachrichtenaufbau des Datentelegramms festgelegt werden. Durch Brainstorming und durch Inspiration von anderen Telegram-Aufbauten wie Ethernet (vgl. Kapitel \ref{subsec:EthernetFeldbus}) werden verschiedene Möglichkeiten des Telegrammaufbaus entworfen:\\
+	Nachfolgend soll der Nachrichtenaufbau des Datentelegramms festgelegt werden. Durch Brainstorming und durch Inspiration von anderen Telegram-Aufbauten wie Ethernet (vgl. Kapitel \ref{subsec:EthernetFeldbus}) werden verschiedene Möglichkeiten des Telegrammaufbaus entworfen:
 	\begin{itemize}
 		\item \textbf{Konzept 1:} <Nachrichten-ID>,<Sender-ID>,<Uhrzeit>,<Daten>
 		\item \textbf{Konzept 2:} <Nachrichten-ID>,<Sender-Name>,<Daten>
@@ -625,12 +642,12 @@
 		\item \textbf{Konzept 4:} <Nachrichten-ID>,<Sender-ID>,<Daten>,<CRC>
 		\item \textbf{Konzept 5:} <Nachrichten-ID>,<Sender-ID>,<Daten Gleitkomma, dynamisch>
 	\end{itemize}
-	In Konzept 1,2,4,5 kommt eine Nachrichten-ID am Anfang, damit der Empfänger weiß, dass z.B. ein Datentelegramm und keine Systemereignisse versendet werden. Anschließend folgt die Sender-ID, damit der Server weiß von welchem Roboter die Daten stammen.\\
+	In Konzept 1, 2, 4 und 5 existiert eine Nachrichten-ID am Anfang, damit der Empfänger weiß, dass es sich z.B. um ein Datentelegramm und kein Systemereignis handelt. Anschließend folgt die Sender-ID, damit der Server weiß von welchem Roboter die Daten stammen.\\
 	Bei Konzept 2 wird die Sender-ID, welche durch eine Zahl dargestellt wird, durch einen konfigurierbaren Namen ersetzt, was die Nutzerfreundlichkeit erhöht, da bei späterer Wartung ggf. unbekannt ist, welcher Roboter welche Nummer besitzt. \\
-	Bei Konzept 1 wird darüber hinaus die Uhrzeit mit versendet, dies ist für Dokumentationszwecke sinnvoll und ebenso kann eine Zeitdifferenz oder unterschiedliche Einstellungen in der Uhrzeit zwischen Roboter und Anlagenvisualisierung detektiert werden. Das Datum kann durch die Anlagenvisualisierung bei Erhalt der Nachricht bestimmt werden und muss daher nicht mitversendet werden. \\
-	Bei Konzept 4 wird zusätzlich ein CRC-Segment (Cyclic Redundancy Check)  versendet. Im CRC-Segment wird eine Prüfsumme übermittelt, welche vom Sender aus der zu übermitteltenden Nachricht berechnet. Der Empfänger berechnet die Prüfsumme aus der erhaltenen Nachricht und vergleicht sie mit dem CRC-Segment, um zu überprüfen, ob die Nachricht korrekt übermittelt wird. TCP/IP stellt jedoch bereits selbständig eine fehlerfreie Übertragung durch ein CRC-Segment sicher. Durch eine zusätzliche Prüfsumme kann zwar die Sicherheit bezüglich des korrekten Einlesens der Daten erhöht werden, für die Übertragung selbst ist ein CRC-Segment jedoch nicht mehr notwendig. \\
-	Konzept 3 sieht den Einsatz eines einzigartigen Codes vor. Mit jedem Datenanforderungstelegram wird ein einzartiger Code generiert. Der Roboter antwortet mit der Rücksendung des selben Code und den angehängten Daten. Dadurch kann eine bessere Zuordnung der Datentelegramme zu den Aufforderungen erfolgen, um sicherzustellen, dass die Datentelegramme nicht hinterherhinken.\\
-	Die fünf entworfenen Konzepte zum Nachrichtenaufbau werden nachfolgend verglichen (vgl. Tabelle \ref{tab:nachrichtenaufbau-vergleich}). Zum Einsatz kommen Harvey-Balls, die den Erfüllunsgrad des jeweiligen Kriteriums wiedergeben. Alle Kriterien haben eine ähnliche Wichtigkeit, mit der sich abschließend eine Gesamtwertung ermitteln lässt. 4 entspricht dabei der höchsten Wertung mit einem durchschnittlich komplett ausgefüllten Harvey-Ball.
+	Bei Konzept 1 wird darüber hinaus die Uhrzeit mit versendet, dies ist für Dokumentationszwecke sinnvoll und ebenso kann eine Zeitdifferenz zwischen Roboter und Anlagenvisualisierung detektiert werden. Das Datum kann durch die Anlagenvisualisierung bei Erhalt der Nachricht bestimmt werden und muss daher nicht versendet werden. \\
+	Bei Konzept 4 wird zusätzlich ein CRC-Segment versendet. Im CRC-Segment wird eine Prüfsumme übermittelt, welche vom Sender aus der zu übermitteltenden Nachricht berechnet wird. Der Empfänger berechnet die Prüfsumme aus der erhaltenen Nachricht und vergleicht sie mit dem CRC-Segment, um zu überprüfen, ob die Nachricht korrekt übermittelt wurde. TCP/IP stellt jedoch bereits selbständig eine fehlerfreie Übertragung durch ein CRC-Segment sicher. Durch eine zusätzliche Prüfsumme kann zwar die Sicherheit bezüglich des korrekten Einlesens der Daten erhöht werden, für die Übertragung selbst ist ein CRC-Segment jedoch nicht mehr notwendig. \\
+	Konzept 3 sieht den Einsatz eines einzigartigen Codes vor. Mit jedem Datenanforderungstelegramm wird ein einzigartiger Code generiert. Der Roboter antwortet mit der Rücksendung des selben Code und den angehängten Daten. Dadurch kann eine bessere Zuordnung der Datentelegramme zu den Aufforderungen erfolgen, um sicherzustellen, dass die Datentelegramme nicht hinterherhinken.\\
+	Die fünf entworfenen Konzepte zum Nachrichtenaufbau werden nachfolgend verglichen (vgl. Tabelle \ref{tab:nachrichtenaufbau-vergleich}). Zum Einsatz kommen Harvey-Balls, die den Erfüllungsgrad des jeweiligen Kriteriums wiedergeben. Alle Kriterien haben eine ähnliche Wichtigkeit, mit der sich abschließend eine Gesamtwertung ermitteln lässt. 4 entspricht dabei der höchsten Wertung mit einem durchschnittlich komplett ausgefüllten Harvey-Ball.
 	\begin{table}[h]
 		\centering
 		\begin{tabularx}{\linewidth}{p{0.2\linewidth} >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
@@ -656,51 +673,49 @@
 	\textbf{Nachrichtenaufbau Datenanforderungstelegramm}\\
 	Das Datenanforderungsdiagramm wird an alle Roboter versandt und ist wie folgt aufgebaut:\\
 	<Nachrichten-ID>,<Sender-Name>,<Uhrzeit>\\
-	Durch die Nachrichten-ID wissen alle Roboter, dass es sich um eine Aufforderung für den Versand des Datentelegramms handelt. \\
-	Der Kommunikationsablauf lässt sich zusammenfassend in einem Sequenzdiagramm darstellen.
-	
+	Durch die Nachrichten-ID weiß der Roboter, dass es sich um eine Aufforderung für den Versand des Datentelegramms handelt. \\
+	Der Kommunikationsablauf lässt sich zusammenfassend in einem Sequenzdiagramm (vgl. Abbildung \ref{fig:seqTCPIP})darstellen.
+
 	\begin{figure}
 		\centering
-		\begin{sequencediagram}
-			\newthread{A}{:Server}{}
-			\newinst[2]{B}{:Client}{}
-			\begin{call}{A}{fordere()}{B}{erhalte(Daten)}
-				\postlevel
-				\begin{call}{A}{4()}{A}{}
-				\end{call}
-				\postlevel
-			\end{call}
-		\end{sequencediagram}
+		\begin{tikzpicture}
+			\begin{umlseqdiag}
+				\umlobject[class=Server, x=0]{S}
+				\umlobject[class=Client, x=7]{C}
+				
+				% Nachrichten vom Server zum Client
+				\begin{umlcall}[op={Aktualisiere Schwere}, dt=5]{S}{C}
+				
+					\begin{umlcall}[op={Sende Systemereignis}, dt=5]{C}{S}
+					\end{umlcall}
+					\begin{umlcall}[op={Sende Positionsdaten}, dt=3]{S}{C}
+					\end{umlcall}
+					\begin{umlcall}[op={Datenanforderung}, dt=3]{S}{C}
+					\end{umlcall}
+					
+					\begin{umlcallself}[op={ermittele Daten}, dt=3]{C}
+					\end{umlcallself}
+					% Nachrichten vom Client zum Server
+					\begin{umlcall}[op={Datentelegramm}, dt=3]{C}{S}
+					\end{umlcall}
+				\end{umlcall}
+			\end{umlseqdiag}
+		\end{tikzpicture}
+		\caption{Sequenzdiagramm TCP/IP}
+		\label{fig:seqTCPIP}
 	\end{figure}
 	
-	Das Zusammenspiel von Roboter, SPS und Windows-PC ist nachfolgend in einem UML-Diagramm dargestellt. (am besten vor Konzeptionierung)
-	\begin{tikzpicture}[>=stealth']
-		
-		% Locations
-		\def\ClientToServer{++(6,0)}
-		\def\ServerToClient{++(-6,0)}
-		\def\Lifeline{++(0,-3)}
-		
-		% Lifelines
-		\path (0,0)           node[draw] (Client) {Client}
-		\ClientToServer node[draw] (Server) {Server};
-		\draw (Client) -- \Lifeline (Server) -- \Lifeline;
-		
-		% Blocks
-		\path (Server)
-		++(0,-1) node (BeginProcess) {} node[below right] {Process}
-		++(0,-1) node (EndProcess)   {};
-		\filldraw[fill=blue!30] (BeginProcess.west) rectangle (EndProcess.east);
-		
-		% Calls
-		\draw[->] (BeginProcess)\ServerToClient -- node[above] {Hey} (BeginProcess);
-		\draw[->] (EndProcess) -- node[above] {You} \ServerToClient;
-		
-	\end{tikzpicture}
-	\label{sec:KonzeptTCPIP}
+	
+	
 	
 	\section{Datenverwertung}
-	
+	Daten gewinnen immer mehr an Bedeutung. Durch die Verfügbarkeit von Roboterdaten ergeben sich Nutzungspotentiale, wie z.B.:
+	\begin{itemize}
+		\item \textbf{Überwachung und Alarm:} Bei Überschreiten von Schwellwerten oder bei Fehlermeldungen Alarm auslösen
+		\item \textbf{Predictive Maintenance:} Vorhersagen treffen, wann Wartung erfolgen soll, um Ausfälle vorbeugend zu verhindern. Dies kann durch das Erkennen von Trends und Auffälligkeiten in den Daten erfolgen.
+		\item \textbf{Datenarchivierung und Compliance:} Datenspeicherung für Schadensfall oder gesetzliche Gewährleistung
+	\end{itemize}
+	Der Stäubli-Roboter erfasst eine Vielzahl an Daten. Ausgewählte Daten werden nachfolgend dargestellt und auf deren Nutzen analysiert.
 	\begin{longtable}{|p{7cm}|p{3cm}|p{3cm}|}
 		\caption{Verfügbare Daten}
 		\label{table:Daten}\\
@@ -778,30 +793,45 @@
 		Konfiguration des Roboters & getVersion(...)  & - \\
 		Stromversorgung bei Stillstand abschalten & hibernateRobot()  & - \\
 		Systemereignisse &getEvents(...)  & - \\
-			
+		\hline
 	\end{longtable}
-	Durch die Verfügbarkeit von Roboterdaten ergeben sich Nutzungspotentiale, wie z.B.:
-	\begin{itemize}
-		\item \textbf{Überwachung und Alarm:} Bei Überschreiten von Schwellwerten oder bei Fehlermeldungen Alarm auslösen
-		\item \textbf{Predictive Maintenance:} Vorhersagen treffen, wann Wartung erfolgen soll, um Ausfälle vorbeugend zu verhindern.
-		\item \textbf{Datenarchivierung und Compliance:} Datenspeicherung für Schadensfall oder gesetzliche Gewährleistung
-		\item \textbf{Trendanalyse:} Muster und Tendenzen in den Daten erkennen
-	\end{itemize}
 	
+
  	Prinzipiell lassen sich alle verfügbaren Daten sammeln, visualisieren und auswerten. Bei einigen dieser Daten wie z.B. des freien RAM-Speichers ist der daraus entstehende Nutzen beschränkt.	Mittels Brainstorming wurden verschiedene Anwendungsszenarien ausgedacht, im nachfolgenden sollen jedoch nur die sinnvollsten hiervon vorgestellt werden.\\
  	\textbf{Temperaturen}\\
- 	Neben der Temperatur von verschiedenen Computer-Chips und Platinen, wie z.B. CPU, CPU-Platine DSI-Platine, RSI-Platine und STARC-Platine sind verschiedene Temperaturwerte von den Antrieben abrufbar. Hier sind die Temperaturen der Motoren, Encoder, Antriebsgehäuse,  Antriebswicklungen und  Steuergeräte zu nennen. Diese Daten können sowohl zur Überwachung als auch zur Predictive Maintenance verwendet werden. Bei Überschreiten eines Grenzwertes kann ein Alarm bzw. eine Warnung ausgegeben werden. Da von Seiten des Herstellers keine zulässigen Grenzwerte vorgegeben sind, müssen die aufgezeichneten Messwerte unter Berücksichtigung von Schwankungen analysiert werden und Grenzwerte festgelegt werden, ab welchen Werten das Verhalten nicht mehr als "normal" angesehen werden kann. Die Dynamik von Temperaturen ist im Allgemeinen relativ gering, da sich die Materialien aufgrund ihrer Wärmekapazität erst aufheizen müssen. Aus diesem Grund ist das Übertragen von den Temperaturwerten in vergleichsweise großen Abständen zulässig z.B. alle 15 Sekunden. Im Falle eines technischen Defektes wäre eine möglichst frühe Warnung wünschenswert, jedoch ist die Zeit bis ein Techniker den Alarm wahrnimmt und entsprechende Aktionen starten kann vergleichsweise groß, weshalb dieser Anwendungsfall kein höhere Übertragungsrate rechtfertigt. Da die Genauigkeit von vielen Temperatursensoren nur im Bereich von 0,5K liegt und sehr genaue Temperaturwerte keinen zusätzlichen Mehrwert bieten, ist eine Übertragung der Temperaturen ohne Nachkommastellen ausreichend. Dadurch lässt sich ein Temperaturwert problemlos mit einem einzelnen Byte (Werte zwischen 0 und 255°C) übertragen.\\
+ 	Neben der Temperatur von verschiedenen Computer-Chips und Platinen, wie z.B. CPU, CPU-Platine DSI-Platine, RSI-Platine und STARC-Platine sind verschiedene Temperaturwerte von den Antrieben abrufbar. Hier sind die Temperaturen der Motoren, Encoder, Antriebsgehäuse,  Antriebswicklungen und  Steuergeräte zu nennen. Diese Daten können sowohl zur Überwachung als auch zur Predictive Maintenance verwendet werden. Bei Überschreiten eines Grenzwertes kann ein Alarm bzw. eine Warnung ausgegeben werden. Da von Seiten des Herstellers keine zulässigen Grenzwerte vorgegeben sind, müssen die aufgezeichneten Messwerte unter Berücksichtigung von Schwankungen analysiert werden und Grenzwerte festgelegt werden, ab welchen Werten das Verhalten nicht mehr als \glqq normal\grqq{} angesehen werden kann. Die Dynamik von Temperaturen ist im Allgemeinen relativ gering, da sich die Materialien aufgrund ihrer Wärmekapazität erst aufheizen müssen. Aus diesem Grund ist das Übertragen von den Temperaturwerten in vergleichsweise großen Abständen zulässig z.B. alle 15 Sekunden. Im Falle eines technischen Defektes wäre eine möglichst frühe Warnung wünschenswert, jedoch ist die Zeit bis ein Techniker den Alarm wahrnimmt und entsprechende Aktionen starten kann vergleichsweise groß, weshalb dieser Anwendungsfall kein höhere Übertragungsrate rechtfertigt. Da die Genauigkeit von vielen Temperatursensoren nur im Bereich von 0,5K liegt und sehr genaue Temperaturwerte keinen zusätzlichen Mehrwert bieten, ist eine Übertragung der Temperaturen ohne Nachkommastellen ausreichend. Dadurch lässt sich ein Temperaturwert problemlos mit einem einzelnen Byte (Werte zwischen 0 und 255°C) übertragen.\\
  	\textbf{Error-Meldungen}\\
  	Von dem Stäubli-Roboter werden einige Fehlermeldungen erfasst, wie von den Ventil und Brems-Ausgängen, den digitalen Sicherheits-Eingängen, des DSI-Chip, RSI-Chip und Bremsentests. Ebenso werden "DSI non-reduced brake supply voltage undershoot",  "DSI reduced brake supply voltage undershoot", "DSI logic supply voltage undershoot" und "DSI overtemperature" erfasst. Error-Meldungen wie diese sollen als Alarm bzw. Fehlermeldung ausgegeben werden. Ebenso ist ein Dokumentieren sinnvoll, um bei Ausfällen oder Defekten die Ursachensuche zu erleichtern. Jeder Fehler kann als Wert 1 oder 0 dargestellt werden, weshalb je Fehlermeldung ein Bit genügt. Alle Error-Meldungen lassen sich somit über 2 Bytes abbilden.\\
  	\textbf{Schleppfehler}\\
- 	Der Schleppfehler entspricht der Abweichung zwischen Soll-Position und Ist-Position jeder einzelnen Achse. Ein herausstechend großer Schleppfehler kann auf Probleme mit der Steuerung, den Motoren, den Encoder oder den Achsen selbst hinweisen. Eine genaue Eingrenzung ist auf Basis der gegebenen Daten nicht möglich, jedoch ist eine Warnung sinnvoll. Zur Ermittlung der Grenze, bei deren Überschreiten eine Warnung ausgegeben werden soll, können aufgezeichnete Daten unter Berücksichtigung von Schwankungen herangezogen werden. Der Schleppfehler muss sehr regelmäßig erfasst werden, um die kontinuierliche Bewegung best möglichst abzubilden.\\
+ 	Der Schleppfehler entspricht der Abweichung zwischen Soll-Position und Ist-Position jeder einzelnen Achse. Ein herausstechend großer Schleppfehler kann auf Probleme mit der Steuerung, den Motoren, den Encoder oder den Achsen selbst hinweisen. Der Stäubli-Roboter überwacht den Schleppabstand bereits selbst und gibt bei einer zu großen Abweichung einen Fehler in Form eines Systemereignisses aus. Daher muss der Schleppfehler nicht zusätzlich über ein Datentelegramm übertragen werden, da er bereits über die Systemereignisse mit abgedeckt ist.\\
  	\textbf{Drehmoment Achsen}\\
- 	Das Drehmoment der einzelnen Achsen ändert sich kontinuerlich während der Bewegung. Durch das Vergleichen der Drehmomente mit einer Referenzfahrt können  Auffälligkeiten entdeckt werden. Schleichend zunehmende Momente deuten z.B. auf fehlende Schmierung oder Lagerdefekte hin. Abrupt zunehmende Momente können durch ein Festhängen oder einen Crash verursacht werden. Eine Dokumentation der Abweichungen ist sinnvoll, um aus Gewährleistungsgründen unsachgemäße Verwendung z.B. durch einen Crash nachzuweisen. Analog zum Schleppfehler müssen auch die Drehmomente sehr kontinuierlich erfasst werden.\\
+ 	Das Drehmoment der einzelnen Achsen ändert sich kontinuierlich während der Bewegung. Durch das Vergleichen der Drehmomente mit einer Referenzfahrt können  Auffälligkeiten entdeckt werden. Schleichend zunehmende Momente deuten z.B. auf fehlende Schmierung oder Lagerdefekte hin. Abrupt zunehmende Momente können durch ein Festhängen oder einen Crash verursacht werden. Eine Dokumentation der Abweichungen ist sinnvoll, um aus Gewährleistungsgründen unsachgemäße Verwendung nachzuweisen. Da sich die Momente hochdynamisch ändern, ist es nicht sinnvoll das aktuelle Moment zu übertragen, da minimale Zeitabweichungen zu großen Schwankungen führen können. Sinnvoller ist es, die Momente über einen kompletten Bewegungsablauf aufzuintegrieren und nur dieses Ergebnis zu übertragen.\\
 	\textbf{Sytemereignisse}\\
-	Ereignisse, die von der Steuerung festgestellt werden, wie z.B. Fehlermeldungen oder das Einschalten der Energieversorgung für die Achsen werden in einer system-log-Datei aufgezeichnet. Sie lassen sich in die Schweregrade "Info", "Warning", "Error" und "Critical" unterteilen. Das Auslesen der Systemereignisse kann mit dem Befehl "getEvents" erfolgen. Diese sollen wie bereits bei der Konzeptionierung der TCP/IP-Verbindung festgelegt, beim Auftreten sofort über TCP/IP übertragen werden, .
+	Ereignisse, die von der Steuerung festgestellt werden, wie z.B. Fehlermeldungen oder das Einschalten der Energieversorgung für die Achsen werden in einer system-log-Datei aufgezeichnet. Sie lassen sich in die Schweregrade \glqq Info\grqq{}, \glqq Warning\grqq{}, \glqq Error\grqq{} und \glqq Critical\grqq{} unterteilen. Das Auslesen der Systemereignisse kann mit dem Befehl \glqq getEvents\grqq{} erfolgen. Diese sollen wie bereits bei der Konzeptionierung der TCP/IP-Verbindung festgelegt, beim Auftreten sofort über TCP/IP übertragen werden.\\
+	\textbf{Aufbau Datentelegramm}\\
+	Das Datentelegramm ist mit den ausgewählten Daten ist wie nachfolgend dargestellt (vgl. Abbildung \ref{tab:Datentelegramm}) aufgebaut.
+	Dadurch dass mehrere Werte aufgrund der Sechsachsen sechsfach vorkommen ist eine Anzahl von 6 Bytes notwendig. Für das Motormoment kommen je Achse 2 Bytes zum Einsatz, da die Werte zu groß für ein einzelnes Byte sind. In den 8 Bytes, gefüllt mit einzelnen binären Werten ist eine Vielzahl von Informationen, wie z.B. CPU overcurrent, Feedback der Ventile, Fehler der Bremsen oder das Ergebnis des Bremsentests gespeichert.
+	\begin{table}
+		\centering
+		\caption{Aufbau Datentelegramm}
+		\label{tab:Datentelegramm}
+		\begin{tabular}{|p{1cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|}
+			\hline
+			Byte& 0 & 1-20 & 21-23 & 24-31 & 32-37  \\
+			Inhalt & Nachrichten-ID & Sender-Name & Uhrzeit & Digitale Werte & Temperatur Motorspule 1-6\\
+			\hline
+			Byte& 38-43 & 44-49 & 50-55 & 56 & 57  \\
+			Inhalt & Temperatur Antrieb-Gehäuse-ID 1-6 & Temperatur Antrieb Encoder 1-6 & Temperatur Antrieb Verbindung 1-6& Temperatur Starc Board & Temperatur DSI Board\\
+			\hline
+			Byte& 58 & 59 & 60-70 &  &   \\
+			Inhalt & Temperatur CPU & Temperatur CPU Board & Integriertes Motormoment 1-6&  & \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
 	\newpage
 	\section{Stäubli Roboterprogramm}
-	Nachfolgend soll das die Software und deren Komponenten für den Stäubli-Roboter konzeptioniert werden. Ein UML-Anwendungsdiagramm hilft die Anwendungsfälle zu definieren und die Software zu spezifizieren. Notwendige Bestandteile und Anwendungen ergeben sich aus der Anforderungsdefinition (vgl. Kapitel \ref{chap:Anforderungsdefinition}) und der Konzeptionierung der TCP/IP-Verbindung (vgl. Kapitel \ref{sec:KonzeptTCPIP}).
+	Nachfolgend soll die Software und deren Komponenten für den Stäubli-Roboter konzeptioniert werden. Ein UML-Anwendungsdiagramm hilft die Anwendungsfälle zu definieren und die Software zu spezifizieren. Notwendige Bestandteile und Anwendungen ergeben sich aus der Anforderungsdefinition (vgl. Kapitel \ref{chap:Anforderungsdefinition}) und der Konzeptionierung der TCP/IP-Verbindung (vgl. Kapitel \ref{sec:KonzeptTCPIP}).
 	\begin{figure}[h!]
 		\centering
 		\begin{tikzpicture}
@@ -840,19 +870,18 @@
 		\caption{UML-Anwendungsdiagramm Roboterprogramm}
 		\label{fig:UML_Use_Case_Robo}
 	\end{figure}
-	Das Roboterprogramm erhält eine Nachricht von der Anlagenvisualisierung. Je nach Nachrichten-ID handelt es sich um eine Datenanforderungstelegramm (ID: 1) zur Anforderung von Prozessdaten oder es handelt sich um die Übermittlung von Positionsdaten von der Kamera (ID: 2). Alternativ kann über diese Nachricht auch die Schwere aktualisiert werden, ab welcher ein Systemereignis versandt werden soll (ID: 50). Handelt es sich um ein Datenanforderungstelegramm müssen die Prozessdaten abgefragt und anschließend eine Datentelegramm versendet werden. Systemereignisse, wie z.B. Fehlermeldungen sollen an die Visualisierung übermittelt werden. Hierzu müssen diese abgefragt werden. Über die SPS kann ein Befehl zur Bewegungsausführung erfolgen. Dieser muss ausgeführt und die erfolgreiche Durchführung an die SPS zurückgemeldet werden.\\
-	Für diese Anwendungen bietet es sich an, insgesamt 3 Programme anzulegen, die sich in der Stäubli-spezifischen Programmiersprache wie Tasks verhalten.
+	Das Roboterprogramm erhält eine Nachricht von der Anlagenvisualisierung. Je nach Nachrichten-ID handelt es sich um eine Datenanforderungstelegramm (ID: 1) zur Anforderung von Prozessdaten oder es handelt sich um die Übermittlung von Positionsdaten von der Kamera (ID: 2). Alternativ kann über diese Nachricht auch die Schwere aktualisiert werden, ab welcher ein Systemereignis versandt werden soll (ID: 50). Handelt es sich um ein Datenanforderungstelegramm müssen die Prozessdaten abgefragt und anschließend ein Datentelegramm versendet werden. Systemereignisse, wie z.B. Fehlermeldungen sollen an die Visualisierung übermittelt werden. Hierzu müssen diese abgefragt werden. Über die SPS kann ein Befehl zur Bewegungsausführung erfolgen. Dieser muss ausgeführt und die erfolgreiche Durchführung an die SPS zurückgemeldet werden.\\
+	Für diese Anwendungen bietet es sich an, insgesamt vier Programme anzulegen, die sich in VAL~3 wie Tasks verhalten.
 	\begin{itemize}
 		\item \textbf{Empfangen: } In diesem Programm wird die Nachricht von der Anlagenvisualisierung empfangen und interpretiert. Hier erfolgt ebenso das Auslesen und der Versand der Prozessdaten oder Alternativ die Verarbeitung der Positionsdaten oder das Aktualisieren der Schwere der Systemereignisse.
 		\item \textbf{Systemereignisse: } Hier erfolgt die Überprüfung ob neue Systemereignisse aufgetreten sind. In diesem Falle wird das Telegramm aufgebaut und das Systemereignis an die Anlagenvisualisierung versandt. 
 		\item \textbf{Bewegung:} In diesem Programm erfolgt die Bewegungssteuerung des Roboters. Befehle, die von der SPS über die EtherCAT-Verbindung kommen werden ausgelesen. Bewegungsabläufe werden durchgeführt, sowie durchgeführte Bewegungen auf den EtherCAT geschrieben, um der SPS eine erfolgreiche Durchführung mitzuteilen.
+		\item \textbf{Motormoment-Integrator:} Anstelle des aktuellen Motormomentes soll das über die gesamte Bewegung integrierte Motormoment übertragen werden. Es bietet sich an die Integration in ein externes Programm auszulagern. Nach erfolgreichem Abschluss eines kompletten Bewegungszyklus soll das Ergebnis in eine Variable gespeichert werden. Erst mit Abschluss des darauf folgenden Bewegungszyklus wird dieses aktualisiert. Übertragen wird das Moment, welches sich bei Datenabfrage in der Variable befindet.
 	\end{itemize}
-	Neben diesen 3 Programmen werden in dem standardmäßigen "Start"-Programm, welches zum Programmstart ausgeführt wird, die oben genannten Tasks gestartet. Das "Stop"-Programm beendet wiederum die Tasks.
+	Neben diesen viert Programmen werden in dem standardmäßigen \glqq Start\grqq-Programm, welches zum Programmstart ausgeführt wird, die oben genannten Tasks gestartet. Das \glqq Stop\grqq{}-Programm beendet wiederum die Tasks.
 	\newpage
 	\section{WPF-Anwendung}
 	Die Anlagenvisualisierung soll wie im Kapitel Stand der Technik erläutert durch eine WPF-Anwendung umgesetzt werden. Um diese zu entwerfen muss zuerst eine Softwarespezifikation erfolgen. Mit Hilfe des UML-Anwendungsdiagramms (vgl. Abbildung \ref{fig:UML_Use_Case_WPF}) sollen die Anwendungen identifiziert werden. Basis hierfür bildet die Anforderungsdefinition (vgl. Kapitel \ref{chap:Anforderungsdefinition}) und die Konzeptionierung der TCP/IP-Verbindung (vgl. Kapitel \ref{sec:KonzeptTCPIP}).
-
-	
 	\begin{figure}[h!]
 		\centering
 		\begin{tikzpicture}
@@ -894,17 +923,18 @@
 		\caption{UML-Anwendungsdiagramm WPF-Anwendung}
 		\label{fig:UML_Use_Case_WPF}
 	\end{figure}
-	Die WPF-Anwendung muss daher wie im UML-Anwendungsdiagramm verschiedene Funktionalitäten umsetzen. Um Prozessdaten, wie z.B. Motortemperaturen graphisch darzustellen müssen diese durch ein Datenanforderungstelegramm von den Robotern angefordert werden. Erhält die WPF-Anwendung eine eingehende Nachricht muss diese anhand der Nachrichten ID interpretiert werden. Handelt es sich um ein Datentelegramm (Nachrichten-ID=0) müssen die Daten strukturiert abgespeichert werden, damit eine graphische Darstellung der Daten zu einem späteren Zeitpunkt und über einen längeren Zeitraum möglich ist. Dies kann beispielsweise mit einer csv.-Datei erfolgen. Eine andere Anwendung der WPF-Anwendung ist der Empfang von Systemereignissen. Diese Nachrichten können anhand ihrer Nachrichten-ID (ID=8) erkannt werden. Die Systemereignisse, wie z.B. Fehler oder Informationsmeldungen sollen dem Nutzer dargestellt werden. Darüber hinaus sollen diese zu Archivierungs- und Dokumentationszwecken lokal in einer Datei (z.B. .txt) abgespeichert werden. Systemereignisse haben dabei unterschiedliche Ereignis-Schweren von Information bis hin zu fatalem Fehler. Die WPF-Anwendung soll steuern ab welcher Schwere ein Roboter ein Systemereignis versenden soll. Dadurch können je nach Anwendung beispielsweise die Informationsmeldungen entfallen, da diese vergleichsweise von geringer Bedeutung sind. Um die Schwere der zu sendeten Systemereignisse zu aktualisieren soll die WPF-Anwendung ein Telegramm mit der Nachrichten-ID 50 unter Angabe der Soll-Schwere zu dem Roboter versenden. Darüber hinaus sollen Positionsdaten von zu greifenden Objekten an den Roboter versendet werden. Die Positionsdaten werden extern von der Anwendung "roboVision" ermittelt und an die zu konfigurierende WPF-Anwendung weitergeleitet, die diese dann mit der Nachrichten-ID 3 versenden werden. Die zu entwerfende WPF-Anwendung soll den Programmablauf durch lokales Abspeichern (z.B. mit einer .txt-Datei) dokumentieren, wie z.B. das Versenden von Telegrammen, sowie interne Fehler oder besondere Ereignisse.\\
+	\noindent
+	Die WPF-Anwendung muss daher wie im UML-Anwendungsdiagramm beschrieben verschiedene Funktionalitäten umsetzen. Um Prozessdaten, wie z.B. Motortemperaturen graphisch darzustellen müssen diese durch ein Datenanforderungstelegramm von den Robotern angefordert werden. Erhält die WPF-Anwendung eine eingehende Nachricht muss diese anhand der Nachrichten ID interpretiert werden. Handelt es sich um ein Datentelegramm (Nachrichten-ID = 0) müssen die Daten strukturiert abgespeichert werden, damit eine graphische Darstellung der Daten zu einem späteren Zeitpunkt und über einen längeren Zeitraum möglich ist. Dies kann beispielsweise mit einer csv.-Datei erfolgen. Eine andere Anwendung der WPF-Anwendung ist der Empfang von Systemereignissen. Diese Nachrichten können anhand ihrer Nachrichten-ID (Nachrichten-ID = 8) erkannt werden. Die Systemereignisse, wie z.B. Fehler oder Informationsmeldungen sollen dem Nutzer dargestellt werden. Darüber hinaus sollen diese zu Archivierungs- und Dokumentationszwecken lokal in einer Datei (z.B. .txt) abgespeichert werden. Systemereignisse haben dabei unterschiedliche Ereignis-Schweren von Information bis hin zu fatalem Fehler. Die WPF-Anwendung soll steuern ab welcher Schwere ein Roboter ein Systemereignis versenden soll. Dadurch können je nach Anwendung beispielsweise die Informationsmeldungen entfallen, da diese vergleichsweise von geringer Bedeutung sind. Um die Schwere der zu sendeten Systemereignisse zu aktualisieren soll die WPF-Anwendung ein Telegramm (Nachrichten-ID = 50) mit Angabe der Soll-Schwere zu dem Roboter versenden. Darüber hinaus sollen Positionsdaten von zu greifenden Objekten an den Roboter versendet werden. Die Positionsdaten werden extern von der Anwendung \glqq roboVision\grqq{} ermittelt und an die zu konfigurierende WPF-Anwendung weitergeleitet, die diese dann an den Roboter versenden kann (Nachrichten-ID = 3). Die zu entwerfende WPF-Anwendung soll den Programmablauf durch lokales Abspeichern (z.B. mit einer .txt-Datei) dokumentieren, wie z.B. das Versenden von Telegrammen, sowie interne Fehler oder besondere Ereignisse.\\
 	Im nächsten Schritt sollen die Softwarekomponenten, wie die Klassen der WPF-Anwendung definiert werden. Um eine effiziente und gute Struktur für die zu entwerfende Software zu erhalten wird in der Literatur auf sogenannte Muster zugegriffen. Ein Muster stellt eine bekannte und erprobte Lösungen dar \cite{agileSoftware}. Die Wiederverwendung dieser Lösungen durch Muster vermeidet Fehler und vereinfacht die Kommunikation zwischen Fachleuten. Ebenso reduzieren sich Entwicklungskosten und die Flexibilität des Entwurfes steigt \cite{ArchitekturmusterGoll}.\\
-	Nach \cite{ArchitekturmusterGoll} lassen sich Muster im Entwurfsprozess in drei Gruppen einteilen:
+	Nach Gollar, Koller und Watzko \cite{ArchitekturmusterGoll} lassen sich Muster im Entwurfsprozess in drei Gruppen einteilen:
 	\begin{itemize}
 		\item \textbf{Architekturmuster:} Behandelt auf hoher Ebene die Struktur und Architektur des gesamten Systems.
-		\item \textbf{Entwurfsmuster:} Betrachtet eine Ebene unter der Architektur ein bestimmtes Problem eines Subsystems.cd docu
+		\item \textbf{Entwurfsmuster:} Betrachtet eine Ebene unter der Architektur ein bestimmtes Problem eines Subsystems.
 		\item \textbf{Idiome:} Ein Idiom ist die Umsetzung eines abstrakten Musters in Form eines aus programmierten Entwurfsmusters. Hierbei handelt es sich um eine  Lösung eines spezifischen Problems, weshalb Idiome hier in der Konzeptionierung der WPF-Anwendung keine Rolle spielen.
 	\end{itemize}
 	\textbf{Architekturmuster}\\
-	Es existieren eine Vielzahl von Architekturmustern, wie z.B. die Schichtenarchitektur, die Pepository-Architektu, die Pipes-und-Filter-Architektur, sowie die MVC-Architektur. \cite{Sommerville}
-	Bei Benutzungsschnittstellen, was die zu konzeptionierende WPF-Anwendung darstellt, kommt gemäß Literatur (\cite{Sommerville}, \cite{gamma2004entwurfsmuster}, \cite{ArchitekturmusterGoll}, \cite{agileSoftware}) übereinstimmend ein MVC-Muster zum Einsatz. MVC steht für Model-View-Controller und setzt sich aus den drei Klassen Model, View und Controller zusammen (vgl. Abbildung \ref{fig:MVC}).\\
+	Es existieren eine Vielzahl von Architekturmustern, wie z.B. die Schichtenarchitektur, die Pepository-Architektur, die Pipes-und-Filter-Architektur, sowie die MVC-Architektur. \cite{Sommerville}
+	Bei Benutzungsschnittstellen, was die zu konzeptionierende WPF-Anwendung darstellt, kommt gemäß Literatur (\cite{Sommerville}, \cite{gamma2004entwurfsmuster}, \cite{ArchitekturmusterGoll}, \cite{agileSoftware}) übereinstimmend ein MVC-Muster zum Einsatz. \acs{mvc} steht für \acl{mvc} und setzt sich aus den drei Klassen Model, View und Controller zusammen (vgl. Abbildung \ref{fig:MVC}).\\
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}[node distance=2cm]
@@ -920,14 +950,15 @@
 		\caption{MVC-Muster nach \cite{ArchitekturmusterGoll}}
 		\label{fig:MVC}
 	\end{figure}
+	\noindent
 	MVC ermöglicht es die Datenhaltung, die graphische Darstellung und die Interpretation der Benutzereingaben voneinander zu trennen. Durch die Entkoppelung wird die Flexibilität und die Wiederverwendbarkeit erhöht. Dadurch kann beispielsweise eine neue graphische Darstellung entwickelt werden ohne dass der restliche Code angepasst werden muss. \cite{gamma2004entwurfsmuster} \cite{ArchitekturmusterGoll} Die drei Komponenten des MVC-Musters erfüllen dabei folgende Funktionen:
 	\begin{itemize}
 		\item \textbf{Model: }Hier werden Daten gehalten und verarbeitet.
 		\item \textbf{View: } In der View erfolgt die graphische Darstellung für den Nutzer.
 		\item \textbf{Controller: } Der Controller interpretiert die Eingabe des Nutzers, wie z.B. eine Nutzerfeld-Eingabe, was definierte Aktionen auslösen kann.
 	\end{itemize}
-	Das Architekturmuster MVVM ist eine Entwicklung von Microsoft und eignet sich besonders für WPF-Anwendungen. MWWM (Model-View-ViewModel) ist dabei eine Variation von MVC, kommt dessen Prinzip jedoch sehr nahe. \cite{MVVMKraus} \cite{kotz2022c} \cite{troelsen2022pro}
-	Dass MVVM bereits in der Anwendung roboTools zum Einsatz kommt unterstreicht, dass MVVM das geeigneteste Architekturmuster für die zu entwerfende Applikation ist. MVVM setzt sich dabei aus den Komponenten View, ViewModel und Model zusammen (vgl. Abbildung \ref{fig:MVVM})
+	Das Architekturmuster \acs{mvvm} ist eine Entwicklung von Microsoft und eignet sich besonders für WPF-Anwendungen. \ac{mvvm} ist eine Variation von MVC, kommt dessen Prinzip jedoch sehr nahe. \cite{MVVMKraus} \cite{kotz2022c} \cite{troelsen2022pro}
+	Dass MVVM bereits in der Anwendung roboTools zum Einsatz kommt unterstreicht, dass MVVM das geeigneteste Architekturmuster für die zu entwerfende WPF-Anwendung ist. MVVM setzt sich dabei aus den Komponenten View, ViewModel und Model zusammen (vgl. Abbildung \ref{fig:MVVM})
 	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=1.0\linewidth]{./images/MVVM.png}
@@ -936,21 +967,23 @@
 	\end{figure}
 	\begin{itemize}
 		\item \textbf{Model: } Hier werden Daten aus einer Datenquelle angefordert und bearbeitet.
-		\item \textbf{View: } In der View wird die Graphische Oberfläche definiert. Zur Darstellung von Daten nutzt Sie ViewModel, welches Informationen für die View zur Vergügung stellt.
-		\item \textbf{ViewModel: } Das ViewModel ähnelt dem Controller von MVC und stellt die Verbindung zwischen Model und View her. Hier wird die Logik, was bei Änderungen an der Benutzeroberfläche passieren soll, geschehen soll implementiert. ViewModel holt sich von Model Daten, welche die View für Darstellungszwecke benötigt. \cite{MVVMKraus} \cite{troelsen2022pro}
+		\item \textbf{View: } In der View wird die Graphische Oberfläche definiert. Zur Darstellung von Daten nutzt sie ViewModel, welches Informationen für die View zur Verfügung stellt.
+		\item \textbf{ViewModel: } Das ViewModel ähnelt dem Controller von MVC und stellt die Verbindung zwischen Model und View her. Hier wird die Logik, was bei Änderungen an der Benutzeroberfläche geschehen soll, implementiert. ViewModel holt sich von Model Daten, welche die View für Darstellungszwecke benötigt. \cite{MVVMKraus} \cite{troelsen2022pro}
 	\end{itemize}
-	Auf die Verbindung wischen den einzelnen Komponenten mit Data Binding wird im folgenden unter Entwurfsmuster eingegangen.\\
+	Auf die Verbindung wischen den einzelnen Komponenten mit Datenbindung wird im folgenden unter Entwurfsmuster eingegangen.\\
 	\textbf{Entwurfsmuster}\\
-	Nach \cite{ArchitekturmusterGoll} bieten sich für die MVC-Architektur und somit auch für die MVVM-Architektur mehrere Entwurfsmuster an. Am geläufigsten ist das Beobachter-Muster (engl. Observer-Pattern). Weitere Entwurfsmuster sind das Strategie-Muster und das Kompositum-Muster. \cite{ArchitekturmusterGoll}. Das Beobachter-Muster wird häufig in der Literatur empfohlen und kommt auch in der WPF-Anwendung roboTools umgesetzt durch sogenannte Datenbindung (engl. Data Binding) zum Einsatz. Daher fällt die Entscheidung bei der zu entwerfenden WPF-Anwendung ebenso auf MVVM mit Beobachter-Muster. Die beobachtende Komponente überwacht hierbei eine andere Komponenten. Ändert sich etwas an dem beobachtenden Objekt (wie z.B. ein Tastendruck) erkennt dies der Beobachter und kann in Folge dessen eine definierte Aktion ausführen. \cite{ArchitekturmusterGoll} Die Verbindung zwischen View und ViewModel, sowie zwischen ViewModel und Model wird mit Hilfe von Datenbindung umgesetzt. Die Datenbindung gibt sozusagen Daten zwischen einzelnen Komponenten weiter.\\
+	Nach Gollar, Koller und Watzko \cite{ArchitekturmusterGoll} bieten sich für die MVC-Architektur und somit auch für die MVVM-Architektur mehrere Entwurfsmuster an. Am geläufigsten ist das Beobachter-Muster (engl. Observer-Pattern). Weitere Entwurfsmuster sind das Strategie-Muster und das Kompositum-Muster \cite{ArchitekturmusterGoll}. Das Beobachter-Muster wird häufig in der Literatur empfohlen und kommt auch in der WPF-Anwendung roboTools umgesetzt durch sogenannte Datenbindung (engl. Data Binding) zum Einsatz. Daher fällt die Entscheidung bei der zu entwerfenden WPF-Anwendung ebenso auf MVVM mit Beobachter-Muster. Die beobachtende Komponente überwacht hierbei eine andere Komponenten. Ändert sich etwas an dem beobachtenden Objekt (wie z.B. ein Tastendruck) erkennt dies der Beobachter und kann in Folge dessen eine definierte Aktion ausführen. \cite{ArchitekturmusterGoll}\\
+	Die Verbindung zwischen View und ViewModel, sowie zwischen ViewModel und Model wird mit Hilfe von Datenbindung umgesetzt. Die Datenbindung gibt sozusagen Daten zwischen einzelnen Komponenten weiter.\\
 	\textbf{Adaption der Anwendung auf Architektur- und Entwurfsmuster}\\
-	Um die Komponenten der zu entwerfenden Software zu definieren, müssen die Anwendungen, die im UML-Diagramm (vgl. Abbildung \ref{fig:UML_Use_Case_WPF}) definiert wurden auf das Entwurfsmuster aufgeteilt werden. Ebenso müssen die Klassen für die zu entwerfende WPF-Anwendung in C\# definiert werden. Gemäß WVVM werden in der View (gemäß unternehmensinternem Standard als "MainWindow" bezeichnet)
-	die Grafik des Programms festgelegt. Hier müssen sowohl der Prokollschreiber der Systemereignisse, sowie Diagramme zur Darstellung der Prozessdaten definiert werden. In der View soll jedoch keine Logik umgesetzt und der Code auf ein Minimum begrenz werden. Im Model hingegen erfolgt gemäß MVVM die Datenhaltung und Datenverarbeitung. Hier werden Daten über die TCP/IP-Verbindung empfangen und gesendet, sowie die Daten abgespeichert. Das ViewModel (unternehmensintern als MainViewModel bezeichnet) verkünpft die View und das Model. So soll auf Knopfdruck in der View, Prozessdaten aus dem Model ausgelesen und in der View dargestellt werden. Die Logik hierfür erfolgt in dem ViewModel (hier: MainViewModel). Für den Entwurf der WPF-Anwendung bietet sich daher folgende Klassenaufteilung an, welche nachfolgend in einem UML-Klassendiagramm dargestellt ist (vgl. Abbildung \ref{fig:UMLKlassenWPF}). Diese Klassen sind in der Umsetzung mit C\# zu implementieren.
+	Um die Komponenten der zu entwerfenden Software zu definieren, müssen die Anwendungen, die im UML-Diagramm (vgl. Abbildung \ref{fig:UML_Use_Case_WPF}) definiert wurden auf das Entwurfsmuster aufgeteilt werden. Ebenso müssen die Klassen für die zu entwerfende WPF-Anwendung in C\# definiert werden. Gemäß MVVM werden in der View (gemäß unternehmensinternem Standard als "MainWindow" bezeichnet)
+	die Grafik des Programms festgelegt. Hier müssen sowohl der Protokollschreiber der Systemereignisse, sowie Diagramme zur Darstellung der Prozessdaten definiert werden. In der View soll jedoch keine Logik umgesetzt und der Code auf ein Minimum begrentz werden. Im Model hingegen erfolgt gemäß MVVM die Datenhaltung und Datenverarbeitung. Hier werden Daten über die TCP/IP-Verbindung empfangen und gesendet, sowie die Daten abgespeichert. Das ViewModel (unternehmensintern als MainViewModel bezeichnet) verkünpft die View und das Model. So soll auf Knopfdruck in der View, Prozessdaten aus dem Model ausgelesen und in der View dargestellt werden. Die Logik hierfür erfolgt in dem ViewModel (hier: MainViewModel). Für den Entwurf der WPF-Anwendung bietet sich daher folgende Klassenaufteilung an, welche nachfolgend in einem UML-Klassendiagramm dargestellt ist (vgl. Abbildung \ref{fig:UMLKlassenWPF}). Diese Klassen und ihre Funktionen sind in der Umsetzung mit C\# zu implementieren.
 	\begin{figure}
 		\begin{tikzpicture}
 			\begin{umlpackage}{ViewModel}
 				\umlclass[name=viewModel, x=0]{MainViewModel}{
 				}{
-					+ ploteDaten() : void
+					+ plotteDaten() : void \\
+					+ erfrageDaten() : void
 				}
 			\end{umlpackage}
 			
@@ -967,24 +1000,29 @@
 			\begin{umlpackage}{Model}
 				\umlclass[name=com, x=0, y=-6]{Communicator}{
 					- IP-Adresse : float \\
-					- Verbundene Clients: List Client
+					- Verbundene Clients: Dictionary
 				}{
 					+ sende Nachricht() : void \\
 					+ empfange Nachricht() : void \\
-					+ Interpretiere Datentelegramm(): void \\
-					+ Speichere Daten(): void \\
-					+ Interpretiere Systemereignis\\-Telegramm(): void \\
-					+ Speichere Systemereignisse(): void \\
-					+ Sende Aktualisierungs-Telegram \\Schwere Systemereignis(): void\\
+					
+					+ Sende Aktualisierungs-Telegramm \\Schwere Systemereignis(): void\\
 					+ Sende Positionsdaten(): void
 				}
 				
-				\umlclass[name=robot, x=8, y=-6]{Robot}{
+				\umlclass[name=robot, x=8, y=-4]{Robot}{
 					- Temperatur: int \\
 					- Fehler: bool \\
 					- Schwere Systemerigniss: int
 				}{
 					
+				}
+				\umlclass[name=interpreter, x=7, y=-8]{Interpreter}{
+					- Nachricht: byte[]
+				}{
+					+ Interpretiere Datentelegramm(): void \\
+					+ Speichere Daten(): void \\
+					+ Interpretiere Systemereignis\\-Telegramm(): void \\
+					+ Speichere Systemereignisse(): void \\
 				}
 			\end{umlpackage}
 			
@@ -992,7 +1030,9 @@
 			% Verbindungslienie zwischen SPS und Roboter mit Multiplicitäten
 			\umlassoc[pos=0.5]{MainViewModel}{MainWindow}
 			\umlassoc[pos=0.5]{MainViewModel}{Communicator}
+			\umlassoc[pos=0.5]{Communicator}{Interpreter}
 			\umlassoc[pos=0.5]{Communicator}{Robot}
+			\umlassoc[pos=0.5]{Interpreter}{Robot}
 			
 		\end{tikzpicture}
 		\caption{UML-Klassendiagramm WPF-Anwendung}
@@ -1011,7 +1051,7 @@
 	- Generierung einer HTML-Hilfe aus den Kommentaren des Source-Codes z.b. durch Doxygen
 	- Entwicklung erfolgt unter Git
 	- Einheitliche Konventionen für das Schreiben des Quellcodes: Coding Conventions!
-	\section{Stäubli-Roboter in VAL3}
+	\section{Stäubli-Roboter in VAL 3}
 	
 	\subsection{EtherCAT}
 	
