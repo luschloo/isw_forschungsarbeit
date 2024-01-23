@@ -39,7 +39,7 @@
 	breakatwhitespace=true,
 	tabsize=1,
 	frame=single,
-	gobble=4,     % Entfernt 4 Leerzeichen am Anfang jeder Zeile
+	gobble=2,     % Entfernt 4 Leerzeichen am Anfang jeder Zeile
 	literate=%
 		{Ö}{{\"O}}1
 		{Ä}{{\"A}}1
@@ -101,7 +101,6 @@
     	\acro{ip}[IP]{Internet Protocol}
     	\acro{wpf}[WPF]{Windows Presentation Foundation}
     	\acro{lan}[LAN]{Local Area Network}
-    	\acro{iee}[IEE]{Institute of Electrical and Electronis Engineers}
     	\acro{csmacd}[CSMA/CD]{Carrier Sense Multiple Access with Collision Detection}
     	\acro{fmmu}[FMMU]{Fieldbus Memory Management Unit}
     	\acro{udp}[UDP]{User Datagram Protocol}
@@ -210,7 +209,7 @@
 	\label{subsec:EthernetFeldbus}
 	Ethernet basierende Feldbusse, häufig auch als \glqq Industrial Ethernet\grqq{} bezeichnet, ermöglichen deutlich höhere Übertragungsraten als Standard-Feldbusse. Daher nimmt deren Verbreitung ständig zu und sie lösen in vielen Bereichen den Standard-Feldbus ab. \cite{hering2012elektrotechnik}\\
 	\textbf{Ethernet-Technologie}\\
-	Ethernet ist einer von mehreren Standards für die lokale Netzwerkverbindung mittels der \acs{lan}-Technologie (\acl{lan}). Sie ist im \acl{iee} 802-3- Standard (\acl{iee}) genormt. Der Aufbau eines Ethernet-Telegramms ist nachfolgend abgebildet (vgl. Abbildung \ref{fig:EthernetTelegramm}). Die Adressierung erfolgt mittels sogenannter MAC-Adresse oder IP-Adresse (mehr hierzu in Kapitel \ref{sec:TCP/IP}). \cite{riggert2002rechnernetze}\\
+	Ethernet ist einer von mehreren Standards für die lokale Netzwerkverbindung mittels der \acs{lan}-Technologie (\acl{lan}). Sie ist im IEE 802-3- Standard (Institute of Electrical and Electronis Engineers) genormt. Der Aufbau eines Ethernet-Telegramms ist nachfolgend abgebildet (vgl. Abbildung \ref{fig:EthernetTelegramm}). Die Adressierung erfolgt mittels sogenannter MAC-Adresse oder IP-Adresse (mehr hierzu in Kapitel \ref{sec:TCP/IP}). \cite{riggert2002rechnernetze}\\
 	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=1.0\linewidth]{./images/Ethernet-Telegram.png}
@@ -244,7 +243,7 @@
 		\caption{Telegrammbearbeitung \cite{ethercat}}
 		\label{fig:EtherCAT}
 	\end{figure}\\
-	Dabei wird auf dem gesamten Bus vom Ethernet-Protokoll nach \ac{iee} 802.3 nicht abgewichen. Bit-Fehler werden so durch die Prüfsumme erkannt. Neben der Stern-Topologie unterstützt EtherCAT auch eine Linien- oder Baum-Struktur und viele weitere.
+	Dabei wird auf dem gesamten Bus vom Ethernet-Protokoll nach IEE 802.3 nicht abgewichen. Bit-Fehler werden so durch die Prüfsumme erkannt. Neben der Stern-Topologie unterstützt EtherCAT auch eine Linien- oder Baum-Struktur und viele weitere.
 	EtherCAT zeichnet sich durch geringe Laufzeitverzögerungen und eine hohe Datenrate aus. Beispielsweise können 1000 E/As in nur 30 \(\mu s\) aktualisiert werden und auch eine Übertragungsrate im GBit-Bereich ist mit Erweiterung möglich. \cite{ethercat}\\
 	
 	
@@ -548,6 +547,7 @@
 	Das UML-Diagramm zeigt die Komponenten SPS, Roboter und Anlagenvisualisierung auf. Die Kommunikation zwischen SPS und Roboter erfolgt mittels Feldbus, zwischen Anlagenvisualisierung und Roboter mittels TCP/IP. Daher soll im ersten Schritt der Feldbus und die TCP/IP-Verbindung konzeptioniert werden. Erst anschließend kann das Programm des Roboters und der Anlagenvisualisierung konzeptioniert werden, da dieses maßgeblich abhängig von der Wahl und dem Aufbau der Kommunikationsverbindung ist. Nachdem die Feldbus-Verbindung und die TCP/IP-Verbindung konzeptioniert wurden sollen die zu übertragenden Daten für die TCP/IP-Verbindung konzeptioniert werden. Anschließend erfolgt die Konzeptionierung der Software für den Stäubli-Roboter und die Anlagenvisualisierung.
 	 
 	\section{Feldbus-Verbindung}
+	\label{sec:KonzeptFeldbus}
 	Aufgabe der Feldbusverbindung ist es, die Kommunikation zwischen dem Stäubli-Roboter und der Beckhoff-SPS sicherzustellen. Hierzu werden einerseits Befehle, wie zur Bewegungsdurchführung zum Roboter übertragen, andererseits Informationen, wie z.B. eine Bestätigung der vollendeten Bewegung zurück an die SPS gesandt.\\
 	\textbf{Wahl des Feldbusses}\\
 	In Kapitel \ref{sec:Feldbus} wurden die Feldbusse in Standard-Feldbusse und Ethernet basierende Feldbusse unterteilt. Die Wahl fällt hierbei auf einen Ethernet-basierenden Feldbus, weil dies der aktuelle Stand der Technik darstellt und zudem firmenintern ausnahmslos eingesetzt wird. Nach Kapitel \ref{subsec:EthernetFeldbus} sind Profinet, Ethernet/IP, EtherCAT und Sercos III häufig eingesetzte Ethernet basierende Feldbusse. Eine Gegenüberstellung der Vor- und Nachteile der einzelnen Feldbusse und eine Auswahl anhand dieser Kriterien kann jedoch entfallen, da zwei Argumente für den Einsatz von EtherCAT, alle anderen Kriterien überwiegen.\\
@@ -831,6 +831,7 @@
 	
 	\newpage
 	\section{Stäubli Roboterprogramm}
+	\label{sec:KonzeptVAL3}
 	Nachfolgend soll die Software und deren Komponenten für den Stäubli-Roboter konzeptioniert werden. Ein UML-Anwendungsdiagramm hilft die Anwendungsfälle zu definieren und die Software zu spezifizieren. Notwendige Bestandteile und Anwendungen ergeben sich aus der Anforderungsdefinition (vgl. Kapitel \ref{chap:Anforderungsdefinition}) und der Konzeptionierung der TCP/IP-Verbindung (vgl. Kapitel \ref{sec:KonzeptTCPIP}).
 	\begin{figure}[h!]
 		\centering
@@ -870,7 +871,7 @@
 		\caption{UML-Anwendungsdiagramm Roboterprogramm}
 		\label{fig:UML_Use_Case_Robo}
 	\end{figure}
-	Das Roboterprogramm erhält eine Nachricht von der Anlagenvisualisierung. Je nach Nachrichten-ID handelt es sich um eine Datenanforderungstelegramm (ID: 1) zur Anforderung von Prozessdaten oder es handelt sich um die Übermittlung von Positionsdaten von der Kamera (ID: 2). Alternativ kann über diese Nachricht auch die Schwere aktualisiert werden, ab welcher ein Systemereignis versandt werden soll (ID: 50). Handelt es sich um ein Datenanforderungstelegramm müssen die Prozessdaten abgefragt und anschließend ein Datentelegramm versendet werden. Systemereignisse, wie z.B. Fehlermeldungen sollen an die Visualisierung übermittelt werden. Hierzu müssen diese abgefragt werden. Über die SPS kann ein Befehl zur Bewegungsausführung erfolgen. Dieser muss ausgeführt und die erfolgreiche Durchführung an die SPS zurückgemeldet werden.\\
+	Das Roboterprogramm erhält eine Nachricht von der Anlagenvisualisierung. Je nach Nachrichten-ID handelt es sich um eine Datenanforderungstelegramm (ID: 1) zur Anforderung von Prozessdaten oder es handelt sich um die Übermittlung von Positionsdaten von der Kamera (ID: 5). Alternativ kann über diese Nachricht auch die Schwere aktualisiert werden, ab welcher ein Systemereignis versandt werden soll (ID: 3). Handelt es sich um ein Datenanforderungstelegramm müssen die Prozessdaten abgefragt und anschließend ein Datentelegramm versendet werden. Systemereignisse, wie z.B. Fehlermeldungen sollen an die Visualisierung übermittelt werden. Hierzu müssen diese abgefragt werden. Über die SPS kann ein Befehl zur Bewegungsausführung erfolgen. Dieser muss ausgeführt und die erfolgreiche Durchführung an die SPS zurückgemeldet werden.\\
 	Für diese Anwendungen bietet es sich an, insgesamt vier Programme anzulegen, die sich in VAL~3 wie Tasks verhalten.
 	\begin{itemize}
 		\item \textbf{Empfangen: } In diesem Programm wird die Nachricht von der Anlagenvisualisierung empfangen und interpretiert. Hier erfolgt ebenso das Auslesen und der Versand der Prozessdaten oder Alternativ die Verarbeitung der Positionsdaten oder das Aktualisieren der Schwere der Systemereignisse.
@@ -924,7 +925,7 @@
 		\label{fig:UML_Use_Case_WPF}
 	\end{figure}
 	\noindent
-	Die WPF-Anwendung muss daher wie im UML-Anwendungsdiagramm beschrieben verschiedene Funktionalitäten umsetzen. Um Prozessdaten, wie z.B. Motortemperaturen graphisch darzustellen müssen diese durch ein Datenanforderungstelegramm von den Robotern angefordert werden. Erhält die WPF-Anwendung eine eingehende Nachricht muss diese anhand der Nachrichten ID interpretiert werden. Handelt es sich um ein Datentelegramm (Nachrichten-ID = 0) müssen die Daten strukturiert abgespeichert werden, damit eine graphische Darstellung der Daten zu einem späteren Zeitpunkt und über einen längeren Zeitraum möglich ist. Dies kann beispielsweise mit einer csv.-Datei erfolgen. Eine andere Anwendung der WPF-Anwendung ist der Empfang von Systemereignissen. Diese Nachrichten können anhand ihrer Nachrichten-ID (Nachrichten-ID = 8) erkannt werden. Die Systemereignisse, wie z.B. Fehler oder Informationsmeldungen sollen dem Nutzer dargestellt werden. Darüber hinaus sollen diese zu Archivierungs- und Dokumentationszwecken lokal in einer Datei (z.B. .txt) abgespeichert werden. Systemereignisse haben dabei unterschiedliche Ereignis-Schweren von Information bis hin zu fatalem Fehler. Die WPF-Anwendung soll steuern ab welcher Schwere ein Roboter ein Systemereignis versenden soll. Dadurch können je nach Anwendung beispielsweise die Informationsmeldungen entfallen, da diese vergleichsweise von geringer Bedeutung sind. Um die Schwere der zu sendeten Systemereignisse zu aktualisieren soll die WPF-Anwendung ein Telegramm (Nachrichten-ID = 50) mit Angabe der Soll-Schwere zu dem Roboter versenden. Darüber hinaus sollen Positionsdaten von zu greifenden Objekten an den Roboter versendet werden. Die Positionsdaten werden extern von der Anwendung \glqq roboVision\grqq{} ermittelt und an die zu konfigurierende WPF-Anwendung weitergeleitet, die diese dann an den Roboter versenden kann (Nachrichten-ID = 3). Die zu entwerfende WPF-Anwendung soll den Programmablauf durch lokales Abspeichern (z.B. mit einer .txt-Datei) dokumentieren, wie z.B. das Versenden von Telegrammen, sowie interne Fehler oder besondere Ereignisse.\\
+	Die WPF-Anwendung muss daher wie im UML-Anwendungsdiagramm beschrieben verschiedene Funktionalitäten umsetzen. Um Prozessdaten, wie z.B. Motortemperaturen graphisch darzustellen müssen diese durch ein Datenanforderungstelegramm von den Robotern angefordert werden. Erhält die WPF-Anwendung eine eingehende Nachricht muss diese anhand der Nachrichten ID interpretiert werden. Handelt es sich um ein Datentelegramm (Nachrichten-ID = 2) müssen die Daten strukturiert abgespeichert werden, damit eine graphische Darstellung der Daten zu einem späteren Zeitpunkt und über einen längeren Zeitraum möglich ist. Dies kann beispielsweise mit einer csv.-Datei erfolgen. Eine andere Anwendung der WPF-Anwendung ist der Empfang von Systemereignissen. Diese Nachrichten können anhand ihrer Nachrichten-ID (Nachrichten-ID = 4) erkannt werden. Die Systemereignisse, wie z.B. Fehler oder Informationsmeldungen sollen dem Nutzer dargestellt werden. Darüber hinaus sollen diese zu Archivierungs- und Dokumentationszwecken lokal in einer Datei (z.B. .txt) abgespeichert werden. Systemereignisse haben dabei unterschiedliche Ereignis-Schweren von Information bis hin zu fatalem Fehler. Die WPF-Anwendung soll steuern ab welcher Schwere ein Roboter ein Systemereignis versenden soll. Dadurch können je nach Anwendung beispielsweise die Informationsmeldungen entfallen, da diese vergleichsweise von geringer Bedeutung sind. Um die Schwere der zu sendeten Systemereignisse zu aktualisieren soll die WPF-Anwendung ein Telegramm (Nachrichten-ID = 3) mit Angabe der Soll-Schwere zu dem Roboter versenden. Darüber hinaus sollen Positionsdaten von zu greifenden Objekten an den Roboter versendet werden. Die Positionsdaten werden extern von der Anwendung \glqq roboVision\grqq{} ermittelt und an die zu konfigurierende WPF-Anwendung weitergeleitet, die diese dann an den Roboter versenden kann (Nachrichten-ID = 5). Die zu entwerfende WPF-Anwendung soll den Programmablauf durch lokales Abspeichern (z.B. mit einer .txt-Datei) dokumentieren, wie z.B. das Versenden von Telegrammen, sowie interne Fehler oder besondere Ereignisse.\\
 	Im nächsten Schritt sollen die Softwarekomponenten, wie die Klassen der WPF-Anwendung definiert werden. Um eine effiziente und gute Struktur für die zu entwerfende Software zu erhalten wird in der Literatur auf sogenannte Muster zugegriffen. Ein Muster stellt eine bekannte und erprobte Lösungen dar \cite{agileSoftware}. Die Wiederverwendung dieser Lösungen durch Muster vermeidet Fehler und vereinfacht die Kommunikation zwischen Fachleuten. Ebenso reduzieren sich Entwicklungskosten und die Flexibilität des Entwurfes steigt \cite{ArchitekturmusterGoll}.\\
 	Nach Gollar, Koller und Watzko \cite{ArchitekturmusterGoll} lassen sich Muster im Entwurfsprozess in drei Gruppen einteilen:
 	\begin{itemize}
@@ -1054,19 +1055,58 @@
 	\section{Stäubli-Roboter in VAL 3}
 	
 	\subsection{EtherCAT}
+	Nachdem die Feldbus-Verbindung in Kapitel \ref{sec:KonzeptFeldbus} konzeptioniert wurde, wird nachfolgend die Umsetzung der gewählten Konfiguration der Feldbus-Verbindung kurz erläutert.\\
+	Um eine EtherCAT Verbindung zwischen der SPS und der Stäubli Steuerung CS9 herzustellen muss zuerst eine physische Verbindung geschaffen werden. Ein LAN-Kabel verbindet den Master SPS mit dem Slave CS9. Anschließend erfolgt eine Konfiguration der EtherCAT-Verbindung in der \acl{srs}. Hierzu dient eine in die SRS integrierte Anwendung namens \glqq SYCON.net \grqq{} des Anbieters \glqq Hilscher GmbH \grqq. Hier wird unter anderem die zu übertragende Datenmenge festgelegt. Dabei erfolgt eine detaillierte Festlegung der zu übertragenden digitalen und analogen Werte. Es werden die zu übertragenden Daten, sowie deren Größe (z.B. 1 Byte oder ein Word, welches sich aus 2 Byte zusammensetzt) festgelegt. Von der Feldbus-Konfiguration kann eine sogenannte ESI-Datei erzeugt werden, welche in die SPS geladen wird, damit diese die EtherCAT-Konfiguration kennt. Nach der erfolgreichen Konfiguration muss in VAL~3 auf die EtherCAT-Verbindung zugegriffen werden, um Werte zu lesen oder zu beschreiben. Hierzu werden die einzelnen Daten der EtherCAT-Nachricht mit Variablen in der E/A-Verwaltung verknüpft. \cite{CS9} \cite{CS9_Fieldbus}\\
+	Beispielsweise kann eine von der SPS gesendete Auftragsnummer über den Befehl \glqq aioGet\grqq{} gelesen werden. Je nach Auftragsnummer wird ein gewisser Bewegungsablauf ausgeführt.
+	\begin{lstlisting}
+		// Abfrage der Auftragsnummer von der EtherCAT-Schnittstelle
+		jobNumber = aioGet(aiJobNumber)
+		switch jobNumber
+		case 4
+			// Aufruf zur Bewegungsausführung
+			call moveToHome()
+		break
+	\end{lstlisting}
+	Ebenso können erfolgreich durchgeführte Bewegungen mit dem Befehl \glqq aioSet\grqq{} bestätigt werden, in dem eine Übergabe an die EtherCAT-Verbindung erfolgt. \cite{VAL3} 
 	
 	\subsection{TCP/IP}
-	Für die Implementierung der TCP/IP-Verbindung auf dem Controller des Stäubli-Roboters muss in der SRS eine Socket-Verbindung angelegt werden. Hierzu wird in der E/A-Verwaltung ein Client angelegt, welcher die IP-Adresse und den Port des Servers zugewiesen bekommt. Darüber hinaus wird ein sogenannter Timeout von 0 s gesetzt. Bei einem Timeout von 0 wird auf den Vorgang, welcher ein Lesen oder Schreiben sein kann gewartet. Bei einem Timeout kleiner 0 wird hingegen nicht bis zur Ausführung des Vorgangs gewartet. Be einem Timeout größer 0 wird hingegen eine gewisse Zeit gewährt, bis zu dieser der Timeout durchgeführt werden kann. Die Nachricht soll in diesem Fall jedoch direkt gelesen oder geschrieben werden, weshalb kein Spielraum im Rahmen des Timeouts gewährt wird. \cite{VAL3} Die Socket-Verbindung wird als E/A-Verbindung in VAL3 betrachtet, weshalb eine globale Variable mit dem Namen des Clients angelegt werden kann und hierüber auch gelesen und beschrieben werden kann. Die Socket-Verbindung wird nur dann erstellt, wenn sie ihm Rahmen des Programmablaufs z.B. durch die Befehle sioSet und sioGet benötigt wird. Der Client versucht dann eine Verbindung zum Server aufzubauen.   usepackage{ffcode}\\
-	num sioGet(sio siInput, num\& nData[])\\
-	Diese Funktion schreibt ein gelesenes Zeichen oder einen gelesen Array von Zeichen von siInput in das Array nData. Als Rückgabewert dient die Anzahl der gelesenen Zeichen.	
-	num sioSet(sio siOutput, num\& nData[]) \\
-	Mit dieser Funktion kann in VAL3 die zu übermittelnde Nachricht nData versendet werden, indem der E/A-Verbindung siOutput die Nachricht zugewiesen wird. Zurückgegeben wird die Anzahl der geschriebenen Zeichen oder "-1" im Falle des Timeouts. \\
-	Das Versenden von Nachrichten erfolgt über einen Byte-Array, das heißt durch die Aneinanderreihung mehrerer Bytes. Folglich muss die zu versendete Nachricht in einen Byte-Array umgewandelt werden und beim Empfangen muss der Byte-Array interpretiert werden.\\
-	num toBinary(num nValue[], num nValueSize, string sDataFormat, num\& nDataByte[])\\
+	Nach erfolgreicher Implementierung der EtherCAT-Verbindung soll die TCP/IP-Verbindung implementiert werden. Dabei sollen die in Kapitel \ref{sec:KonzeptTCPIP} getroffenen Entscheidungen zur TCP/IP-Verbindung  und dem Nachrichtenaufbau, wie dort konzeptioniert umgesetzt werden. Ebenso soll das Roboterprogramm in VAL~3 gemäß Kapitel \ref{sec:KonzeptVAL3} umgesetzt werden. Dies beinhaltet das Programm Empfangen, in welchem beispielsweise Datenanforderungstelegramme empfangen werden und mit einem Datentelegramm beantwortet werden. Ebenso sind die Programme zum Versand der Systemereignisse und zur Bewegungsausführung und Motormoment-Berechnung zu implementieren. Der Programmcode in VAL~3 wird hierbei nicht komplett aufgezeigt, sondern lediglich das Grundprinzip, sowie Besonderheiten aufgezeigt.\\
+	\textbf{Implementierung TCP/IP-Verbindung}\\
+	Für die Implementierung der TCP/IP-Verbindung auf dem Controller des Stäubli-Roboters muss in der SRS eine Socket-Verbindung angelegt werden. Hierzu wird in der E/A-Verwaltung ein Client angelegt, welcher die IP-Adresse und den Port des Servers zugewiesen bekommt. Darüber hinaus wird ein sogenannter Timeout von 0 s gesetzt. Bei einem Timeout von 0 wird auf den Vorgang, welcher ein Lesen oder Schreiben sein kann gewartet. Bei einem Timeout kleiner 0 wird hingegen nicht bis zur Ausführung des Vorgangs gewartet. Be einem Timeout größer 0 wird hingegen eine gewisse Zeit gewährt, bis zu dieser der Timeout durchgeführt werden kann. Die Nachricht soll in diesem Fall jedoch direkt gelesen oder geschrieben werden, weshalb kein Spielraum im Rahmen des Timeouts gewährt wird. \cite{VAL3} Die Socket-Verbindung wird als E/A-Verbindung in VAL3 betrachtet, weshalb eine globale Variable mit dem Namen des Clients angelegt werden kann und hierüber auch gelesen und beschrieben werden kann. Die Socket-Verbindung wird nur dann erstellt, wenn sie ihm Rahmen des Programmablaufs z.B. durch die Befehle sioSet und sioGet benötigt wird. Der Client versucht dann eine Verbindung zum Server aufzubauen.\\
+	\textbf{Empfangen}\\
+	In diesem Programm müssen zu Beginn eingehende Nachrichten der TCP/IP-Verbindung gelesen werden. Dies erfolgt mit folgendem Befehl:
+	\begin{lstlisting}
+		num sioGet(sio siInput, num\& nData[])
+	\end{lstlisting}
+	Diese Funktion schreibt ein gelesenes Zeichen oder einen gelesen Array von Zeichen von siInput in das Array nData. Als Rückgabewert dient die Anzahl der gelesenen Zeichen. Nachfolgend können die einzelnen Bytes der Nachricht interpretiert werden und somit entschieden werden, ob es sich um ein Datenanforderungstelegramm, eine Aktualisierung der Systemereigniss-Schwere oder Positionsdaten handelt.\\
+	Im Falle eines Datenanforderungstelegramm muss ein Datentelegramm gemäß der Konzeptionierung des Datentelegramms (vgl. Kapitel \ref{sec:KonzeptTCPIP})) aufgebaut werden. Hierzu werden beispielsweise Temperaturen der Antriebe von den E/A-Boards der CS9 ausgelesen. Diese eingelesenen numerischen Daten können durch folgenden Befehl in einen Byte-Strom gewandelt werden:
+	\begin{lstlisting}
+		num toBinary(num nValue[], num nValueSize, string sDataFormat, num\& nDataByte[])
+	\end{lstlisting}
 	Diese Funktion wandelt einen numerischen Wert, welcher das Datenformat sDataFormat besitzt in einen Byte-Strom und speichert diesen im Array nDataByte. Über das Datenformat wird beispielsweise angegeben ob es sich um einen Gleitkommawert handelt, ob ein Vorzeichen vorliegt und ob das Little-Endian oder das Big-Endian-Format angewandt wird. Mit nDataSize kann die Anzahl der zu kodierenden Zeichen beschränkt werden.\\
-	num fromBinary(num nDataByte[], num nDataSize, string sDataFormat, num\& nValue[])\\
-	Umgekehrt ermöglicht diese Funktion, einen empfangen Byte-Array in numerische Werte zu konvertieren. Das Ergebnis im Datenformat nDataFormat wird in nValue gespeichert. Die Anzahl der zu decodierenden Bytes wird festgelegt durch nDataSize, wenn nicht alle Bytes des Eingangs-Array nDataByte decodiert werden sollen.
-	
+	Anschließend werden die gewandelten Bytes in den Byte-Array des zusendeten Datentelegramms geschrieben. Das fertige Datentelegramm wird anschließend über folgenden Befehl versendet:
+	\begin{lstlisting}
+		num sioSet(sio siOutput, num\& nData[])
+	\end{lstlisting}
+	Mit dieser Funktion kann in VAL~3 die zu übermittelnde Nachricht nData versendet werden, indem der E/A-Verbindung siOutput die Nachricht zugewiesen wird. Zurückgegeben wird die Anzahl der geschriebenen Zeichen oder "-1" im Falle des Timeouts. \\
+	Handelt es sich anstelle des Datenanforderungstelegramm um ein Telegramm zur Aktualisierung der zu übertragenden Systemereignis-Schwere, wird eine globale Variable, welche die zu übertragende Schwere des Roboters repräsentiert überschrieben.\\
+	\textbf{Systemereignisse}\\
+	Um die Systemereignisse über TCP/IP an die Anlagenvisualisierung übertragen zu können müssen diese erst ausgelesen werden. Hierzu gibt es in VAL~3 zwei Möglichkeiten. Die eine Funktion ermöglicht die Ausgabe des gesamten Systemereignisses in ausformulierter Textform, die andere wiederum ermittelt nur den Ereigniscode. Diese beiden Funktionen werden nachfolgend in einer Vergleichstabelle mit Hilfe von Harvey Balls verglichen (vgl. Tabelle \ref{tab:getEvent-vergleich}). Der Füllheitsgrad des Harvey Balls entspricht dabei dem Grad der Zielerreichung.
+	\begin{table}[h]
+		\centering
+		\begin{tabularx}{\linewidth}{p{0.2\linewidth} >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+			\hline
+			\textbf{ } & \textbf{Ausformuliert} & \textbf{Ereigniscode}\\
+			\hline
+			Datensparend & \harveyBallQuarter& \harveyBallFull\\
+			Verständlichkeit/Einfachheit & \harveyBallThreeQuarter & \harveyBallQuarter\\
+			Flexibilität & \harveyBallThreeQuarter & \harveyBallQuarter \\
+			\hline
+		\end{tabularx}
+		\caption{Vergleich Funktion zur Ermittelung Systemereignis}
+		\label{tab:getEvent-vergleich}
+	\end{table}\newline
+	Für den Einsatz des Ereigniscodes spricht, dass der Umfang der zu übertragenden Daten viel geringer ist. Dafür muss bei dem Empfänger, der Anlagenvisualisierung, die Bedeutung der jeweiligen Ereigniscodes hinterlegt werden.
 	\section{WPF-Anwendung}
 	Wie in Stand der Technik. WPF, C, VisualStudio and DevOps.
 	
