@@ -28,6 +28,7 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{amssymb}
+\usepackage{forest}
 
 \lstset{
 	language=[Sharp]C,
@@ -124,7 +125,7 @@
 
     \section{Motivation}
     Roboter sind in unserer Welt nicht mehr wegzudenken. In unterschiedlichsten Industrien verrichten sie zuverlässig ihre Arbeit und machen eine Produktion auch in Hochlohnländern wirtschaftlich. Ihre Arbeitsleistung ist konstant, fehlerfrei und präzise. In der Lebensmittel Industrie gelten besondere Hygiene-Anforderungen, denen Roboter der \glqq Stäubli-AG\grqq{} gerecht werden. Mit ihnen können beispielsweise Wiener-Würstchen verpackt werden. Um eine solche anspruchsvolle Aufgabe zu bewältigen, entwickelt die \glqq robomotion GmbH\grqq{} komplexe Automatisierungslösungen ganz individuell nach den Kundenbedürfnissen. Eine solche Anlage setzt sich neben einem oder mehreren Robotern aus vielen weiteren Komponenten, wie z.B. einem Förderband, der zentralen Steuerung durch die \ac{sps}, sowie einer Anlagenvisualisierung zusammen. Um ein gutes Zusammenspiel aller Komponenten zu gewährleisten, ist eine Kommunikation zwischen ihnen von großer Bedeutung. Dies ist besonders wichtig, da die Datenmenge in der heutigen Zeit kontinuierlich wächst und Kunden ein großes Interesse an Informationen über ihre Anlagen und Roboter haben.
-	\section{Zielsetzung / Aufgabenstellung}
+	\section{Zielsetzung}
 	In der \glqq robomotion GmbH\grqq{} sollen Stäubli-Roboter neu eingeführt und in das bestehende Anlagensteuerungskonzept integriert werden. Hierzu soll eine bidirektionale Kommunikationsschnittstelle zwischen der Anlage und dem Roboter entworfen und implementiert werden. \\
 	Diese setzt sich aus zwei getrennten Einheiten zusammen. Eine Feldbus-Verbindung muss Befehle von der Anlagen-\ac{sps} zum Roboter übertragen.\\
 	Darüber hinaus müssen Fehlermeldungen und Prozessdaten des Roboters zur Anlage und Positionsdaten, generiert aus Kamerabildern, von der Anlage zum Roboter übertragen werden. Die Visualisierung und Verwertung dieser Daten, sowie die Bereitstellung der Positionsdaten erfolgen jedoch nicht in der \ac{sps} sondern in einer separaten Anlagenvisualisierung.\\
@@ -352,7 +353,7 @@
    	Zudem stehen zwei Ethernet-Ports (9) zur Verfügung, was eine externe Kommunikation z.B. über TCP/IP ermöglicht. Die IP-Adresse der Ethernet-Ports kann frei konfiguriert oder automatisch vergeben werden. Als Dateiübertragungs-Serverprotokoll dient "FTPS+FTP". FTP wird als Standardeinstellung verwendet, während FTPS eine sichere Authentifizierung ermöglicht. \\
    	Auf der CS9-Steuerung lassen sich sogenannte Sockets konfigurieren, welche eine TCP/IP oder eine UDP/IP - Kommunikation ermöglichen. Die Konfiguration kann dabei im Client oder Server-Modus erfolgen. \cite{CS9} Ebenso kann die Steuerung für den Einsatz von OPC UA konfiguriert werden, hierbei kommen jedoch einmalige Lizenzkosten von ca. 500 € pro Roboter hinzu.
    	 
-   	\subsection{Programmiersprache VAL3}
+   	\subsection{Programmiersprache VAL 3}
    	Die Programmierung des Roboters kann auf dem Handbediengerät erfolgen oder bevorzugt in der \ac{srs}. In der SRS kann neben der Programmierung eine Simulation des Roboters inklusive 3D-Darstellung erfolgen, sodass die Programme direkt getestet werden können.\\
    	\glqq VAL 3\grqq{} ist eine höhere Programmiersprache und besitzt spezielle Steuerungsfunktionen für den Roboter zur Bewegungsteuerung und zur Ansteuerung von Ein-/Ausgängen. \cite{VAL3}\\
    	\textbf{Programm} \\
@@ -471,6 +472,7 @@
 		11 & Visualisierung der Daten & Kann  \\
 		12 & Verwertung der Daten z.B. für Warnungen & Kann  \\  
 		13 & Übersichtliche Darstellung aller Daten und Meldungen & Kann  \\ 
+		14 & Melden, dass Bahnpunkte umgeteacht wurden & Kann  \\ 
 		\hline
 	\end{longtable}
 	\noindent Im Rahmen dieser Arbeit ist die Feldbus-Verbindung zwischen SPS und Roboter zu entwerfen. Der Fokus liegt jedoch auf der TCP/IP-Verbindung zwischen Roboter und Anlagenvisualisierung. Darüber hinaus ist das Programm für den Roboter zu konzeptionieren und zu implementieren.\\
@@ -691,6 +693,7 @@
 				
 				% Nachrichten vom Server zum Client
 				\begin{umlcall}[op={Aktualisiere Schwere}, dt=5]{S}{C}
+				
 			
 					\begin{umlcall}[op={Sende Systemereignis}, dt=5]{C}{S}
 					\end{umlcall}
@@ -827,7 +830,7 @@
  	\textbf{Drehmoment Achsen}\\
  	Das Drehmoment der einzelnen Achsen ändert sich kontinuierlich während der Bewegung. Durch das Vergleichen der Drehmomente mit einer Referenzfahrt können  Auffälligkeiten entdeckt werden. Schleichend zunehmende Momente deuten z.B. auf fehlende Schmierung oder Lagerdefekte hin. Abrupt zunehmende Momente können durch ein Festhängen oder einen Crash verursacht werden. Eine Dokumentation der Abweichungen ist sinnvoll, um aus Gewährleistungsgründen unsachgemäße Verwendung nachzuweisen. Da sich die Momente hochdynamisch ändern, ist es nicht sinnvoll das aktuelle Moment zu übertragen, da minimale Zeitabweichungen zu großen Schwankungen führen können. Sinnvoller ist es, die Momente über einen kompletten Bewegungsablauf aufzuintegrieren und nur dieses Ergebnis zu übertragen.\\
 	\textbf{Sytemereignisse}\\
-	Ereignisse, die von der Steuerung festgestellt werden, wie z.B. Fehlermeldungen oder das Einschalten der Energieversorgung für die Achsen werden in einer system-log-Datei aufgezeichnet. Sie lassen sich in die Schweregrade \glqq Info\grqq{}, \glqq Warning\grqq{}, \glqq Error\grqq{} und \glqq Critical\grqq{} unterteilen. Das Auslesen der Systemereignisse kann mit dem Befehl \glqq getEvents\grqq{} erfolgen. Diese sollen wie bereits bei der Konzeptionierung der TCP/IP-Verbindung festgelegt, beim Auftreten sofort über TCP/IP übertragen werden.\\
+	Ereignisse, die von der Steuerung festgestellt werden, wie z.B. Fehlermeldungen oder das Einschalten der Energieversorgung für die Achsen werden in einer system-log-Datei aufgezeichnet. Sie lassen sich in die Schweregrade \glqq Info\grqq{}, \glqq Warning\grqq{}, \glqq Error\grqq{} und \glqq Critical\grqq{} unterteilen. Das Auslesen der Systemereignisse kann mit dem Befehl \glqq getEvents\grqq{} erfolgen. Diese sollen wie bereits bei der Konzeptionierung der TCP/IP-Verbindung festgelegt, beim Auftreten sofort über TCP/IP übertragen werden. Ein Systemereignis wird erzeugt, wenn Bahnpunkte am Roboter umgeteacht werden. Daher erfolgt automatisch eine Meldung an die Anlagenvisualisierung, wenn Änderungen an der Bewegungsbahn vorgenommen wurde. Dadurch ist diese Anforderung aus dem Lastenheft berücksichtigt. \\
 	\textbf{Aufbau Datentelegramm}\\
 	Das Datentelegramm ist mit den ausgewählten Daten ist wie nachfolgend dargestellt (vgl. Abbildung \ref{tab:Datentelegramm}) aufgebaut.
 	Dadurch dass mehrere Werte aufgrund der Sechsachsen sechsfach vorkommen ist eine Anzahl von 6 Bytes notwendig. Für das Motormoment kommen je Achse 2 Bytes zum Einsatz, da die Werte zu groß für ein einzelnes Byte sind. In den 8 Bytes, gefüllt mit einzelnen binären Werten ist eine Vielzahl von Informationen, wie z.B. CPU overcurrent, Feedback der Ventile, Fehler der Bremsen oder das Ergebnis des Bremsentests gespeichert.
@@ -1069,17 +1072,6 @@
 	\end{figure}
 	
 	\chapter{Design und Implementierung}
-	Design: Vergleich von Lösungsbausteinen (z.B. Vergleich Softwarebibliotheken) und Auswahl) auf Basis von Anforderungen und Recherche. Wissenschaftliche Bewertungskriterien nötig. Harvey-Diagramm.
-	
-	Neben grundlegenden Entwurfsentscheidungen wird die Beschreibung einzelner Komponenten detailiert. Für komplexe Komponenten UML-Klassendiagramm
-	Definition Schnittstelle zwischen den Komponenten und Kommunikation in Form von Sequenzdiagramm
-	
-	
-	Implementierung
-	- Programmierung erfolgt gemäß den in Softwarespezifikation und entwurf festgelegten Randbedingungen, Kommentierung von Source Code ist essentiell. Gemäß bestehenden Standards (z.B. xdoc)
-	- Generierung einer HTML-Hilfe aus den Kommentaren des Source-Codes z.b. durch Doxygen
-	- Entwicklung erfolgt unter Git
-	- Einheitliche Konventionen für das Schreiben des Quellcodes: Coding Conventions!
 	\section{Stäubli-Roboter in VAL 3}
 	
 	\subsection{EtherCAT}
@@ -1291,9 +1283,213 @@
    		\label{fig:WPF_GUI_Graph}
    	\end{figure}
    	
-   	Hierbei wurde versucht alle Informationen zu integrieren. Beispielhaft ist die Protokollierung des Programmablaufes enthalten, auch wenn eine Integration dieser Ausgabe für den Endnutzer in roboTools nicht vorgesehen ist, sondern lediglich eine lokale Speicherung. Zu Debugging-Zwecken oder zur Fehlerfindung an dem Roboter bei Reperaturarbeiten ist eine Ausgabe aller Daten jedoch hilfreich.
-   	\chapter{Validierung und Ergebnis}
+   	Hierbei wurde versucht alle Informationen zu integrieren. Beispielhaft ist die Protokollierung des Programmablaufes enthalten, auch wenn eine Integration dieser Ausgabe für den Endnutzer in roboTools nicht vorgesehen ist, sondern lediglich eine lokale Speicherung. Zu Debugging-Zwecken oder zur Fehlerfindung an dem Roboter bei Reparaturarbeiten ist eine Ausgabe aller Daten jedoch hilfreich.
+   	\chapter{Validierung}
+   	Die korrekte und zuverlässige Funktionsweise des entworfenen Systems und insbesondere der Software ist von zentraler Bedeutung \cite{liggesmeyer2009software}.
+   	Ein Test wird dazu genutzt, um einen Nachweis zu erzielen, dass die Funktionsweise gegeben ist. Hierbei kann in Funktionstests und Fehlertests unterschieden werden. Funktionstests dienen dazu, zu prüfen, ob die vorgegebenen Funktion erfüllt sind. Fehlertests hingegen prüfen die Fehlertoleranz des Systems. \cite{ISWLeitfaden} \cite{Sommerville} \\
+   	Beide Testarten sollen in diesem Rahmen zur Validierung zum Einsatz kommen.\\
+   	\section{Funktionstests}
+   	Um die Funktionalität des entworfenen Systems nachzuweisen, soll das System unter realen Bedingungen getestet werden. Hierzu wird an den Stäubli-Roboter TX2-90 ein Greifer für Wiener-Würstchen montiert. Ebenso wird ein Windows-PC, auf welchem die WPF-Anwendung läuft mit dem Steuergerät CS9 des Roboters über LAN-Kabel verbunden (vgl. Abbildung \ref{fig:Robo}).
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=0.7\linewidth]{./images/Robo_Greifer.png}
+   		\caption{Roboteraufbau mit Greifer und WPF-Anwendung}
+   		\label{fig:Robo}
+   	\end{figure}\\
    	
+   	\noindent
+   	Folgende Funktionalitäten werden nachfolgend am Gesamtsystem getestet:\\
+   	\begin{itemize}
+   		\item \textbf{1. Übertragung Warnungen/Fehlermeldungen/...:} Zum Testen, ob beispielsweise Fehlermeldungen wie gewünscht übertragen werden, erfolgt ein Provozieren von Fehlern oder Warnungen durch den Versuch von manuellem Verfahren im Betrieb oder durch das Auslösen des Not-Halts. Dies lässt der Roboter nicht zu und generiert ein Systemereignis.
+   		\item \textbf{2. Übertragen bei Umteachen:} Es wird ein Punkt der Roboterbahn umgeteacht, um zu überprüfen, ob diese Meldung an die WPF-Anwendung übertragen wird.
+   		\item \textbf{3. Änderung Ereignisschwere:} Die Schwere, ab derer der Roboter die Systemereignisse übertragen soll, wird in der appsettings.json-Datei der WPF-Anwendung angepasst. Abschließend kann überprüft werden, ob der Roboter nur die Ereignisse gemäß den Vorgaben überträgt.
+   		\item \textbf{4. Anzeige der Prozessdaten:} Es wird überprüft, ob Prozessdaten, wie Temperaturen korrekt übertragen werden.
+   		\item \textbf{5. Integration der Motormomente:} Die Motormomente werden über einen gesamten Bewegungsablauf aufgezeichnet. Durch das Aufbringen einer externen Kraft, soll der Einfluss auf das integrierte Moment untersucht werden.
+   		\item \textbf{6. Binäre Werte zur Fehlerüberwachung: } Es wird eine Vielzahl von binären-Werten im Datentelegramm übertragen, wie z.B. die Informationen ob ein CPU-Überstrom vorliegt. Zum Testen, wir der Wert manuell am Stäubli-Roboter manipuliert.
+   		\item \textbf{7. Verbindung mehrerer Roboter: } Da als Hardware nur ein Roboter zur Verfügung steht, kann die Kommunikation mit mehreren Robotern nicht unter realen Bedigungen getestet werden. Um dies dennoch möglichst praxisnah zu validieren wird ein physischer Roboter über das LAN-Kabel mit dem Windows-Rechner verbunden. Ein weiterer Roboter, wird durch ein TCP/IP-Client-Terminal simuliert. In dieser virtuellen Client-Anwendung werden Nachrichten an den Roboter gesendet, so wie Nachrichten von dem Roboter empfangen.
+   	\end{itemize}
+   	Die Ergebnisse dieser Funktionstests sollen nachfolgend kurz dargestellt werden. Dabei wird die Funktion durch Bildschirmfotos der Benutzeroberfläche unterstrichen, um einen Eindruck über die entworfene Anwendung zu vermitteln.\\
+   	\textbf{1. Übertragung Warnungen/Fehlermeldungen/...}\\
+   	Die Systemereignisse, die am Stäubli-Roboter entstanden sind, wie einfache Infomeldungen oder vorliegende Fehler wurden erfolgreich an die WPF-Anwendung übertragen. Dort wurden sie wie folgt ausschnitthaft dargestellt ausgegeben (vgl. Abbildung \ref{fig:AnzeigeEvents}):
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=1\linewidth]{./images/Fehlermeldung.png}
+   		\caption{Anzeige Systemereignisse}
+   		\label{fig:AnzeigeEvents}
+   	\end{figure}\\
+   	\textbf{2. Übertragung bei Umteachen}\\
+   	Ebenso wurde beim Umteachen von Bewegungspunkten erfolgreich eine Meldung in der WPF-Anwendung ausgegeben (vgl. Abbildung \ref{fig:Umteachen}).
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=1\linewidth]{./images/Umteachen.png}
+   		\caption{Meldung bei Umteachen von Bewegungspunkten}
+   		\label{fig:Umteachen}
+   	\end{figure}\\
+   	\textbf{3. Änderung Ereignisschwere}\\
+   	Nach Anpassung der Ereigniss-Schwere in der WPF-Anwendung wurden wie gewünscht nur noch die Systemereignisse aber dieser Schwere übertragen. Bei Setzten der Ereignis-Schwere auf 2 wurden die einfachen Informationsmeldungen nicht mehr übertragen, sondern lediglich Warnungen oder noch schwerwiegendere Ereignisse.\\
+   	\textbf{4. Anzeige der Prozessdaten}\\
+   	Die Prozessdaten des Roboters werden wie gewünscht in der WPF-Anwendung angezeigt (vgl. Abbildung \ref{fig:Prozessdaten}). Ebenso ist es möglich zwischen potentiell mehreren Robotern über ein Drop-Down-Menü zu wechseln. Über die Aktualisierungs-Schaltfläche können die Grafiken aktualisiert werden.
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=1\linewidth]{./images/Prozessdaten.png}
+   		\caption{Visualisierung der Prozessdaten}
+   		\label{fig:Prozessdaten}
+   	\end{figure}\\
+   	\textbf{5. Integration der Motormomente}\\
+   	Eine Besonderheit stellen die Motormomente dar, da diese nicht wie andere Prozessdaten unverarbeitet übertragen werden, sondern über einen gesamten Bewegungsablauf über die Zeit integriert werden. Im Testfall wurde auf den Greifer zeitweise eine externe Kraft aufgebracht, um den Einfluss der Last auf das Motormoment zu erkennen. In dem Drehmomentenverlauf ist ein deutlicher Anstieg der Momente, in den Bewegungsabläufen zu sehen, in denen eine Kraft aufgeprägt war (vgl. Abbildung \ref{fig:Motormomente}). Für die Motormomente, ergeben sich vielfältige Nutzungspotentiale. Ein Anstieg der Motormomente kann darauf hindeuten, dass die Achse geschmiert werden soll oder das ein Defekt z.B. am Lager vorliegt. Bei Überschreiten von Grenzwerten, die für jeden Anwendungsfall individuell bestimmt werden müssen, kann der Bediener gewarnt werden. Im Idealfall kann bereits durch das Erkennen von Tendenzen im Momentenverlauf, eine Wartung vorgenommen werden, bevor eine Schädigung überhaupt eintritt. Hierbei spricht man von vorausschauender Wartung, was die Ausfallzeiten der Anlage deutlich reduzieren kann.
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=0.7\linewidth]{./images/Motormomente.png}
+   		\caption{Visualisierung der integrierten Motormomente}
+   		\label{fig:Motormomente}
+   	\end{figure}\\
+   	\textbf{6. Binäre Werte zur Fehlerüberwachung}\\
+   	Von dem Roboter werden eine Vielzahl an binären Werten zu der WPF-Anwendung übertragen. Manche von ihnen sind ein Fehlerindikator. Wird z.B. der CPU Überstrom auf true bei dem Roboter manipuliert, wird dies von der WPF-Anwendung in der Fehleranalyse wie gewünscht entdeckt und ausgegeben (vgl. Abbildung \ref{fig:binarFehler}).
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=0.7\linewidth]{./images/BinarFehler.png}
+   		\caption{Binäre Werte zur Fehlerüberwachung}
+   		\label{fig:binarFehler}
+   	\end{figure}\\
+   	\textbf{7. Verbindung mehrerer Roboter}\\
+   	Durch eine virtuelle Client-Anwendung wird der Einsatz von mehreren Robotern nachgebildet. Die Kommunikation der WPF-Anwendung mit mehreren Clients erfolgt wie gewünscht und es erfolgt eine Ausgabe der verbundenen Clients (Roboter) im dafür eingerichteten Ausgabefelder der WPF-Anwendung (vgl. Abbildung \ref{fig:VerbundeneRoboter}).
+   	\begin{figure}[!ht]
+   		\centering
+   		\includegraphics[width=0.7\linewidth]{./images/VerbundeneRoboter.png}
+   		\caption{Anzeige der verbundenen Roboter}
+   		\label{fig:VerbundeneRoboter}
+   	\end{figure}\\
+   	\section{Fehlertests}
+   	Ein Fehler ist dadurch definiert, dass das Ergebnis nicht den Anforderungen entspricht und es zu einem Fehlverhalten kommt. \cite{pilorget2012test}\\
+   	Fehler können sehr vielfältiger Natur sein. Insbesondere solche, die nur in speziellen Ausnahmefällen auftreten, sind schwer zu entdecken. Ein Ermitteln und Testen aller Ausnahmefällen ist daher schlicht unmöglich. Ziel ist es daher, möglichst viele spezielle Anforderungen an das System zu identifizieren, welche zu Fehlern führen können und diese anschließend zu testen. Für eine systematische Analyse von potentiellen Fehlerursachen sollen ein Fehlerbäume eingesetzt werden. Diese ermöglichen es Zusammenhänge zwischen Ursache und Wirkung darzustellen. \cite{liggesmeyer2009software}\\
+   	Hierzu werden in einem ersten Schritt mögliche Fehler, wie z.B. ein Programm-Absturz durch Brainstorming identifiziert. In einem zweiten Schritt werden mögliche Ursachen ermittelt, welche zu den genannten Fehlern führen könnten. Ein Testen durch bewusste Provozieren dieser Fehlerursachen ermöglicht es potentielle Fehler zu entdecken und die Fehlertoleranz des Systems zu validieren. Die entworfenen Fehlerbäume für mögliche Fehler sind nachfolgend dargestellt (vgl. Abbildung \ref{fig:Fehlerbaum_1}, \ref{fig:Fehlerbaum_2}, \ref{fig:Fehlerbaum_3} und \ref{fig:Fehlerbaum_4}).
+
+   	
+   	\begin{figure}[h!]
+   		\centering
+   		\begin{forest}
+   			for tree={
+   				parent anchor=south,
+   				child anchor=north,
+   				l sep+=1mm,
+   				s sep+=1mm, % kleinerer vertikaler Abstand
+   				if n children={0}{
+   					tier=terminus,
+   					draw,
+   					rectangle,
+   					rounded corners,
+   					fill=red!20,
+   				}{},
+   			}
+   			[Verbindungsabbruch
+   			[\fbox{$\geq 1$}
+   			[Entferntes LAN-Kabel
+   			]
+   			[Neustart Anlagenvisualierung
+   			]
+   			[Neustart Roboter
+   			]
+   			]
+   			]
+   		\end{forest}
+   		\caption{Fehlerbaumdiagramm Verbindungsabbruch}
+   		\label{fig:Fehlerbaum_1}
+   	\end{figure}
+   	
+   	\begin{figure}[h!]
+   		\centering
+   		\begin{forest}
+   			for tree={
+   				parent anchor=south,
+   				child anchor=north,
+   				l sep+=0.5mm,
+   				s sep+=1mm, % kleinerer vertikaler Abstand
+   				if n children={0}{
+   					tier=terminus,
+   					draw,
+   					rectangle,
+   					rounded corners,
+   					fill=red!20,
+   				}{},
+   			}
+   			[Nachrichtenverzug
+   			[\fbox{$\geq 1$}
+   			[Viele Systemereignisse
+   			]
+   			[Hohe Datenanforderungsrate
+   			]
+   			]
+   			]
+   		\end{forest}
+   		\caption{Fehlerbaumdiagramm Nachrichtenverzug}
+   		\label{fig:Fehlerbaum_2}
+   	\end{figure}
+   	
+   	\begin{figure}[h!]
+   		\centering
+   		\begin{forest}
+   			for tree={
+   				parent anchor=south,
+   				child anchor=north,
+   				l sep+=0.5mm,
+   				s sep+=1mm, % kleinerer vertikaler Abstand
+   				if n children={0}{
+   					tier=terminus,
+   					draw,
+   					rectangle,
+   					rounded corners,
+   					fill=red!20,
+   				}{},
+   			}
+   			[Absturz Roboterprogramm
+   			[\fbox{$\geq 1$}
+   			[Entferntes LAN-Kabel
+   			]
+   			[Neustart Anlagenvisualisierung
+   			]
+   			]
+   			]
+   		\end{forest}
+   		\caption{Fehlerbaumdiagramm Absturz Roboterprogramm}
+   		\label{fig:Fehlerbaum_3}
+   	\end{figure}
+   	
+   	\begin{figure}[h!]
+   		\centering
+   		\begin{forest}
+   			for tree={
+   				parent anchor=south,
+   				child anchor=north,
+   				l sep+=0.5mm,
+   				s sep+=1mm, % kleinerer vertikaler Abstand
+   				if n children={0}{
+   					tier=terminus,
+   					draw,
+   					rectangle,
+   					rounded corners,
+   					fill=red!20,
+   				}{},
+   			}
+   			[Absturz WPF-Anwendung
+   			[\fbox{$\geq 1$}
+   			[\begin{tabular}{@{}c@{}}Entferntes \\ LAN-Kabel\end{tabular}
+   			]
+   			[\begin{tabular}{@{}c@{}}Neustart \\ Roboter\end{tabular}
+   			]
+   			[\begin{tabular}{@{}c@{}}Erhalt falscher \\ Nachricht\end{tabular}
+   			]
+   			[\begin{tabular}{@{}c@{}}CSV-Datei \\ gesperrt/gelöscht\end{tabular}
+   			]
+   			]
+   			]
+   		\end{forest}
+   		\caption{Fehlerbaumdiagramm Absturz WPF-Anwendung}
+   		\label{fig:Fehlerbaum_4}
+   	\end{figure}
+   	\noindent
+   	Alle ermittelten möglichen Fehlerursachen, wie z.B. das Entfernen des LAN-Kabels, wurden zur Validierung getestet, um auszuschließen, dass es zu einem Fehler kommt.
+   	Nach kleineren Optimierungen an der WPF-Anwendung ist es dem System nun möglich, auf alle potentiellen Fehlerursachen zu reagieren und eine robuste und fehlerfreie Fortführung des Systems zu gewährleisten. Beispielsweise wird beim Neustart des Roboters eine Meldung in der WPF-Anwendung ausgegeben, dass die Verbindung verloren gegangen ist. Nach dem Wiederhochfahren baut die Verbindung jedoch selbst wieder auf und die Kommunikation fährt automatisch fort. Ebenso verursacht ein Löschen der CSV-Datei keinen Fehler, da in diesem Fall das System selbst eine neue Datei anlegt. Wird die CSV-Datei durch ein anderes System, wie z.B. Excel blockiert, hindert dies die Funktionsweise nicht, da sich die WPF-Anwendung eine Kopie der CSV-Datei anlegt. Eine Validierung des Systems ist hiermit nach bestem Gewissen sichergestellt. Dennoch ist darauf hinzuweisen, dass besondere unvorhergesehene Ereignisse nicht ausgeschlossen werden können. Die Robustheit von Software kann jedoch durch längerfristige Benutzung im Betrieb weiter verbessert werden. 
+
    	\chapter{Ausblick und Fazit}
    	Übertrag auf andere Hersteller
    	\backmatter
