@@ -402,6 +402,7 @@
    		\centering
    		\begin{tikzpicture}[node distance=2cm]
    			% Erste Reihe von Boxen
+   			% Erste Reihe von Boxen
    			\node[draw, rectangle, align=center] (box1) at (3cm,0) {Beckhoff-SPS\\ };
    			\node[draw, rectangle, align=center] (box2) at (9cm,0) {Anlagenvisualisierung\\(roboTools)};
    			\node[draw, rectangle, align=center] (box3) at (-3cm,0) {Bildverarbeitung\\(roboVision)};
@@ -697,7 +698,7 @@
 				
 				% Nachrichten vom Server zum Client
 				\begin{umlcall}[op={Aktualisiere Schwere}, dt=5]{S}{C}
-			
+			\end{umlcall}
 			
 					\begin{umlcall}[op={Sende Systemereignis}, dt=5]{C}{S}
 					\end{umlcall}
@@ -711,7 +712,7 @@
 					% Nachrichten vom Client zum Server
 					\begin{umlcall}[op={Datentelegramm}, dt=3]{C}{S}
 					\end{umlcall}
-				\end{umlcall}
+				
 			\end{umlseqdiag}
 		\end{tikzpicture}
 		\caption{Sequenzdiagramm TCP/IP}
