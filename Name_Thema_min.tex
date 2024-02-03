@@ -6,6 +6,7 @@
 
 \usepackage[ngerman]{babel} % If the thesis is in English
 \usepackage[hidelinks]{hyperref}
+\usepackage[table]{xcolor}
 \usepackage {longtable}
 \usepackage{tikz}
 \usetikzlibrary{positioning,calc}
@@ -15,7 +16,7 @@
 \usetikzlibrary{matrix}
 \usetikzlibrary{fit,matrix,shapes.geometric}
 \usetikzlibrary{positioning, shapes, arrows, decorations.pathreplacing}
-\usepackage[table]{xcolor}
+
 \usepackage{nicematrix,booktabs,tikz}
 \usepackage{harveyballs}
 \usepackage{tabularx}
@@ -26,7 +27,7 @@
 \usepackage{amsmath}
 \usepackage[nohyperlinks, printonlyused]{acronym}
 \usepackage{listings}
-\usepackage{xcolor}
+%\usepackage{xcolor}
 \usepackage{amssymb}
 \usepackage{forest}
 
@@ -77,6 +78,7 @@
 \title{Konzeption und Implementierung einer Diagnoseschnittstelle zwischen Industrieroboter und Anlagensteuerung}
 \titleTranslated{Design and Implementation of a Diagnostic Interface between Industrial Robot and Control System}
 \matrnr{3668915}
+\address{Bläuering 16, 72160 Horb}
 \date{\today}
 \supervisor{Dr.-Ing. Andreas Wolf, Dipl.-Ing. Daniel Knauss}
 \professor{Prof. Dr.-Ing. Alexander Verl}
@@ -87,9 +89,10 @@
     
     \cleardoublepage
 	\setcounter{page}{1} % start at page (i) after title page
-    %\declarationOfOriginality
+    \declarationOfOriginality
 
     % Kurzfassung/Abstract
+    \input{chapters/Abstract}
     
     \cleardoublepage
     \tableofcontents
