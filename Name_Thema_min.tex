@@ -393,27 +393,27 @@
    	\textbf{roboVision}\\
    	Häufig werden in Anlagen Industriekameras eingesetzt, um die Position von Objekten zu ermitteln oder eine automatisierte Qualitätskontrolle vorzunehmen. Zur Weiterverarbeitung der Kameradaten, um die Position oder die Qualitätsgüte zu bestimmen kommt das Programm \glqq roboVision\grqq{} zum Einsatz. Wie roboTools handelt es sich um ein WPF-Anwendung, welche auf einem Windows-Betriebssystem läuft. \\
    	\textbf{Hardware und Zusammenspiel}\\
-   	Sowohl roboTools, als auch roboVision laufen auf einem IPC. Dies kann der selbe IPC sein, auf dem bereits die SPS läuft. Insbesondere für roboVision wird jedoch meist ein eigenständiger leistungsfähiger IPC eingesetzt, da für die Bildverarbeitung eine hohe Rechenleistung zur Verfügung stehen muss. Für die Umsetzung der Kommunikationsschnittstelle, spielt dies jedoch keine große Rolle, da sich alle IPCs in einem Netzwerk befinden. Das Zusammenspiel dieser Komponenten ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:Anlagensteuerung}). Die Kommunikation zwischen Beckhoff-SPS und einer Robotersteuerung erfolgt bei robomotion über EtherCAT. Die Kommunikation zwischen der SPS, roboTools und roboVision über ein spezielles Kommunikationsprotokoll namens \acs{ads} (\acl{ads}) von Beckhoff. ADS ermöglicht den Datenaustausch von verschiedenen Systemen über die Netzwerkverbindung, die bereits zwischen der SPS, roboTools und roboVision besteht. \cite{ADS}\\
+   	Sowohl roboTools, als auch roboVision laufen auf einem IPC. Dies kann der selbe IPC sein, auf dem bereits die SPS läuft. Insbesondere für roboVision wird jedoch meist ein eigenständiger leistungsfähiger IPC eingesetzt, da für die Bildverarbeitung eine hohe Rechenleistung zur Verfügung stehen muss. Für die Umsetzung der Kommunikationsschnittstelle, spielt dies jedoch keine große Rolle, da sich alle IPCs in einem Netzwerk befinden. Das Zusammenspiel dieser Komponenten ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:Anlagensteuerung}). Die Kommunikation zwischen Beckhoff-SPS und einer Robotersteuerung erfolgt bei robomotion mit dem Feldbus EtherCAT. Die Kommunikation zwischen der SPS, roboTools und roboVision über ein spezielles Kommunikationsprotokoll namens \acs{ads} (\acl{ads}) von Beckhoff. ADS ermöglicht den Datenaustausch von verschiedenen Systemen über die Netzwerkverbindung, die bereits zwischen der SPS, roboTools und roboVision besteht. \cite{ADS}\\
    	
    	\begin{figure}
    		\centering
    		\begin{tikzpicture}[node distance=2cm]
-   			
    			% Erste Reihe von Boxen
-   			\node[draw, rectangle] (box1) at (-2cm,0) {Beckhoff-SPS};
-   			\node[draw, rectangle] (box2) at (2cm,0) {roboTools};
-   			\node[draw, rectangle] (box3) at (6cm,0) {roboVision};
+   			\node[draw, rectangle, align=center] (box1) at (3cm,0) {Beckhoff-SPS\\ };
+   			\node[draw, rectangle, align=center] (box2) at (9cm,0) {Anlagenvisualisierung\\(roboTools)};
+   			\node[draw, rectangle, align=center] (box3) at (-3cm,0) {Bildverarbeitung\\(roboVision)};
    			
    			% Zweite Reihe von Boxen
-   			\node[draw, rectangle] (box4) at (-2,-2cm) {Roboter-Steuerung};
-   			\node[draw, rectangle] (box5) at (6cm,-2cm) {Kamera};
+   			\node[draw, rectangle] (box4) at (3cm,-3cm) {Roboter-Steuerung};
+   			\node[draw, rectangle] (box5) at (-3cm,-3cm) {Kamera};
    			
-   			% Linien verbinden die Boxen
+   			% Linien verbinden die Boxen und Beschriftungen hinzufügen
    			\draw (box1) -- node[above] {ADS} (box2);
-   			\draw (box2) -- node[above] {ADS} (box3);
-   			\draw (box1) -- node[right] {EtherCAT} (box4);
-   			% \draw (box2) -- (box4);
-   			\draw (box3) -- (box5);
+   			\draw (box1) -- node[above] {ADS} (box3);
+   			\draw (box1) -- node[left] {Feldbus} (box4);
+   			\draw (box3) -- node[right] {} (box5);
+   			
+   		
    			
    		\end{tikzpicture}
    		\caption{Anlagensteuerung Aufbau}
@@ -483,17 +483,18 @@
 		\centering
 		\begin{tikzpicture}[node distance=2cm]
 			% Erste Reihe von Boxen
-			\node[draw, rectangle, align=center] (box1) at (-3cm,0) {Beckhoff-SPS\\ };
-			\node[draw, rectangle, align=center, fill=green!20] (box2) at (3cm,0) {Anlagenvisualisierung\\(spätere Integration in roboTools)};
-			\node[draw, rectangle, align=center] (box3) at (9cm,0) {Bildverarbeitung\\(roboVision)};
+			% Erste Reihe von Boxen
+			\node[draw, rectangle, align=center] (box1) at (3cm,0) {Beckhoff-SPS\\ };
+			\node[draw, rectangle, align=center, fill=green!20] (box2) at (9cm,0) {Anlagenvisualisierung\\(spätere Integration in roboTools)};
+			\node[draw, rectangle, align=center] (box3) at (-3cm,0) {Bildverarbeitung\\(roboVision)};
 			
 			% Zweite Reihe von Boxen
-			\node[draw, rectangle, fill=green!20] (box4) at (0,-3cm) {Roboter-Steuerung};
-			\node[draw, rectangle] (box5) at (9cm,-3cm) {Kamera};
+			\node[draw, rectangle, fill=green!20] (box4) at (3cm,-3cm) {Roboter-Steuerung};
+			\node[draw, rectangle] (box5) at (-3cm,-3cm) {Kamera};
 			
 			% Linien verbinden die Boxen und Beschriftungen hinzufügen
 			\draw (box1) -- node[above] {ADS} (box2);
-			\draw (box2) -- node[above] {ADS} (box3);
+			\draw (box1) -- node[above] {ADS} (box3);
 			\draw (box1) -- node[left, fill=green!20] {Feldbus} (box4);
 			\draw (box2) -- node[right, fill=green!20] {TCP/IP} (box4);
 			\draw (box3) -- node[right] {} (box5);
@@ -693,7 +694,7 @@
 				
 				% Nachrichten vom Server zum Client
 				\begin{umlcall}[op={Aktualisiere Schwere}, dt=5]{S}{C}
-				
+			
 			
 					\begin{umlcall}[op={Sende Systemereignis}, dt=5]{C}{S}
 					\end{umlcall}
