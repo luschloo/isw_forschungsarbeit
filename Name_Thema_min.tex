@@ -127,11 +127,11 @@
     \chapter{Einleitung}
 
     \section{Motivation}
-    Roboter sind in unserer Welt nicht mehr wegzudenken. In unterschiedlichsten Industrien verrichten sie zuverlässig ihre Arbeit und machen eine Produktion auch in Hochlohnländern wirtschaftlich. Ihre Arbeitsleistung ist konstant, fehlerfrei und präzise. In der Lebensmittel Industrie gelten besondere Hygiene-Anforderungen, denen Roboter der \glqq Stäubli-AG\grqq{} gerecht werden. Mit ihnen können beispielsweise Wiener-Würstchen verpackt werden. Um eine solche anspruchsvolle Aufgabe zu bewältigen, entwickelt die \glqq robomotion GmbH\grqq{} komplexe Automatisierungslösungen ganz individuell nach den Kundenbedürfnissen. Eine solche Anlage setzt sich neben einem oder mehreren Robotern aus vielen weiteren Komponenten, wie z.B. einem Förderband, der zentralen Steuerung durch die \ac{sps}, sowie einer Anlagenvisualisierung zusammen. Um ein gutes Zusammenspiel aller Komponenten zu gewährleisten, ist eine Kommunikation zwischen ihnen von großer Bedeutung. Dies ist besonders wichtig, da die Datenmenge in der heutigen Zeit kontinuierlich wächst und Kunden ein großes Interesse an Informationen über ihre Anlagen und Roboter haben.
+    Roboter sind in unserer Welt nicht mehr wegzudenken. In unterschiedlichsten Industrien verrichten sie zuverlässig ihre Arbeit und machen eine Produktion auch in Hochlohnländern wirtschaftlich. Ihre Arbeitsleistung ist konstant, fehlerfrei und präzise. In der Lebensmittel Industrie gelten besondere Hygiene-Anforderungen. Die \glqq Stäubli-AG\grqq{} bietet mit ihrer HE-Serie Roboter an, die speziell für diese Anforderungen entwickelt wurden. Mit ihnen können beispielsweise Wiener-Würstchen verpackt werden. Um eine solche anspruchsvolle Aufgabe zu bewältigen, entwickelt die \glqq robomotion GmbH\grqq{} komplexe Automatisierungslösungen ganz individuell nach den Kundenbedürfnissen. Eine solche Anlage setzt sich neben einem oder mehreren Robotern aus vielen weiteren Komponenten, wie z.B. der zentralen Steuerung durch die \ac{sps}, einem Kamerasystem, Förderbändern und der Anlagenvisualisierung zusammen. Um ein gutes Zusammenspiel aller Komponenten zu gewährleisten, ist eine Kommunikation zwischen ihnen von großer Bedeutung. Dies ist besonders wichtig, da die Datenmenge in der heutigen Zeit kontinuierlich wächst und Kunden ein großes Interesse an Informationen über ihre Anlagen und Roboter haben.
 	\section{Zielsetzung}
-	In der \glqq robomotion GmbH\grqq{} sollen Stäubli-Roboter neu eingeführt und in das bestehende Anlagensteuerungskonzept integriert werden. Hierzu soll eine bidirektionale Kommunikationsschnittstelle zwischen der Anlage und dem Roboter entworfen und implementiert werden. \\
-	Diese setzt sich aus zwei getrennten Einheiten zusammen. Eine Feldbus-Verbindung muss Befehle von der Anlagen-\ac{sps} zum Roboter übertragen.\\
-	Darüber hinaus müssen Fehlermeldungen und Prozessdaten des Roboters zur Anlage und Positionsdaten, generiert aus Kamerabildern, von der Anlage zum Roboter übertragen werden. Die Visualisierung und Verwertung dieser Daten, sowie die Bereitstellung der Positionsdaten erfolgen jedoch nicht in der \ac{sps} sondern in einer separaten Anlagenvisualisierung.\\
+	In der \glqq robomotion GmbH\grqq{} sollen Stäubli-Roboter eingeführt und in das bestehende Anlagensteuerungskonzept integriert werden. Hierzu soll eine bidirektionale Kommunikationsschnittstelle zwischen der Anlage und dem Roboter entworfen und implementiert werden. \\
+	Diese setzt sich aus zwei getrennten Einheiten zusammen. Eine Feldbus-Verbindung stellt den Signalaustausch zwischen Anlagen-\ac{sps} und Roboter sicher, um z.B. Befehle zur Bewegungsausführung zu übertragen.\\
+	Darüber hinaus müssen Fehlermeldungen und Prozessdaten des Roboters zur Anlage und Positionsdaten, generiert aus Kamerabildern, von der Anlage zum Roboter übertragen werden. Die Visualisierung und Verwertung dieser Daten erfolgen jedoch nicht in der \ac{sps} sondern in einer separaten Anlagenvisualisierung.\\
 	Aus diesem Grund ist neben dem Feldbus eine weitere Verbindung nötig. Im Rahmen dieser Arbeit muss daher neben dem Feldbus zwischen Roboter und \ac{sps} eine Kommunikationsverbindung zwischen Roboter und Anlagenvisualisierung realisiert werden. Diese ist mit Hilfe von \ac{tcpip} zu konzeptionieren, entworfen und implementieren. Der Schwerpunkt dieser Arbeit liegt auf der \ac{tcpip}-Verbindung und nicht auf der Feldbus-Verbindung, da der Einsatz der \ac{tcpip}-Verbindung zur Roboterkommunikation unternehmensintern neu ist.\\
 	Ebenso muss die Anlagenvisualisierung mit Hilfe von \ac{wpf} für ein Windows-Betriebssystem konzeptioniert und programmiert werden. Diese \ac{wpf}-Anwendung soll dem Bediener die Fehlermeldungen und Prozessdaten des Roboters anzeigen. Auf der anderen Seite muss das Roboterprogramm für den Stäubli-Roboter konzeptioniert und programmiert werden. \\
 	Ein Praxistest soll abschließend das entwickelte Gesamtsystem validieren. Darüber hinaus sollen die Potentiale, welche durch die zur Verfügung stehenden Daten entstehen, sowie mögliche Verwendungsszenarien aufgezeigt werden.
@@ -145,10 +145,10 @@
 		\item \textbf{Detaillierung der Anforderungen:} Die grobe Aufgabenstellung soll detailliert und in ein Lastenheft überführt werden.
 		\item \textbf{Konzeptionierung:} Hier soll die Feldbus-Verbindung zwischen Roboter und \ac{sps} konzeptioniert werden. Vor allem ist die \ac{tcpip}-Kommunikation zu konzeptionieren und der dazugehörige Nachrichtenaufbau und Kommunikationsablauf festzulegen. Ebenso sollen die zur Verfügung stehenden Daten hinsichtlich ihres Nutzens analysiert und die zu überragenden Daten gewählt werden. Abschließend soll das Roboterprogramm und die \ac{wpf}-Anwendung konzeptioniert und die Softwarekomponenten spezifiziert werden.
 		\item \textbf{Softwaredesign:} In diesem Rahmen soll ein Systementwurf der Software für den Stäubli-Roboter und vorallem der WPF-Anwendung erfolgen. Lösungsbausteine, wie Softwarebibliotheken müssen festgelegt und Lösungsansätze entworfen werden.
-		\item \textbf{Softwareimplementierung:} Die zuvor konzeptionierte und entworfene Software muss in einen Source-Code überführt werden. Bei der Programmierung ist auf verständliche Kommentierung zu achten und eine Verwaltung soll mit Hilfe eines Source-Code-Verwaltungs-Programm erfolgen.
+		\item \textbf{Softwareimplementierung:} Die konzeptionierte Software muss in Code umgesetzt werden. Bei der Programmierung ist auf verständliche Kommentierung zu achten und ein Source-Code-Verwaltungs-Programm ist einzusetzen.
 		\item \textbf{Validierung:} Durch eine abschließende Validierung ist das System unter Realbedingungen zu testen. Dies soll ein Funktionstest beinhalten, um zu überprüfen, dass alle Funktionen ihre Aufgaben erfüllen. Fehlertests prüfen die Robustheit des Systems. Hierzu werden bewusst besondere Situationen oder Störungen herbeigeführt um die Fehlertoleranz des Systems zu überprüfen und sicherzustellen, dass das System nicht abstürzt. \cite{ISWLeitfaden} \cite{Sommerville}
 	\end{itemize}
-	Die schriftliche Ausarbeitung folgt angeleht an diese Vorgehensweise. Eine vollständige Aufführung der Implementierung, welche sich durch den gesamten Quell-Code darstellt ist nicht sinnvoll. Aus diesem Grund wird die Implementierung mit in das Kapitel Design integriert und lediglich besonders erwähnenswerte und für das Verständnis wichtige kurze Code-Abschnitte aufgezeigt. Abgerundet wird die Arbeit durch ein Fazit und einem Ausblick, in dem Anwendungspotentiale der übertragenen Daten aufgezeigt werden sollen.\\
+	Die schriftliche Ausarbeitung folgt angelehnt an diese Vorgehensweise. Eine vollständige Aufführung der Implementierung, welche sich durch den gesamten Quell-Code darstellt ist nicht sinnvoll. Aus diesem Grund wird die Implementierung mit in das Kapitel Design integriert und lediglich besonders erwähnenswerte und für das Verständnis wichtige kurze Code-Abschnitte aufgezeigt. Abgerundet wird die Arbeit durch ein Fazit und einem Ausblick, in dem Anwendungspotentiale der übertragenen Daten aufgezeigt werden sollen.\\
 	\textbf{Terminplanung}\\
 	Für eine fristgerechte Fertigstellung und ein strukturiertes Vorgehen ist es wichtig zu Beginn eine Terminplanung durchzuführen. Hierzu kommt ein Gantt-Diagramm zum Einsatz (vgl. Tabelle \ref{tab:Gantt}). Die horizontalen Balken stellen die einzelnen Arbeitspakete und deren Zeitumfang dar. Meilensteine, sind wichtige Projekt-(Zwischen)-Ziele mit einer Zeitdauer Null, welche mit einer Raute dargestellt werden. \cite{ISWLeitfaden}\\
 	Um frühzeitig Umsetzungsschwierigkeiten zu erkennen und Lösungskonzepte zu testen soll parallel zu der Konzeptionierung ein Softwareprototyp mitgeführt werden. Ebenso soll die Datenübertragung möglichst früh im Projektverlauf an der Hardware getestet werden. Dadurch kann die entworfene Verbindung, sowie das Softwarekonzept zwischenzeitlich abgesichert werden. Dies verhindert, dass sich erst in der Implementierung herausstellt, dass grundlegende Funktionalitäten nicht funktionieren. Das parallel testen mit Hilfe von Prototypen ist im Gantt-Diagramm nicht aufgezeigt, da dieses über den gesamten Projektzeitraum in unterschiedlicher Intensität erfolgt. 
@@ -310,8 +310,8 @@
    	Für den Roboter liegt ein Wartungsplan vor, welcher Wartungsarbeiten in unterschiedlichen Intervallen von monatlich bis 5-jährig vorsieht. Diese reichen von einfachen Sichtprüfungen und Bremstests über Ölwechsel und Dichtungstausch bis hin zum Auswechseln von Achsen. \cite{X90}
    	\begin{figure}[!ht]
    		\centering
-   		\includegraphics[width=0.50\linewidth]{./images/X90.png}
-   		\caption{Stäubli TX2 - 90 \cite{X90}} 
+   		\includegraphics[width=0.50\linewidth]{./images/Staubli_HE.png}
+   		\caption{Stäubli TX2 - 90 \cite{Staubli_HE}} 
    		\label{fig:TX90}
    	\end{figure}
    	\\
@@ -390,7 +390,7 @@
    	\section{Anlagensteuerung}
    	Ein Roboter ist meist nur ein Teil einer Automatisierungslösung. Dieser kann um Förderbänder, Sensoren und andere Aktoren ergänzt werden. Wie die Steuerung dieser Gesamtanlage umgesetzt wird unterscheidet sich von Anlagenautomatisierer zu Anlagenautomatisierer. Hier soll die bei \glqq robomotion\grqq{} gängige Umsetzung aufgezeigt werden, da diese relevant für das Gesamtverständnis und die Konzeptionierung der Komponenten ist. \\
    	\textbf{SPS}\\
-   	Zentrales Element jeder Anlagenautomatisierung ist eine Beckhoff-SPS, welche auf einem \ac{ipc} läuft. Diese ist für die Ablauflogik und \glqq Intelligenz\grqq{} der Anlage zuständig. Auf anderen Bestandteilen, wie z.B. der Robotersteuerung ist hingegen nur eine geringe Komplexität abgebildet. In der Robotersteuerung werden meistens Kommandos mit Jobnummern angelegt, wie beispielsweise die Bewegung von Punkt~A zu Punkt~B. Durch den Aufruf der Jobnummer durch die SPS erhält der Roboter den Befehl zur Bewegungsausführung und meldet eine erfolgreich durchgeführte Bewegung der SPS zurück. Welche Bewegungen in welcher Reihenfolge und wann durchgeführt werden, ist dementsprechend nicht in der Robotersteuerung, sondern in der SPS programmiert.\\
+   	Zentrales Element der Anlagenautomatisierung ist eine Beckhoff-SPS, welche auf einem \ac{ipc} läuft. Diese ist für die Ablauflogik und \glqq Intelligenz\grqq{} der Anlage zuständig. Auf anderen Bestandteilen, wie z.B. der Robotersteuerung ist hingegen nur eine geringe Komplexität abgebildet. In der Robotersteuerung werden meistens Kommandos mit Jobnummern angelegt, wie beispielsweise die Bewegung von Punkt~A zu Punkt~B. Durch den Aufruf der Jobnummer durch die SPS erhält der Roboter den Befehl zur Bewegungsausführung und meldet eine erfolgreich durchgeführte Bewegung der SPS zurück. Welche Bewegungen in welcher Reihenfolge und wann durchgeführt werden, ist dementsprechend nicht in der Robotersteuerung, sondern in der SPS programmiert.\\
    	\textbf{roboTools} \\
    	Weiterer Bestandteil der Automatisierung ist ein Programm namens \glqq roboTools\grqq, welches zur Anlagenvisualisierung dient. Dieses läuft auf einem Windows-Betriebssystem in Form einer \ac{wpf}-Anwendung (\acl{wpf}), des \glqq .NET-Frameworks\grqq. Das Programm roboTools mit seiner grafischen Oberfläche enthält verschiedene Diagnosewerkzeuge und kann dem Anlagenbediener Informationen über bspw. Störungen oder der Anlagenauslastung ausgeben und visualisieren. Die Daten hierfür bezieht roboTools überwiegend von der SPS. \\
    	\textbf{roboVision}\\
@@ -445,7 +445,7 @@
    	
    	
    	\section{Fazit}
-   	Feldbusse ermöglichen eine echtzeitfähige Kommunikation, was für sicherheitsrelevante Funktionen von großer Bedeutung ist. Die klassischen Feldbusse werden immer mehr von Ethernet basierenden Feldbussen abgelöst. Unternehmensintern kommt neben der SPS der Firma Beckhoff der Ethernet basierende Feldbus EtherCAT zum Einsatz, welcher ebenso eine Entwicklung von Beckhoff darstellt.\\
+   	Feldbusse ermöglichen eine echtzeitfähige Kommunikation, was für viele Funktionen von großer Bedeutung ist. Die klassischen Feldbusse werden immer mehr von Ethernet basierenden Feldbussen abgelöst. Unternehmensintern kommt neben der SPS der Firma Beckhoff der Ethernet basierende Feldbus EtherCAT zum Einsatz, welcher ebenso eine Entwicklung von Beckhoff darstellt.\\
    	Das TCP/IP- Protokoll stellt eine weitere Möglichkeit zur Datenübertragung dar, ist jedoch nicht echtzeitfähig. Das TCP-Protokoll stellt die korrekte Datenübertragung sicher, weshalb es in der Literatur häufig für Industrieanwendungen, die nicht echtzeitfähig sein müssen zum Einsatz kommt.
    	In \cite{groza2008using} kommt anstelle des TCP-Protokoll das Protokoll UDP zur Übertragung von Live-Kamera-Bildern zum Einsatz, da hier die Schnelligkeit über die Korrektheit zu stellen ist. Teilweise wird in der Literatur z.B. in \cite{groza2008using} VPN zur IT-Sicherheit bei TCP/IP eingesetzt. OPC/UA stellt eine weitere Möglichkeit zur Datenübertragung dar. Sie überzeugt mit Einfachheit und Flexibilität, bringt aber Mehrkosten mit ohne in diesem konkreten Anwendungsfall mehr als TCP/IP leisten zu können. Zusammengefasst lässt sich sagen, dass TCP/IP für den Anwendungsfall des Übertragens von Fehlermeldungen und Prozessdaten eine gute Lösung darstellt, da hier keine Echtzeitfähigkeit gefordert ist. UDP hingegen soll im Rahmen dieser Arbeit nicht zum Einsatz kommen, da die Korrektheit der Daten über die Schnelligkeit zu stellen ist. Auf den Einsatz von VPN kann verzichtet werden, da die TCP/IP-Kommunikation ausschließlich zwischen Roboter und Anlagenvisualisierung erfolgt und keine Verbindung zum Internet aufweist.\\
    	Weiterer Teil des Projektes ist der Stäubli-Roboter TX2-90 mit dem Controller CS9. Dieser soll in der Programmiersprache VAL~3 in der Entwicklungsumgebung \acl{srs} programmiert werden. Die Gesamtanlage von SPS und Roboter wird ergänzt um ein Visualisierungsprogramm namens roboTools, welches eine Benutzeroberfläche für den Bediener darstellt. roboTools ist eine WPF-Anwendung, die in C\# programmiert ist. Daher soll die zu entwerfende Anwendung, welche die Diagnose und Prozessdaten des Stäubli-Roboters darstellt, ebenso als WPF-Anwendung entwickelt werden. Dies macht eine spätere Integration in roboTools einfach möglich.
@@ -647,7 +647,7 @@
 	\begin{itemize}
 		\item \textbf{Konzept 1:} <Nachrichten-ID>,<Sender-ID>,<Uhrzeit>,<Daten>
 		\item \textbf{Konzept 2:} <Nachrichten-ID>,<Sender-Name>,<Daten>
-		\item \textbf{Konzept 3:} <Einzigartiger-Code>,<Sender-ID>
+		\item \textbf{Konzept 3:} <Eindeutige ID (GUID)>,<Sender-ID>
 		<Daten>
 		\item \textbf{Konzept 4:} <Nachrichten-ID>,<Sender-ID>,<Daten>,<CRC>
 		\item \textbf{Konzept 5:} <Nachrichten-ID>,<Sender-ID>,<Daten Gleitkomma, dynamisch>
@@ -669,7 +669,7 @@
 			Informationsgehalt & \harveyBallThreeQuarter & \harveyBallHalf & \harveyBallHalf & \harveyBallHalf & \harveyBallThreeQuarter\\
 			Übertragungssicherheit & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallFull & \harveyBallFull & \harveyBallThreeQuarter\\
 			Verständlichkeit/ \newline Einfachheit & \harveyBallThreeQuarter & \harveyBallFull & \harveyBallQuarter & \harveyBallQuarter & \harveyBallQuarter\\
-			Datensparend & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallQuarter\\
+			Längenminimiert & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallQuarter\\
 			\hline
 			Wertung (0-4) & 3 & 3 & 2,5 & 2,5 & 2\\
 			\hline
@@ -698,7 +698,7 @@
 				
 				% Nachrichten vom Server zum Client
 				\begin{umlcall}[op={Aktualisiere Schwere}, dt=5]{S}{C}
-			\end{umlcall}
+			
 			
 					\begin{umlcall}[op={Sende Systemereignis}, dt=5]{C}{S}
 					\end{umlcall}
@@ -712,7 +712,7 @@
 					% Nachrichten vom Client zum Server
 					\begin{umlcall}[op={Datentelegramm}, dt=3]{C}{S}
 					\end{umlcall}
-				
+				\end{umlcall}
 			\end{umlseqdiag}
 		\end{tikzpicture}
 		\caption{Sequenzdiagramm TCP/IP}
