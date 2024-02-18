@@ -138,23 +138,23 @@
 	Ein Praxistest soll abschließend das entwickelte Gesamtsystem validieren. Darüber hinaus sollen die Potentiale, welche durch die zur Verfügung stehenden Daten entstehen, sowie mögliche Verwendungsszenarien aufgezeigt werden.
 	
 	\section{Methodik und Vorgehensweise}
-	Die Verwendung geeigneter Methoden und eines strukturierten Vorgehens sind entscheidend für eine erfolgreiche Umsetzung des Projektes. Durch ein Vorgehensmodell wird eine effiziente Arbeitsweise gefördert und durch eine Terminplanung eine zeitgerechte Fertigstellung sichergestellt. Methoden und Werkzeuge, wie bspw. ein morphologischer Kasten oder ein Harvey-Diagramm erleichtern es, neue Lösungsansätze zu finden und faktenbasierte Entscheidungen zu treffen. \cite{SoftwaretechnikBroy} \cite{ISWLeitfaden} \\
+	Die Verwendung geeigneter Methoden und eines strukturierten Vorgehens sind entscheidend für eine erfolgreiche Umsetzung des Projektes. Durch ein Vorgehensmodell wird eine effiziente Arbeitsweise gefördert und durch eine Terminplanung eine zeitgerechte Fertigstellung sichergestellt. Methoden und Werkzeuge, wie bspw. ein morphologischer Kasten oder ein Harvey-Diagramm erleichtern es, neue Lösungsansätze zu finden und faktenbasierte Entscheidungen zu treffen. \cite{SoftwaretechnikBroy} \cite{ISWLeitfaden} \vspace{0.5\baselineskip}\\
 	\textbf{Vorgehensweise}\\
 	Die Vorgehensweise lehnt sich an Sommerville \cite{Sommerville} und an den ISW-Leitfaden \cite{ISWLeitfaden} an. Da es sich in dieser Arbeit um kein reines Softwareprojekt handelt, sondern mechatronische Komponenten, wie der Roboter und die Kommunikationsschnittstelle enthalten sind erfolgt eine Anpassung der Vorgehensweise an die gegebenen Randbedingungen. Hieraus ergibt sich folgende Abfolge:\\
 	\begin{itemize}
 		\item \textbf{Recherche zu Grundlagen und Stand der Technik:} Zu Beginn soll zur Einarbeitung eine Recherche zu den Grundlagen von Feldbussen und TCP/IP erfolgen. Ebenso muss eine Recherche zum Stand der Technik bezüglich des Roboters und der Anlagensteuerung von \glqq robomotion\grqq{} erfolgen. In der Literatur soll  nach gängigen Umsetzungen von \ac{tcpip}-Verbindungen im Kontext von Robotern gesucht werden.
-		\item \textbf{Detaillierung der Anforderungen:} Die grobe Aufgabenstellung soll detailliert und in ein Lastenheft überführt werden.
-		\item \textbf{Konzeptionierung:} Hier soll die Feldbus-Verbindung zwischen Roboter und \ac{sps} konzeptioniert werden. Vor allem ist die \ac{tcpip}-Kommunikation zu konzeptionieren und der dazugehörige Nachrichtenaufbau und Kommunikationsablauf festzulegen. Ebenso sollen die zur Verfügung stehenden Daten hinsichtlich ihres Nutzens analysiert und die zu übertragenden Daten gewählt werden. Abschließend soll das Roboterprogramm und die \ac{wpf}-Anwendung konzeptioniert und die Softwarekomponenten spezifiziert werden.
+		\item \textbf{Detaillierung der Anforderungen:} Die grobe Aufgabenstellung soll detailliert und in ein Lastenheft überführt werden.\newpage
+		\item \textbf{Konzeptionierung:} Hier soll die Feldbus-Verbindung zwischen Roboter und \ac{sps} konzeptioniert werden. Vor allem ist die \ac{tcpip}-Kommunikation zu konzeptionieren und der dazugehörige Nachrichtenaufbau und Kommunikationsablauf festzulegen. Ebenso sollen die zur Verfügung stehenden Daten hinsichtlich ihres Nutzens analysiert und die zu übertragenden Daten gewählt werden. Abschließend soll das Roboterprogramm und die \ac{wpf}-Anwendung konzeptioniert und die Softwarekomponenten spezifiziert werden. 
 		\item \textbf{Softwaredesign:} In diesem Rahmen soll ein Systementwurf der Software für den Stäubli-Roboter und vor allem der WPF-Anwendung erfolgen. Lösungsbausteine, wie Softwarebibliotheken müssen festgelegt und Lösungsansätze entworfen werden.
 		\item \textbf{Softwareimplementierung:} Die konzeptionierte Software muss in Code umgesetzt werden. Bei der Programmierung ist auf verständliche Kommentierung zu achten und ein Source-Code-Verwaltungs-Programm ist einzusetzen.
 		\item \textbf{Validierung:} Durch eine abschließende Validierung ist das System unter Realbedingungen zu testen. Dies soll ein Funktionstest beinhalten, um zu überprüfen, dass alle Funktionen ihre Aufgaben erfüllen. Fehlertests prüfen die Robustheit des Systems. Hierzu werden bewusst besondere Situationen oder Störungen herbeigeführt um die Fehlertoleranz des Systems zu überprüfen und sicherzustellen, dass das System nicht abstürzt. \cite{ISWLeitfaden} \cite{Sommerville}
 	\end{itemize}
-	Die schriftliche Ausarbeitung folgt angelehnt an diese Vorgehensweise. Eine vollständige Aufführung der Implementierung, welche sich durch den gesamten Quell-Code darstellt ist nicht sinnvoll. Aus diesem Grund wird die Implementierung mit in das Kapitel Design integriert und lediglich besonders erwähnenswerte und für das Verständnis wichtige kurze Code-Abschnitte aufgezeigt. Abgerundet wird die Arbeit durch ein Fazit und einem Ausblick, in dem Anwendungspotentiale der übertragenen Daten aufgezeigt werden sollen.\\
+	Die schriftliche Ausarbeitung folgt angelehnt an diese Vorgehensweise. Eine vollständige Aufführung der Implementierung, welche sich durch den gesamten Quell-Code darstellt ist nicht sinnvoll. Aus diesem Grund wird die Implementierung mit in das Kapitel Design integriert und lediglich besonders erwähnenswerte und für das Verständnis wichtige kurze Code-Abschnitte aufgezeigt. Abgerundet wird die Arbeit durch ein Fazit und einem Ausblick, in dem Anwendungspotentiale der übertragenen Daten aufgezeigt werden sollen.
+	\vspace{0.5\baselineskip}\\ % Fügt einen halben Zeilenabstand ein
 	\textbf{Terminplanung}\\
 	Für eine fristgerechte Fertigstellung und ein strukturiertes Vorgehen ist es wichtig zu Beginn eine Terminplanung durchzuführen. Hierzu kommt ein Gantt-Diagramm zum Einsatz (vgl. Tabelle \ref{tab:Gantt}). Die horizontalen Balken stellen die einzelnen Arbeitspakete und deren Zeitumfang dar. Meilensteine, sind wichtige Projekt-(Zwischen)-Ziele mit einer Zeitdauer Null, welche mit einer Raute dargestellt werden. \cite{ISWLeitfaden}\\
-	Um frühzeitig Umsetzungsschwierigkeiten zu erkennen und Lösungskonzepte zu testen soll parallel zu der Konzeptionierung ein Softwareprototyp mitgeführt werden. Ebenso soll die Datenübertragung möglichst früh im Projektverlauf an der Hardware getestet werden. Dadurch kann die entworfene Verbindung, sowie das Softwarekonzept zwischenzeitlich abgesichert werden. Dies verhindert, dass sich erst in der Implementierung herausstellt, dass grundlegende Funktionalitäten nicht funktionieren. Das parallel testen mit Hilfe von Prototypen ist im Gantt-Diagramm nicht aufgezeigt, da dieses über den gesamten Projektzeitraum in unterschiedlicher Intensität erfolgt. 
-	
-	\begin{table}
+	Um frühzeitig Umsetzungsschwierigkeiten zu erkennen und Lösungskonzepte zu testen soll parallel zu der Konzeptionierung ein Softwareprototyp mitgeführt werden. Ebenso soll die Datenübertragung möglichst früh im Projektverlauf an der Hardware getestet werden. Dadurch kann die entworfene Verbindung, sowie das Softwarekonzept zwischenzeitlich abgesichert werden. Dies verhindert, dass sich erst in der Implementierung herausstellt, dass grundlegende Funktionalitäten nicht funktionieren. Das parallel testen mit Hilfe von Prototypen ist im Gantt-Diagramm nicht aufgezeigt, da dieses über den gesamten Projektzeitraum in unterschiedlicher Intensität erfolgt.
+	\begin{table}[h]
 		\centering
 		\caption{Terminplanung mit Gantt-Diagramm}
 		\label{tab:Gantt}
@@ -213,15 +213,16 @@
 	\textbf{CC-Link} stellt eine Entwicklung von \glqq Mitsubishi\grqq{} dar. Verwaltet wird das Protokoll von einer Anwenderorganisation ähnlich zu Profibus. Die maximale Übertragungsrate beträgt 10 MBit/s und als Übertragungsmedium dient eine dreiadrige Leitung. \cite{hering2012elektrotechnik}\\
 	\subsection{Ethernet basierende Feldbusse}
 	\label{subsec:EthernetFeldbus}
-	Ethernet basierende Feldbusse, häufig auch als \glqq Industrial Ethernet\grqq{} bezeichnet, ermöglichen deutlich höhere Übertragungsraten als Standard-Feldbusse. Daher nimmt deren Verbreitung ständig zu und sie lösen in vielen Bereichen den Standard-Feldbus ab. \cite{hering2012elektrotechnik}\\
+	Ethernet basierende Feldbusse, häufig auch als \glqq Industrial Ethernet\grqq{} bezeichnet, ermöglichen deutlich höhere Übertragungsraten als Standard-Feldbusse. Daher nimmt deren Verbreitung ständig zu und sie lösen in vielen Bereichen den Standard-Feldbus ab. \cite{hering2012elektrotechnik} \vspace{0.5\baselineskip}\\
 	\textbf{Ethernet-Technologie}\\
-	Ethernet ist einer von mehreren Standards für die lokale Netzwerkverbindung mittels der \acs{lan}-Technologie (\acl{lan}). Sie ist im IEE 802-3- Standard (Institute of Electrical and Electronis Engineers) genormt. Der Aufbau eines Ethernet-Telegramms ist nachfolgend abgebildet (vgl. Abbildung \ref{fig:EthernetTelegramm}). Die Adressierung erfolgt mittels sogenannter MAC-Adresse oder IP-Adresse (mehr hierzu in Kapitel \ref{sec:TCP/IP}). \cite{riggert2002rechnernetze}\\
-	\begin{figure}[!ht]
+	Ethernet ist einer von mehreren Standards für die lokale Netzwerkverbindung mittels der \acs{lan}-Technologie (\acl{lan}). Sie ist im IEE 802-3- Standard (Institute of Electrical and Electronis Engineers) genormt. Der Aufbau eines Ethernet-Telegramms ist nachfolgend abgebildet (vgl. Abbildung \ref{fig:EthernetTelegramm}). Die Adressierung erfolgt mittels sogenannter MAC-Adresse oder IP-Adresse (mehr hierzu in Kapitel \ref{sec:TCP/IP}).  \cite{riggert2002rechnernetze}\\ \clearpage
+	\begin{figure}[!h]
 		\centering
 		\includegraphics[width=1.0\linewidth]{./images/Ethernet-Telegram.png}
 		\caption{Telegramm-Aufbau Ethernet \cite{hering2012elektrotechnik}}
 		\label{fig:EthernetTelegramm}
-	\end{figure}\newline
+	\end{figure}
+	\noindent
 	Verschiedene Geräte sind an das Übertragungsmedium angeschlossen und teilen sich dieses. Man spricht von einem Multi-Master-Bus, da jedes Gerät selbständig die Initiative ergreifen kann, um Nachrichten zu senden. Damit jedes Gerät kommunizieren kann und dabei Sendekonflikte vermieden werden, kommt bei Ethernet der \acs{csmacd}-Mechanismus zum Einsatz. \acs{csmacd} steht für \glqq \acl{csmacd}\grqq{} und ermöglicht einen mehrfachen Zugriff (Multiple Access) auf das Übertragungsmedium. \cite{hering2012elektrotechnik} \cite{riggert2002rechnernetze}
 	\begin{itemize}
 		\item \textbf{Carrier Sense:} Das Übertragungsmedium wird überwacht, damit es nicht durch ein anderes Gerät belegt ist. Erst nachdem das Medium als frei erkannt wird, erfolgt nach einer kurzen Wartezeit die Übertragung. Während des Sendens, wird das Medium weiterhin auf Kollisionen abgehört.
@@ -237,7 +238,7 @@
 	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=1.0\linewidth]{./images/Feldbus vs Ethernet Anschaltung.png}
-		\caption{Topologie: oben Standard-Feldbus, unten Ethernet basierender Feldbus \cite{hering2012elektrotechnik}}
+		\caption{Topologie: Feldbus (oben), Ethernet basierender Feldbus (unten) \cite{hering2012elektrotechnik}}
 		\label{fig:TopologieEthernet}
 	\end{figure}\\
 	Der Ethernet Switching Hub, abgekürzt als Switch, erlernt beim Einschalten an welchen Ports Teilnehmer angeschlossen sind. Der Switch leitet ein Datentelegramm eindeutig vom Sender zum Empfänger. Dadurch werden von dem Telegramm nicht betroffene Teilnehmer und Ethernet-Segmente nicht unnötig belastet und Kollisionen vermieden. Das Weiterschalten erfolgt auf Basis der Sende- und Ziel-Adresse, welche im Ethernet-Telegramm hinterlegt ist. \cite{hering2012elektrotechnik} \\
@@ -252,7 +253,7 @@
 	Dabei wird auf dem gesamten Bus vom Ethernet-Protokoll nach IEE 802.3 nicht abgewichen. Bit-Fehler werden so durch die Prüfsumme erkannt. Neben der Stern-Topologie unterstützt EtherCAT auch eine Linien- oder Baum-Struktur und viele weitere.
 	EtherCAT zeichnet sich durch geringe Laufzeitverzögerungen und eine hohe Datenrate aus. Beispielsweise können 1000 E/As in nur 30 \(\mu s\) aktualisiert werden und auch eine Übertragungsrate im GBit-Bereich ist mit Erweiterung möglich. \cite{ethercat}\\
 	
-	
+	\clearpage
 	\section{TCP/IP}
 	\ac{tcpip} (\acl{tcpip}) ist das meist verwendete Netzwerkprotokoll weltweit und zudem frei zugänglich. Durch dieses Protokoll wird definiert, wie Daten durch Netzwerkkommunikationshardware versendet und empfangen werden können. Welches Übertragungsmedium verwendet wird ist  nicht definiert, sodass sich neben \ac{lan} z.B. auch WLAN einsetzen lässt.\cite{CS9_TCP} \cite{kim2016service} \\
 	\ac{tcpip} ist nicht echtzeitfähig, stellt jedoch eine gute Ergänzung zu den Echtzeitprotokollen dar, um nicht zeitkritische Daten, wie z.B. zur Diagnose oder Visualisierung zu übertragen. Bei \ac{tcpip} handelt es sich um eine sichere Datenübertragung, die Nachrichten in einen Bytestrom verpackt und entpackt. Vom Sender zum Empfänger durchlaufen die Daten vier Schichten (vgl. Abbildung \ref{fig:Schichtenmodell}). Für eine sichere fehlerfreie Übertragung werden die eigentlichen Daten ergänzt um die MAC-/IP- und TCP-Header. Das CRC-Feld stellt eine Art Prüfsumme, mit welcher die Korrektheit der übertragenen Daten überprüft wird. \cite{hering2012elektrotechnik}
@@ -262,22 +263,20 @@
 		\caption{Schichtenmodell TCP/IP \cite{hering2012elektrotechnik}}
 		\label{fig:Schichtenmodell}
 	\end{figure} \\
-	\ac{tcpip} setzt sich aus den Protokollen \acs{tcp} und \acs{ip} zusammen.\\
-	\\
+	\ac{tcpip} setzt sich aus den Protokollen \acs{tcp} und \acs{ip} zusammen. \vspace{0.5\baselineskip}\\
 	\textbf{TCP}\\
-	Das Ziel von \acs{tcp} (\acl{tcp}) ist eine fehlerfreie Datenübertragung. Hierzu muss der Empfänger die korrekt erhaltenen Daten, über eine Nachricht, die an den Sender zugesendet wird, bestätigen. Die Überprüfung der Korrektheit erfolgt mit dem \acs{crc}-Segment. Erhält dieser Sender diese Bestätigung nicht, wird erneut versucht die Daten zu versenden. Hierdurch ist eine fehlerfreie und lückenlose Datenübertragung, selbst bei Netzwerkproblemen garantiert, was jedoch die Prozesse verlangsamt. Eine Alternative zu \acs{tcp} ist \acs{udp} (\acl{udp}). Hierbei erhält der Absender keine Bestätigung, dass die Daten korrekt empfangen wurde. Der Sender fährt direkt mit der Versendung der nächsten Pakete durch. Eine fehlerfreie Übertragung ist nicht garantiert, jedoch ist sie im Vergleich zu \acs{tcp} schneller. Sowohl \acs{tcp}, als auch \acs{udp} bauen auf dem \ac{ip} auf. \cite{CS9_TCP}\\
-	\\
+	Das Ziel von \acs{tcp} (\acl{tcp}) ist eine fehlerfreie Datenübertragung. Hierzu muss der Empfänger die korrekt erhaltenen Daten, über eine Nachricht, die an den Sender zugesendet wird, bestätigen. Die Überprüfung der Korrektheit erfolgt mit dem \acs{crc}-Segment. Erhält dieser Sender diese Bestätigung nicht, wird erneut versucht die Daten zu versenden. Hierdurch ist eine fehlerfreie und lückenlose Datenübertragung, selbst bei Netzwerkproblemen garantiert, was jedoch die Prozesse verlangsamt. Eine Alternative zu \acs{tcp} ist \acs{udp} (\acl{udp}). Hierbei erhält der Absender keine Bestätigung, dass die Daten korrekt empfangen wurde. Der Sender fährt direkt mit der Versendung der nächsten Pakete durch. Eine fehlerfreie Übertragung ist nicht garantiert, jedoch ist sie im Vergleich zu \acs{tcp} schneller. Sowohl \acs{tcp}, als auch \acs{udp} bauen auf dem \ac{ip} auf. \cite{CS9_TCP} \vspace{0.5\baselineskip}\\
 	\textbf{IP} \\
 	Das \ac{ip}-Protokoll arbeitet auf der Internet bzw. \ac{ip}-Schicht des \ac{tcpip}-Protokolls, was der Netzwerkschicht des OSI-Modells entspricht. Die Aufgabe des \acs{ip}-Protokolls ist es, Datenpakete vom Sender zum Empfänger zu übertragen. Eine Datenüberprüfung und Fehlerkorrektur erfolgt nicht, sodass Daten verloren gehen können oder fehlerbehaftet sind. Die Garantie für die korrekte Datenlieferung geschieht durch das \acs{tcp}-Protokoll. Das IP-Protokoll verwendet IP-Adressen, um Netzwerkknoten zu identifizieren. Mit Hilfe derer Adressen wird die Nachricht durch das Netz \glqq geroutet\grqq. Es wird ein idealer Weg zwischen Sender und Empfänger gesucht. \cite{harnisch2009netzwerktechnik} \cite{riggert2002rechnernetze} Es gibt zwei Versionen des IP-Protokolls IPv4 und IPv6. Bei IPv4 besteht die IP-Adresse aus 32 Bit, bei IPv6 aus 128 Bit, was die Anzahl der eindeutigen Adressen erhöht. Aufgrund der zunehmenden Geräteanzahl wird in der Zukunft IPv6 der Standard werden. Heute dominiert jedoch IPv4. \cite{riggert2002rechnernetze} \\
-	Eine \acs{mac}-Adresse (\acl{mac}) ermöglicht eine eindeutige Identifikation eines Gerätes im Netzwerk. Da allerdings meist herstellerübergreifende Netzwerke eingesetzt werden, ist die IP-Adresse für eine eindeutige Identifikation besser geeignet. Diese kann entweder manuell oder automatisch zugewiesen werden. Der Aufbau einer IP-Adresse nach IPv4 ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:IP-Adresse}).  \cite{hering2012elektrotechnik}
+	Eine \acs{mac}-Adresse (\acl{mac}) ermöglicht eine eindeutige Identifikation eines Gerätes im Netzwerk. Da allerdings meist herstellerübergreifende Netzwerke eingesetzt werden, ist die IP-Adresse für eine eindeutige Identifikation besser geeignet. Diese kann entweder manuell oder automatisch zugewiesen werden. Der Aufbau einer IP-Adresse nach IPv4 ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:IP-Adresse}).  \cite{hering2012elektrotechnik} \\
    	\begin{figure}[!ht]
    		\centering
    		\includegraphics[width=0.70\linewidth]{./images/IP Adresse Aufbau.png}
    		\caption{IP-Adresse Aufbau \cite{hering2012elektrotechnik}} 
    		\label{fig:IP-Adresse}
    	\end{figure}
-   	\\
-   	\\
+   	\clearpage
+   	\noindent
    	\textbf{Netzwerkarchitektur}\\
    	Während Netzwerke in ihrer Topologie, wie z.B. Bus, oder Stern-Topologie unterschieden werden können, kann auch eine Aufteilung nach Architekturtyp erfolgen. Neben der monolithischen Architektur und der Client-Server-Architektur gibt es Cloud-, Edge- und Fog-Computing. In der monolithischen Architektur existiert nur ein zentraler Rechner. An diesen werden externe Geräte angebunden, die selbst keine Rechenleistung aufweisen. Bei Cloud-, Edge- und Fog-Computing wird ein Teil der Netzwerktechnik an externe Organisationen ausgelagert. Eine externe Organisation kann ein Provider sein, der ein Server bereitstellt. \\
    	Im nachfolgenden soll die Client-Server-Architektur näher erläutert werden, da diese von Relevanz für diese Arbeit ist.
@@ -290,8 +289,8 @@
    	\end{figure} \\   	
    	Charakteristisch für den Server ist dessen vergleichsweise hohe Rechenleistung, was es ermöglicht, dass mehrere Clients zeitgleich auf den Server zugreifen können. Veranschaulichen lässt sich dieses Prinzip mit dem Webbrowser, wie beispielsweise Google Chrome auf dem privaten Rechner. Dieser stellt den Client dar, welcher Anfragen an einen Webserver stellt, um aktuelle Daten passend zu seiner Anfrage zu erhalten. Auf dem Webserver wird beispielsweise ein Online-Shop verwaltet und mehrere Clients können zeitgleich auf diesen zugreifen. Das oben erwähnte Cloud-Computing basiert auf der Client-Server-Architektur, wurde jedoch nutzerfreundlicher gestaltet. \cite{IT-Sicherheit}
    	\label{sec:TCP/IP}
-   	
-   	\section{OPC/UA}
+   	\clearpage
+   	\section{OPC UA}
    	\acs{opc} (\acl{opc}) ist ein Protokoll zur Maschine-zu-Maschine-Kommunikation, aber auch zur Kommunikation zwischen SPS oder Benutzerschnittstelle und Maschine. Es handelt sich hierbei um einen offenen und plattformunabhängigen Standard, welcher von der \glqq Open Platform Foundation\grqq{} verwaltet wird. OPC UA basiert analog zu TCP/IP auf Ethernet und Internet. Es ist ebenso nicht echtzeitfähig. Das Kommunikationsprotokolls OPC UA ermöglicht eine vertikale und horizontale Kommunikation, da es die einzelnen Automatisierungsebenen verbindet. Somit kann von einem Roboter bis hin zur gesamten Fabriksteuerung alles verbunden werden, was OPC UA beliebt macht, um die Fabrik \glqq Industrie 4.0\grqq{} fähig zu machen. \cite{industrie40} \\
    	OPC UA basiert auf der Server-Client Architektur. Der OPC UA Server kann dann beispielsweise auf der SPS oder der Benutzerschnittstelle laufen und ein Roboter kann als OPC UA Client angebunden werden. Die Daten werden standardisiert und maschinenlesbar semantisch beschrieben, sodass eine herstellerübergreifende Kommunikation problemlos möglich ist. Sensordaten einer Maschine können dadurch an die Anlagensteuerung übertragen und visualisiert werden. OPC UA liefert dabei viele Vorteile: \cite{OPCUA}
    	\begin{itemize}
@@ -301,21 +300,18 @@
    		\item \textbf{Big Data:} OPC UA ermöglicht einfaches Sammeln von Daten aus diversen Maschinen und von unterschiedlichsten Automatisierungsebenen. Hierdurch können sich umfangreiche Potentiale durch die Analyse der Daten ergeben und neue Geschäftsmodelle erschlossen werden. \\
    	\end{itemize}
    	Aufgrund dieser unterschiedlichsten Vorteile, wird OPC UA immer mehr im Bereich Industrie 4.0 eingesetzt. \cite{OPCUA}  \cite{industrie40}
-   	
-   	
+	\clearpage
    	\section{Stäubli-Roboter}
-   	Stäubli ist ein in der Schweiz ansässiges Industrieunternehmen, welches in den Bereichen \glqq Elektrische Verbindungen\grqq, \glqq Fluidische Verbindungen\grqq, \glqq Textil\grqq{} und \glqq Robotik\grqq{} tätig ist. Das Produktportfolio im Bereich Robotik umfasst Vier- und Sechsachs-Roboter, sowie kollaborative und mobile Roboter. \cite{StaubliUberUns}\\ Stäubli-Roboter sind nach IP 65 und IP 67 Staub- und Wasser- geschützt, wenn ein Arm mit Überdruckeinheit zum Einsatz kommt. Dies ermöglicht eine gründliche Reinigung aus Hygienezwecken und verhindert das Ansammeln von Staub im Roboter. Beispielsweise ist auch eine Reinigung mit Desinfektionsmittel oder Isopropylalkohol möglich. Zudem können die Roboter mit einem lebensmittelverträglichem Öl eingesetzt werden. Stäubli-Roboter eignen sich daher insbesondere für Anwendungen in der Lebensmittel-, Pharma- und Medizin-Technik, in der viele andere Roboter die Hygieneanforderungen nicht erfüllen. \cite{StaubliProduktubersicht}\\
+   	Stäubli ist ein in der Schweiz ansässiges Industrieunternehmen, welches in den Bereichen \glqq Elektrische Verbindungen\grqq, \glqq Fluidische Verbindungen\grqq, \glqq Textil\grqq{} und \glqq Robotik\grqq{} tätig ist. Das Produktportfolio im Bereich Robotik umfasst Vier- und Sechsachs-Roboter, sowie kollaborative und mobile Roboter. \cite{StaubliUberUns}\\ Stäubli-Roboter sind nach IP 65 und IP 67 Staub- und Wasser- geschützt, wenn ein Arm mit Überdruckeinheit zum Einsatz kommt. Dies ermöglicht eine gründliche Reinigung aus Hygienezwecken und verhindert das Ansammeln von Staub im Roboter. Beispielsweise ist auch eine Reinigung mit Desinfektionsmittel oder Isopropylalkohol möglich. Zudem können die Roboter mit einem lebensmittelverträglichem Öl eingesetzt werden. Stäubli-Roboter eignen sich daher insbesondere für Anwendungen in der Lebensmittel-, Pharma- und Medizin-Technik, in der viele andere Roboter die Hygieneanforderungen nicht erfüllen. \cite{StaubliProduktubersicht} \vspace{0.5\baselineskip}\\
    	\textbf{Roboter TX2 - 90}\\
-   	Im Rahmen dieser Arbeit kommt der Sechsachs-Roboter TX2-90 zum Einsatz (vgl. Abbildung \ref{fig:TX90}). Dieser weist eine Tragkraft von 12 kg und eine Reichweite von 1000 mm auf. Die Wiederholgenauigkeit beträgt 0,03 mm und die maximale kartesische Geschwindigkeit 10,9 m/s. Der Roboter wiegt 114 kg und wird von der Robotersteuerung CS9 mit 2kVA gesteuert. Der Roboter ist für verschiedene, teils auch aggressive Reinigungsmittel geeignet, was für die Lebensmittelindustrie wichtig ist. Die Achsen können maximale Drehmomente zwischen 11 Nm (Achse 6) und 318 Nm (Achse 1) aufbringen.\\
-   	Der Vorderarm des Roboters ist mit vier Magnetventilausgängen, von zwei 5/2-Wege-Magnetventilen versehen. Dies ermöglicht beispielsweise das Öffnen und Schließen eines Greifers.\\
+   	Im Rahmen dieser Arbeit kommt der Sechsachs-Roboter TX2-90 zum Einsatz (vgl. Abbildung \ref{fig:TX90}). Dieser weist eine Tragkraft von 12 kg und eine Reichweite von 1000 mm auf. Die Wiederholgenauigkeit beträgt 0,03 mm und die maximale kartesische Geschwindigkeit 10,9 m/s. Der Roboter wiegt 114 kg und wird von der Robotersteuerung CS9 mit 2kVA gesteuert. Der Roboter ist für verschiedene, teils auch aggressive Reinigungsmittel geeignet, was für die Lebensmittelindustrie wichtig ist. Die Achsen können maximale Drehmomente zwischen 11 Nm (Achse 6) und 318 Nm (Achse 1) aufbringen. Der Vorderarm des Roboters ist mit vier Magnetventilausgängen, von zwei 5/2-Wege-Magnetventilen versehen. Dies ermöglicht beispielsweise das Öffnen und Schließen eines Greifers.\\
    	Für den Roboter liegt ein Wartungsplan vor, welcher Wartungsarbeiten in unterschiedlichen Intervallen von monatlich bis 5-jährig vorsieht. Diese reichen von einfachen Sichtprüfungen und Bremstests über Ölwechsel und Dichtungstausch bis hin zum Auswechseln von Achsen. \cite{X90}
-   	\begin{figure}[!ht]
+   	\begin{figure}[h]
    		\centering
    		\includegraphics[width=0.50\linewidth]{./images/Staubli_HE.png}
    		\caption{Stäubli TX2 - 90 \cite{Staubli_HE}} 
    		\label{fig:TX90}
    	\end{figure}
-   	\\
    	\subsection{Controller CS9}
    	Der CS9 Controller übernimmt die Steuerung und Versorgung des TX2 - 90 (vgl. Abbildung \ref{fig:CS9}).
    	\begin{figure}[!ht]
@@ -332,71 +328,70 @@
    		\label{fig:ComputerEinschub}
    	\end{figure}
    	Der Computer-Einschub (vgl. Abbildung \ref{fig:ComputerEinschub}) besitzt eine Vielzahl an Kommunikationsschnittstellen, die in der Tabelle nachfolgend dargestellt sind (vgl. Tabelle \ref{table:ComputerEinschub}).
-   	\begin{longtable}{p{1cm}p{12cm}}
+   	\begin{table}[h]
    		\caption{CS9 Controller Computer-Einschub}
-   		\label{table:ComputerEinschub}\\
-   		\hline
-   		Nr. & Bezeichnung  \\ [0.5ex] 
-   		\hline
-   		\endhead
-   		1 & Feldbus, Option für PCIe-Karte  \\ 
-   		2 & Anschluss für optionale externe 24 V Stromversorgung  \\
-   		3 & Schnelle Ein-/Ausgänge  \\
-   		4 & EtherCAT Port (Reserviert) \\
-   		5 & Anschluss Handbediengerät  \\
-   		6 & USB-Ports \\  
-   		7 & Echtzeit-Ethernet-Slave (EtherCAT, Sercos III, EtherNet/IP, PROFINET)  \\ 
-   		8 & EtherCAT-Master  \\ 
-   		9 & Ethernet-Ports (1000 MBits/s und 100 MBits/s)  \\
-   		10 & Status LEDs  \\ 
-   		11 & serielle Verbindung RS232  \\
-   		12 & Benutzerschnittstelle  \\  
-   		\hline
-   	\end{longtable}
-   	An den CS9 Controller kann ein Handbediengerät angeschlossen werden (5), was z.B.  manuelles Verfahren oder einfachere Programmier- und Konfigurationsarbeiten ermöglicht. Hervorzuheben ist zudem der Echtzeit-Ethernet-Slave-Anschluss (7), durch welchen die Steuerung z.B. über EtherCAT mit einer SPS verbunden werden kann. Zusätzlich steht ein EtherCAT-Master-Anschluss (8) zur Verfügung. Die CS9 ermöglicht es somit den Roboter als EtherCAT-Slave oder als EtherCAT-Master zu betreiben.\\
-   	Zudem stehen zwei Ethernet-Ports (9) zur Verfügung, was eine externe Kommunikation z.B. über TCP/IP ermöglicht. Die IP-Adresse der Ethernet-Ports kann frei konfiguriert oder automatisch vergeben werden. Als Dateiübertragungs-Serverprotokoll dient "FTPS+FTP". FTP wird als Standardeinstellung verwendet, während FTPS eine sichere Authentifizierung ermöglicht. \\
+   		\label{table:ComputerEinschub}
+	   	\begin{tabular}{p{1cm}p{12cm}}
+	   		\hline
+	   		Nr. & Bezeichnung  \\ [0.5ex] 
+	   		\hline
+	   		1 & Feldbus, Option für PCIe-Karte  \\ 
+	   		2 & Anschluss für optionale externe 24 V Stromversorgung  \\
+	   		3 & Schnelle Ein-/Ausgänge  \\
+	   		4 & EtherCAT Port (Reserviert) \\
+	   		5 & Anschluss Handbediengerät  \\
+	   		6 & USB-Ports \\  
+	   		7 & Echtzeit-Ethernet-Slave (EtherCAT, Sercos III, EtherNet/IP, PROFINET)  \\ 
+	   		8 & EtherCAT-Master  \\ 
+	   		9 & Ethernet-Ports (1000 MBits/s und 100 MBits/s)  \\
+	   		10 & Status LEDs  \\ 
+	   		11 & serielle Verbindung RS232  \\
+	   		12 & Benutzerschnittstelle  \\  
+	   		\hline
+	   	\end{tabular}
+	\end{table}
+   	An den CS9 Controller kann ein Handbediengerät angeschlossen werden (5), was z.B.  manuelles Verfahren oder einfachere Programmier- und Konfigurationsarbeiten ermöglicht. Hervorzuheben ist zudem der Echtzeit-Ethernet-Slave-Anschluss (7), durch welchen die Steuerung z.B. über EtherCAT mit einer SPS verbunden werden kann. Zusätzlich steht ein EtherCAT-Master-Anschluss (8) zur Verfügung. Die CS9 ermöglicht es somit den Roboter als EtherCAT-Slave oder als EtherCAT-Master zu betreiben. Zudem stehen zwei Ethernet-Ports (9) zur Verfügung, was eine externe Kommunikation z.B. über TCP/IP ermöglicht. Die IP-Adresse der Ethernet-Ports kann frei konfiguriert oder automatisch vergeben werden. Als Dateiübertragungs-Serverprotokoll dient "FTPS+FTP". FTP wird als Standardeinstellung verwendet, während FTPS eine sichere Authentifizierung ermöglicht. \\
    	Auf der CS9-Steuerung lassen sich sogenannte Sockets konfigurieren, welche eine TCP/IP oder eine UDP/IP - Kommunikation ermöglichen. Die Konfiguration kann dabei im Client oder Server-Modus erfolgen. \cite{CS9} Ebenso kann die Steuerung für den Einsatz von OPC UA konfiguriert werden, hierbei kommen jedoch einmalige Lizenzkosten von ca. 500 € pro Roboter hinzu.
    	 
    	\subsection{Programmiersprache VAL 3}
    	Die Programmierung des Roboters kann auf dem Handbediengerät erfolgen oder bevorzugt in der \ac{srs}. In der SRS kann neben der Programmierung eine Simulation des Roboters inklusive 3D-Darstellung erfolgen, sodass die Programme direkt getestet werden können.\\
-   	\glqq VAL 3\grqq{} ist eine höhere Programmiersprache und besitzt spezielle Steuerungsfunktionen für den Roboter zur Bewegungsteuerung und zur Ansteuerung von Ein-/Ausgängen. \cite{VAL3}\\
+   	\glqq VAL 3\grqq{} ist eine höhere Programmiersprache und besitzt spezielle Steuerungsfunktionen für den Roboter zur Bewegungsteuerung und zur Ansteuerung von Ein-/Ausgängen. \cite{VAL3} \vspace{0.5\baselineskip}\\
    	\textbf{Programm} \\
    	In einer Applikation können mehrere Programme angelegt werden. Diese verhalten sich wie Funktionen und lassen sich aufrufen. Zur Ausführung der VAL3-Applikation wird standardmäßig das Programm \glqq start()\grqq{} gestartet, welches vergleichbar mit einer \glqq main-Funktion\grqq{} ist. Von hier lassen sich wiederum andere Programme aufrufen. Bei Beendigung der Applikation wird das Programm \glqq stop()\grqq{} einmalig aufgerufen, um z.B. von dort andere Programme zu beenden.\\
-   	Programme lassen sich auch als Task ausführen. Bei einer Task handelt es sich um ein Programm welches zu einem gewissen Zeitpunkt ausgeführt wird. Üblicherweise wird die Bewegungssteuerung und die Kommunikation in eigene Tasks ausgelagert. Es wird ein möglichst gleichzeitiges Ausführen der Tasks angestrebt. Da die Steuerung  nur einen Prozess besitzt, ist es jedoch nur möglich eine Task auszuführen. Die augenscheinliche Parallelität, wird dadurch erreicht, dass die Tasks sequentiell sehr schnell hintereinander ausgeführt werden (vgl. Abbildung \ref{fig:tasks}). Dabei wird nicht die gesamte Task abgearbeitet, sondern einige wenige Anweisungen. Eine Task erhält zudem eine Priorität, die angibt, wie viele Programmzeilen ausgeführt werden bis die nächste Task abgearbeitet wird. Eine hohe Priorität sorgt daher für ein schnellstmögliches Abarbeiten dieser Task. Wird in einer Task eine Wartezeit (\glqq delay\grqq) ausgeführt, pausiert diese Task und der Prozessor arbeitet nur die anderen Tasks ab. Neben den erwähnten asynchronen Tasks bietet VAL 3 ebenso synchrone Tasks.
+   	Programme lassen sich auch als Task ausführen. Bei einer Task handelt es sich um ein Programm welches zu einem gewissen Zeitpunkt ausgeführt wird. Üblicherweise wird die Bewegungssteuerung und die Kommunikation in eigene Tasks ausgelagert. Es wird ein möglichst gleichzeitiges Ausführen der Tasks angestrebt. Da die Steuerung  nur einen Prozess besitzt, ist es jedoch nur möglich eine Task auszuführen. Die augenscheinliche Parallelität, wird dadurch erreicht, dass die Tasks sequentiell sehr schnell hintereinander ausgeführt werden (vgl. Abbildung \ref{fig:tasks}). Dabei wird nicht die gesamte Task abgearbeitet, sondern einige wenige Anweisungen. Eine Task erhält zudem eine Priorität, die angibt, wie viele Programmzeilen ausgeführt werden bis die nächste Task abgearbeitet wird. Eine hohe Priorität sorgt daher für ein schnellstmögliches Abarbeiten dieser Task. Wird in einer Task eine Wartezeit (\glqq delay\grqq) ausgeführt, pausiert diese Task und der Prozessor arbeitet nur die anderen Tasks ab. Neben den erwähnten asynchronen Tasks bietet VAL 3 ebenso synchrone Tasks.\\
    	\begin{figure}[!ht]
    		\centering
    		\includegraphics[width=0.80\linewidth]{./images/tasks.png}
    		\caption{Sequentielle Anordnung von Tasks \cite{VAL3}} 
    		\label{fig:tasks}
-   	\end{figure} \\
+   	\end{figure} \vspace{0.5\baselineskip}\\
    	\textbf{Datentypen}\\
-   	In VAL 3 gibt es verschiedene einfache Datentypen, die nachfolgend kurz erläutertet werden. Neben den einfachen Datentypen gibt es weitere Datentypen, die z.B. Punkte für die Bewegungsteuerung darstellen. Auf eine Erläuterung dieser wird verzichtet, da diese in der Kommunikation nicht benötigt werden.
+   	In VAL 3 gibt es verschiedene einfache Datentypen, die nachfolgend kurz erläutertet werden. Neben den einfachen Datentypen gibt es weitere Datentypen, die z.B. Punkte für die Bewegungsteuerung darstellen. Auf eine Erläuterung dieser wird verzichtet, da diese in der Kommunikation nicht benötigt werden. \clearpage
    	\begin{itemize}
    		\item \textbf{BOOL:} Variablen und Konstanten von diesem Typ können \glqq true\grqq{} und \glqq false\grqq{} annehmen.
    		\item \textbf{NUM:} Datentyp zur Darstellung von numerischen Werten mit 14 signifikanten Stellen. Im Gegensatz zu vielen gängigen Programmiersprachen wird in VAL 3 nicht zwischen verschiedenen Zahlenformaten unterschieden. Dieser Datentyp kann von ganzzahligen Werten bis hin zu Kommazahlen alles abbilden.
    		\item \textbf{BITFELD:} Dieser Datentyp ermöglicht es eine Bitfolge z.B. von booleschen Werten oder digitalen Ein- und Ausgängen kompakt abzuspeichern.
-   		\item \textbf{STRING:} In Variablen und Konstanten diesen Typs können Zeichenketten mit einer Länge von bis zu 256 Byte gespeichert werden. Die interne Zeichencodierung erfolgt mit Unicode UTF 8. Bei ASCII-Zeichen entspricht die Länge von 256 Bytes somit 234 Zeichen. Initialisiert werden Variablen diesen Datentyps standardmäßig mit einem leeren String (\grqq{} \grqq).
+   		\item \textbf{STRING:} In Variablen und Konstanten diesen Typs können Zeichenketten mit einer Länge von bis zu 256 Byte gespeichert werden. Die interne Zeichencodierung erfolgt mit Unicode UTF 8. Bei ASCII-Zeichen entspricht die Länge von 256 Bytes somit 234 Zeichen.
    		\item \textbf{DIO:} Dieser Datentyp ermöglicht es aus dem Programm auf die digitalen Ein-/Ausgänge der Steuerung zuzugreifen. Hierzu speichert die DIO-Variable einen Link zu der entsprechenden Hardware in Form einer physischen Adresse.
    		\item \textbf{AIO:} Mit Hilfe diesen Datentyps können die analogen Ein- und Ausgänge der Steuerung verknüpft werden.
    		\item \textbf{SIO:} Dieser Datentyp ermöglicht es einen seriellen Port oder einen Ethernet Socket Anschluss zu verknüpfen. Dadurch kann beispielsweise eine TCP/IP - Nachricht geschrieben oder gelesen werden, in dem der Variable des Datentyps ein Wert zugewiesen wird oder ein Wert abgelesen wird. \\
-   	\end{itemize}
+   	\end{itemize} \vspace{-15pt}
    	\textbf{Robotersteuerung}\\
    	Neben Funktionalitäten die klassische Programmiersprachen aufweisen, benötigt VAL~3 insbesondere Möglichkeiten, um den Roboterarm zu steuern. Exemplarisch werden einige Befehle kurz vorgestellt.
    	\begin{itemize}
    		\item \textbf{disable / enable Power:} Hiermit lässt sich die Armleistung ab- bzw. einschalten. Für den lokalen, manuellen oder Testbetrieb hat diese Funktion keinen Einfluss.
-   		\item \textbf{getVersion:} Mit dieser Anweisung lässt sich die Version der Hardware- und Software - Komponenten des Robotercontrollers abfragen.
    		\item \textbf{movej:} Dieser Befehl führt eine Bewegung zu einem Punkt aus. Angegeben werden muss die Winkelposition der Achsen für den Zielpunkt (vom Datentyp \glqq joint\grqq), die Geometrie des Werkzeuges (Datentyp \glqq tool\grqq) und Bewegungsdaten, wie Geschwindigkeit und Beschleunigung (Datentyp \glqq msdec\grqq).
    		\item \textbf{movel:} Dieser Befehl ermöglicht im Gegensatz zum Vorangegangen eine lineare Bewegung. Anstelle der Winkelpositionen als Ziel wird eine kartesische Zielkoordinate (Datentyp \glqq point\grqq) vorgegeben.  \\
    	\end{itemize}
    	\section{Anlagensteuerung}
-   	Ein Roboter ist meist nur ein Teil einer Automatisierungslösung. Dieser kann um Förderbänder, Sensoren und andere Aktoren ergänzt werden. Wie die Steuerung dieser Gesamtanlage umgesetzt wird unterscheidet sich von Anlagenautomatisierer zu Anlagenautomatisierer. Hier soll die bei \glqq robomotion\grqq{} gängige Umsetzung aufgezeigt werden, da diese relevant für das Gesamtverständnis und die Konzeptionierung der Komponenten ist. Es erfolgt somit eine Analyse des Ist-Zustandes. \\
+   	Ein Roboter ist meist nur ein Teil einer Automatisierungslösung. Dieser kann um Förderbänder, Sensoren und andere Aktoren ergänzt werden. Wie die Steuerung dieser Gesamtanlage umgesetzt wird unterscheidet sich von Anlagenautomatisierer zu Anlagenautomatisierer. Hier soll die bei \glqq robomotion\grqq{} gängige Umsetzung aufgezeigt werden, da diese relevant für das Gesamtverständnis und die Konzeptionierung der Komponenten ist. Es erfolgt somit eine Analyse des Ist-Zustandes.\vspace{0.5\baselineskip}\\
    	\textbf{SPS}\\
-   	Zentrales Element der Anlagenautomatisierung ist eine Beckhoff-SPS, welche auf einem \ac{ipc} läuft. Diese ist für die Ablauflogik und \glqq Intelligenz\grqq{} der Anlage zuständig. Auf anderen Bestandteilen, wie z.B. der Robotersteuerung ist hingegen nur eine geringe Komplexität abgebildet. In der Robotersteuerung werden meistens Kommandos mit Jobnummern angelegt, wie beispielsweise die Bewegung von Punkt~A zu Punkt~B. Durch den Aufruf der Jobnummer durch die SPS erhält der Roboter den Befehl zur Bewegungsausführung und meldet eine erfolgreich durchgeführte Bewegung der SPS zurück. Welche Bewegungen in welcher Reihenfolge und wann durchgeführt werden, ist dementsprechend nicht in der Robotersteuerung, sondern in der SPS programmiert.\\
+   	Zentrales Element der Anlagenautomatisierung ist eine Beckhoff-SPS, welche auf einem \ac{ipc} läuft. Diese ist für die Ablauflogik und \glqq Intelligenz\grqq{} der Anlage zuständig. Auf anderen Bestandteilen, wie z.B. der Robotersteuerung ist hingegen nur eine geringe Komplexität abgebildet. In der Robotersteuerung werden meistens Kommandos mit Jobnummern angelegt, wie beispielsweise die Bewegung von Punkt~A zu Punkt~B. Durch den Aufruf der Jobnummer durch die SPS erhält der Roboter den Befehl zur Bewegungsausführung und meldet eine erfolgreich durchgeführte Bewegung der SPS zurück. Welche Bewegungen in welcher Reihenfolge und wann durchgeführt werden, ist dementsprechend nicht in der Robotersteuerung, sondern in der SPS programmiert.\vspace{0.5\baselineskip}\\
    	\textbf{roboTools} \\
    	Weiterer Bestandteil der Automatisierung ist ein Programm namens \glqq roboTools\grqq, welches zur Anlagenvisualisierung dient.\\
-   	Dieses läuft auf einem Windows-Betriebssystem in Form einer \ac{wpf}-Anwendung (\acl{wpf}), des \glqq .NET-Frameworks\grqq. Das Programm roboTools mit seiner grafischen Oberfläche enthält verschiedene Diagnosewerkzeuge und kann dem Anlagenbediener Informationen über bspw. Störungen oder der Anlagenauslastung ausgeben und visualisieren. Die Daten hierfür bezieht roboTools überwiegend von der SPS. \\
+   	Dieses läuft auf einem Windows-Betriebssystem in Form einer \ac{wpf}-Anwendung (\acl{wpf}), des \glqq .NET-Frameworks\grqq. Das Programm roboTools mit seiner grafischen Oberfläche enthält verschiedene Diagnosewerkzeuge und kann dem Anlagenbediener Informationen über bspw. Störungen oder der Anlagenauslastung ausgeben und visualisieren. Die Daten hierfür bezieht roboTools überwiegend von der SPS. \vspace{0.5\baselineskip}\\
    	\textbf{roboVision}\\
-   	Häufig werden in Anlagen Industriekameras eingesetzt, um die Position von Objekten zu ermitteln oder eine automatisierte Qualitätskontrolle vorzunehmen. Zur Weiterverarbeitung der Kameradaten, um die Position oder die Qualitätsgüte zu bestimmen kommt das Programm \glqq roboVision\grqq{} zum Einsatz. Wie roboTools handelt es sich um ein WPF-Anwendung, welche auf einem Windows-Betriebssystem läuft. \\
+   	Häufig werden in Anlagen Industriekameras eingesetzt, um die Position von Objekten zu ermitteln oder eine automatisierte Qualitätskontrolle vorzunehmen. Zur Weiterverarbeitung der Kameradaten, um die Position oder die Qualitätsgüte zu bestimmen kommt das Programm \glqq roboVision\grqq{} zum Einsatz. Wie roboTools handelt es sich um ein WPF-Anwendung, welche auf einem Windows-Betriebssystem läuft.\vspace{0.5\baselineskip}\\
    	\textbf{Hardware und Zusammenspiel}\\
    	Sowohl roboTools, als auch roboVision laufen auf einem IPC. Dies kann der selbe IPC sein, auf dem bereits die SPS läuft. Insbesondere für roboVision wird jedoch meist ein eigenständiger leistungsfähiger IPC eingesetzt, da für die Bildverarbeitung eine hohe Rechenleistung zur Verfügung stehen muss. Für die Umsetzung der Kommunikationsschnittstelle, spielt dies jedoch keine große Rolle, da sich alle IPCs in einem Netzwerk befinden. Das Zusammenspiel dieser Komponenten ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:Anlagensteuerung}). Die Kommunikation zwischen Beckhoff-SPS und einer Robotersteuerung erfolgt bei robomotion mit dem Feldbus EtherCAT. Die Kommunikation zwischen der SPS, roboTools und roboVision über ein spezielles Kommunikationsprotokoll namens \acs{ads} (\acl{ads}) von Beckhoff. ADS ermöglicht den Datenaustausch von verschiedenen Systemen über die Netzwerkverbindung, die bereits zwischen der SPS, roboTools und roboVision besteht. \cite{ADS}\\
    	
@@ -405,12 +400,12 @@
    		\begin{tikzpicture}[node distance=2cm]
    			% Erste Reihe von Boxen
    			% Erste Reihe von Boxen
-   			\node[draw, rectangle, align=center] (box1) at (3cm,0) {Beckhoff-SPS\\ };
-   			\node[draw, rectangle, align=center] (box2) at (9cm,0) {Anlagenvisualisierung\\(roboTools)};
+   			\node[draw, rectangle, align=center] (box1) at (2cm,0) {Beckhoff-SPS\\ };
+   			\node[draw, rectangle, align=center] (box2) at (7cm,0) {Anlagenvisualisierung\\(roboTools)};
    			\node[draw, rectangle, align=center] (box3) at (-3cm,0) {Bildverarbeitung\\(roboVision)};
    			
    			% Zweite Reihe von Boxen
-   			\node[draw, rectangle] (box4) at (3cm,-3cm) {Roboter-Steuerung};
+   			\node[draw, rectangle] (box4) at (2cm,-3cm) {Roboter-Steuerung};
    			\node[draw, rectangle] (box5) at (-3cm,-3cm) {Kamera};
    			
    			% Linien verbinden die Boxen und Beschriftungen hinzufügen
@@ -425,9 +420,7 @@
    		\caption{Anlagensteuerung Aufbau}
    		\label{fig:Anlagensteuerung}
    	\end{figure}
-   	
-   	
-   	
+	\clearpage
    	\section{WPF-Anwendung}
    	\label{sec:WPF}
    	Da bereits roboTools und roboVision auf WPF beruhen, ist WPF von großer Relevanz für diese Arbeit.
@@ -436,12 +429,12 @@
    		// XAML-Definition für einen Button
    		<Button Content="Test-Button" Height="74" Width="154"/>
    	\end{lstlisting}
-   	WPF basiert auf dem .NET - Framework.\\
+   	WPF basiert auf dem .NET - Framework.\vspace{0.5\baselineskip}\\
    	\textbf{.NET - Framework}\\
    	Das .NET Framework ist eine Plattform für unterschiedliche Programmiersprachen, wie C\# oder Visual Basic  mit denen verschiedene Applikationstypen, wie Desktop, Web oder Mobile entwickelt werden können.\\
-   	Das .NET-Framework ist eine Entwicklung von Microsoft. Die meisten Anwendungen können jedoch plattformübergreifend eingesetzt werden. Lediglich Desktopanwendungen, wie z.B. WPF sind an Windows gebunden.  \cite{kotz2022c} \cite{troelsen2022pro}\\
+   	Das .NET-Framework ist eine Entwicklung von Microsoft. Die meisten Anwendungen können jedoch plattformübergreifend eingesetzt werden. Lediglich Desktopanwendungen, wie z.B. WPF sind an Windows gebunden.  \cite{kotz2022c} \cite{troelsen2022pro}\vspace{0.5\baselineskip}\\
    	\textbf{C\#}\\
-   	Das .NET-Framework ist offen für verschiedenste Programmiersprachen, jedoch ist die Verwendung von C\# am geläufigsten und kommt in den vorhandenen Anwendungen von robomotion zum Einsatz. C\# ist eine Entwicklung speziell für .NET und kombiniert Konzepte und Bestandteile von Java, JavaScript, C++ und Visual Basic. Dabei handelt es sich um eine vollwertige objektorientierte Sprache mit Eigenschaften, wie Vererbung und Kapselung. \cite{kotz2022c} \cite{troelsen2022pro}\\
+   	Das .NET-Framework ist offen für verschiedenste Programmiersprachen, jedoch ist die Verwendung von C\# am geläufigsten und kommt in den vorhandenen Anwendungen von robomotion zum Einsatz. C\# ist eine Entwicklung speziell für .NET und kombiniert Konzepte und Bestandteile von Java, JavaScript, C++ und Visual Basic. Dabei handelt es sich um eine vollwertige objektorientierte Sprache mit Eigenschaften, wie Vererbung und Kapselung. \cite{kotz2022c} \cite{troelsen2022pro}\vspace{0.5\baselineskip}\\
    	\textbf{Programmierumgebung}\\
    	Als Entwicklungsumgebung wird für WPF-Anwendungen vornehmlich Visual Studio eingesetzt. Die integrierte Entwicklungsumgebung Visual Studio wird von Microsoft angeboten und ist daher optimal auf die Entwicklung einer WPF-Anwendung zugeschnitten. Zum Projektzeitpunkt stellt Visual Studio 2022 die aktuellste Version dar. Die \glqq Community Edition\grqq{} ist eine kostenfreie Version für private Projekte, sowie kommerzielle Projekte in Unternehmen mit bis zu 250 Mitarbeitern. \cite{kotz2022c} Als Source-Code-Verwaltungs-Programm wird unternehmensintern \glqq Azure DevOps\grqq{} eingesetzt. Daher wird auch im Rahmen dieser Arbeit auf Visual Studio 2022 in Kombination mit Azure DevOps zurückgegriffen.\\
    	
@@ -1260,7 +1253,7 @@
     \textbf{Verbundene Roboter} \\
     Zusätzlich soll die Klasse Communicator ermitteln, welche Roboter aktuell eine Verbindung mit dem Server aufgebaut haben. Diese Information kann über das Fenster, dem Nutzer angezeigt werden. Die Schwierigkeit besteht darin, dass über die aufgebauten Verbindungen zwar einfach dokumentiert werden kann, ob Clients verbunden sind, jedoch keine Information darüber besteht, um welchen Roboter es sich dabei handelt. Die Identifikation des Roboters kann erst mit der ersten Nachricht des Roboters erfolgen, in welcher der Robotername enthalten ist. Zur Speicherung der verbunden Clients und den damit verknüpften Robotern ergeben sich mehrere Möglichkeiten. Beispielsweise kann eine Liste von Tupeln angelegt werden, als Schlüssel kann der Client dienen und als Wert der Roboter. Eine andere Alternative stellt eine Liste oder ein Array aus benutzerdefinierten Objekten dar. Das Objekt besteht in diesem Fall aus dem Client und dem Roboter. Eine weitere Möglichkeit ist ein Dictionary. Dies ermöglicht es Mengen von Schlüssel-Werte-Paaren zu speichern.
     Gegen den Einsatzes einer Liste mit Objekten spricht, dass dies den Aufwand und die Komplexität erhöht, da diese Objekte erst kreiert werden müssen.
-    Die Besonderheit von Listen mit Tupeln hingegen ist, dass die Elemente in einer vorgegeben Sequenz angeordnet sind und ein Zugriff über die Reihenfolge erfolgen kann. In diesem Anwendungsfall ist die Sequenz der Elemente jedoch ohne Bedeuutung, weshalb sich ein Dictionary besonders für die Anwendung eignet. Dieses ermöglicht einen effizienten Zugriff mit Hilfe der Schlüsselbasierten Suche. \cite{troelsen2022pro} \cite{kotz2022c}
+    Die Besonderheit von Listen mit Tupeln hingegen ist, dass die Elemente in einer vorgegeben Sequenz angeordnet sind und ein Zugriff über die Reihenfolge erfolgen kann. In diesem Anwendungsfall ist die Sequenz der Elemente jedoch ohne Bedeuutung, weshalb sich ein Dictionary besonders für die Anwendung eignet. Dieses ermöglicht einen effizienten Zugriff mit Hilfe der schlüsselbasierten Suche. \cite{troelsen2022pro} \cite{kotz2022c}
     Die Initialisierung des Dictionarys ist nachfolgend dargestellt.
     \begin{lstlisting}
     	private ConcurrentDictionary<TcpClient, Robot> dictionaryConnectedClients = new ConcurrentDictionary<TcpClient, Robot>();
@@ -1268,7 +1261,7 @@
     Der TcpClient wird in diesem Fall als Schlüssel eingesetzt und das Objekt der Klasse Robot dient als Wert. Ein ConcurrentDictionary unterscheidet sich von einem normalen Dictionary durch seine Fähigkeit, sicher von mehreren Threads gleichzeitig bearbeitet zu werden, ohne dass externe Synchronisierung notwendig ist. Da mehrere Clients verbunden sein können, kann es dazukommen, dass mehrere asynchronen Methoden zeitgleich das Dictionary beschreiben möchten.
    	Wird erstmalig eine Verbindung zu einem Client aufgebaut wird dieser in das Dictionary aufgenommen, bricht eine Verbindung ab, wird dieser wieder aus dem Dictionary entfernt. Wird erstmalig ein Roboter durch seinen Namen identifiziert, wird dieser dem entsprechenden Client als Wert im Dictionary zugewiesen.\\
    	\textbf{Konfigurationsdatei}\\
-   	Darüberhinaus ist eine Konfigurationsdatei in die WPF-Anwendung implementiert, in der wichtige Einstellungen hinterlegt werden. Der Bediener oder der Anlagenautomatisierer kann in diese Datei wichtige Einstellungen hinterlegen. Hier wird z.B. neben der IP-Adresse und des Ports, eine Liste der installierten Roboter abgelegt. Durch ein Vergleich dieser mit den tatsächlich verbundenen Robotern im Dictionary, kann eine Warnung ausgegeben werden, dass ein gewisser Roboter nicht verbunden ist. Zudem ist in dieser Datei hinterlegt, ab welcher Schwere Systemereignisse übertragen werden sollen. Gemäß Konzeptionierung der WPF-Anwendung (vgl. Kapitel \ref{sec:KonzeptWPF}) muss die WPF-Anwendung den Robotern mitteilen, ab welcher Schwere diese die Systemereignisse versenden solllen. Wird erstmalig eine Verbindung zu einem Roboter aufgebaut oder nach einem Abbruch der Verbindung erfolgt ein erneuter Aufbau, wird ein Telegramm an diesen Roboter versandt, welches diese Soll-Schwere enthält. Liegt beispielsweise eine Störung oder Auffälligkeit an einem Roboter vor kann ein Servicetechniker die Konfigurationsdatei anpassen (ggf. auch per Fernzugriff) und es dadurch ermöglichen, dass alle Systemereignisse, wie z.B. auch reine Informationen übertragen werden.
+   	Darüberhinaus ist eine Konfigurationsdatei in die WPF-Anwendung implementiert, in der wichtige Einstellungen von dem Betreiber hinterlegt werden. Hier wird z.B. neben der IP-Adresse und des Ports, eine Liste der installierten Roboter abgelegt. Durch ein Vergleich dieser mit den tatsächlich verbundenen Robotern im Dictionary, kann eine Warnung ausgegeben werden, dass ein gewisser Roboter nicht verbunden ist. Zudem ist in dieser Datei hinterlegt, ab welcher Schwere Systemereignisse übertragen werden sollen. Gemäß Konzeptionierung der WPF-Anwendung (vgl. Kapitel \ref{sec:KonzeptWPF}) muss die WPF-Anwendung den Robotern mitteilen, ab welcher Schwere diese die Systemereignisse versenden sollen. Wird erstmalig eine Verbindung zu einem Roboter aufgebaut oder nach einem Abbruch der Verbindung erfolgt ein erneuter Aufbau, wird ein Telegramm an diesen Roboter versandt, welches diese Soll-Schwere enthält. Liegt beispielsweise eine Störung oder Auffälligkeit an einem Roboter vor kann ein Servicetechniker die Konfigurationsdatei anpassen (ggf. auch per Fernzugriff) und es dadurch ermöglichen, dass alle Systemereignisse, wie z.B. auch reine Informationen übertragen werden.
    	\subsection{Daten-Logger}
    	Um die Prozessdaten, vor allem aber die Systemereignisse zu protokollieren gibt es mehrere Möglichkeiten. Einerseits kann eine entsprechende Funktion selbst implementiert werden, alternativ kann auf eine Logging-Bibliothek zurückgegriffen werden. Hierfür existieren eine Vielzahl an verschiedenen Anbieter von NLog bis hin zu ELMAH. \cite{logging} Einige Lösungen werden nachfolgend kurz vorgestellt
    	\begin{itemize}
@@ -1295,13 +1288,13 @@
    			\textbf{Legende:} \harveyBallFull: Hervorragend   \harveyBallHalf: Teils/Teils	\harveyBallNone: Sehr schlecht
    		\end{flushleft}
    	\end{table}
-   	Der Funktionsumfang ist bei der manuellen Lösungen am höchsten zu bewerten, da jede beliebige Funktion implementiert werden können. ELMAH hingegen ist etwas spezialisierter als NLog und Log4NET, weshalb hier der Funktionsumfang etwas geringer ausfällt. Bei der Implementierungsfreundlichkeit sind die Bibiotheken klar der manuellen Lösung überlegen. NLog stellt hier die einfachste Lösung dar, da bei Bedarf auf die vorherige Erfahrung aus früheren Projekten zurückgegriffen werden kann. Ebenso ist bei NLog die Standardisierung am höchsten Einzustufen, da es bereits in anderen Anwendungen zum Einsatz kommt. Alle vier Möglichkeiten sind zudem kostenfrei, weshalb alle die maximal mögliche Wertung erhalten. Die Gesamtentscheidung fällt auf Basis der vorangegangenen Punkten klar auf NLog.
+   	Der Funktionsumfang ist bei der manuellen Lösungen am höchsten zu bewerten, da jede beliebige Funktion implementiert werden können. ELMAH hingegen ist etwas spezialisierter als NLog und Log4NET, weshalb hier der Funktionsumfang etwas geringer ausfällt. Bei der Implementierungsfreundlichkeit sind die Bibliotheken klar der manuellen Lösung überlegen. NLog stellt hier die einfachste Lösung dar, da bei Bedarf auf die vorherige Erfahrung aus früheren Projekten zurückgegriffen werden kann. Ebenso ist bei NLog die Standardisierung am höchsten einzustufen, da es bereits in anderen Anwendungen zum Einsatz kommt. Alle vier Möglichkeiten sind zudem kostenfrei, weshalb alle die maximal mögliche Wertung erhalten. Die Gesamtentscheidung fällt auf Basis der vorangegangenen Punkten klar auf NLog.
    	Bei der Implementierung von NLog kann zudem ein lokaler Ablageort als sogenanntes TargetFile angegeben werden. Dies ermöglicht es, die Systemereignisse und die Prozessdaten als CSV- bzw. Text-Datei abzuspeichern. Ebenso ist es möglich eine Ausgabe durch einen sogenannten NlogViewer zu realisieren. Dadurch kann eine Darstellung für den Nutzer erfolgen. Zum Einsatz kommt die \glqq Sentinel.NLogViewer \grqq{}-Bibliothek.\\
    	NLog bietet verschiedene \glqq Logging-Levels \grqq{} wie z.B. Info oder Fatal an \cite{nlog}. Bei den übertragenen Systemereignissen wird die Schwere in der Nachricht übertragen. Nach Interpretation dieser Schwere, kann das Systemereignis über NLog mit dem selben Level ausgegeben werden, wie nachfolgend exemplarisch dargestellt ist:
    	\begin{lstlisting}
    		_EventLogger.Error(senderName + ": " + messageContent);
    	\end{lstlisting}
-   	Es werden drei verschiedene Logger-Instanzen angelegt. Eine für das Protokollieren von Systemereignissen, Einen für die Prozessdaten und einen für den Ablauf der WPF-Anwendung, z.B. für wichtige Ereignisse oder Fehler.
+   	Es werden drei verschiedene Logger-Instanzen angelegt. Eine für das Protokollieren von Systemereignissen, eine für die Prozessdaten und eine für den Ablauf der WPF-Anwendung, z.B. für wichtige Ereignisse oder Fehler.
 
    	\subsection{Diagramm}
    	Die erfassten und gespeicherten Prozessdaten, wie z.B. die Temperatur der CPU soll als graphischer Verlauf über die Zeit dargestellt werden. Für die Erstellung von Diagrammen gibt es in C\# eine Vielzahl von Bibliotheken. Bekannte Bibliotheken sind Oxyplot, LiveCharts und ScottPlot. Aufgrund des besonders positiven optischen Erscheines von OxyPlot fällt die Wahl auf diese Bibliothek. Zudem sind die Anpassungsmöglichkeiten bei LiveCharts und ScottPlot geringer. Prinzipiell lässt sich für die Umsetzung jedoch jede Bibliothek einsetzen. Für das Erstellen eines Diagrammes mit OxyPlot müssen in einem ersten Schritt die Prozessdaten aus der CSV-Datei gelesen und in einer Liste von Tuples abgespeichert werden. Für die Darstellung der x-Achse dient die Uhrzeit, für die y-Achse der eigentliche Datenwert. Abschließend wird ein Diagramm dieser Daten mit Hilfe von OxyPlot erstellt. Darüberhinaus wird realisiert, dass es möglich ist mehrere Daten, wie z.B. die Temperaturen verschiedener Achsen in einem Diagramm darzustellen. Hierzu werden mehrere Spalten aus der CSV-Datei ausgelesen und für die einzelnen Datenreihen verwendet. Eine Legende mit einer Beschriftung der Datenreihen komplettiert das Diagramm. \\
