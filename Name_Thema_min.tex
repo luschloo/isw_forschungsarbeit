@@ -450,47 +450,45 @@
 	\chapter{Anforderungsdefinition}
 	\label{chap:Anforderungsdefinition}
 	Die Aufgabenstellung und die grobe Anforderungsformulierung soll in diesem Kapitel mit Hilfe eines Lastenheftes in eine strukturierte Form gebracht werden. Das Lastenheft beschreibt, welche Funktionalitäten das zu entwerfende System aufweisen soll. Der Auftragnehmer beschreibt im Pflichtenheft durch welche Systemfunktionalitäten die Aufgaben erfüllt werden sollen und wie die Umsetzung technisch erfolgt. Das Lasten- und Pflichtenheft dient auch zur rechtlichen Absicherung der Vertragsparteien. Obwohl ein Lasten- und Pflichtenheft oft als Vertragsgrundlage entworfen wird und dies im Rahmen des Projektes nicht notwendig ist, soll ein Lastenheft eingesetzt werden. Dies ermöglicht es alle Anforderungen und Rahmenbedingungen zu berücksichtigen und diese im gesamten Projektverlauf im Blick zu behalten. Auf ein Pflichtenheft wird hingegen verzichtet. \cite{SoftwaretechnikBroy}
-	Das Lastenheft wird in Muss- und Kann-Kriterien unterteilt. Während bei den Muss-Kriterien eine Erfüllung essentiell ist, stellen die Kann-Kriterien eine optionale Erweiterung dar, die dem System jedoch einen Mehrwert verschaffen.\\
-	\begin{longtable}{p{0.5cm}p{10.5cm}p{2cm}}
+	Das Lastenheft wird in Muss- und Kann-Kriterien unterteilt (vgl. Tabelle \ref{table:Lastenheft}). Während bei den Muss-Kriterien eine Erfüllung essentiell ist, stellen die Kann-Kriterien eine optionale Erweiterung dar, die dem System jedoch einen Mehrwert verschaffen.\vspace{-8pt}
+	\begin{longtable}{|p{0.3cm}|p{12cm}|p{1cm}|}
 		\caption{Lastenheft}
 		\label{table:Lastenheft}\\
 		\hline
-		Nr. & Anforderung & Kann/Muss \\ [0.5ex] 
+		Nr. & Anforderung & K/M \\ [0.5ex] 
 		\hline
 		\endhead
-		1 & Übertragung von Fehlermeldungen des Stäubli-Roboters an die Anlagenvisualisierung & Muss  \\ 
-		2 & Übertragung von Prozessdaten des Stäubli-Roboters an die Anlagenvisualisierung & Muss  \\
-		3 & Übertragung von Daten z.B. Kameradaten von der Anlage an den Stäubli-Roboter & Muss  \\
+		1 & Übertragung von Fehlermeldungen des Roboters an die Anlagenvisualisierung & Muss  \\ 
+		2 & Übertragung von Prozessdaten des Roboters an die Anlagenvisualisierung & Muss  \\
+		3 & Übertragung von Daten z.B. Kameradaten von der Anlage an den Roboter & Muss  \\
 		4 & Ausgabe der Roboterfehler auf der Anlagenvisualisierung in verständlicher Form (ausformuliert, Fehlercode genügt nicht) & Muss  \\
-		5 & Funktionierende Feldbusverbindung zwischen Stäubli-Roboter und SPS & Muss  \\
-		6 & Funktionierende TCP/IP Kommunikation zwischen Stäubli-Roboter und Anlagenvisualisierung & Muss  \\  
-		7 & Abspeichern der Fehler und der Daten in log-File & Muss  \\ 
-		8 & Fehlerfreie und prozesssichere Kommunikation & Muss  \\ 
-		9 & Einsatz von mehreren Stäubli-Robotern zeitgleich  & Kann  \\
-		10 & Vorgabe von der Anlagenvisualisierung, wie häufig Daten versendet werden sollen & Kann  \\
-		11 & Vorgabe von der Anlagenvisualisierung, ab welcher Schwere Systemereignisse versendet werden sollen & Kann  \\ 
-		12 & Visualisierung der Daten & Kann  \\
-		13 & Verwertung der Daten z.B. für Warnungen & Kann  \\  
-		14 & Übersichtliche Darstellung aller Daten und Meldungen & Kann  \\ 
-		15 & Melden, dass Bahnpunkte umgeteacht wurden & Kann  \\ 
+		5 & Feldbusverbindung zwischen Stäubli-Roboter und SPS & Muss  \\
+		6 & Abspeichern der Fehler und der Daten in log-File & Muss  \\ 
+		7 & Fehlerfreie und prozesssichere Kommunikation & Muss  \\ 
+		8 & Einsatz von mehreren Stäubli-Robotern zeitgleich  & Kann  \\
+		9 & Vorgabe von der Anlagenvisualisierung, wie häufig Daten versendet werden sollen & Kann  \\
+		10 & Vorgabe von der Anlagenvisualisierung, ab welcher Schwere Systemereignisse versendet werden sollen & Kann  \\ 
+		11 & Visualisierung der Daten & Kann  \\
+		\hline
+		12 & Verwertung der Daten z.B. für Warnungen & Kann  \\  
+		13 & Übersichtliche Darstellung aller Daten und Meldungen & Kann  \\ 
+		14 & Melden, dass Bahnpunkte umgeteacht wurden & Kann  \\ 
 		\hline
 	\end{longtable}
-	\noindent Im Rahmen dieser Arbeit ist die Feldbus-Verbindung zwischen SPS und Roboter zu entwerfen. Der Fokus liegt jedoch auf der TCP/IP-Verbindung zwischen Roboter und Anlagenvisualisierung. Darüber hinaus ist das Programm für den Roboter zu konzeptionieren und zu implementieren.\\
-	Das andere Ende der TCP/IP-Verbindung stellt die Anlagenvisualisierung dar. Dort sollen die Fehlermeldungen ausgegeben und die Daten visualisiert werden. Als Anlagenvisualisierung dient bei robomotion roboTools. Die zu entwerfende WPF-Anwendung zur TCP/IP-Kommunikation und zur Datenvisualisierung kann nach Projektende in roboTools integriert werden. Dies soll jedoch nicht mehr Teil der Arbeit sein. Die zu entwerfende WPF-Anwendung wird im Rahmen dieser Arbeit vereinfacht als Anlagenvisualisierung bezeichnet.\\
-	Die bestehende Anwendung roboVision erstellt auf Basis von Kamerabildern Positionsdaten von zugreifenden Objekten. Diese Positionsdaten können über die Beckhoff-spezifische Verbindung \acs{ads} zur Anlagensteuerung übertragen werden und somit auch von der zu entwerfenden WPF-Anwendung abgegriffen werden. Alternativ kann später auch ein direktes Versenden der Positionsdaten von der Anlagenvisualiserung zum Roboter umgesetzt werden. Dafür kann auf den entwickelten Source-Code der Anlagenvisualisierung zurückgegriffen werden. Einfachheitshalber wird in dieser Arbeit angenommen, dass die Positionsdaten in der Anlagenvisualisierung vorhanden sind und von dort direkt versendet werden können.\\
-	Eine Konzeptionierung und Implementierung des SPS-Programms kann entfallen, da die Kommunikation mit einer Feldbus-Verbindung in der Beckhoff-SPS bei robomotion Stand der Technik ist und dadurch aus anderen Projekten übernommen werden kann. Das Zusammenspiel all dieser Komponenten ist nachfolgend dargestellt, wobei die im Rahmen dieser Arbeit zu entwerfenden Komponenten farbig markiert sind (vgl. Abbildung \ref{fig:Anlagensteuerung_Aufgabe}).
+	\noindent Im Rahmen dieser Arbeit ist die Feldbus-Verbindung zwischen SPS und Roboter zu entwerfen. Der Fokus liegt jedoch auf der TCP/IP-Verbindung zwischen Roboter und Anlagenvisualisierung. Darüber hinaus ist das Programm für den Roboter zu konzeptionieren und zu implementieren. Das andere Ende der TCP/IP-Verbindung stellt die Anlagenvisualisierung dar. Dort sollen die Fehlermeldungen ausgegeben und die Daten visualisiert werden. Als Anlagenvisualisierung dient bei robomotion roboTools. Die zu entwerfende WPF-Anwendung zur TCP/IP-Kommunikation und zur Datenvisualisierung kann nach Projektende in roboTools integriert werden. Dies soll jedoch nicht mehr Teil der Arbeit sein. Die zu entwerfende WPF-Anwendung wird im Rahmen dieser Arbeit vereinfacht als Anlagenvisualisierung bezeichnet.\\
+	Die bestehende Anwendung roboVision erstellt auf Basis von Kamerabildern Positionsdaten von zugreifenden Objekten. Diese Positionsdaten können über die Beckhoff-spezifische Verbindung \acs{ads} zur Anlagensteuerung übertragen werden und somit auch von der zu entwerfenden WPF-Anwendung abgegriffen werden. Alternativ kann später auch ein direktes Versenden der Positionsdaten von der Anlagenvisualiserung zum Roboter umgesetzt werden. Dafür kann auf den entwickelten Source-Code der Anlagenvisualisierung zurückgegriffen werden. Einfachheitshalber wird in dieser Arbeit angenommen, dass die Positionsdaten in der Anlagenvisualisierung vorhanden sind und von dort direkt versendet werden können. Eine Konzeptionierung und Implementierung des SPS-Programms kann entfallen, da die Kommunikation mit einer Feldbus-Verbindung in der Beckhoff-SPS bei robomotion Stand der Technik ist und dadurch aus anderen Projekten übernommen werden kann. Das Zusammenspiel all dieser Komponenten ist nachfolgend dargestellt, wobei die im Rahmen dieser Arbeit zu entwerfenden Komponenten farbig markiert sind (vgl. Abbildung \ref{fig:Anlagensteuerung_Aufgabe}).\vspace{-8pt}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}[node distance=2cm]
 			% Erste Reihe von Boxen
 			% Erste Reihe von Boxen
-			\node[draw, rectangle, align=center] (box1) at (3cm,0) {Beckhoff-SPS\\ };
-			\node[draw, rectangle, align=center, fill=green!20] (box2) at (9cm,0) {Anlagenvisualisierung\\(spätere Integration in roboTools)};
+			\node[draw, rectangle, align=center] (box1) at (1cm,0) {Beckhoff-SPS\\ };
+			\node[draw, rectangle, align=center, fill=green!20] (box2) at (7cm,0) {Anlagenvisualisierung\\(spätere Integration in roboTools)};
 			\node[draw, rectangle, align=center] (box3) at (-3cm,0) {Bildverarbeitung\\(roboVision)};
 			
 			% Zweite Reihe von Boxen
-			\node[draw, rectangle, fill=green!20] (box4) at (3cm,-3cm) {Roboter-Steuerung};
-			\node[draw, rectangle] (box5) at (-3cm,-3cm) {Kamera};
+			\node[draw, rectangle, fill=green!20] (box4) at (1cm,-2cm) {Roboter-Steuerung};
+			\node[draw, rectangle] (box5) at (-3cm,-2cm) {Kamera};
 			
 			% Linien verbinden die Boxen und Beschriftungen hinzufügen
 			\draw (box1) -- node[above] {ADS} (box2);
@@ -505,8 +503,8 @@
 
 	
 	\chapter{Konzeptionierung}
-	In diesem Kapitel sollen die Kommunikationsverbindungen, sowie das Roboterprogramm und die Anlagenvisualisierung konzeptioniert werden. Hierfür werden die Komponenten der Anlage benannt und ihre Funktionen grob skizziert. Dies erfolgt mit Hilfe eines UML-Klassendiagramms (vgl. Abbildung \ref{fig:UMLKlassenAnlage}). \acs{uml} (\acl{uml}) ermöglicht eine Systemmodellierung mit Hilfe von grafischer Notation \cite{Sommerville}.
-	\begin{figure}
+	In diesem Kapitel sollen die Kommunikationsverbindungen, sowie das Roboterprogramm und die Anlagenvisualisierung konzeptioniert werden. Hierfür werden die Komponenten der Anlage benannt und ihre Funktionen grob skizziert. Dies erfolgt mit Hilfe eines UML-Klassendiagramms (vgl. Abbildung \ref{fig:UMLKlassenAnlage}). \acs{uml} (\acl{uml}) ermöglicht eine Systemmodellierung mit Hilfe von grafischer Notation \cite{Sommerville}.\\
+	\begin{figure}[!h]
 		 \begin{tikzpicture}
 		 	\umlclass[x=0]{SPS}{
 		 		- Eingänge : int \\
@@ -529,7 +527,7 @@
 		 		+ visualisiereRoboterdaten(): void \\
 		 		+ schreibeLogFile(): void
 		 	}
-		 	\umlclass[x=4, y=-7]{Roboter}{
+		 	\umlclass[x=4, y=-6]{Roboter}{
 		 		- Geschwindigkeit : float \\
 		 		- Temperatur: int \\
 		 		- Drehmoment: int \\
@@ -555,27 +553,29 @@
 		 \end{tikzpicture}
 		 \caption{UML-Klassendiagramm Gesamte Anlage}
 		 \label{fig:UMLKlassenAnlage}
-	\end{figure}
+	\end{figure}\newline
+	\noindent
 	Das UML-Diagramm zeigt die Komponenten SPS, Roboter und Anlagenvisualisierung auf. Die Kommunikation zwischen SPS und Roboter erfolgt mittels Feldbus, zwischen Anlagenvisualisierung und Roboter mittels TCP/IP. Daher soll im ersten Schritt der Feldbus und die TCP/IP-Verbindung konzeptioniert werden. Erst anschließend kann das Programm des Roboters und der Anlagenvisualisierung konzeptioniert werden, da dieses maßgeblich abhängig von der Wahl und dem Aufbau der Kommunikationsverbindung ist. Nachdem die Feldbus-Verbindung und die TCP/IP-Verbindung konzeptioniert wurden sollen die zu übertragenden Daten für die TCP/IP-Verbindung konzeptioniert werden. Anschließend erfolgt die Konzeptionierung der Software für den Stäubli-Roboter und die Anlagenvisualisierung.
 	 
 	\section{Feldbus-Verbindung}
 	\label{sec:KonzeptFeldbus}
-	Aufgabe der Feldbusverbindung ist es, die Kommunikation zwischen dem Stäubli-Roboter und der Beckhoff-SPS sicherzustellen. Hierzu werden einerseits Befehle, wie zur Bewegungsdurchführung zum Roboter übertragen, andererseits Informationen, wie z.B. eine Bestätigung der vollendeten Bewegung zurück an die SPS gesandt.\\
+	Aufgabe der Feldbusverbindung ist es, die Kommunikation zwischen dem Stäubli-Roboter und der Beckhoff-SPS sicherzustellen. Hierzu werden einerseits Befehle, wie zur Bewegungsdurchführung zum Roboter übertragen, andererseits Informationen, wie z.B. eine Bestätigung der vollendeten Bewegung zurück an die SPS gesandt.\vspace{0.5\baselineskip}\\
 	\textbf{Wahl des Feldbusses}\\
 	In Kapitel \ref{sec:Feldbus} wurden die Feldbusse in Standard-Feldbusse und Ethernet basierende Feldbusse unterteilt. Die Wahl fällt hierbei auf einen Ethernet-basierenden Feldbus, weil dies der aktuelle Stand der Technik darstellt und zudem firmenintern ausnahmslos eingesetzt wird. Nach Kapitel \ref{subsec:EthernetFeldbus} sind Profinet, Ethernet/IP, EtherCAT und Sercos III häufig eingesetzte Ethernet basierende Feldbusse. Eine Gegenüberstellung der Vor- und Nachteile der einzelnen Feldbusse und eine Auswahl anhand dieser Kriterien kann jedoch entfallen, da zwei Argumente für den Einsatz von EtherCAT, alle anderen Kriterien überwiegen.\\
-	Im Projekt kommt eine Beckhoff-SPS zum Einsatz. EtherCAT ist eine Entwicklung von Beckhoff und daher bestmöglichst auf die SPS von Beckhoff abgestimmt.\\
-	Darüber hinaus, kommt unternehmensintern EtherCAT bereits in anderen Projekten zum Einsatz. Die Wahl von EtherCAT bringt daher folgende Vorteile mit sich:
+	Im Projekt kommt eine Beckhoff-SPS zum Einsatz. EtherCAT ist eine Entwicklung von Beckhoff und daher bestmöglichst auf die SPS von Beckhoff abgestimmt. Darüber hinaus, kommt unternehmensintern EtherCAT bereits in anderen Projekten zum Einsatz. Die Wahl von EtherCAT bringt daher folgende Vorteile mit sich:
 	\begin{itemize}
 		\item \textbf{Know How: } Firmenintern hat sich durch den wiederholten Einsatz von EtherCAT bereits eine große Wissenbasis und Erfahrung aufgebaut. Bei schwerwiegenderen Problemen ermöglicht dies eine einfachere Fehlersuche.
 		\item \textbf{Schulungszwecke: } Durch andere Projekte sind beispielsweise die Service-Techniker bereits in EtherCAT geschult. Die Buchung einer zeit- und kostenintensiven Schulung für einen anderen Feldbus kann entfallen.
 		\item \textbf{Standardisierung:} Der Einsatz von vielen unterschiedlichen Systemen innerhalb des Unternehmens erhöht den Aufwand in Dokumentation und Einkauf. Daher wird versucht die Varianz möglichst gering zu halten und auf einen unternehmensinternen Standard, welcher bereits häufig verwendet wird zu setzen.\\
 	\end{itemize}
+	\clearpage
+	\noindent
 	\textbf{Master-Master vs. Master-Slave}\\
-	Standardmäßig wird im Auslieferungszustand sowohl die Beckhoff-SPS, als auch der Stäubli Roboter als Master eingesetzt.	Jedoch ist EtherCAT rein für Master-Slave- Kommunikation ausgelegt, d.h. es kann nur ein Master existieren. \cite{ethercat}	Beckhoff bietet jedoch eine spezielle Bridge-Klemme (EL6692) an, die es erlaubt EtherCAT-Stränge zu synchronisieren und ein Datenaustausch zwischen den einzenen Strängen zu ermöglichen. Da jeder EtherCAT-Strang einen eigenen Master besitzt ermöglicht die Bridge den Einsatz von mehreren Mastern. \cite{Bridge} Hierdurch entstehen jedoch zusätzliche Kosten und auch die Komplexität des Systems steigt. Da sowohl die Stäubli-Steuerung, als auch die SPS ebenso als Slave konfiguriert werden kann, fällt die Entscheidung auf die Master-Slave-Kommunikation, um die zusätzliche Master-Master-Klemme einzusparen.\\
+	Standardmäßig wird im Auslieferungszustand sowohl die Beckhoff-SPS, als auch der Stäubli Roboter als Master eingesetzt.	Jedoch ist EtherCAT rein für Master-Slave- Kommunikation ausgelegt, d.h. es kann nur ein Master existieren. \cite{ethercat}	Beckhoff bietet jedoch eine spezielle Bridge-Klemme (EL6692) an, die es erlaubt EtherCAT-Stränge zu synchronisieren und ein Datenaustausch zwischen den einzenen Strängen zu ermöglichen. Da jeder EtherCAT-Strang einen eigenen Master besitzt ermöglicht die Bridge den Einsatz von mehreren Mastern. \cite{Bridge} Hierdurch entstehen jedoch zusätzliche Kosten und auch die Komplexität des Systems steigt. Da sowohl die Stäubli-Steuerung, als auch die SPS ebenso als Slave konfiguriert werden kann, fällt die Entscheidung auf die Master-Slave-Kommunikation, um die zusätzliche Master-Master-Klemme einzusparen.\vspace{0.5\baselineskip}\\
 	\textbf{Wahl des Masters} \\
 	Nachdem die Entscheidung für eine Master-Slave-Architektur gefallen ist, muss festgelegt werden, ob die Beckhoff-SPS oder der Stäubli-Roboter als Master konfiguriert wird. Da der Einsatz von mehreren Stäubli-Robotern in Automatisierungslösungen denkbar ist, könnte nicht jeder Stäubli-Roboter als Master eingesetzt werden. Folglich wäre ein Stäubli-Roboter der Master, die anderen Stäubli-Roboter, sowie die SPS Slaves. Um diese Unterschiede in den einzelnen Stäubli-Robotern zu verhindern, ist es sinnvoll die Beckhoff-SPS als Master zu konfigurieren, sodass alle Stäubli-Roboter einheitlich als Slaves eingesetzt werden. Darüber hinaus ist die SPS der zentrale Teil der Anlagenautomatisierung. Von ihr können weitere Komponenten, wie Roboter anderer Hersteller gesteuert werden, weshalb die Wahl der SPS als Master sinnvoll ist.\\
-	Die Gesamtentscheidung zur Konfiguration ist nachfolgend mit Hilfe eines morphologischen Kastens dargestellt.\\
-	\begin{table}
+	Die Gesamtentscheidung zur Konfiguration ist nachfolgend mit Hilfe eines morphologischen Kastens dargestellt (vgl. Tabelle \ref{table:MorphoFeldbus}).\\
+	\begin{table}[!h]
 		\caption{Morphologischer Kasten Feldbus}
 		\label{table:MorphoFeldbus}
 		\centering
@@ -597,35 +597,36 @@
 		\end{tabular}
 	\end{table}
 	
-	
-	
+	\clearpage
 	\section{TCP/IP-Verbindung}
 	\label{sec:KonzeptTCPIP}
-	Nachdem die Feldbus-Verbindung konzeptioniert wurde, erfolgt die Auslegung der TCP/IP-Verbindung. Hierbei müssen viele Einzelentscheidungen getroffen werden, welche am Ende mit einem morphologischen Kasten zusammengefasst dargestellt werden.\\
+	Nachdem die Feldbus-Verbindung konzeptioniert wurde, erfolgt die Auslegung der TCP/IP-Verbindung. Hierbei müssen viele Einzelentscheidungen getroffen werden, welche am Ende mit einem morphologischen Kasten zusammengefasst dargestellt werden.\vspace{0.5\baselineskip}\\
 	\textbf{Wahl der Architektur} \\
-	Wie in Kapitel \ref{sec:TCP/IP} erläutert kommt für eine TCP/IP-Verbindung die Client-Server-Architektur zum Einsatz. Dabei kann entweder der Stäubli-Roboter oder die Anlagenvisualisierung als Server dienen. In der Literatur wird meist empfohlen, die Seite mit der höheren Rechenleistung als Server einzusetzen (vgl. Kapitel \ref{sec:TCP/IP}). Dies stellt in diesem Fall die Anlagenvisualisierung dar. Wenn hingegen der Roboter als Server dienen würde und es zum Einsatz von mehreren Roboter kommen würde, wäre der Einsatz von mehreren Client-Instanzen auf der Anlagenvisualisierung notwendig oder die anderen Roboter müssten als Client konfiguriert werden. Daher eignet sich die Anlagenvisualisierung besser als Server und die einzelnen Roboter werden als Client konfiguriert. \\
+	Wie in Kapitel \ref{sec:TCP/IP} erläutert kommt für eine TCP/IP-Verbindung die Client-Server-Architektur zum Einsatz. Dabei kann entweder der Stäubli-Roboter oder die Anlagenvisualisierung als Server dienen. In der Literatur wird meist empfohlen, die Seite mit der höheren Rechenleistung als Server einzusetzen (vgl. Kapitel \ref{sec:TCP/IP}). Dies stellt in diesem Fall die Anlagenvisualisierung dar. Wenn hingegen der Roboter als Server dienen würde und es zum Einsatz von mehreren Roboter kommen würde, wäre der Einsatz von mehreren Client-Instanzen auf der Anlagenvisualisierung notwendig oder die anderen Roboter müssten als Client konfiguriert werden. Daher eignet sich die Anlagenvisualisierung besser als Server und die einzelnen Roboter werden als Client konfiguriert. \vspace{0.5\baselineskip}\\
 	\textbf{Nachrichtentypen}\\
 	Für folgende Daten, die übertragen werden müssen, muss festgelegt werden, ob und wie diese auf einzelne Nachrichten aufgeteilt werden.
 	\begin{itemize}
 		\item \textbf{Systemereignisse: } Erfasste Meldungen, wie z.B. Fehler müssen von dem Roboter zu der Anlagenvisualisierung übertragen werden.
 		\item \textbf{Prozessdaten: } Vom Roboter erfasste Daten, wie Temperaturen oder digitale Werte, wie Fehler an den Ventilen müssen vom Roboter zur Anlagenvisualisierung übertragen werden.
-		\item \textbf{Kameradaten:} Positionsdaten von zugreifenden Objekten, welche durch Kameradaten generiert werden, müssen von der Anlagenvisualisierung zum Roboter übertragen werden.\\
+		\item \textbf{Kameradaten:} Positionsdaten von zugreifenden Objekten, welche durch Kameradaten generiert werden, müssen von der Anlagenvisualisierung zum Roboter übertragen werden.
 		\item \textbf{Aktualisierung Systemereignis-Schwere:} Die Anlagenvisualisierung soll vorgeben können ab welcher Schwere die Roboter Systemereignisse versenden sollen. Hierdurch können z.B. vergleichsweise unkritische Informationsmeldungen von dem Versand ausgeschlossen werden. Hierfür muss übertragen werden, ab welcher Schwere, der Roboter das Systemereignis senden soll.\\
 	\end{itemize}
 	Da die Kameradaten in die entgegengesetzte Richtung, wie die anderen Daten übertragen werden, werden diese in eine eigene Nachricht verpackt. Die Systemereignisse und die Prozessdaten können in einer Nachricht oder in getrennten Nachrichten versandt werden. Da die Prozessdaten durchgängig anfallen, die Systemereignisse jedoch azyklisch lohnt sich eine Trennung.\\
-	Die Prozessdaten wiederum können gebündelt oder getrennt in einzelne Nachrichten z.B. für die Temperaturen und die digitalen Werte, versendet werden. Da beispielsweise Temperaturen nicht besonders dynamisch sind könnte die Übertragungsfrequenz für diese Daten geringer sein, was die Auslastung der Verbindung reduzieren würde. Dies erhöht jedoch die Komplexität, da viele verschiedene Nachrichtentypen anfallen, was bei Wartungen oder Änderungen in späteren Jahren zum Problem werden kann. Da das zyklische Versenden aller Prozessdaten, die Übertragungsrate der TCP/IP-Verbindung nicht übersteigen wird, fällt die Entscheidung auf das Zusammenfassen aller Prozessdaten in einer Nachricht. Folglich gibt es drei Nachrichtentypen: Kameradaten, Systemereignisse und Prozessdaten.\\
+	Die Prozessdaten wiederum können gebündelt oder getrennt in einzelne Nachrichten z.B. für die Temperaturen und die digitalen Werte, versendet werden. Da beispielsweise Temperaturen nicht besonders dynamisch sind könnte die Übertragungsfrequenz für diese Daten geringer sein, was die Auslastung der Verbindung reduzieren würde. Dies erhöht jedoch die Komplexität, da viele verschiedene Nachrichtentypen anfallen, was bei Wartungen oder Änderungen in späteren Jahren zum Problem werden kann. Da das zyklische Versenden aller Prozessdaten, die Übertragungsrate der TCP/IP-Verbindung nicht übersteigen wird, fällt die Entscheidung auf das Zusammenfassen aller Prozessdaten in einer Nachricht. Folglich gibt es drei Nachrichtentypen: Kameradaten, Systemereignisse und Prozessdaten.\vspace{0.5\baselineskip}\\
 	\textbf{Auslöser für Versand der Systemereignisse}\\
-	Die Systemereignisse können entweder zyklisch z.B. einmal pro Sekunde zusammengefasst, oder direkt bei Auftreten versendet werden. Die Entscheidung fällt auf ein direktes Versenden bei Auftreten, damit wichtige Fehlermeldungen schnellstmöglich ankommen. Zudem handelt es sich um ein azyklisches Ereignis, d.h. die Systemereignisse werden nur sporadisch versendet.\\
+	Die Systemereignisse können entweder zyklisch z.B. einmal pro Sekunde zusammengefasst, oder direkt bei Auftreten versendet werden. Die Entscheidung fällt auf ein direktes Versenden bei Auftreten, damit wichtige Fehlermeldungen schnellstmöglich ankommen. Zudem handelt es sich um ein azyklisches Ereignis, d.h. die Systemereignisse werden nur sporadisch versendet.\vspace{0.5\baselineskip}\\
 	\textbf{Auslöser für Versand der Prozessdaten}\\
-	Die Prozessdaten werden zyklisch benötigt und sind nicht abhängig von besonderen Ereignissen. Ein zyklischer Versand bietet sich hier an. Die Sendefrequenz muss dann in jedem Stäubli-Roboter einprogrammiert werden und ist dann fest eingestellt. Vorteilhaft wäre es wenn die Sendefrequenz von dem Server Anlagenvisualisierung vorgegeben werden kann. Dadurch kann die Sendefrequenz angepasst und z.B. zur Fehlerfindung erhöht werden. Darüber hinaus kann die Änderung an dieser zentralen Instanz erfolgen und muss nicht manuell bei jedem einzelnen Stäubli-Roboter durchgeführt werden. Dies ist insbesondere praktisch, wenn ein Zugriff über das Fernwartungssystem auf die Anlagenvisualisierung erfolgt. Daher soll ein Datenanforderungstelegramm zyklisch von der Anlagenvisualisierung an alle Clients (Stäubli-Roboter) gesandt werden. Diese sollen nach Erhalt der Anforderung ein Prozessdatentelegramm versenden. Der Einsatz von Datenanforderungstelegrammen bringt ein weiteren Vorteil mit sich. Durch die Zeitdifferenz zwischen Datenanforderungstelegramm und Erhalt des Datentelegramms kann überprüft werden, ob die Datenübertragung ausreichend stabil ist und ob der Client noch verbunden ist. Wenn innerhalb einer vorgegeben Zeitspanne keine Antwort in Form des Datentelegramms erfolgt kann eine Warnung ausgegeben werden, dass dieser Stäubli-Roboter nicht erreichbar ist.\\
+	Die Prozessdaten werden zyklisch benötigt und sind nicht abhängig von besonderen Ereignissen. Ein zyklischer Versand bietet sich hier an. Die Sendefrequenz muss dann in jedem Stäubli-Roboter einprogrammiert werden und ist dann fest eingestellt. Vorteilhaft wäre es wenn die Sendefrequenz von dem Server Anlagenvisualisierung vorgegeben werden kann. Dadurch kann die Sendefrequenz angepasst und z.B. zur Fehlerfindung erhöht werden. Darüber hinaus kann die Änderung an dieser zentralen Instanz erfolgen und muss nicht manuell bei jedem einzelnen Stäubli-Roboter durchgeführt werden. Dies ist insbesondere praktisch, wenn ein Zugriff über das Fernwartungssystem auf die Anlagenvisualisierung erfolgt. Daher soll ein Datenanforderungstelegramm zyklisch von der Anlagenvisualisierung an alle Clients (Stäubli-Roboter) gesandt werden. Diese sollen nach Erhalt der Anforderung ein Prozessdatentelegramm versenden. Der Einsatz von Datenanforderungstelegrammen bringt ein weiteren Vorteil mit sich. Durch die Zeitdifferenz zwischen Datenanforderungstelegramm und Erhalt des Datentelegramms kann überprüft werden, ob die Datenübertragung ausreichend stabil ist und ob der Client noch verbunden ist. Wenn innerhalb einer vorgegeben Zeitspanne keine Antwort in Form des Datentelegramms erfolgt kann eine Warnung ausgegeben werden, dass dieser Stäubli-Roboter nicht erreichbar ist.\vspace{0.5\baselineskip}\\
 	\textbf{Auslöser für Versand von Kameradaten} \\
-	Beim Anfallen von Positionsdaten, welche anhand von Kameradaten berechnet werden, sollen diese schnellst möglichst an den Roboter übertragen werden. Aus diesem Grund erfolgt der Versand dieser Daten ereignisgesteuert, d.h. direkt nach Erhalt der Positionsdaten wird ein Telegramm an den entsprechenden Roboter gesandt.\\
+	Beim Anfallen von Positionsdaten, welche anhand von Kameradaten berechnet werden, sollen diese schnellst möglichst an den Roboter übertragen werden. Aus diesem Grund erfolgt der Versand dieser Daten ereignisgesteuert, d.h. direkt nach Erhalt der Positionsdaten wird ein Telegramm an den entsprechenden Roboter gesandt.\vspace{0.5\baselineskip}\\
+	\clearpage
+	\noindent
 	\textbf{Auslöser für Versand Aktualisierung Systemereignis-Schwere} \\
 	Sobald erstmalig eine TCP/IP-Verbindung mit einem Roboter aufgebaut wurde, soll ein Telegramm für die Aktualisierung der Schwere versendet werden. Ebenso nach einem Verbindungsabbruch mit anschließendem Verbindungsaufbau. Der Roboter speichert die Schwere ab.
 	\newline
 	Die Entscheidungsfindung bei den eben genannten Auswahlmöglichkeiten ist in einem morphologischen Kasten (vgl. Tabelle \ref{table:MorphoTCPIP}) dargestellt.
 	
-	\begin{table}
+	\begin{table}[!h]
 		\caption{Morphologischer Kasten TCP/IP-Verbindung}
 		\label{table:MorphoTCPIP}
 		\centering
@@ -647,7 +648,6 @@
 			\bottomrule
 		\end{tabular}
 	\end{table}
-	\noindent
 	\textbf{Nachrichtenaufbau Datentelegramm}\\
 	Nachfolgend soll der Nachrichtenaufbau des Datentelegramms festgelegt werden. Durch Brainstorming und durch Inspiration von anderen Telegram-Aufbauten wie Ethernet (vgl. Kapitel \ref{subsec:EthernetFeldbus}) werden verschiedene Möglichkeiten des Telegrammaufbaus entworfen:
 	\begin{itemize}
@@ -685,17 +685,17 @@
 		\end{flushleft}
 	\end{table}\newline
 	Konzept 1 und 2 erhalten insgesamt die höchste Wertung. Aus diesem Grund entfällt die Entscheidung auf Mischung von Konzept 1 und 2. Hierdurch kann der Vorteil des Datums mit dem Vorteil, dass der Sendername deutlich einfacher einem Roboter zugeordnet werden kann als eine Sender-ID, kombiniert werden. Der Nachrichtenaufbau stellt sich wie folgt dar. \\
-	Finales Konzept: <Nachrichten-ID>,<Sender-Name>,<Uhrzeit>,<Daten> \\
+	Finales Konzept: <Nachrichten-ID>,<Sender-Name>,<Uhrzeit>,<Daten> \vspace{0.5\baselineskip}\\
 	\textbf{Nachrichtenaufbau Systemereignisse}\\
 	Der Aufbau dieser Nachricht orientiert sich am Datentelegramm. Statt den Daten wird hier der Text des Systemereignisses übertragen. Ergänzt wird dies von der Schwere des Systemereignisses. Dies ist eine Ganzzahl zwischen 0 (Info) bis 4 (kritischer Fehler). \\
-	<Nachrichten-ID>,<Sender-Name>,<Uhrzeit>,<Schwere>,<Meldung>\\
+	<Nachrichten-ID>,<Sender-Name>,<Uhrzeit>,<Schwere>,<Meldung>\vspace{0.5\baselineskip}\\
 	\textbf{Nachrichtenaufbau Datenanforderungstelegramm}\\
 	Das Datenanforderungsdiagramm wird an alle Roboter versandt und ist wie folgt aufgebaut:\\
 	<Nachrichten-ID>,<Sender-Name>,<Uhrzeit>\\
-	Durch die Nachrichten-ID weiß der Roboter, dass es sich um eine Aufforderung für den Versand des Datentelegramms handelt. \\
+	Durch die Nachrichten-ID weiß der Roboter, dass es sich um eine Aufforderung für den Versand des Datentelegramms handelt.\vspace{0.5\baselineskip}\\
 	\textbf{Nachrichtenaufbau Aktualisierung Systemereignis-Schwere}\\
 	Diese Nachricht wird analog dem Datentelegramm aufgebaut. Anstelle der Prozessdaten wird lediglich ein numerischer Wert angegeben, welcher die Schwere vorgibt.\\
-	<Nachrichten-ID>,<Sender-Name>,<Uhrzeit>,<Aktualisierte Schwere>\\
+	<Nachrichten-ID>,<Sender-Name>,<Uhrzeit>,<Aktualisierte Schwere>\vspace{0.5\baselineskip}\\
 	\textbf{Kommunikationsablauf}\\
 	Der Kommunikationsablauf lässt sich zusammenfassend in einem Sequenzdiagramm (vgl. Abbildung \ref{fig:seqTCPIP})darstellen.
 	\begin{figure}[h]
@@ -752,102 +752,21 @@
 		\item \textbf{Predictive Maintenance:} Vorhersagen treffen, wann Wartung erfolgen soll, um Ausfälle vorbeugend zu verhindern. Dies kann durch das Erkennen von Trends und Auffälligkeiten in den Daten erfolgen.
 		\item \textbf{Datenarchivierung und Compliance:} Datenspeicherung für Schadensfall oder gesetzliche Gewährleistung
 	\end{itemize}
-	Der Stäubli-Roboter erfasst eine Vielzahl an Daten. Ausgewählte Daten werden nachfolgend dargestellt und auf deren Nutzen analysiert.
-	\begin{longtable}{|p{7cm}|p{3cm}|p{3cm}|}
-		\caption{Verfügbare Daten}
-		\label{table:Daten}\\
-		\hline
-		Daten & Zugriff & Verwendung  \\ [0.5ex] 
-		\hline
-		\endhead
-		CPU battery test & D (CpuIO) & -  \\ 
-		CPU overcurrent & D (CpuIO) & -  \\
-		Fast memory state & D (CpuIO) & - \\
-		CPU temperature & A (CpuIO) & Alarm, PM \\
-		CPU board temperature & A (CpuIO) & Alarm, PM \\
-		CPU fan speed & A (CpuIO) & Alarm, PM \\
-		Free RAM & A (CpuIO) & - \\
-		CFast memory remaining lifetime & A (CpuIO) & - \\
-		\hline
-		System management CPU usage & A (CpuUsage) & - \\
-		Robot control CPU usage & A (CpuUsage) & - \\			
-		Synchronous VAL 3 CPU usage & A (CpuUsage) & - \\
-		Available CPU usage for VAL 3 processing& A (CpuUsage) & - \\
-		User Fieldbuses CPU usage & A (CpuUsage) & - \\
-		HMI CPU usage & A (CpuUsage) & - \\
-		SRS connection CPU usage & A (CpuUsage) & - \\
-		OPC-UA CPU usage & A (CpuUsage) & - \\
-		CPU Load Score (higher is better)& A (CpuUsage) & - \\
-		CPU Load Score (min) & A (CpuUsage) & - \\
-		VAL 3 instructions per sequencing & A (CpuUsage) & - \\
-		VAL 3 synr inst. per cyle (high priority) & A (CpuUsage) & - \\
-		VAL 3 synr inst. per cyle (low priority) & A (CpuUsage) & - \\
-		\hline
-		Valve feedback (1.1, 1.2, 2.1, 2.2) & D (DsiIO) & - \\
-		Axis brake feedback (1-6) & D (DsiIO) & - \\
-		Error on valves outputs & D (DsiIO) & Alarm \\
-		Error on brakes outputs & D (DsiIO) & Alarm \\
-		Error on safe digital inputs & D (DsiIO) & Alarm \\
-		DSI non-reduced brake supply voltage undershoot & D (DsiIO) & Alarm \\
-		DSI reduced brake supply voltage undershoot & D (DsiIO) & Alarm \\
-		DSI logic supply voltage undershoot & D (DsiIO) & Alarm \\
-		DSI overtemperature & D (DsiIO) & Alarm \\
-		\hline
-		DSI board tempereature & A (DsiIO) & Alarm, PM \\
-		Axis motor temperature (1-6) & A (DsiIO) & Alarm, PM \\
-		Axis encoder temperature (1-6) & A (DsiIO) & Alarm, PM \\
-		DSI state & A (DsiIO) & - \\
-		DSI error code & A? (DsiIO) & ? Grau? Alarm \\
-		Arm operation counter & A (DsiIO) & - \\
-		\hline
-		safe Input state (0-7) & D (DsiIoSafe) & - \\
-		\hline
-		Fast Input (1-2) & D (FastIO) & - \\
-		Fast Output (1-2) & D (FastIO) & - \\
-		\hline
-		Power unit identification (bit 1-3) & D (PSIO) & - \\
-		Main power state & D (PSIO) & - \\
-		Internal bus voltage state & D (PSIO) & - \\
-		Power unit internal temperature state & D (PSIO) & - \\
-		24V state & D (PSIO) & - \\
-		Buckfull mode feedback & D (PSIO) & - \\
-		Memorize a power dropout & D (PSIO) & - \\
-		\hline
-		Brake test warning & D (Rsi9IO) & Alarm \\
-		Brake test successful & D (Rsi9IO) & - \\
-		Temperature of RSI board & A (Rsi9IO) & Alarm, PM \\
-		Error Code of RSI board & A? (Rsi9IO) & ?Grau? Alarm \\
-		\hline
-		STARC board temperature & A (StarcIO) & Alarm, PM \\
-		Axis drive case temperature (1-6) & A (StarcIO) & Alarm, PM \\
-		Motor Winding Temperature (1-6) & A (StarcIO) & Alarm, PM \\
-		Axis drive junction temperature (1-6) & A (StarcIO) & Alarm, PM \\		
-		\hline
-		Geschwindigkeit Endmanipulator & getSpeed(...) & - \\
-		Schleppfehler Achsen 1-6 & getPositionErr()  & - \\
-		Drehmoment Achsen 1-6 & getJointForce(...)  & - \\
-		Bewegungsauftrag und Fortschritt & getMoveld()  & - \\
-		Konfiguration des Roboters & getVersion(...)  & - \\
-		Stromversorgung bei Stillstand abschalten & hibernateRobot()  & - \\
-		Systemereignisse &getEvents(...)  & - \\
-		\hline
-	\end{longtable}
-	\noindent
- 	Prinzipiell lassen sich alle verfügbaren Daten sammeln, visualisieren und auswerten. Bei einigen dieser Daten wie z.B. des freien RAM-Speichers ist der daraus entstehende Nutzen beschränkt.	Mittels Brainstorming wurden verschiedene Anwendungsszenarien ausgedacht, im nachfolgenden sollen jedoch nur die sinnvollsten hiervon vorgestellt werden.\\
+	Der Stäubli-Roboter erfasst eine Vielzahl an Daten. Aus Umfangsgründen werden nicht alle verfügbaren Daten hier aufgezählt. Prinzipiell lassen sich alle Daten sammeln, visualisieren und auswerten. Bei einigen dieser Daten wie z.B. des freien RAM-Speichers ist der daraus entstehende Nutzen beschränkt.	Mittels Brainstorming wurden verschiedene Anwendungsszenarien ausgedacht, welche nachfolgend vorgestellt werden sollen.\vspace{0.5\baselineskip}\\
  	\textbf{Temperaturen}\\
- 	Neben der Temperatur von verschiedenen Computer-Chips und Platinen, wie z.B. CPU, CPU-Platine DSI-Platine, RSI-Platine und STARC-Platine sind verschiedene Temperaturwerte von den Antrieben abrufbar. Hier sind die Temperaturen der Motoren, Encoder, Antriebsgehäuse,  Antriebswicklungen und  Steuergeräte zu nennen. Diese Daten können sowohl zur Überwachung als auch zur Predictive Maintenance verwendet werden. Bei Überschreiten eines Grenzwertes kann ein Alarm bzw. eine Warnung ausgegeben werden. Da von Seiten des Herstellers keine zulässigen Grenzwerte vorgegeben sind, müssen die aufgezeichneten Messwerte unter Berücksichtigung von Schwankungen analysiert werden und Grenzwerte festgelegt werden, ab welchen Werten das Verhalten nicht mehr als \glqq normal\grqq{} angesehen werden kann. Die Dynamik von Temperaturen ist im Allgemeinen relativ gering, da sich die Materialien aufgrund ihrer Wärmekapazität erst aufheizen müssen. Aus diesem Grund ist das Übertragen von den Temperaturwerten in vergleichsweise großen Abständen zulässig z.B. alle 15 Sekunden. Im Falle eines technischen Defektes wäre eine möglichst frühe Warnung wünschenswert, jedoch ist die Zeit bis ein Techniker den Alarm wahrnimmt und entsprechende Aktionen starten kann vergleichsweise groß, weshalb dieser Anwendungsfall kein höhere Übertragungsrate rechtfertigt. Da die Genauigkeit von vielen Temperatursensoren nur im Bereich von 0,5K liegt und sehr genaue Temperaturwerte keinen zusätzlichen Mehrwert bieten, ist eine Übertragung der Temperaturen ohne Nachkommastellen ausreichend. Dadurch lässt sich ein Temperaturwert problemlos mit einem einzelnen Byte (Werte zwischen 0 und 255°C) übertragen.\\
+ 	Neben der Temperatur von verschiedenen Computer-Chips und Platinen, wie z.B. CPU, CPU-Platine DSI-Platine, RSI-Platine und STARC-Platine sind verschiedene Temperaturwerte von den Antrieben abrufbar. Hier sind die Temperaturen der Motoren, Encoder, Antriebsgehäuse,  Antriebswicklungen und  Steuergeräte zu nennen. Diese Daten können sowohl zur Überwachung als auch zur Predictive Maintenance verwendet werden. Bei Überschreiten eines Grenzwertes kann ein Alarm bzw. eine Warnung ausgegeben werden. Da von Seiten des Herstellers keine zulässigen Grenzwerte vorgegeben sind, müssen die aufgezeichneten Messwerte unter Berücksichtigung von Schwankungen analysiert werden und Grenzwerte festgelegt werden, ab welchen Werten das Verhalten nicht mehr als \glqq normal\grqq{} angesehen werden kann. Die Dynamik von Temperaturen ist im Allgemeinen relativ gering, da sich die Materialien aufgrund ihrer Wärmekapazität erst aufheizen müssen. Aus diesem Grund ist das Übertragen von den Temperaturwerten in vergleichsweise großen Abständen zulässig z.B. alle 15 Sekunden. Im Falle eines technischen Defektes wäre eine möglichst frühe Warnung wünschenswert, jedoch ist die Zeit bis ein Techniker den Alarm wahrnimmt und entsprechende Aktionen starten kann vergleichsweise groß, weshalb dieser Anwendungsfall kein höhere Übertragungsrate rechtfertigt. Da die Genauigkeit von vielen Temperatursensoren nur im Bereich von 0,5K liegt und sehr genaue Temperaturwerte keinen zusätzlichen Mehrwert bieten, ist eine Übertragung der Temperaturen ohne Nachkommastellen ausreichend. Dadurch lässt sich ein Temperaturwert problemlos mit einem einzelnen Byte (Werte zwischen 0 und 255°C) übertragen.\vspace{0.5\baselineskip}\\
  	\textbf{Error-Meldungen}\\
- 	Von dem Stäubli-Roboter werden einige Fehlermeldungen erfasst, wie von den Ventil- und Brems-Ausgängen, den digitalen Sicherheits-Eingängen, des DSI-Chip, RSI-Chip und Bremsentests. Ebenso werden Spannungsabfall oder eine Überhitzung der CPU erfasst. Error-Meldungen wie diese sollen als Alarm bzw. Fehlermeldung ausgegeben werden. Ebenso ist ein Dokumentieren sinnvoll, um bei Ausfällen oder Defekten die Ursachensuche zu erleichtern. Jeder Fehler kann als Wert 1 oder 0 dargestellt werden, weshalb je Fehlermeldung ein Bit genügt. Die binären Werte sind daher mit wenigen Bytes übertragbar, weshalb möglichst viele dieser Werte in das Datentelegramm aufgenommen werden. So ergeben sich Potentiale für spätere Anwendungszwecke ober Datenanalysen.\\
+ 	Von dem Stäubli-Roboter werden einige Fehlermeldungen erfasst, wie von den Ventil- und Brems-Ausgängen, den digitalen Sicherheits-Eingängen, des DSI-Chip, RSI-Chip und Bremsentests. Ebenso werden Spannungsabfall oder eine Überhitzung der CPU erfasst. Error-Meldungen wie diese sollen als Alarm bzw. Fehlermeldung ausgegeben werden. Ebenso ist ein Dokumentieren sinnvoll, um bei Ausfällen oder Defekten die Ursachensuche zu erleichtern. Jeder Fehler kann als Wert 1 oder 0 dargestellt werden, weshalb je Fehlermeldung ein Bit genügt. Die binären Werte sind daher mit wenigen Bytes übertragbar, weshalb möglichst viele dieser Werte in das Datentelegramm aufgenommen werden. So ergeben sich Potentiale für spätere Anwendungszwecke ober Datenanalysen.\vspace{0.5\baselineskip}\\
  	\textbf{Schleppfehler}\\
- 	Der Schleppfehler entspricht der Abweichung zwischen Soll-Position und Ist-Position jeder einzelnen Achse. Ein herausstechend großer Schleppfehler kann auf Probleme mit der Steuerung, den Motoren, den Encoder oder den Achsen selbst hinweisen. Der Stäubli-Roboter überwacht den Schleppabstand bereits selbst und gibt bei einer zu großen Abweichung einen Fehler in Form eines Systemereignisses aus. Daher muss der Schleppfehler nicht zusätzlich über ein Datentelegramm übertragen werden, da er bereits über die Systemereignisse mit abgedeckt ist.\\
+ 	Der Schleppfehler entspricht der Abweichung zwischen Soll-Position und Ist-Position jeder einzelnen Achse. Ein herausstechend großer Schleppfehler kann auf Probleme mit der Steuerung, den Motoren, den Encoder oder den Achsen selbst hinweisen. Der Stäubli-Roboter überwacht den Schleppabstand bereits selbst und gibt bei einer zu großen Abweichung einen Fehler in Form eines Systemereignisses aus. Daher muss der Schleppfehler nicht zusätzlich über ein Datentelegramm übertragen werden, da er bereits über die Systemereignisse mit abgedeckt ist.\vspace{0.5\baselineskip}\\
  	\textbf{Drehmoment Achsen}\\
- 	Das Drehmoment der einzelnen Achsen ändert sich kontinuierlich während der Bewegung. Durch das Vergleichen der Drehmomente mit einer Referenzfahrt können  Auffälligkeiten entdeckt werden. Schleichend zunehmende Momente deuten z.B. auf fehlende Schmierung oder Lagerdefekte hin. Abrupt zunehmende Momente können durch ein Festhängen oder einen Crash verursacht werden. Eine Dokumentation der Abweichungen ist sinnvoll, um aus Gewährleistungsgründen unsachgemäße Verwendung nachzuweisen. Da sich die Momente hochdynamisch ändern, ist es nicht sinnvoll das aktuelle Moment zu übertragen, da minimale Zeitabweichungen zu großen Schwankungen führen können. Sinnvoller ist es, die Momente über einen kompletten Bewegungsablauf aufzuintegrieren und nur dieses Ergebnis zu übertragen.\\
+ 	Das Drehmoment der einzelnen Achsen ändert sich kontinuierlich während der Bewegung. Durch das Vergleichen der Drehmomente mit einer Referenzfahrt können  Auffälligkeiten entdeckt werden. Schleichend zunehmende Momente deuten z.B. auf fehlende Schmierung oder Lagerdefekte hin. Abrupt zunehmende Momente können durch ein Festhängen oder einen Crash verursacht werden. Eine Dokumentation der Abweichungen ist sinnvoll, um aus Gewährleistungsgründen unsachgemäße Verwendung nachzuweisen. Da sich die Momente hochdynamisch ändern, ist es nicht sinnvoll das aktuelle Moment zu übertragen, da minimale Zeitabweichungen zu großen Schwankungen führen können. Sinnvoller ist es, die Momente über einen kompletten Bewegungsablauf aufzuintegrieren und nur dieses Ergebnis zu übertragen.\vspace{0.5\baselineskip}\\
 	\textbf{Sytemereignisse}\\
-	Ereignisse, die von der Steuerung festgestellt werden, wie z.B. Fehlermeldungen oder das Einschalten der Energieversorgung für die Achsen werden in einer system-log-Datei aufgezeichnet. Sie lassen sich in die Schweregrade \glqq Info\grqq{}, \glqq Warning\grqq{}, \glqq Error\grqq{} und \glqq Critical\grqq{} unterteilen. Das Auslesen der Systemereignisse kann mit dem Befehl \glqq getEvents\grqq{} erfolgen. Diese sollen wie bereits bei der Konzeptionierung der TCP/IP-Verbindung festgelegt, beim Auftreten sofort über TCP/IP übertragen werden. Ein Systemereignis wird erzeugt, wenn Bahnpunkte am Roboter umgeteacht werden. Daher erfolgt automatisch eine Meldung an die Anlagenvisualisierung, wenn Änderungen an der Bewegungsbahn vorgenommen wurde. Dadurch ist diese Anforderung aus dem Lastenheft berücksichtigt. \\
+	Ereignisse, die von der Steuerung festgestellt werden, wie z.B. Fehlermeldungen oder das Einschalten der Energieversorgung für die Achsen werden in einer system-log-Datei aufgezeichnet. Sie lassen sich in die Schweregrade \glqq Info\grqq{}, \glqq Warning\grqq{}, \glqq Error\grqq{} und \glqq Critical\grqq{} unterteilen. Das Auslesen der Systemereignisse kann mit dem Befehl \glqq getEvents\grqq{} erfolgen. Diese sollen wie bereits bei der Konzeptionierung der TCP/IP-Verbindung festgelegt, beim Auftreten sofort über TCP/IP übertragen werden. Ein Systemereignis wird erzeugt, wenn Bahnpunkte am Roboter umgeteacht werden. Daher erfolgt automatisch eine Meldung an die Anlagenvisualisierung, wenn Änderungen an der Bewegungsbahn vorgenommen wurde. Dadurch ist diese Anforderung aus dem Lastenheft berücksichtigt. In das Datentelegramm müssen die Systemereignisse jedoch nicht aufgenommen werden, da diese in einer eigenen Nachricht versendet werden.\vspace{0.5\baselineskip}\\
 	\textbf{Aufbau Datentelegramm}\\
 	Das Datentelegramm ist mit den ausgewählten Daten wie nachfolgend dargestellt (vgl. Abbildung \ref{tab:Datentelegramm}) aufgebaut.
-	Dadurch dass mehrere Werte aufgrund der sechs Achsen sechsfach vorkommen ist eine Anzahl von sechs Bytes notwendig. Für das Motormoment kommen je Achse zwei Bytes zum Einsatz, da die Werte zu groß für ein einzelnes Byte sind. In den acht Bytes, gefüllt mit einzelnen binären Werten ist eine Vielzahl von Informationen, wie z.B. CPU overcurrent, Feedback der Ventile, Fehler der Bremsen oder das Ergebnis des Bremsentests gespeichert.
-	\begin{table}
+	Dadurch dass mehrere Werte aufgrund der sechs Achsen sechsfach vorkommen ist eine Anzahl von sechs Bytes notwendig. Für das Motormoment kommen je Achse zwei Bytes zum Einsatz, da die Werte zu groß für ein einzelnes Byte sind. In den acht Bytes, gefüllt mit einzelnen binären Werten ist eine Vielzahl von Informationen, wie z.B. CPU Überstrom, Feedback der Ventile, Fehler der Bremsen oder das Ergebnis des Bremsentests gespeichert.
+	\begin{table}[!h]
 		\centering
 		\caption{Aufbau Datentelegramm}
 		\label{tab:Datentelegramm}
@@ -857,7 +776,7 @@
 			Inhalt & Nachrichten-ID & Sender-Name & Uhrzeit & Digitale Werte & Temperatur Motorspule 1-6\\
 			\hline
 			Byte& 38-43 & 44-49 & 50-55 & 56 & 57  \\
-			Inhalt & Temperatur Antrieb-Gehäuse-ID 1-6 & Temperatur Antrieb Encoder 1-6 & Temperatur Antrieb Verbindung 1-6& Temperatur Starc Board & Temperatur DSI Board\\
+			Inhalt & Temperatur Antrieb-Gehäuse 1-6 & Temperatur Antrieb Encoder 1-6 & Temperatur Antrieb Verbindung 1-6& Temperatur Starc Board & Temperatur DSI Board\\
 			\hline
 			Byte& 58 & 59 & 60-70 &  &   \\
 			Inhalt & Temperatur CPU & Temperatur CPU Board & Integriertes Motormoment 1-6&  & \\
@@ -920,8 +839,10 @@
 	\section{WPF-Anwendung}
 	\addtocontents{toc}{\protect\newpage} % Umbruch im Inhaltsverzeichnis
 	\label{sec:KonzeptWPF}
-	Die Anlagenvisualisierung soll wie im Kapitel Stand der Technik erläutert durch eine WPF-Anwendung umgesetzt werden. Um diese zu entwerfen muss zuerst eine Softwarespezifikation erfolgen. Mit Hilfe des UML-Anwendungsdiagramms (vgl. Abbildung \ref{fig:UML_Use_Case_WPF}) sollen die Anwendungen identifiziert werden. Basis hierfür bildet die Anforderungsdefinition (vgl. Kapitel \ref{chap:Anforderungsdefinition}) und die Konzeptionierung der TCP/IP-Verbindung (vgl. Kapitel \ref{sec:KonzeptTCPIP}).
-	\begin{figure}[h!]
+	Die Anlagenvisualisierung soll wie im Kapitel Stand der Technik erläutert durch eine WPF-Anwendung umgesetzt werden. Um diese zu entwerfen muss zuerst eine Softwarespezifikation erfolgen. Mit Hilfe des UML-Anwendungsdiagramms (vgl. Abbildung \ref{fig:UML_Use_Case_WPF}) sollen die Anwendungen identifiziert werden. Basis hierfür bildet die Anforderungsdefinition (vgl. Kapitel \ref{chap:Anforderungsdefinition}) und die Konzeptionierung der TCP/IP-Verbindung (vgl. Kapitel \ref{sec:KonzeptTCPIP}).\\	
+	Die WPF-Anwendung muss daher wie im UML-Anwendungsdiagramm beschrieben verschiedene Funktionalitäten umsetzen. Um Prozessdaten, wie z.B. Motortemperaturen graphisch darzustellen müssen diese durch ein Datenanforderungstelegramm von den Robotern angefordert werden. Erhält die WPF-Anwendung eine eingehende Nachricht muss diese anhand der Nachrichten ID interpretiert werden. Handelt es sich um ein Datentelegramm (Nachrichten-ID: 2) müssen die Daten strukturiert abgespeichert werden, damit eine graphische Darstellung der Daten zu einem späteren Zeitpunkt und über einen längeren Zeitraum möglich ist. Dies kann beispielsweise mit einer CSV-Datei erfolgen. Eine andere Funktion der WPF-Anwendung ist der Empfang von Systemereignissen. Diese Nachrichten können anhand ihrer Nachrichten-ID (Nachrichten-ID: 4) erkannt werden. Die Systemereignisse, wie z.B. Fehler oder Informationsmeldungen sollen dem Nutzer dargestellt werden. Darüber hinaus sollen diese zu Archivierungs- und Dokumentationszwecken lokal in einer Datei (z.B. .txt) abgespeichert werden. Systemereignisse haben dabei unterschiedliche Ereignis-Schweren von Information bis hin zu fatalem Fehler. Die WPF-Anwendung soll steuern ab welcher Schwere ein Roboter ein Systemereignis versenden soll. Dadurch können je nach Anwendung beispielsweise die Informationsmeldungen entfallen, da diese vergleichsweise von geringer Bedeutung sind. Um die Schwere der zu sendeten Systemereignisse zu aktualisieren soll die WPF-Anwendung ein Telegramm (Nachrichten-ID: 3) mit Angabe der Soll-Schwere zu dem Roboter versenden. Darüber hinaus sollen Positionsdaten von zu greifenden Objekten an den Roboter versendet werden. Die Positionsdaten werden extern von der Anwendung \glqq roboVision\grqq{} ermittelt und an die zu konfigurierende WPF-Anwendung weitergeleitet, die diese dann an den Roboter versenden kann (Nachrichten-ID: 5). Die zu entwerfende WPF-Anwendung soll den Programmablauf durch lokales Abspeichern (z.B. mit einer .txt-Datei) dokumentieren, wie z.B. das Versenden von Telegrammen, sowie interne Fehler oder besondere Ereignisse.\clearpage
+	
+	\begin{figure}[!h]
 		\centering
 		\begin{tikzpicture}
 			\begin{umlsystem}{WPF-Anwendung}
@@ -963,7 +884,6 @@
 		\label{fig:UML_Use_Case_WPF}
 	\end{figure}
 	\noindent
-	Die WPF-Anwendung muss daher wie im UML-Anwendungsdiagramm beschrieben verschiedene Funktionalitäten umsetzen. Um Prozessdaten, wie z.B. Motortemperaturen graphisch darzustellen müssen diese durch ein Datenanforderungstelegramm von den Robotern angefordert werden. Erhält die WPF-Anwendung eine eingehende Nachricht muss diese anhand der Nachrichten ID interpretiert werden. Handelt es sich um ein Datentelegramm (Nachrichten-ID: 2) müssen die Daten strukturiert abgespeichert werden, damit eine graphische Darstellung der Daten zu einem späteren Zeitpunkt und über einen längeren Zeitraum möglich ist. Dies kann beispielsweise mit einer CSV-Datei erfolgen. Eine andere Funktion der WPF-Anwendung ist der Empfang von Systemereignissen. Diese Nachrichten können anhand ihrer Nachrichten-ID (Nachrichten-ID: 4) erkannt werden. Die Systemereignisse, wie z.B. Fehler oder Informationsmeldungen sollen dem Nutzer dargestellt werden. Darüber hinaus sollen diese zu Archivierungs- und Dokumentationszwecken lokal in einer Datei (z.B. .txt) abgespeichert werden. Systemereignisse haben dabei unterschiedliche Ereignis-Schweren von Information bis hin zu fatalem Fehler. Die WPF-Anwendung soll steuern ab welcher Schwere ein Roboter ein Systemereignis versenden soll. Dadurch können je nach Anwendung beispielsweise die Informationsmeldungen entfallen, da diese vergleichsweise von geringer Bedeutung sind. Um die Schwere der zu sendeten Systemereignisse zu aktualisieren soll die WPF-Anwendung ein Telegramm (Nachrichten-ID = 3) mit Angabe der Soll-Schwere zu dem Roboter versenden. Darüber hinaus sollen Positionsdaten von zu greifenden Objekten an den Roboter versendet werden. Die Positionsdaten werden extern von der Anwendung \glqq roboVision\grqq{} ermittelt und an die zu konfigurierende WPF-Anwendung weitergeleitet, die diese dann an den Roboter versenden kann (Nachrichten-ID: 5). Die zu entwerfende WPF-Anwendung soll den Programmablauf durch lokales Abspeichern (z.B. mit einer .txt-Datei) dokumentieren, wie z.B. das Versenden von Telegrammen, sowie interne Fehler oder besondere Ereignisse.\\
 	Im nächsten Schritt sollen die Softwarekomponenten, wie die Klassen der WPF-Anwendung definiert werden. Um eine effiziente und gute Struktur für die zu entwerfende Software zu erhalten wird in der Literatur auf sogenannte Muster zugegriffen. Ein Muster stellt eine bekannte und erprobte Lösungen dar \cite{agileSoftware}. Die Wiederverwendung dieser Lösungen durch Muster vermeidet Fehler und vereinfacht die Kommunikation zwischen Fachleuten. Ebenso reduzieren sich Entwicklungskosten und die Flexibilität des Entwurfes steigt \cite{ArchitekturmusterGoll}.\\
 	Nach Gollar, Koller und Watzko \cite{ArchitekturmusterGoll} lassen sich Muster im Entwurfsprozess in drei Gruppen einteilen:
 	\begin{itemize}
@@ -974,7 +894,7 @@
 	\textbf{Architekturmuster}\\
 	Es existieren eine Vielzahl von Architekturmustern, wie z.B. die Schichtenarchitektur, die Pepository-Architektur, die Pipes-und-Filter-Architektur, sowie die MVC-Architektur. \cite{Sommerville}
 	Bei Benutzungsschnittstellen, was die zu konzeptionierende WPF-Anwendung darstellt, kommt gemäß Literatur (\cite{Sommerville}, \cite{gamma2004entwurfsmuster}, \cite{ArchitekturmusterGoll}, \cite{agileSoftware}) übereinstimmend ein MVC-Muster zum Einsatz. \acs{mvc} steht für \acl{mvc} und setzt sich aus den drei Klassen Model, View und Controller zusammen (vgl. Abbildung \ref{fig:MVC}).\\
-	\begin{figure}
+	\begin{figure}[!h]
 		\centering
 		\begin{tikzpicture}[node distance=2cm]
 			\node[draw, rectangle] (view) at (-2cm,0) {View};
@@ -1000,8 +920,8 @@
 	Dass MVVM bereits in der Anwendung roboTools zum Einsatz kommt unterstreicht, dass MVVM das geeigneteste Architekturmuster für die zu entwerfende WPF-Anwendung ist. MVVM setzt sich dabei aus den Komponenten View, ViewModel und Model zusammen (vgl. Abbildung \ref{fig:MVVM}).\\
 	\begin{figure}[!h]
 		\centering
-		\includegraphics[width=1.0\linewidth]{./images/MVVM.png}
-		\caption{MVVM \cite{MVVMKraus}}
+		\includegraphics[width=0.7\linewidth]{./images/MVV.png}
+		\caption{MVVM \cite{mvvm}}
 		\label{fig:MVVM}
 	\end{figure}
 	\begin{itemize}
@@ -1009,14 +929,14 @@
 		\item \textbf{View: } In der View wird die graphische Oberfläche definiert. Zur Darstellung von Daten nutzt sie ViewModel, welches Informationen für die View zur Verfügung stellt.
 		\item \textbf{ViewModel: } Das ViewModel ähnelt dem Controller von MVC und stellt die Verbindung zwischen Model und View her. Hier wird die Logik, was bei Änderungen an der Benutzeroberfläche geschehen soll, implementiert. ViewModel holt sich von Model Daten, welche die View für Darstellungszwecke benötigt. \cite{MVVMKraus} \cite{troelsen2022pro}
 	\end{itemize}
-	Auf die Verbindung wischen den einzelnen Komponenten mit Datenbindung wird im folgenden unter Entwurfsmuster eingegangen.\\
+	Auf die Verbindung wischen den einzelnen Komponenten mit Datenbindung wird im folgenden unter Entwurfsmuster eingegangen.\vspace{0.5\baselineskip}\\
 	\textbf{Entwurfsmuster}\\
 	Nach Gollar, Koller und Watzko \cite{ArchitekturmusterGoll} bieten sich für die MVC-Architektur und somit auch für die MVVM-Architektur mehrere Entwurfsmuster an. Am geläufigsten ist das Beobachter-Muster (engl. Observer-Pattern). Weitere Entwurfsmuster sind das Strategie-Muster und das Kompositum-Muster \cite{ArchitekturmusterGoll}. Das Beobachter-Muster wird häufig in der Literatur empfohlen und kommt auch in der WPF-Anwendung roboTools umgesetzt durch sogenannte Datenbindung (engl. Data Binding) zum Einsatz. Daher fällt die Entscheidung bei der zu entwerfenden WPF-Anwendung ebenso auf MVVM mit Beobachter-Muster. Die beobachtende Komponente überwacht hierbei eine andere Komponenten. Ändert sich etwas an dem beobachtenden Objekt (wie z.B. ein Tastendruck) erkennt dies der Beobachter und kann in Folge dessen eine definierte Aktion ausführen. \cite{ArchitekturmusterGoll}\\
-	Die Verbindung zwischen View und ViewModel, sowie zwischen ViewModel und Model wird mit Hilfe von Datenbindung umgesetzt. Die Datenbindung gibt sozusagen Daten zwischen einzelnen Komponenten weiter.\\
+	Die Verbindung zwischen View und ViewModel, sowie zwischen ViewModel und Model wird mit Hilfe von Datenbindung umgesetzt. Die Datenbindung gibt sozusagen Daten zwischen einzelnen Komponenten weiter.\vspace{0.5\baselineskip}\\
 	\textbf{Adaption der Anwendung auf Architektur- und Entwurfsmuster}\\
 	Um die Komponenten der zu entwerfenden Software zu definieren, müssen die Anwendungen, die im UML-Diagramm (vgl. Abbildung \ref{fig:UML_Use_Case_WPF}) definiert wurden auf das Entwurfsmuster aufgeteilt werden. Ebenso müssen die Klassen für die zu entwerfende WPF-Anwendung in C\# definiert werden. Gemäß MVVM werden in der View (gemäß unternehmensinternem Standard als "MainWindow" bezeichnet)
 	die Grafik des Programms festgelegt. Hier müssen sowohl der Protokollschreiber der Systemereignisse, sowie Diagramme zur Darstellung der Prozessdaten definiert werden. In der View soll jedoch keine Logik umgesetzt und der Code auf ein Minimum begrenzt werden. Im Model hingegen erfolgt gemäß MVVM die Datenhaltung und Datenverarbeitung. Hier werden Daten über die TCP/IP-Verbindung empfangen und gesendet, sowie die Daten abgespeichert. Das ViewModel (unternehmensintern als MainViewModel bezeichnet) verkünpft die View und das Model. So soll auf Knopfdruck in der View, Prozessdaten aus dem Model ausgelesen und in der View dargestellt werden. Die Logik hierfür erfolgt in dem ViewModel (hier: MainViewModel). Für den Entwurf der WPF-Anwendung bietet sich daher folgende Klassenaufteilung an, welche nachfolgend in einem UML-Klassendiagramm dargestellt ist (vgl. Abbildung \ref{fig:UMLKlassenWPF}). Diese Klassen und ihre Funktionen sind in der Umsetzung mit C\# zu implementieren.
-	\begin{figure}
+	\begin{figure}[!h]
 		\begin{tikzpicture}
 			\begin{umlpackage}{ViewModel}
 				\umlclass[name=viewModel, x=0]{MainViewModel}{
@@ -1089,11 +1009,12 @@
 		\caption{UML-Klassendiagramm WPF-Anwendung}
 		\label{fig:UMLKlassenWPF}
 	\end{figure}
-	
+	\clearpage
+	\noindent
 	\textbf{Benutzeroberfläche}\\
 	Alle Elemente, wie die Ausgabe der Systemereignisse oder die grafische Darstellung der Prozessdaten sollen möglichst übersichtlich dargestellt werden und es sollen möglichst viele Informationen integriert werden. Neben den Daten sollen dem Nutzer Serverinformationen und eine Liste der verbundenen Roboter bereitgestellt werden. Es soll zwischen den einzelnen verbundenen Robotern gewählt werden können für welchen Roboter die Prozessdaten visualisiert werden sollen. Über ein Aktualisierungsknopf werden die Daten aktualisiert dargestellt. Auf eine zyklische automatische Aktualisierung wird verzichtet, um Rechenkapazität einzusparen.\\
 	Dadurch, dass die Anwendung später in roboTools integriert wird, ist das visuelle Erscheinungsbild nicht von höchster Bedeutung. Einzelne Elemente, wie z.B. die Ausgabe der Systemereignisse oder die Diagramme mit den Prozessdaten werden in roboTools integriert, wobei das optische Erscheinungsbild, wie z.B. das Unternehmenslogo und die Farbgestaltung durch roboTools bereits vorgegeben ist. Eine Integration ist durch den Einsatz von Datenbindung besonders einfach möglich (vgl. Kapitel \ref{sec:KonzeptWPF}).
-	Die Anordnung der einzelnen Elemente ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:WPF_GUI_Nachrichten} und \ref{fig:WPF_GUI_Graph}). Dabei erfolgt eine Trennung der Protokoll-Ausgaben und der Graphen in zwei verschiedene Registerkarten. \\
+	Die Anordnung der einzelnen Elemente ist nachfolgend dargestellt (vgl. Abbildung \ref{fig:WPF_GUI_Nachrichten} und \ref{fig:WPF_GUI_Graph}). Dabei erfolgt eine Trennung der Protokoll-Ausgaben und der Graphen in zwei verschiedene Registerkarten. Hierbei wurde versucht alle Informationen zu integrieren. Beispielhaft ist die Protokollierung des Programmablaufes enthalten, auch wenn eine Integration dieser Ausgabe für den Endnutzer in roboTools nicht vorgesehen ist, sondern lediglich eine lokale Speicherung. Zu Debugging-Zwecken oder zur Fehlerfindung an dem Roboter bei Reparaturarbeiten ist eine Ausgabe aller Daten jedoch hilfreich. \\
 	\begin{figure}
 		\begin{tikzpicture}
 			% Großes Rechteck mit der Breite des Textes
@@ -1141,7 +1062,7 @@
 		\label{fig:WPF_GUI_Graph}
 	\end{figure}
 	
-	Hierbei wurde versucht alle Informationen zu integrieren. Beispielhaft ist die Protokollierung des Programmablaufes enthalten, auch wenn eine Integration dieser Ausgabe für den Endnutzer in roboTools nicht vorgesehen ist, sondern lediglich eine lokale Speicherung. Zu Debugging-Zwecken oder zur Fehlerfindung an dem Roboter bei Reparaturarbeiten ist eine Ausgabe aller Daten jedoch hilfreich.
+	
 	
 	
 	\chapter{Design und Implementierung}
@@ -1153,20 +1074,18 @@
 	Um eine EtherCAT Verbindung zwischen der SPS und der Stäubli Steuerung CS9 herzustellen muss zuerst eine physische Verbindung geschaffen werden. Ein LAN-Kabel verbindet den Master SPS mit dem Slave CS9. Anschließend erfolgt eine Konfiguration der EtherCAT-Verbindung in der \acl{srs}. Hierzu dient eine in die SRS integrierte Anwendung namens \glqq SYCON.net \grqq{} des Anbieters \glqq Hilscher GmbH \grqq. Hier wird unter anderem die zu übertragende Datenmenge festgelegt. Dabei erfolgt eine detaillierte Festlegung der zu übertragenden digitalen und analogen Werte. Es werden die zu übertragenden Daten, sowie deren Größe (z.B. 1 Byte oder ein Word, welches sich aus 2 Byte zusammensetzt) festgelegt. Von der Feldbus-Konfiguration kann eine sogenannte ESI-Datei erzeugt werden, welche in die SPS geladen wird, damit diese die EtherCAT-Konfiguration kennt. Nach der erfolgreichen Konfiguration muss in VAL~3 auf die EtherCAT-Verbindung zugegriffen werden, um Werte zu lesen oder zu beschreiben. Hierzu werden die einzelnen Daten der EtherCAT-Nachricht mit Variablen in der E/A-Verwaltung verknüpft. \cite{CS9} \cite{CS9_Fieldbus}\\
 	Beispielsweise kann eine von der SPS gesendete Auftragsnummer über den Befehl \glqq aioGet\grqq{} gelesen werden. Je nach Auftragsnummer wird ein gewisser Bewegungsablauf ausgeführt.
 	\begin{lstlisting}
-		// Abfrage der Auftragsnummer von der EtherCAT-Schnittstelle
-		jobNumber = aioGet(aiJobNumber)
+		jobNumber = aioGet(aiJobNumber) // Abfrage von der EtherCAT-Schnittstelle
 		switch jobNumber
 		case 4
-			// Aufruf zur Bewegungsausführung
-			call moveToHome()
+			call moveToHome() // Aufruf zur Bewegungsausführung
 		break
 	\end{lstlisting}
 	Ebenso können erfolgreich durchgeführte Bewegungen mit dem Befehl \glqq aioSet\grqq{} bestätigt werden, in dem eine Übergabe an die EtherCAT-Verbindung erfolgt. \cite{VAL3} 
 	
 	\subsection{TCP/IP}
-	Nach erfolgreicher Implementierung der EtherCAT-Verbindung soll die TCP/IP-Verbindung implementiert werden. Dabei sollen die in Kapitel \ref{sec:KonzeptTCPIP} getroffenen Entscheidungen zur TCP/IP-Verbindung  und dem Nachrichtenaufbau, wie dort konzeptioniert umgesetzt werden. Ebenso soll das Roboterprogramm in VAL~3 gemäß Kapitel \ref{sec:KonzeptVAL3} umgesetzt werden. Dies beinhaltet das Programm Empfangen, in welchem beispielsweise Datenanforderungstelegramme empfangen werden und mit einem Datentelegramm beantwortet werden. Ebenso sind die Programme zum Versand der Systemereignisse und zur Bewegungsausführung und Motormoment-Berechnung zu implementieren. Der Programmcode in VAL~3 wird hierbei nicht komplett aufgezeigt, sondern lediglich das Grundprinzip, sowie Besonderheiten aufgezeigt.\\
+	Nach erfolgreicher Implementierung der EtherCAT-Verbindung soll die TCP/IP-Verbindung implementiert werden. Dabei sollen die in Kapitel \ref{sec:KonzeptTCPIP} getroffenen Entscheidungen zur TCP/IP-Verbindung  und dem Nachrichtenaufbau, wie dort konzeptioniert umgesetzt werden. Ebenso soll das Roboterprogramm in VAL~3 gemäß Kapitel \ref{sec:KonzeptVAL3} umgesetzt werden. Dies beinhaltet das Programm Empfangen, in welchem beispielsweise Datenanforderungstelegramme empfangen werden und mit einem Datentelegramm beantwortet werden. Ebenso sind die Programme zum Versand der Systemereignisse und zur Bewegungsausführung und Motormoment-Berechnung zu implementieren. Der Programmcode in VAL~3 wird hierbei nicht komplett aufgezeigt, sondern lediglich das Grundprinzip, sowie Besonderheiten aufgezeigt.\vspace{0.5\baselineskip}\\
 	\textbf{Implementierung TCP/IP-Verbindung}\\
-	Für die Implementierung der TCP/IP-Verbindung auf dem Controller des Stäubli-Roboters muss in der SRS eine Socket-Verbindung angelegt werden. Hierzu wird in der E/A-Verwaltung ein Client angelegt, welcher die IP-Adresse und den Port des Servers zugewiesen bekommt. Darüber hinaus wird ein sogenannter Timeout von 0 s gesetzt. Bei einem Timeout von 0 wird auf den Vorgang, welcher ein Lesen oder Schreiben sein kann gewartet. Bei einem Timeout kleiner 0 wird hingegen nicht bis zur Ausführung des Vorgangs gewartet. Bei einem Timeout größer 0 wird hingegen eine gewisse Zeit gewährt, bis zu dieser der Timeout durchgeführt werden kann. Die Nachricht soll in diesem Fall jedoch direkt gelesen oder geschrieben werden, weshalb kein Spielraum im Rahmen des Timeouts gewährt wird. \cite{VAL3} Die Socket-Verbindung wird als E/A-Verbindung in VAL3 betrachtet, weshalb eine globale Variable mit dem Namen des Clients angelegt werden kann und hierüber auch gelesen und beschrieben werden kann. Die Socket-Verbindung wird nur dann erstellt, wenn sie ihm Rahmen des Programmablaufs z.B. durch die Befehle sioSet und sioGet benötigt wird. Der Client versucht dann eine Verbindung zum Server aufzubauen. \cite{VAL3} \cite{CS9_TCP}\\
+	Für die Implementierung der TCP/IP-Verbindung auf dem Controller des Stäubli-Roboters muss in der SRS eine Socket-Verbindung angelegt werden. Hierzu wird in der E/A-Verwaltung ein Client angelegt, welcher die IP-Adresse und den Port des Servers zugewiesen bekommt. Darüber hinaus wird ein sogenannter Timeout von 0 s gesetzt. Bei einem Timeout von 0 wird auf den Vorgang, welcher ein Lesen oder Schreiben sein kann gewartet. Bei einem Timeout kleiner 0 wird hingegen nicht bis zur Ausführung des Vorgangs gewartet. Bei einem Timeout größer 0 wird hingegen eine gewisse Zeit gewährt, bis zu dieser der Timeout durchgeführt werden kann. Die Nachricht soll in diesem Fall jedoch direkt gelesen oder geschrieben werden, weshalb kein Spielraum im Rahmen des Timeouts gewährt wird. \cite{VAL3} Die Socket-Verbindung wird als E/A-Verbindung in VAL3 betrachtet, weshalb eine globale Variable mit dem Namen des Clients angelegt werden kann und hierüber auch gelesen und beschrieben werden kann. Die Socket-Verbindung wird nur dann erstellt, wenn sie ihm Rahmen des Programmablaufs z.B. durch die Befehle sioSet und sioGet benötigt wird. Der Client versucht dann eine Verbindung zum Server aufzubauen. \cite{VAL3} \cite{CS9_TCP} \vspace{0.5\baselineskip}\\
 	\textbf{Empfangen}\\
 	In diesem Programm müssen zu Beginn eingehende Nachrichten der TCP/IP-Verbindung gelesen werden. Dies erfolgt mit folgendem Befehl:
 	\begin{lstlisting}
@@ -1182,11 +1101,11 @@
 	\begin{lstlisting}
 		l_nResult=sioSet(sio_client,nSendMessage)
 	\end{lstlisting}
-	Mit dieser Funktion kann in VAL~3 die zu übermittelnde Nachricht nSendMessage versendet werden, indem der E/A-Verbindung sio\_client die Nachricht zugewiesen wird. Zurückgegeben wird die Anzahl der geschriebenen Zeichen oder \glqq -1\grqq{} im Falle des Timeouts. \\
-	Handelt es sich anstelle des Datenanforderungstelegramm um ein Telegramm zur Aktualisierung der zu übertragenden Systemereignis-Schwere, wird eine globale Variable, welche die zu übertragende Schwere des Roboters repräsentiert überschrieben. \cite{VAL3} \cite{CS9_TCP}\\
+	Mit dieser Funktion kann in VAL~3 die zu übermittelnde Nachricht nSendMessage versendet werden, indem der E/A-Verbindung sio\_client die Nachricht zugewiesen wird. Zurückgegeben wird die Anzahl der geschriebenen Zeichen oder \glqq -1\grqq{} im Falle des Timeouts. Handelt es sich anstelle des Datenanforderungstelegramm um ein Telegramm zur Aktualisierung der zu übertragenden Systemereignis-Schwere, wird eine globale Variable, welche die zu übertragende Schwere des Roboters repräsentiert überschrieben. \cite{VAL3} \cite{CS9_TCP}\vspace{0.5\baselineskip}\\
 	\textbf{Systemereignisse}\\
-	Um die Systemereignisse über TCP/IP an die Anlagenvisualisierung übertragen zu können müssen diese erst ausgelesen werden. Hierzu gibt es in VAL~3 zwei Möglichkeiten. Die eine Funktion ermöglicht die Ausgabe des gesamten Systemereignisses in ausformulierter Textform, die andere wiederum ermittelt nur den Ereigniscode. \cite{VAL3} Diese beiden Funktionen werden nachfolgend in einer Vergleichstabelle mit Hilfe von Harvey Balls verglichen (vgl. Tabelle \ref{tab:getEvent-vergleich}). Der Füllheitsgrad des Harvey Balls entspricht dabei dem Grad der Zielerreichung.
-	\begin{table}[h]
+	Um die Systemereignisse über TCP/IP an die Anlagenvisualisierung übertragen zu können müssen diese erst ausgelesen werden. Hierzu gibt es in VAL~3 zwei Möglichkeiten. Die eine Funktion ermöglicht die Ausgabe des gesamten Systemereignisses in ausformulierter Textform, die andere wiederum ermittelt nur den Ereigniscode. \cite{VAL3} Diese beiden Funktionen werden nachfolgend in einer Vergleichstabelle mit Hilfe von Harvey Balls verglichen (vgl. Tabelle \ref{tab:getEvent-vergleich}). Der Füllheitsgrad des Harvey Balls entspricht dabei dem Grad der Zielerreichung. Für den Einsatz des Ereigniscodes spricht, dass der Umfang der zu übertragenden Daten viel geringer ist. Dafür muss bei dem Empfänger, der Anlagenvisualisierung, die Bedeutung der jeweiligen Ereigniscodes hinterlegt werden. Dies geht mit einem deutlichen Mehraufwand einher, vergrößert das Programm und reduziert die Verständlichkeit. Ebenso wird die Flexibilität deutlich reduziert, da bei Änderung der Ereigniscodes z.B. durch ein Software-Update oder eine Neubeschaffung des Stäubli-Roboters, eine manuelle Anpassung der Interpretation der Ereigniscodes erfolgen muss. Aus diesem Grund fällt die Entscheidung auf die Übertragung des Systemereignisses in ausformuliert Form.\\
+	\clearpage
+	\begin{table}[!h]
 		\centering
 		\caption{Vergleich Funktion zur Ermittelung Systemereignis}
 		\label{tab:getEvent-vergleich}
@@ -1203,21 +1122,22 @@
 			\textbf{Legende:} \harveyBallFull: Hervorragend   \harveyBallHalf: Teils/Teils	\harveyBallNone: Sehr schlecht
 		\end{flushleft}
 	\end{table}
-	Für den Einsatz des Ereigniscodes spricht, dass der Umfang der zu übertragenden Daten viel geringer ist. Dafür muss bei dem Empfänger, der Anlagenvisualisierung, die Bedeutung der jeweiligen Ereigniscodes hinterlegt werden. Dies geht mit einem deutlichen Mehraufwand einher, vergrößert das Programm und reduziert die Verständlichkeit. Ebenso wird die Flexibilität deutlich reduziert, da bei Änderung der Ereigniscodes z.B. durch ein Software-Update oder eine Neubeschaffung des Stäubli-Roboters, eine manuelle Anpassung der Interpretation der Ereigniscodes erfolgen muss. Aus diesem Grund fällt die Entscheidung auf die Übertragung des Systemereignisses in ausformuliert Form.
+
+	\noindent
 	Hierzu kommt folgender VAL~3 spezifische Befehle zum Einsatz:
 	\begin{lstlisting}
 		l_nLastEvt=getEvents(l_nFirstEvt, l_nId, l_nType, l_sInfo, l_nSeverity)
 	\end{lstlisting}
 	Dieser ermittelt neben dem Systemereignis selbst und der Schwere, eine CS9-interne Nummer des letzten tatsächlich ausgelesenen Ereignisses (l\_nLastEvt).
 	Bei der nächsten zyklischen Abfrage der Systemereignisses wird die Nummer des letzten ausgelesenen Ereignisses als Eingangsparameter für das erste auszulesende Ereignis (l\_nFirstEvt) verwendet. Dadurch wird vermieden, dass keine Systemereignisse mehrfach ausgelesen werden. Diese Funktion speichert zudem in l\_nFirstEvt die Nummer des tatsächlich zuerst ausgelesenen Ereignisses. Das System behält nur die letzten 20 Ereignisse gespeichert. Aus der Differenz des tatsächlich ersten ausgelesenen Ereignisses zur der Vorgabe des ersten auszulesenden Ereignisses, lässt sich berechnen ob alle Ereignisse ausgelesen wurden oder ob aufgrund einer Überschreitung der Grenze von 20 Ereignissen, Ereignisse verloren gegangen sind. Die zyklische Abfrage der Ereignisse ist jedoch so dicht getaktet, dass ein Verlorengehen von Ereignissen im Betrieb quasi nicht auftreten kann.\\
-	Nach dem Auslesen der Systemereignisse werden diese einzeln als Nachrichten über TCP/IP versendet. Hierbei wird der entworfene Telegrammaufbau von Kapitel \ref{sec:KonzeptFeldbus}) angewandt.\\
+	Nach dem Auslesen der Systemereignisse werden diese einzeln als Nachrichten über TCP/IP versendet. Hierbei wird der entworfene Telegrammaufbau von Kapitel \ref{sec:KonzeptFeldbus}) angewandt.\vspace{0.5\baselineskip}\\
 	\textbf{Bewegungssteuerung}\\
 	In dem Programm Bewegungssteuerung erfolgt die Steuerung der Roboterbewegung. Hierzu werden Punkte in der SRS angelegt, welche durch Teachen an dem realen Roboter auf die genaue geometrische Situation angepasst werden. Nachfolgend ist eine Verfahrbewegung exemplarisch aufgezeigt:
 	\begin{lstlisting}
 		movel(pZwischenPos, tTool, mLspeed)
 	\end{lstlisting}
 	Hierdurch erfolgt eine lineare Bewegung zu dem Punkt \glqq pZwischenPos \grqq{}. Die Bewegungsdaten wie Geschwindigkeit und Beschleunigung sind in \glqq mLspeed \grqq{} abgespeichert. Die Geometrie des Robotergreifers ist in der Variablen \glqq tTool \grqq{} hinterlegt.\\
-	Zu Beginn einer Bewegungsausführung wird zudem ein neuer Task gestartet, in dem das Drehmoment über die Zeit integriert werden soll. Nach Ablauf des kompletten Bewegungsablauf wird dieser Task wieder beendet. Das aktuelle Ergebnis der Integration wird abgefragt und entspricht dem integrierten Moment eines kompletten Bewegungsablaufes.\\
+	Zu Beginn einer Bewegungsausführung wird zudem ein neuer Task gestartet, in dem das Drehmoment über die Zeit integriert werden soll. Nach Ablauf des kompletten Bewegungsablauf wird dieser Task wieder beendet. Das aktuelle Ergebnis der Integration wird abgefragt und entspricht dem integrierten Moment eines kompletten Bewegungsablaufes.\vspace{0.5\baselineskip}\\
 	\textbf{Motormoment-Integrator}\\
 	Dieses Programm, welches von dem Programm Bewegungssteuerung gestartet und beendet wird führt die Integration der Motormomente aller sechs Achsen über die Zeit durch. Mit dem Aufruf des Programms wird das integrierte Motormoment auf Null gesetzt, da es sich um den Beginn eines Bewegungsablaufes handelt. Die Integration wird durch das Bilden einer Summe mit einer Abtastperiode von 0,1 Sekunden realisiert. Dieser Zusammenhang ist in nachfolgender Formel dargestellt:
 	\begin{equation}
@@ -1247,9 +1167,9 @@
    	\begin{lstlisting}
    		int bytesRead = await stream.ReadAsync(bufferIn, 0, bufferIn.Length);
    	\end{lstlisting}
-   	Der await-Operator ermöglicht es, dass das Ende dieser Methode (ReadAsync) trotz des asynchronen Charakters abgewartet wird \cite{kotz2022c}.\\
+   	Der await-Operator ermöglicht es, dass das Ende dieser Methode (ReadAsync) trotz des asynchronen Charakters abgewartet wird \cite{kotz2022c}.\vspace{0.5\baselineskip}\\
    	\textbf{Nachrichteninterpretation} \\
-    Anschließend muss der gelesene Byte-Array interpretiert werden. Hierfür wird gemäß der Konzeptionierung der WPF-Anwendung (vgl. Kapitel \ref{sec:KonzeptWPF}) eine eigene Klasse namens Interpreter erstellt. Nach dem Lesen einer TCP-IP Nachricht kann eine Methode dieser Klasse entweder ein Datentelegramm oder ein Systemereignis-Telegramm entschlüsseln bzw. interpretieren, in dem dieser Methode der Byte-Array übergeben wird. Dort werden dann die einzelnen Bytes der Nachricht gelesen und somit z.B. die Temperatur der CPU ermittelt. Diese ermittelten Eigenschaften werden in eine Instanz der Klasse Robot, welche somit einen einzelnen konkreten Roboter darstellt, geschrieben.\\
+    Anschließend muss der gelesene Byte-Array interpretiert werden. Hierfür wird gemäß der Konzeptionierung der WPF-Anwendung (vgl. Kapitel \ref{sec:KonzeptWPF}) eine eigene Klasse namens Interpreter erstellt. Nach dem Lesen einer TCP-IP Nachricht kann eine Methode dieser Klasse entweder ein Datentelegramm oder ein Systemereignis-Telegramm entschlüsseln bzw. interpretieren, in dem dieser Methode der Byte-Array übergeben wird. Dort werden dann die einzelnen Bytes der Nachricht gelesen und somit z.B. die Temperatur der CPU ermittelt. Diese ermittelten Eigenschaften werden in eine Instanz der Klasse Robot, welche somit einen einzelnen konkreten Roboter darstellt, geschrieben.\vspace{0.5\baselineskip}\\
     \textbf{Verbundene Roboter} \\
     Zusätzlich soll die Klasse Communicator ermitteln, welche Roboter aktuell eine Verbindung mit dem Server aufgebaut haben. Diese Information kann über das Fenster, dem Nutzer angezeigt werden. Die Schwierigkeit besteht darin, dass über die aufgebauten Verbindungen zwar einfach dokumentiert werden kann, ob Clients verbunden sind, jedoch keine Information darüber besteht, um welchen Roboter es sich dabei handelt. Die Identifikation des Roboters kann erst mit der ersten Nachricht des Roboters erfolgen, in welcher der Robotername enthalten ist. Zur Speicherung der verbunden Clients und den damit verknüpften Robotern ergeben sich mehrere Möglichkeiten. Beispielsweise kann eine Liste von Tupeln angelegt werden, als Schlüssel kann der Client dienen und als Wert der Roboter. Eine andere Alternative stellt eine Liste oder ein Array aus benutzerdefinierten Objekten dar. Das Objekt besteht in diesem Fall aus dem Client und dem Roboter. Eine weitere Möglichkeit ist ein Dictionary. Dies ermöglicht es Mengen von Schlüssel-Werte-Paaren zu speichern.
     Gegen den Einsatzes einer Liste mit Objekten spricht, dass dies den Aufwand und die Komplexität erhöht, da diese Objekte erst kreiert werden müssen.
@@ -1259,7 +1179,7 @@
     	private ConcurrentDictionary<TcpClient, Robot> dictionaryConnectedClients = new ConcurrentDictionary<TcpClient, Robot>();
     \end{lstlisting}
     Der TcpClient wird in diesem Fall als Schlüssel eingesetzt und das Objekt der Klasse Robot dient als Wert. Ein ConcurrentDictionary unterscheidet sich von einem normalen Dictionary durch seine Fähigkeit, sicher von mehreren Threads gleichzeitig bearbeitet zu werden, ohne dass externe Synchronisierung notwendig ist. Da mehrere Clients verbunden sein können, kann es dazukommen, dass mehrere asynchronen Methoden zeitgleich das Dictionary beschreiben möchten.
-   	Wird erstmalig eine Verbindung zu einem Client aufgebaut wird dieser in das Dictionary aufgenommen, bricht eine Verbindung ab, wird dieser wieder aus dem Dictionary entfernt. Wird erstmalig ein Roboter durch seinen Namen identifiziert, wird dieser dem entsprechenden Client als Wert im Dictionary zugewiesen.\\
+   	Wird erstmalig eine Verbindung zu einem Client aufgebaut wird dieser in das Dictionary aufgenommen, bricht eine Verbindung ab, wird dieser wieder aus dem Dictionary entfernt. Wird erstmalig ein Roboter durch seinen Namen identifiziert, wird dieser dem entsprechenden Client als Wert im Dictionary zugewiesen.\vspace{0.5\baselineskip}\\
    	\textbf{Konfigurationsdatei}\\
    	Darüberhinaus ist eine Konfigurationsdatei in die WPF-Anwendung implementiert, in der wichtige Einstellungen von dem Betreiber hinterlegt werden. Hier wird z.B. neben der IP-Adresse und des Ports, eine Liste der installierten Roboter abgelegt. Durch ein Vergleich dieser mit den tatsächlich verbundenen Robotern im Dictionary, kann eine Warnung ausgegeben werden, dass ein gewisser Roboter nicht verbunden ist. Zudem ist in dieser Datei hinterlegt, ab welcher Schwere Systemereignisse übertragen werden sollen. Gemäß Konzeptionierung der WPF-Anwendung (vgl. Kapitel \ref{sec:KonzeptWPF}) muss die WPF-Anwendung den Robotern mitteilen, ab welcher Schwere diese die Systemereignisse versenden sollen. Wird erstmalig eine Verbindung zu einem Roboter aufgebaut oder nach einem Abbruch der Verbindung erfolgt ein erneuter Aufbau, wird ein Telegramm an diesen Roboter versandt, welches diese Soll-Schwere enthält. Liegt beispielsweise eine Störung oder Auffälligkeit an einem Roboter vor kann ein Servicetechniker die Konfigurationsdatei anpassen (ggf. auch per Fernzugriff) und es dadurch ermöglichen, dass alle Systemereignisse, wie z.B. auch reine Informationen übertragen werden.
    	\subsection{Daten-Logger}
@@ -1324,7 +1244,7 @@
    	\chapter{Validierung}
    	Die korrekte und zuverlässige Funktionsweise des entworfenen Systems und insbesondere der Software ist von zentraler Bedeutung \cite{liggesmeyer2009software}.
    	Ein Test wird dazu genutzt, um einen Nachweis zu erzielen, dass die Funktionsweise gegeben ist. Hierbei kann in Funktionstests und Fehlertests unterschieden werden. Funktionstests dienen dazu, zu prüfen, ob die vorgegebenen Funktion erfüllt sind. Fehlertests hingegen prüfen die Fehlertoleranz des Systems. \cite{ISWLeitfaden} \cite{Sommerville} \\
-   	Beide Testarten sollen in diesem Rahmen zur Validierung zum Einsatz kommen.\\
+   	Beide Testarten sollen in diesem Rahmen zur Validierung zum Einsatz kommen. Nachfolgend wird die TCP/IP-Verbindung inklusive des Roboterprogramms und der WPF-Anwendung ausgiebig auf Funktion und Fehler getestet. Ebenso wurde die EtherCAT-Verbindung auf Ihre Funktionalität überprüft. Da es sich hier jedoch um eine gängige eingesetzte Verbindung handelt und keine zusätzliche Programmierung wie z.B. in WPF erfolgt ist, wird im Rahmen der Arbeit auf die Validierung der EtherCAT-Verbindung aus Umfangsgründen nicht eingegangen.
    	\section{Funktionstests}
    	Um die Funktionalität des entworfenen Systems nachzuweisen, soll das System unter realen Bedingungen getestet werden. Hierzu wird an den Stäubli-Roboter TX2-90 ein Greifer für Wiener-Würstchen montiert. Ebenso wird ein Windows-PC, auf welchem die WPF-Anwendung läuft mit dem Steuergerät CS9 des Roboters über LAN-Kabel verbunden (vgl. Abbildung \ref{fig:Robo}).
    	\begin{figure}[!ht]
@@ -1345,10 +1265,10 @@
    		\item \textbf{6. Binäre Werte zur Fehlerüberwachung: } Es wird eine Vielzahl von binären-Werten im Datentelegramm übertragen, wie z.B. die Informationen ob ein CPU-Überstrom vorliegt. Zum Testen, wir der Wert manuell am Stäubli-Roboter manipuliert.
    		\item \textbf{7. Verbindung mehrerer Roboter: } Da als Hardware nur ein Roboter zur Verfügung steht, kann die Kommunikation mit mehreren Robotern nicht unter realen Bedigungen getestet werden. Um dies dennoch möglichst praxisnah zu validieren wird ein physischer Roboter über das LAN-Kabel mit dem Windows-Rechner verbunden. Ein weiterer Roboter, wird durch ein TCP/IP-Client-Terminal simuliert. In dieser virtuellen Client-Anwendung werden Nachrichten an den Roboter gesendet, so wie Nachrichten von dem Roboter empfangen.
    	\end{itemize}
-   	Die Ergebnisse dieser Funktionstests sollen nachfolgend kurz dargestellt werden. Dabei wird die Funktion durch Bildschirmfotos der Benutzeroberfläche unterstrichen, um einen Eindruck über die entworfene Anwendung zu vermitteln.\\
+   	Die Ergebnisse dieser Funktionstests sollen nachfolgend kurz dargestellt werden. Dabei wird die Funktion durch Bildschirmfotos der Benutzeroberfläche unterstrichen, um einen Eindruck über die entworfene Anwendung zu vermitteln.\vspace{0.5\baselineskip}\\
    	\textbf{1. Übertragung Warnungen/Fehlermeldungen/...}\\
    	Die Systemereignisse, die am Stäubli-Roboter entstanden sind, wie einfache Infomeldungen oder vorliegende Fehler wurden erfolgreich an die WPF-Anwendung übertragen. Dort wurden sie wie folgt ausschnitthaft dargestellt ausgegeben (vgl. Abbildung \ref{fig:AnzeigeEvents}):
-   	\begin{figure}[!ht]
+   	\begin{figure}[!h]
    		\centering
    		\includegraphics[width=1\linewidth]{./images/Fehlermeldung.png}
    		\caption{Anzeige Systemereignisse}
@@ -1356,33 +1276,38 @@
    	\end{figure}\\
    	\textbf{2. Übertragung bei Umteachen}\\
    	Ebenso wurde beim Umteachen von Bewegungspunkten erfolgreich eine Meldung in der WPF-Anwendung ausgegeben (vgl. Abbildung \ref{fig:Umteachen}).
-   	\begin{figure}[!ht]
+   	\begin{figure}[!h]
    		\centering
    		\includegraphics[width=1\linewidth]{./images/Umteachen.png}
    		\caption{Meldung bei Umteachen von Bewegungspunkten}
    		\label{fig:Umteachen}
    	\end{figure}\\
    	\textbf{3. Änderung Ereignisschwere}\\
-   	Nach Anpassung der Ereigniss-Schwere in der WPF-Anwendung wurden wie gewünscht nur noch die Systemereignisse aber dieser Schwere übertragen. Bei Setzten der Ereignis-Schwere auf 2 wurden die einfachen Informationsmeldungen nicht mehr übertragen, sondern lediglich Warnungen oder noch schwerwiegendere Ereignisse.\\
+   	Nach Anpassung der Ereigniss-Schwere in der WPF-Anwendung wurden wie gewünscht nur noch die Systemereignisse aber dieser Schwere übertragen. Bei Setzten der Ereignis-Schwere auf 2 wurden die einfachen Informationsmeldungen nicht mehr übertragen, sondern lediglich Warnungen oder noch schwerwiegendere Ereignisse.\vspace{0.5\baselineskip}\\
+   	\clearpage
+   	\noindent
    	\textbf{4. Anzeige der Prozessdaten}\\
    	Die Prozessdaten des Roboters werden wie gewünscht in der WPF-Anwendung angezeigt (vgl. Abbildung \ref{fig:Prozessdaten}). Ebenso ist es möglich zwischen potentiell mehreren Robotern über ein Drop-Down-Menü zu wechseln. Über die Aktualisierungs-Schaltfläche können die Grafiken aktualisiert werden.
-   	\begin{figure}[!ht]
+   	\begin{figure}[!h]
    		\centering
    		\includegraphics[width=1\linewidth]{./images/Prozessdaten.png}
    		\caption{Visualisierung der Prozessdaten}
    		\label{fig:Prozessdaten}
    	\end{figure}\\
+   	\vspace{0.5\baselineskip}\\
    	\textbf{5. Integration der Motormomente}\\
    	Eine Besonderheit stellen die Motormomente dar, da diese nicht wie andere Prozessdaten unverarbeitet übertragen werden, sondern über einen gesamten Bewegungsablauf über die Zeit integriert werden. Im Testfall wurde auf den Greifer zeitweise eine externe Kraft aufgebracht, um den Einfluss der Last auf das Motormoment zu erkennen. In dem Drehmomentenverlauf ist ein deutlicher Anstieg der Momente, in den Bewegungsabläufen zu sehen, in denen eine Kraft aufgeprägt war (vgl. Abbildung \ref{fig:Motormomente}). Für die Motormomente, ergeben sich vielfältige Nutzungspotentiale. Ein Anstieg der Motormomente kann darauf hindeuten, dass die Achse geschmiert werden soll oder das ein Defekt z.B. am Lager vorliegt. Bei Überschreiten von Grenzwerten, die für jeden Anwendungsfall individuell bestimmt werden müssen, kann der Bediener gewarnt werden. Im Idealfall kann bereits durch das Erkennen von Tendenzen im Momentenverlauf, eine Wartung vorgenommen werden, bevor eine Schädigung überhaupt eintritt. Hierbei spricht man von vorausschauender Wartung, was die Ausfallzeiten der Anlage deutlich reduzieren kann.
-   	\begin{figure}[!ht]
+   	\clearpage
+   	\begin{figure}[!h]
    		\centering
    		\includegraphics[width=0.7\linewidth]{./images/Motormomente.png}
    		\caption{Visualisierung der integrierten Motormomente}
    		\label{fig:Motormomente}
-   	\end{figure}\\
+   	\end{figure}
+   	\noindent
    	\textbf{6. Binäre Werte zur Fehlerüberwachung}\\
    	Von dem Roboter werden eine Vielzahl an binären Werten zu der WPF-Anwendung übertragen. Manche von ihnen sind ein Fehlerindikator. Wird z.B. der CPU Überstrom auf true bei dem Roboter manipuliert, wird dies von der WPF-Anwendung in der Fehleranalyse wie gewünscht entdeckt und ausgegeben (vgl. Abbildung \ref{fig:binarFehler}).
-   	\begin{figure}[!ht]
+   	\begin{figure}[!h]
    		\centering
    		\includegraphics[width=0.7\linewidth]{./images/BinarFehler.png}
    		\caption{Binäre Werte zur Fehlerüberwachung}
@@ -1390,7 +1315,7 @@
    	\end{figure}\\
    	\textbf{7. Verbindung mehrerer Roboter}\\
    	Durch eine virtuelle Client-Anwendung wird der Einsatz von mehreren Robotern nachgebildet. Die Kommunikation der WPF-Anwendung mit mehreren Clients erfolgt wie gewünscht und es erfolgt eine Ausgabe der verbundenen Clients (Roboter) im dafür eingerichteten Ausgabefelder der WPF-Anwendung (vgl. Abbildung \ref{fig:VerbundeneRoboter}).
-   	\begin{figure}[!ht]
+   	\begin{figure}[!h]
    		\centering
    		\includegraphics[width=0.7\linewidth]{./images/VerbundeneRoboter.png}
    		\caption{Anzeige der verbundenen Roboter}
