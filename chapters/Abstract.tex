@@ -4,11 +4,12 @@
 \begin{otherlanguage}{ngerman}
 \chapter*{Kurzfassung}
 \addcontentsline{toc}{chapter}{Kurzfassung}
+Ein Roboter ist ein integraler Bestandteil der Automatisierungsanlage von robomotion, jedoch bleiben seine Daten bisher ungenutzt. Das Ziel dieser Arbeit ist es, eine TCP/IP-Verbindung zu entwickeln, um Prozessdaten und Fehlermeldungen von einem Stäubli-Roboter zur Anlagenvisualisierung zu übertragen. Dies beinhaltet die Entwicklung einer Windows-Anwendung als Anlagenvisualisierung, die die Kommunikation mit dem Roboter übernimmt und dessen Daten visualisiert.\\
+Nach einer Analyse der Anforderungen und eine Überführung in das Lastenheft, wurde in der Konzeptphase die TCP/IP-Verbindung, das Roboterprogramm und die Windows-Anwendung konzipiert. Mithilfe von UML-Diagrammen wurden die einzelnen Softwarekomponenten beschrieben. Die TCP/IP-Verbindung mit der Anlagenvisualisierung als Server sieht getrennte Nachrichten für die zu übertragenden Prozessdaten und Fehlermeldungen vor. Diese Nachrichten sind neben ihrem Inhalt durch eine Nachrichten-ID, den Sender und einen Zeitstempel gekennzeichnet. Weitere Nachrichten wie z.B. Datenanforderungstelegramme ergänzen die Kommunikationsverbindung. Für die Anlagenvisualisierung wird das Architekturmuster Model-View-ViewModel verwendet, um eine klare Trennung und Wiederverwendbarkeit von Benutzeroberfläche und Kommunikations- bzw. Datenverarbeitung zu gewährleisten. In der nachfolgenden Design- und Implementierungsphase wurden geeignete Softwarebibliotheken ausgewählt, und das Roboterprogramm sowie die Anlagenvisualisierung in Source-Code umgesetzt. Die Fehlermeldungen des Roboters werden in der Anlagenvisualisierung angezeigt und die Prozessdaten werden visualisiert. Eine anschließende Validierung mittels Funktions- und Fehlertests hat die Funktionsfähigkeit unter realen Bedingungen an der Hardware nachgewiesen. Die Prozessdaten des Roboters können für Warnungen und vorausschauende Wartung genutzt werden. Für die Zukunft eröffnen sich hierdurch u.a. im Hinblick auf Künstliche Intelligenz viele neue Möglichkeiten und Geschäftsmodelle.
 
-Roboter spielen eine zentrale Rolle. Daten. Neue Geschäftsmodelle
 
 \vfill
-\noindent\textbf{Stichwörter:} Hamster, Training, Anleitung
+\noindent\textbf{Stichwörter:} TCP/IP-Kommunikation, Stäubli-Roboter, Anlagenvisualisierung, Prozessdaten
 \vfill
 \end{otherlanguage}
 % Then continue with the english one.
@@ -16,9 +17,10 @@ Roboter spielen eine zentrale Rolle. Daten. Neue Geschäftsmodelle
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-Add the english abstract here.
+A robot is an integral part of robomotion's automation system, but its data has so far remained unused. The aim of this work is to develop a TCP/IP connection to transfer process data and error messages from a Stäubli robot to the system visualization. This includes the development of a Windows application as a system visualization, which takes over the communication with the robot and visualizes its data.\\\
+After analyzing the requirements and transferring them to the specifications, the TCP/IP connection, the robot program and the Windows application were designed in the concept phase. The individual software components were described with the help of UML diagrams. The TCP/IP connection with the system visualization as the server provides separate messages for the process data and error messages to be transmitted. In addition to their content, these messages are identified by a message ID, the sender and a time stamp. Other messages, such as data request telegrams, supplement the communication connection. The architecture pattern Model-View-ViewModel is used for the system visualization in order to ensure a clear separation and reusability of user interface and communication and data processing. In the subsequent design and implementation phase, suitable software libraries were selected and the robot program and system visualization were implemented in source code. The robot's error messages are displayed in the system visualization and the process data is visualized. Subsequent validation by means of function and error tests has proven the functionality of the hardware under real conditions. The robot's process data can be used for warnings and predictive maintenance. This opens up many new possibilities and business models for the future, including with regard to artificial intelligence.
 
 \vfill
-\noindent\textbf{Keywords:} hamster, training, guide
+\noindent\textbf{Keywords:} TCP/IP communication, Stäubli robots, system visualization, process data
 \vfill
 \end{otherlanguage}

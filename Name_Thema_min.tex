@@ -291,6 +291,7 @@
    	\label{sec:TCP/IP}
    	\clearpage
    	\section{OPC UA}
+   	\label{sec:OPCUA}
    	\acs{opc} (\acl{opc}) ist ein Protokoll zur Maschine-zu-Maschine-Kommunikation, aber auch zur Kommunikation zwischen SPS oder Benutzerschnittstelle und Maschine. Es handelt sich hierbei um einen offenen und plattformunabhängigen Standard, welcher von der \glqq Open Platform Foundation\grqq{} verwaltet wird. OPC UA basiert analog zu TCP/IP auf Ethernet und Internet. Es ist ebenso nicht echtzeitfähig. Das Kommunikationsprotokolls OPC UA ermöglicht eine vertikale und horizontale Kommunikation, da es die einzelnen Automatisierungsebenen verbindet. Somit kann von einem Roboter bis hin zur gesamten Fabriksteuerung alles verbunden werden, was OPC UA beliebt macht, um die Fabrik \glqq Industrie 4.0\grqq{} fähig zu machen. \cite{industrie40} \\
    	OPC UA basiert auf der Server-Client Architektur. Der OPC UA Server kann dann beispielsweise auf der SPS oder der Benutzerschnittstelle laufen und ein Roboter kann als OPC UA Client angebunden werden. Die Daten werden standardisiert und maschinenlesbar semantisch beschrieben, sodass eine herstellerübergreifende Kommunikation problemlos möglich ist. Sensordaten einer Maschine können dadurch an die Anlagensteuerung übertragen und visualisiert werden. OPC UA liefert dabei viele Vorteile: \cite{OPCUA}
    	\begin{itemize}
@@ -1242,6 +1243,8 @@
    	\label{fig:TabGraph}
    	\end{figure}\\
    	\chapter{Validierung}
+   	\label{chap:Validierung}
+   	
    	Die korrekte und zuverlässige Funktionsweise des entworfenen Systems und insbesondere der Software ist von zentraler Bedeutung \cite{liggesmeyer2009software}.
    	Ein Test wird dazu genutzt, um einen Nachweis zu erzielen, dass die Funktionsweise gegeben ist. Hierbei kann in Funktionstests und Fehlertests unterschieden werden. Funktionstests dienen dazu, zu prüfen, ob die vorgegebenen Funktion erfüllt sind. Fehlertests hingegen prüfen die Fehlertoleranz des Systems. \cite{ISWLeitfaden} \cite{Sommerville} \\
    	Beide Testarten sollen in diesem Rahmen zur Validierung zum Einsatz kommen. Nachfolgend wird die TCP/IP-Verbindung inklusive des Roboterprogramms und der WPF-Anwendung ausgiebig auf Funktion und Fehler getestet. Ebenso wurde die EtherCAT-Verbindung auf Ihre Funktionalität überprüft. Da es sich hier jedoch um eine gängige eingesetzte Verbindung handelt und keine zusätzliche Programmierung wie z.B. in WPF erfolgt ist, wird im Rahmen der Arbeit auf die Validierung der EtherCAT-Verbindung aus Umfangsgründen nicht eingegangen.
@@ -1452,8 +1455,48 @@
    	Alle ermittelten möglichen Fehlerursachen, wie z.B. das Entfernen des LAN-Kabels, wurden zur Validierung getestet, um auszuschließen, dass es zu einem Fehler kommt.
    	Nach kleineren Optimierungen an der WPF-Anwendung ist es dem System nun möglich, auf alle potentiellen Fehlerursachen zu reagieren und eine robuste und fehlerfreie Fortführung des Systems zu gewährleisten. Beispielsweise wird beim Neustart des Roboters eine Meldung in der WPF-Anwendung ausgegeben, dass die Verbindung verloren gegangen ist. Nach dem Wiederhochfahren baut die Verbindung jedoch selbst wieder auf und die Kommunikation fährt automatisch fort. Ebenso verursacht ein Löschen der CSV-Datei keinen Fehler, da in diesem Fall das System selbst eine neue Datei anlegt. Wird die CSV-Datei durch ein anderes System, wie z.B. Excel blockiert, hindert dies die Funktionsweise nicht, da sich die WPF-Anwendung eine Kopie der CSV-Datei anlegt. Eine Validierung des Systems ist hiermit nach bestem Gewissen sichergestellt. Dennoch ist darauf hinzuweisen, dass besondere unvorhergesehene Ereignisse nicht ausgeschlossen werden können. Die Robustheit von Software kann jedoch durch längerfristige Benutzung im Betrieb weiter verbessert werden. 
 
-   	\chapter{Ausblick und Fazit}
-   	Übertrag auf andere Hersteller
+   	\chapter{Fazit und Ausblick}
+   	Im Rahmen dieser Arbeit wurde der Stäubli-Roboter erfolgreich in das Anlagenkonzept der Firma \glqq robomotion \grqq{} integriert und eine TCP/IP-Verbindung implementiert. Die WPF-Anwendung ermöglicht es Systemereignisse und Prozessdaten zu empfangen, visualisieren und abzuspeichern. Zur Überprüfung, ob die Projektziele erfüllt wurden und die Anforderungen implementiert sind erfolgt ein Abgleich mit dem Lastenheft (vgl. Kapitel \ref{chap:Anforderungsdefinition}). Dabei werden die einzelnen Kriterien mit Hilfe von Harvey-Balls auf ihren Zielerfüllungsgrad verglichen (vgl. Tabelle \ref{table:LastenheftAbgleich}).
+   	\begin{longtable}{|p{0.3cm}|p{11cm}|p{1cm}|p{0.5cm}|}
+   		\caption{Abgleich Lastenheft auf Erfülllung}
+   		\label{table:LastenheftAbgleich}\\
+   		\hline
+   		Nr. & Anforderung & K/M & \\ [0.5ex] 
+   		\hline
+   		\endhead
+   		1 & Übertragung von Fehlermeldungen des Roboters an die Anlagenvisualisierung & Muss & \harveyBallFull  \\ 
+   		2 & Übertragung von Prozessdaten des Roboters an die Anlagenvisualisierung & Muss & \harveyBallFull \\
+   		3 & Übertragung von Daten z.B. Kameradaten von der Anlage an den Roboter & Muss & \harveyBallFull \\
+   		4 & Ausgabe der Roboterfehler auf der Anlagenvisualisierung in verständlicher Form (ausformuliert, Fehlercode genügt nicht) & Muss& \harveyBallFull  \\
+   		5 & Feldbusverbindung zwischen Stäubli-Roboter und SPS & Muss& \harveyBallFull  \\
+   		6 & Abspeichern der Fehler und der Daten in log-File & Muss& \harveyBallFull \\ 
+   		7 & Fehlerfreie und prozesssichere Kommunikation & Muss& \harveyBallFull  \\ 
+   		8 & Einsatz von mehreren Stäubli-Robotern zeitgleich  & Kann& \harveyBallFull  \\
+   		9 & Vorgabe von der Anlagenvisualisierung, wie häufig Daten versendet werden sollen & Kann& \harveyBallFull  \\
+   		10 & Vorgabe von der Anlagenvisualisierung, ab welcher Schwere Systemereignisse versendet werden sollen & Kann& \harveyBallFull  \\ 
+   		11 & Visualisierung der Daten & Kann& \harveyBallFull  \\
+   		12 & Verwertung der Daten z.B. für Warnungen & Kann & \harveyBallFull \\  
+   		13 & Übersichtliche Darstellung aller Daten und Meldungen & Kann& \harveyBallHalf \\ 
+   		14 & Melden, dass Bahnpunkte umgeteacht wurden & Kann & \harveyBallFull \\ 
+   		\hline
+   	\end{longtable}
+   	\noindent
+   	Alle Anforderungen ausgenommen von der übersichtlichen Darstellung wurden hierbei vollends erfüllt. Hinsichtlich der graphischen Darstellung aller Informationen gibt es noch Verbesserungspotentiale. Einerseits könnte es optisch schöner gestaltet werden, andererseits könnte dem Bediener ein Auswahlmenü gegeben werden, in welchem er festlegt, ab welcher Schwere Systemereignisse dargestellt werden sollen. Ebenso ist ein Filtern nach gewissen Kriterien oder eine Schlagwort-Suche denkbar.\\
+   	Mit dem ersten Kundenprojekt, in welchem ein Stäubli-Roboter eingesetzt werden soll, kann die entworfene TCP/IP-Verbindung, sowie das Roboterprogramm und die WPF-Anwendung zum Einsatz kommen. Hierfür soll die entworfene WPF-Anwendung in roboTools integriert werden. Eine Integration in roboTools ist besonders einfach möglich, da es sich bei beiseitig um WPF-Anwendungen handelt. Durch den Einsatz dem MVVM-Musters mit Hilfe von Datenbindung herrscht zudem eine strikte Trennung zwischen dem Model und der View (Benutzeroberfläche), was die Integration erleichtert.
+   	Die Funktionalität wurden best möglichst mit Hilfe von Funktions- und Fehlertests validiert (vgl. Kapitel \ref{chap:Validierung}). Dennoch ist es nahezu unmöglich alle Szenarien zu berücksichtigen, weshalb nicht ausgeschlossen werden kann, dass bei Ersteinsatz kleinere unerwartete Fehler auftauchen.\vspace{0.5\baselineskip}\\
+   	\textbf{Übertrag auf andere Roboter}\\
+   	Darüber hinaus, ist auch ein Einsatz der entworfenen TCP/IP-Verbindung für Roboter anderer Hersteller möglich, um auch dessen wertvolle Prozessdaten nutzen zu können. Die WPF-Anwendung kann hierbei ohne Änderungen übernommen werden. Dahingegen muss das Roboterprogramm in der auf die roboterspezifischen Programmiersprache z.B. von ABB adaptiert werden. Da ggf. andere Daten verfügbar sind, muss der Aufbau des Datentelegramms angepasst werden.\\
+   	Bei den Änderungen handelt es sich um reine Software-Anpassungen. Dies ermöglicht es, dass auch bei bereits ausgelieferten Anlagen ohne großen Mehraufwand eine TCP/IP-Verbindung über ein Software-Update implementiert werden kann.\vspace{0.5\baselineskip}\\
+   	\textbf{OPC UA}\\
+   	Die Zielsetzung der Arbeit sah eine TCP/IP-Verbindung vor. Dennoch wurde im Kapitel Grundlagen und Stand der Technik (vgl. Kapitel \ref{sec:OPCUA}) der OPC UA als Alternative analysiert. Da OPC UA in diesem Projekt keine zusätzliche Funktionalität mit sich bringt, aber Lizenzkosten bei dem Stäubli-Roboter verursacht, ist die Entscheidung gegen OPC UA gefallen. Dennoch sollte für die Zukunft OPC UA weiter im Blick behalten werden. Diese fortschrittliche Technologie ermöglicht es Anlagen besser in eine vernetze Fabrik einzubinden und könnte in Zukunft von einzelnen Kunden gefordert werden. \vspace{0.5\baselineskip}\\
+   	\textbf{Datenverwertung}\\
+   	Für die Nutzung der gesammelten Daten ergeben sich viele Nutzungspotentiale für die Zukunft. Einserseits können die Daten genutzt werden, um bei Auftreten eines Fehlers, die Fehlerursache zu finden. Andererseits können für Compliance-Zwecke, Garantiefälle oder Klagen die Daten als Beweis für eigenes Verschulden verwendet werden.\\
+   	Das größte Nutzungspotential ergibt sich jedoch durch den Einsatz für Warnungen und Predictive Maintenance (vorausschauende Wartung). Die einfachste Auswertung der Daten kann durch das Setzen von Schranken erfolgen. Überschreitet ein Motormoment oder eine Temperatur einen festgelegten Schwellenwert erhält der Bediener eine Warnung. Dies kann einerseits als Alarm für einen bestehenden Defekt dienen, andererseits als Wartungsaufforderung im Rahmen von Predictive Maintenance. Erhöhte Werte können z.B. auf fehlende Schmierung oder ein verschlissenes Lager hindeuten. Basierend auf den Warnungen durch die Grenzwerte kann somit rechtzeitig eine Wartung vorgenommen werden, bevor es zu einem unvorhergesehenen Ausfall der Anlage kommt. Unvorhergesehene Ausfälle können lange Stillstandszeiten zu Folge haben, da ggf. Ersatzteile bestellt werden müssen. Der Einsatz von Predictive Maintenance mit Hilfe der von der TCP/IP-Verbindung übertragenen Daten, kann Stillstandszeiten reduzieren und die Wirtschaftlichkeit der Anlage steigern.
+   	Die Grenzwerte sind jedoch anwendungsspezifisch festzulegen, da die Rahmenbedingungen, wie der Greifer oder die Umgebungstemperatur einen großen Einfluss auf die Werte haben. Aus diesem Grund wurden im Rahmen dieser Arbeit keine Grenzwerte für Warnungen festgelegt.\\
+   	Eine alternative zu den einfachen Grenzwerten stellt die Trendanalyse dar. Hierdurch können Tendenzen bereits vor Überschreiten von kritischen Schwellwerten erkannt und behandelt werden. Mit Hilfe von einer Mustererkennung können Auffälligkeiten wie z.B. erhöhte Werte bei Schichtbeginn erkannt und verwertet werden. Dies kann insbesondere für die Ursachensuche oder die Effizienzsteigerung von Nutzen sein. Situationen, die in einer hohen Belastung resultieren, können vermieden werden, um Energie zu sparen und die Lebensdauer des Roboters zu steigern.\\
+   	Ein besonderes Potential bietet der Einsatz von neuronalen Netzen zur Analyse der Prozessdaten. Hierdurch können Trends noch besser erkannt werden und Anomalien entdeckt werden. Die projektspezifische Auslegung ist durch das Training mit den relevanten Prozessdaten einfach möglich. Ein aufwändiges manuelles Analysieren der Daten, z.B. zum Festlegen von Grenzwerten entfällt. Ebenso ist ein fortlaufendes Training im Betrieb denkbar. Schlussfolgerungen können selbst bei eingeschränkter Datenlage erfolgen. \cite{bink2018predictive}\\
+   	Durch den Einsatz von Künstlicher Intelligenz zur Analyse der Prozessdaten bietet sich zudem ein großes Marketing-Potential gegenüber den Kunden. Die Relevanz von Künstlicher Intelligenz wird sich in Zukunft weiterhin rasant entwickeln, wodurch sich neue Möglichkeiten ergeben und Kunden auf den Einsatz von künstlicher Intelligenz bestehen.\\
+   	Durch die Analyse der Prozessdaten ergeben sich neue Geschäftsmodelle, wie spezielle Wartungsverträge. Hierdurch können Einnahmen durch Service, die auch nach Anlagenverkauf noch über die gesamte Lebensdauer der Anlage hinweg anfallen, erzielt werden. Insbesondere in der heutigen Zeit werden Software- und Dienstleistungsverträge immer wichtiger und die Software, sowie die intelligente Datennutzung werden zum Haupt-Kaufargument der Kunden.
    	\backmatter
    	
    	
